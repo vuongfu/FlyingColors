@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "Order is completed";
+    Layout = "~/Views/Shared/_OrderLayout.cshtml";
+}
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">@TempData["message"]</div>
+}
+

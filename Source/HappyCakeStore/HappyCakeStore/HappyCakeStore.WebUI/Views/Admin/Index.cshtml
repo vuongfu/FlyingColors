@@ -1,0 +1,46 @@
+﻿@model IEnumerable<HappyCakeStore.Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="text-left">All Products</div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-condensed table-bordered">
+                <tr>
+                    <th class="text-left">ID</th>
+                    <th class="text-left">Product Name</th>
+                    <th class="text-left">Unit Price</th>
+                    <th class="text-left">Unit In Stock</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-left">@item.ProductID</td>
+                        <td class="text-left">
+                            @Html.ActionLink(item.ProductName, "Edit", new { item.ProductID })
+                        </td>
+                        <td class="text-left">@item.UnitPrice.ToString("c")</td>
+                        <td class="text-left">@item.UnitInStock.ToString("c")</td>
+                        <td class="text-center">
+                            @using (Html.BeginForm("Delete", "Admin"))
+                            {
+                                @Html.Hidden("ProductId", item.ProductID)
+                                <button type="submit" class="btn-danger btn-xs">Delete</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="panel-footer">
+            @Html.ActionLink("Add a new product", "Create", null, new { @class = "btn btn-success" })
+        </div>
+    </div>
+</section>
