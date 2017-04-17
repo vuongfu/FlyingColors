@@ -13,5 +13,7 @@ namespace HappyCakeStore.WebUI.Models
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(50, MinimumLength = 6)]
         public string Password { get; set; }
+        [StringLength(50, MinimumLength = 6)]
+        public string Forgotpass { get; set; }
     }
 }
