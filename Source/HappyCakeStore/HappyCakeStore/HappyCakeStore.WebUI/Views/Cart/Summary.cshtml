@@ -1,8 +1,0 @@
-﻿@model HappyCakeStore.Domain.Entities.Cart
-
-<div class="navbar-text navbar-left">
-    <b>Cart Info:</b>
-    @Model.Lines.Sum(x => x.Quantity) item(s),
-    @Model.ComputeTotalValue().ToString("c")
-</div>
-
