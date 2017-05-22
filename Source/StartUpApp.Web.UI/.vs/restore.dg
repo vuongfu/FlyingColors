@@ -1,11 +1,1 @@
-#:D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Web.UI\StartUpApp.Web.UI.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Web.UI\StartUpApp.Web.UI.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Core\StartUpApp.Core.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Web.UI\StartUpApp.Web.UI.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.DataAccess\StartUpApp.DataAccess.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Web.UI\StartUpApp.Web.UI.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Repository\StartUpApp.Repository.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Web.UI\StartUpApp.Web.UI.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Service\StartUpApp.Service.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.DataAccess\StartUpApp.DataAccess.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Core\StartUpApp.Core.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Repository\StartUpApp.Repository.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Core\StartUpApp.Core.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Repository\StartUpApp.Repository.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.DataAccess\StartUpApp.DataAccess.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Service\StartUpApp.Service.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Core\StartUpApp.Core.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Service\StartUpApp.Service.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.DataAccess\StartUpApp.DataAccess.xproj
-D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Service\StartUpApp.Service.xproj|D:\Study\CPJ\CPJ_Source\StartUpApp.Web.UI\src\StartUpApp.Repository\StartUpApp.Repository.xproj
+#:D:\Study\CPJ\FlyingColors\Source\StartUpApp.Web.UI\src\MVCAngular\MVCAngular.xproj
