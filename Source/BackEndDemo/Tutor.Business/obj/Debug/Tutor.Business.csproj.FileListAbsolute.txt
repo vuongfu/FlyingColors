@@ -1,0 +1,14 @@
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Business.dll.config
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Business.dll
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Business.pdb
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.dll
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.SqlServer.dll
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Core.dll
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.DataAccess.dll
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Core.pdb
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\Tutor.DataAccess.pdb
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.xml
+D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.SqlServer.xml
+D:\Study\CPJ\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.csprojResolveAssemblyReference.cache
+D:\Study\CPJ\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.dll
+D:\Study\CPJ\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.pdb

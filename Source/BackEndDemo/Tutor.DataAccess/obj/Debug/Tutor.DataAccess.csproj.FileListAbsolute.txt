@@ -1,0 +1,12 @@
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\Tutor.DataAccess.dll.config
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\Tutor.DataAccess.dll
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\Tutor.DataAccess.pdb
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\EntityFramework.dll
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\Tutor.Core.dll
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\Tutor.Core.pdb
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\EntityFramework.xml
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\obj\Debug\Tutor.DataAccess.csprojResolveAssemblyReference.cache
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\obj\Debug\Tutor.DataAccess.dll
+D:\Study\CPJ\BackEndDemo\Tutor.DataAccess\obj\Debug\Tutor.DataAccess.pdb
