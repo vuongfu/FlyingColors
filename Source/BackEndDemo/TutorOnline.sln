@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Core", "Tutor.Core\Tutor.Core.csproj", "{C6972A06-7F59-49C2-8C15-3E223C8544E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Core", "Tutor.Core\TutorOnline.Core.csproj", "{C6972A06-7F59-49C2-8C15-3E223C8544E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.DataAccess", "Tutor.DataAccess\Tutor.DataAccess.csproj", "{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.DataAccess", "Tutor.DataAccess\TutorOnline.DataAccess.csproj", "{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Business", "Tutor.Business\Tutor.Business.csproj", "{C52CDB62-610C-477C-9090-51355BF33BBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Business", "Tutor.Business\TutorOnline.Business.csproj", "{C52CDB62-610C-477C-9090-51355BF33BBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Web", "Tutor.Web\Tutor.Web.csproj", "{D4BE0213-DC80-41D7-B7C6-6620B33F5109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Web", "Tutor.Web\TutorOnline.Web.csproj", "{D4BE0213-DC80-41D7-B7C6-6620B33F5109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

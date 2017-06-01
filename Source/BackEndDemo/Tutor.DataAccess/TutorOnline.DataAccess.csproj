@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tutor.Core\Tutor.Core.csproj">
+    <ProjectReference Include="..\Tutor.Core\TutorOnline.Core.csproj">
       <Project>{c6972a06-7f59-49c2-8c15-3e223c8544e9}</Project>
-      <Name>Tutor.Core</Name>
+      <Name>TutorOnline.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,3 +12,17 @@ D:\Study\CPJ\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.SqlServer.xml
 D:\Study\CPJ\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.csprojResolveAssemblyReference.cache
 D:\Study\CPJ\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.dll
 D:\Study\CPJ\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.pdb
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Business.dll.config
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Business.dll
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Business.pdb
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.dll
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.SqlServer.dll
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Core.dll
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.DataAccess.dll
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.Core.pdb
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\Tutor.DataAccess.pdb
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.xml
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\bin\Debug\EntityFramework.SqlServer.xml
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.csprojResolveAssemblyReference.cache
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.dll
+D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Business\obj\Debug\Tutor.Business.pdb

@@ -55,13 +55,13 @@
     <Compile Include="Repository\SubjectRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tutor.Core\Tutor.Core.csproj">
+    <ProjectReference Include="..\Tutor.Core\TutorOnline.Core.csproj">
       <Project>{c6972a06-7f59-49c2-8c15-3e223c8544e9}</Project>
-      <Name>Tutor.Core</Name>
+      <Name>TutorOnline.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tutor.DataAccess\Tutor.DataAccess.csproj">
+    <ProjectReference Include="..\Tutor.DataAccess\TutorOnline.DataAccess.csproj">
       <Project>{cc8c76d0-1d2a-492c-9cd7-9e28d6073aa0}</Project>
-      <Name>Tutor.DataAccess</Name>
+      <Name>TutorOnline.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
