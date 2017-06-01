@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Tutor.Web.Models;
+using TutorOnline.Web.Models;
 
-namespace Tutor.Web.Controllers
+namespace TutorOnline.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller

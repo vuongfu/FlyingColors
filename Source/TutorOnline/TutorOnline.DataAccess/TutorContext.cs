@@ -5,9 +5,9 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tutor.Core.Entity;
+using TutorOnline.Core.Entity;
 
-namespace Tutor.DataAccess
+namespace TutorOnline.DataAccess
 {
     public class TutorContext : DbContext
     {

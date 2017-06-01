@@ -57,7 +57,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tutor.Core\TutorOnline.Core.csproj">
+    <ProjectReference Include="..\TutorOnline.Core\TutorOnline.Core.csproj">
       <Project>{c6972a06-7f59-49c2-8c15-3e223c8544e9}</Project>
       <Name>TutorOnline.Core</Name>
     </ProjectReference>

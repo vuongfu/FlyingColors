@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Tutor.Web
+namespace TutorOnline.Web
 {
     public class RouteConfig
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tutor.Core.Entity;
+using TutorOnline.Core.Entity;
 
-namespace Tutor.Business.Repository
+namespace TutorOnline.Business.Repository
 {
     public class SubjectRepository : BaseRepository
     {

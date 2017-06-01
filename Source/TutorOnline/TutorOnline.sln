@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Core", "Tutor.Core\TutorOnline.Core.csproj", "{C6972A06-7F59-49C2-8C15-3E223C8544E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Business", "TutorOnline.Business\TutorOnline.Business.csproj", "{C52CDB62-610C-477C-9090-51355BF33BBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.DataAccess", "Tutor.DataAccess\TutorOnline.DataAccess.csproj", "{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Core", "TutorOnline.Core\TutorOnline.Core.csproj", "{C6972A06-7F59-49C2-8C15-3E223C8544E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Business", "Tutor.Business\TutorOnline.Business.csproj", "{C52CDB62-610C-477C-9090-51355BF33BBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.DataAccess", "TutorOnline.DataAccess\TutorOnline.DataAccess.csproj", "{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Web", "Tutor.Web\TutorOnline.Web.csproj", "{D4BE0213-DC80-41D7-B7C6-6620B33F5109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorOnline.Web", "TutorOnline.Web\TutorOnline.Web.csproj", "{D4BE0213-DC80-41D7-B7C6-6620B33F5109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +17,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C52CDB62-610C-477C-9090-51355BF33BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52CDB62-610C-477C-9090-51355BF33BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52CDB62-610C-477C-9090-51355BF33BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52CDB62-610C-477C-9090-51355BF33BBF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6972A06-7F59-49C2-8C15-3E223C8544E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6972A06-7F59-49C2-8C15-3E223C8544E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6972A06-7F59-49C2-8C15-3E223C8544E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -25,10 +29,6 @@ Global
 		{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C52CDB62-610C-477C-9090-51355BF33BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C52CDB62-610C-477C-9090-51355BF33BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C52CDB62-610C-477C-9090-51355BF33BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C52CDB62-610C-477C-9090-51355BF33BBF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4BE0213-DC80-41D7-B7C6-6620B33F5109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4BE0213-DC80-41D7-B7C6-6620B33F5109}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BE0213-DC80-41D7-B7C6-6620B33F5109}.Release|Any CPU.ActiveCfg = Release|Any CPU

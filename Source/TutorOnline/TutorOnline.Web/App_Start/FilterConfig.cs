@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Tutor.Web
+namespace TutorOnline.Web
 {
     public class FilterConfig
     {

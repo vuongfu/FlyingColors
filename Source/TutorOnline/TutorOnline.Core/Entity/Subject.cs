@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tutor.Core.Entity
+namespace TutorOnline.Core.Entity
 {
     public class Subject
     {

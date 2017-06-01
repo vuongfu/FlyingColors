@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Tutor.Web.Models;
+using TutorOnline.Web.Models;
 
-namespace Tutor.Web
+namespace TutorOnline.Web
 {
     public partial class Startup
     {

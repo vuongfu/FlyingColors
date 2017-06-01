@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Tutor.Business.Repository;
-using Tutor.Core.Entity;
-using Tutor.Web.Models;
+using TutorOnline.Business.Repository;
+using TutorOnline.Core.Entity;
+using TutorOnline.Web.Models;
 
-namespace Tutor.Web.Controllers
+namespace TutorOnline.Web.Controllers
 {
     public class CourseController : Controller
     {

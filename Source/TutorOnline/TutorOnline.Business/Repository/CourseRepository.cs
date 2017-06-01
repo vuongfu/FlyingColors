@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tutor.Core.Entity;
-using Tutor.DataAccess;
+using TutorOnline.Core.Entity;
+using TutorOnline.DataAccess;
 
-namespace Tutor.Business.Repository
+namespace TutorOnline.Business.Repository
 {
     public class CourseRepository : BaseRepository
     {

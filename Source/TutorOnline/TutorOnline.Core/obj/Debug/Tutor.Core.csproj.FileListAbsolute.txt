@@ -1,9 +1,0 @@
-D:\Study\CPJ\BackEndDemo\Tutor.Core\bin\Debug\Tutor.Core.dll
-D:\Study\CPJ\BackEndDemo\Tutor.Core\bin\Debug\Tutor.Core.pdb
-D:\Study\CPJ\BackEndDemo\Tutor.Core\obj\Debug\Tutor.Core.csprojResolveAssemblyReference.cache
-D:\Study\CPJ\BackEndDemo\Tutor.Core\obj\Debug\Tutor.Core.dll
-D:\Study\CPJ\BackEndDemo\Tutor.Core\obj\Debug\Tutor.Core.pdb
-D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Core\bin\Debug\Tutor.Core.dll
-D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Core\bin\Debug\Tutor.Core.pdb
-D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Core\obj\Debug\Tutor.Core.dll
-D:\FlyingColors_Project\Source\BackEndDemo\Tutor.Core\obj\Debug\Tutor.Core.pdb

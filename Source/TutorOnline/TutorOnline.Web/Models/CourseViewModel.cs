@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Tutor.Core.Entity;
+using TutorOnline.Core.Entity;
 
-namespace Tutor.Web.Models
+namespace TutorOnline.Web.Models
 {
     public class CourseViewModel
     {

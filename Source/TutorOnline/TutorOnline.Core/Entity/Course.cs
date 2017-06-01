@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Tutor.Core.Entity
+namespace TutorOnline.Core.Entity
 {
     public class Course
     {

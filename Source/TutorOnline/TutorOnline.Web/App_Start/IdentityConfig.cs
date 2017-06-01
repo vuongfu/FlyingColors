@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Tutor.Web.Models;
+using TutorOnline.Web.Models;
 
-namespace Tutor.Web
+namespace TutorOnline.Web
 {
     public class EmailService : IIdentityMessageService
     {
