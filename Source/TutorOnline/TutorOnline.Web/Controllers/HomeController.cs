@@ -8,22 +8,34 @@ namespace TutorOnline.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult TrangChu()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult GioiThieu()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult KhoaHoc()
         {
-            ViewBag.Message = "Your contact page.";
-
+            return View();
+        }
+        public ActionResult GiaSu()
+        {
+            return View();
+        }
+        public ActionResult HuongDan()
+        {
+            return View();
+        }
+        public ActionResult HoTro()
+        {
+            return View();
+        }
+        public ActionResult CongGiaSu()
+        {
             return View();
         }
     }

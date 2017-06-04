@@ -55,7 +55,7 @@ namespace TutorOnline.Web.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult DangNhap(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -66,7 +66,7 @@ namespace TutorOnline.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> DangNhap(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -137,7 +137,7 @@ namespace TutorOnline.Web.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult DangKy()
         {
             return View();
         }
@@ -147,7 +147,7 @@ namespace TutorOnline.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> DangKy(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {

@@ -1,45 +1,145 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Tutor Online System</title>
+    <link rel="shortcut icon" href="~/Image/TutorOnline_Icon.png" />
+    <link rel="stylesheet" href="~/Content/Style.css">
+    <link rel="stylesheet" href="~/Content/Footer-with-map.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Tutor Online", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TUTOR ONLINE", "TrangChu", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Course", "Index", "Course")</li>
+            <div class="navbar-collapse collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#TrangChu">TRANG CHỦ</a></li>
+                    <li><a href="#GioiThieu">GIỚI THIỆU</a></li>
+                    <li><a href="#KhoaHoc">KHÓA HỌC</a></li>
+                    <li><a href="#GiaSu">GIA SƯ</a></li>
+                    <li><a href="#HuongDan">HƯỚNG DẪN ĐỂ HỌC</a></li>
+                    <li><a href="#HoTro">HỖ TRỢ</a></li>
+                    <li><a href="#CongGiaSu">CỔNG GIA SƯ</a></li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+
+                <div class="nav navbar-nav navbar-right">
+                    <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#DangNhap">ĐĂNG NHẬP</button>
+                    <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#DangKy">ĐĂNG KÝ</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @if (TempData["message"] != null)
+    </nav>
+    @if (TempData["message"] != null)
             {
-            <div class="alert alert-success">@TempData["message"]</div>
-        }
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
 
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Tutor Online</p>
-        </footer>
-    </div>
+    @RenderBody()
+
+    <hr />
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>Chúng Tôi - FlyingColors Team</h5>
+                    <ul>
+                        <li>Trần Viết Vương</li>
+                        <li>Võ Thế Lâm</li>
+                        <li>Nguyễn Bảo Long</li>
+                        <li>Nguyễn Huy Phát</li>
+                        <li>Nông Thị Hoài Thương</li>
+                        <li>Nguyễn Thị Khánh Huyền</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Giáo Viên Hướng Dẫn</h5>
+                    <ul>
+                        <li>Phan Trường Lâm</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Liên Hệ</h5>
+                    <ul>
+                        <li>Địa chỉ: 25 Điện Biên Phủ - Đà Nẵng</li>
+                        <li>Email: flyingcolors@gmail.com</li>
+                        <li>Hotline: 01666432971</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Chứng Chỉ</h5>
+                    <ul>
+                        <li>Website dạy học mô hình mới</li>
+                        <li>Sáng tạo mùa hè</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Here we use the Google Embed API to show Google Maps. -->
+            <!-- In order for this to work in your project you will need to generate a unique API key.  -->
+            <iframe id="map-container" frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU&amp;q=place_id:EjjEkGnhu4duIEJpw6puIFBo4bunLCBUaGFuaCBLaMOqLCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ"></iframe>
+        </div>
+        <div class="social-networks">
+            <a href="https://twitter.com/VUONGFU" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.facebook.com/groups/371728629880519/" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="https://myaccount.google.com/" class="google"><i class="fa fa-google-plus"></i></a>
+        </div>
+        <p class="container-fluid text-center">
+            <a href="#myPage" title="To Top">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+        </p>
+        <div class="footer-copyright">
+            <p>© 2017 Copyright Flying Colors Team </p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            // Add smooth scrolling to all links in navbar + footer link
+            $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 900, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+
+            $(window).scroll(function () {
+                $(".slideanim").each(function () {
+                    var pos = $(this).offset().top;
+
+                    var winTop = $(window).scrollTop();
+                    if (pos < winTop + 600) {
+                        $(this).addClass("slide");
+                    }
+                });
+            });
+        })
+    </script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
