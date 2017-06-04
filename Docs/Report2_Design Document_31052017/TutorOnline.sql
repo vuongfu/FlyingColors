@@ -18,6 +18,8 @@ CREATE TABLE [Users](
 	[Address] [nvarchar](60) NULL,
 	[Email] [nvarchar] (50) NOT NULL,
 	[SkypeID] [nvarchar] (100) NOT NULL,
+	[UserName] [varchar] (100) NOT NULL,
+	[Password] [varchar] (100) NOT NULL,
 	[City] [nvarchar](15) NULL,
 	[PostalCode] [nvarchar](10) NULL,
 	[Country] [nvarchar](15) NULL,
@@ -48,7 +50,7 @@ CREATE TABLE [Subjects](
 	[SubjectName] [varchar](255) NOT NULL,
 	[CategoryID] [int] FOREIGN KEY REFERENCES [Categories](Id),
 	[Description] [text] NULL,
-	[Duration] [datetime] NOT NULL,
+	[Duration] [float] NOT NULL,
 	[Purpose] [text] NULL,
 	[Requirement] [text] NULL,
 	[Photo] [image] NULL,
@@ -133,6 +135,7 @@ CREATE TABLE [AuditLog] (
 	[ModifyDate] [datetime] NOT NULL,
 	[Content] [text] NOT NULL
 );
+
 ---------------------------------------------------------Insert Data------------------------------------------------------------
 
 --Insert data to Roles Table
@@ -143,26 +146,48 @@ INSERT INTO [Roles] (RoleName) VALUES ('Manager');
 INSERT INTO [Roles] (RoleName) VALUES ('Parent');
 INSERT INTO [Roles] (RoleName) VALUES ('Student');
 INSERT INTO [Roles] (RoleName, TuRevenPer) VALUES ('Tutor', 35);
-INSERT INTO [Roles] (RoleName) VALUES ('Guest');
 INSERT INTO [Roles] (RoleName) VALUES ('FreeTutor');
 
 --Insert data to Users Table
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('1', 'Viet Vuong', 'Tran', '19950831', 'Binh Minh, Thang Binh', 'Quang Nam', '', 'Viet Nam', '01666432971', '');
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('2', 'The Lam', 'Vo', '19950505', 'Dong Hoi', 'Quang Binh', '', 'Viet Nam', '0986709041', '');
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('3', 'Bao Long', 'Nguyen', '19950606', 'Ha Dong', 'Ha Noi', '', 'Viet Nam', '0905678964', '');
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('4', 'Huy Phat', 'Nguyen', '19950707', 'Dong Da', 'Hai Phong', '', 'Viet Nam', '0162987654', '');
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('5', 'Thi Hoai Thuong', 'Nong', '19950902', 'Yen Tu', 'Cao Bang', '', 'Viet Nam', '0167543222', '');
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('6', 'Thi Khanh Huyen', 'Nguyen', '19950903', 'Quan Ho', 'Bac Ninh', '', 'Viet Nam', '0987654344', '');
-INSERT INTO [Users] (RoleID, LastName, FirstName, BirthDate, [Address], City, PostalCode, Country, PhoneNumber, Photo) 
-			VALUES ('7', 'Truong Lam', 'Phan', '19650808', 'Dong Anh', 'Ha Noi', '', 'Viet Nam', '01666555666', '');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (1, '', 'Viet Vuong', 'Tran', '19950831', 1, 'Binh Minh, Thang Binh', 'vuongtv@gmail.com', 'vuongfu', 'Quang Nam', '', 'Viet Nam', '01666432971', '', '', '', '', 'I am a System Admin');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (2, '', 'Huy Phat', 'Nguyen', '19951022', 1, '28 Truong Chinh', 'phatnh@gmail.com', 'phatfu', 'Hai Phong', '', 'Viet Nam', '0169555432', '', '', '', '', 'I am a Supporter');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (3, '', 'Thi Hoai Thuong', 'Nong', '19950901', 2, 'Tra Linh', 'thuongnth@gmail.com', 'thuongfu', 'Cao Bang', '', 'Viet Nam', '0905231400', '', '', '', '', 'I am an Accountant');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (4, '', 'Bao Long', 'Nguyen', '19951003', 1, 'Ha Dong', 'longnb@gmail.com', 'longfu', 'Ha Noi', '', 'Viet Nam', '01222423200', '', '', '', '', 'I am a Manager');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (5, '', 'Truong Lam', 'Phan', '1970', 1, 'Thanh Xuan', 'lampt@gmail.com', 'lampt', 'Ha Noi', '', 'Viet Nam', '0169322455', '', '', '', '', 'I am a Parent');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (6, 5, 'The Lam', 'Vo', '19950723', 1, 'Thanh Xuan', 'lamvt@gmail.com', 'lamfu', 'Ha Noi', '', 'Viet Nam', '0169444620', '', '', 5000000, '', 'I am a Student');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (7, '', 'Thi Khanh Huyen', 'Nguyen', '19940707', 2, 'Quan Ho', 'huyenntk@gmail.com', 'huyenntk', 'Bac Ninh', '', 'Viet Nam', '0986709041', '00125419005', '300000', '6000000', '', 'I am a Tutor');
+INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
+			VALUES (8, '', 'Huu Vu', 'Hoang', '19950907', 1, 'Binh Minh, Thang Binh', 'vuhh@gmail.com', 'vuhh', 'Quang Nam', '', 'Viet Nam', '0923666777', '', '', '', '', 'I am a free Tutor');
+
+--Insert data to Transactions table
+INSERT INTO [Transactions] (UserID, Content, Amount, TranDate) VALUES (5, 'Nop 5000000vnd cho hoc vien Vo The Lam', 5000000, '20170603');
+INSERT INTO [Transactions] (UserID, Content, Amount, TranDate) VALUES (6, 'Mua khoa hoc tieng nhat trung cap', 3000000, '20170615');
+INSERT INTO [Transactions] (UserID, Content, Amount, TranDate) VALUES (7, 'Nhan luong thang 5 nam 2017', 6000000, '20170601');
+
+--Insert data to Categories table
+INSERT INTO [Categories] (CategoryName, [Description]) VALUES ('Tieng Nhat', '');
+INSERT INTO [Categories] (CategoryName, [Description]) VALUES ('Tieng Anh', '');
+INSERT INTO [Categories] (CategoryName, [Description]) VALUES ('Toan', '');
+INSERT INTO [Categories] (CategoryName, [Description]) VALUES ('Vat Ly', '');
+INSERT INTO [Categories] (CategoryName, [Description]) VALUES ('Hoa Hoc', '');
 
 --Insert data to Subjects Table
-INSERT INTO [Subjects] (SubjectName) VALUES ('English');
-INSERT INTO [Subjects] (SubjectName) VALUES ('Japanese');
-INSERT INTO [Subjects] (SubjectName) VALUES ('Math');
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Tieng nhat so cap', 1, 'Tieng nhat danh cho nguoi moi bat dau', 'Thuoc 2 bang chu cai, buoc dau lam quen voi tieng nhat', '', '', 1000000, 2);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Tieng nhat trung cap', 1, 'Khoa tieng nhat trinh do N4', 'Hoan thanh 30 bai dau giao trinh minanonihongo, trinh do tuong duong n4', 'Da hoan thanh khoa tieng nhat so cap', '', 2000000, 4);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Tieng anh so cap', 2, 'Tieng anh danh cho nguoi moi bat dau', 'Nam ro duoc 12 thi co ban trong tieng anh', '', '', 3000000, 5);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Tieng anh doanh nghiep', 2, 'Tieng anh danh cho cong viec', 'Lam quen va thanh thao cac mau cau giao tiep trong doanh nghiep', '', '', 500000, 1);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Toan lop 5', 3, 'Toan danh cho hoc sinh lop 5', 'On tap va luyen cac dang bai tap de thi qua cap 1', '', '', 3000000, 6);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Toan lop 7', 3, 'Toan danh cho hoc sinh lop 7', 'Tim hieu va luyen cac dang bai tap nang cao toan lop 7', 'Co nen tang toan tot, can on luyen kien thuc de chuan bi cho cac ki thi cap huyen hoac tinh', '', 3000000, 8);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Vat Ly lop 9', 4, 'Vat Ly danh cho hoc sinh lop 9', 'On tap va luyen cac dang bai tap vat ly lop 9', '', '', 1000000, 1.5);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Vat Ly lop 11', 4, 'Vat Ly danh cho hoc sinh lop 11', 'Tim hieu va luyen cac dang bai tap nang cao vat ly lop 11', 'Co nen tang vat ly tot, can on luyen kien thuc de chuan bi cho cac ki thi cap huyen hoac tinh', '', 2000000, 3);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Hoa Hoc lop 9', 5, 'Hoa Hoc danh cho hoc sinh lop 9', 'On tap va luyen cac dang bai tap hoa hoc lop 9', '', '', 3000000, 5);
+INSERT INTO [Subjects] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo, Price, Duration) VALUES ('Hoa Hoc lop 11', 5, 'Hoa Hoc danh cho hoc sinh lop 11', 'Tim hieu va luyen cac dang bai tap nang cao hoa hoc lop 11', 'Co nen tang hoa hoc tot, can on luyen kien thuc de chuan bi cho cac ki thi cap huyen hoac tinh', '', 2500000, 3.5);
+
+--Insert data into ... table
