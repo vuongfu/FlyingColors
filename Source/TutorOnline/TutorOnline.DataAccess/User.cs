@@ -48,6 +48,8 @@ namespace Tutor.DataAccess
         public string Description { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string BankName { get; set; }
+        public string BankNumberName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuditLog> AuditLogs { get; set; }
