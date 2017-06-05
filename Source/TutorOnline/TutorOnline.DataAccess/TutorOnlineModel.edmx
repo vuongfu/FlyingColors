@@ -168,7 +168,7 @@
           <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="BankName" Type="nvarchar" MaxLength="200" />
-          <Property Name="BankNumberName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BMemName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__AuditLog__Docume__5070F446">
           <End Role="Documents" Type="Self.Documents" Multiplicity="0..1" />
@@ -696,7 +696,7 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="BankNumberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BMemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__AuditLog__Docume__5070F446">
           <End Role="Documents" Type="Self.Document" Multiplicity="0..1" />
@@ -1179,7 +1179,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TutorOnlineModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="BankNumberName" ColumnName="BankNumberName" />
+                <ScalarProperty Name="BMemName" ColumnName="BMemName" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
