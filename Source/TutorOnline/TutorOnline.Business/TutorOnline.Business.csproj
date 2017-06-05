@@ -50,14 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CourseRepository.cs" />
     <Compile Include="Repository\SubjectRepository.cs" />
+    <Compile Include="Repository\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TutorOnline.Core\TutorOnline.Core.csproj">
-      <Project>{c6972a06-7f59-49c2-8c15-3e223c8544e9}</Project>
-      <Name>TutorOnline.Core</Name>
+    <ProjectReference Include="..\TutorOnline.Common\TutorOnline.Common.csproj">
+      <Project>{be0c6ba2-d137-4e0e-97b0-f6e7689be029}</Project>
+      <Name>TutorOnline.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\TutorOnline.DataAccess\TutorOnline.DataAccess.csproj">
       <Project>{cc8c76d0-1d2a-492c-9cd7-9e28d6073aa0}</Project>

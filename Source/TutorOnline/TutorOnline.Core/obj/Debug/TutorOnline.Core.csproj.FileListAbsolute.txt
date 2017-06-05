@@ -1,0 +1,11 @@
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\Tutor.Core.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\Tutor.Core.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\EntityFramework.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\EntityFramework.SqlServer.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\TutorOnline.Common.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\TutorOnline.Common.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\EntityFramework.xml
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\bin\Debug\EntityFramework.SqlServer.xml
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\obj\Debug\TutorOnline.Core.csprojResolveAssemblyReference.cache
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\obj\Debug\Tutor.Core.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Core\obj\Debug\Tutor.Core.pdb

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TutorOnlineModelStoreContainer" CdmEntityContainer="TutorOnlineContext">
+    <EntitySetMapping Name="AuditLogs">
+      <EntityTypeMapping TypeName="TutorOnlineModel.AuditLog">
+        <MappingFragment StoreEntitySet="AuditLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="ModifierID" ColumnName="ModifierID" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Criterias">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Criteria">
+        <MappingFragment StoreEntitySet="Criterias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+          <ScalarProperty Name="CriteriaName" ColumnName="CriteriaName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Document">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocUrl" ColumnName="DocUrl" />
+          <ScalarProperty Name="DocType" ColumnName="DocType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentTypes">
+      <EntityTypeMapping TypeName="TutorOnlineModel.DocumentType">
+        <MappingFragment StoreEntitySet="DocumentType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedbackDetails">
+      <EntityTypeMapping TypeName="TutorOnlineModel.FeedbackDetail">
+        <MappingFragment StoreEntitySet="FeedbackDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
+          <ScalarProperty Name="CriteriaID" ColumnName="CriteriaID" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedbacks">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Feedback">
+        <MappingFragment StoreEntitySet="Feedbacks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AssessorID" ColumnName="AssessorID" />
+          <ScalarProperty Name="JudgedID" ColumnName="JudgedID" />
+          <ScalarProperty Name="SlotID" ColumnName="SlotID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lessons">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Lesson">
+        <MappingFragment StoreEntitySet="Lessons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LessonName" ColumnName="LessonName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="TuRevenPer" ColumnName="TuRevenPer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Slots">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Slot">
+        <MappingFragment StoreEntitySet="Slots">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="TutorID" ColumnName="TutorID" />
+          <ScalarProperty Name="LessonID" ColumnName="LessonID" />
+          <ScalarProperty Name="SlotOrder" ColumnName="SlotOrder" />
+          <ScalarProperty Name="SlotDate" ColumnName="SlotDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CanReason" ColumnName="CanReason" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentSubjects">
+      <EntityTypeMapping TypeName="TutorOnlineModel.StudentSubject">
+        <MappingFragment StoreEntitySet="StudentSubjects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Subject">
+        <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="Requirement" ColumnName="Requirement" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeachSchedules">
+      <EntityTypeMapping TypeName="TutorOnlineModel.TeachSchedule">
+        <MappingFragment StoreEntitySet="TeachSchedules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TutorID" ColumnName="TutorID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="OrderSlot" ColumnName="OrderSlot" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="TutorOnlineModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="TranDate" ColumnName="TranDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TutorOnlineModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="SkypeID" ColumnName="SkypeID" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Wallet" ColumnName="Wallet" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -41,6 +41,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,18 +51,99 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditLog.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Criteria.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentType.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeedbackDetail.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Lesson.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TutorContext.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Slot.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StudentSubject.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subject.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeachSchedule.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TutorOnlineModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TutorOnlineModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TutorOnlineModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TutorOnlineModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="TutorOnlineModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TutorOnlineModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="TutorOnlineModel.edmx.diagram">
+      <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TutorOnline.Core\TutorOnline.Core.csproj">
-      <Project>{c6972a06-7f59-49c2-8c15-3e223c8544e9}</Project>
-      <Name>TutorOnline.Core</Name>
+    <ProjectReference Include="..\TutorOnline.Common\TutorOnline.Common.csproj">
+      <Project>{be0c6ba2-d137-4e0e-97b0-f6e7689be029}</Project>
+      <Name>TutorOnline.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TutorOnlineModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
+      <LastGenOutput>TutorOnlineModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="TutorOnlineModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
+      <LastGenOutput>TutorOnlineModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,14 @@
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\Tutor.Business.dll.config
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\Tutor.Business.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\Tutor.Business.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\EntityFramework.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\EntityFramework.SqlServer.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\Tutor.DataAccess.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\TutorOnline.Common.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\TutorOnline.Common.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\Tutor.DataAccess.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\EntityFramework.xml
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Debug\EntityFramework.SqlServer.xml
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\obj\Debug\TutorOnline.Business.csprojResolveAssemblyReference.cache
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\obj\Debug\Tutor.Business.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Business\obj\Debug\Tutor.Business.pdb

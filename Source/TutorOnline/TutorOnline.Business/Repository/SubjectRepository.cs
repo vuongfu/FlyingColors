@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TutorOnline.Core.Entity;
+using Tutor.DataAccess;
 
 namespace TutorOnline.Business.Repository
 {
@@ -16,7 +16,7 @@ namespace TutorOnline.Business.Repository
 
         public Subject GetSubject(int id)
         {
-            return _dbContext.Subjects.FirstOrDefault(x => x.SubjectID == id);
+            return _dbContext.Subjects.FirstOrDefault(x => x.Id == id);
         }
     }
 }
