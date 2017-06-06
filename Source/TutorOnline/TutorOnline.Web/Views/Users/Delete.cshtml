@@ -4,22 +4,21 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Xóa</h2>
 
-<h3>Are you sure you want to delete this user?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ParentID)
+            Tên đăng nhập
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ParentID)
+            @Html.DisplayFor(model => model.Username)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            Họ
         </dt>
 
         <dd>
@@ -27,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            Tên
         </dt>
 
         <dd>
@@ -35,27 +34,26 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            Ngày sinh
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BirthDate)
+            @Model.BirthDate.Value.ToShortDateString()
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Gender)
+            Giới tính
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
+            @if (Model.Gender == 1)
+            {
+                @("Nam")
+            }
+            else
+            {
+                @("Nữ")
+            }
         </dd>
 
         <dt>
@@ -67,7 +65,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SkypeID)
+            Skype
         </dt>
 
         <dd>
@@ -75,7 +73,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            Địa chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            Thành phố
         </dt>
 
         <dd>
@@ -91,7 +97,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Country)
+            Quốc gia
         </dt>
 
         <dd>
@@ -99,7 +105,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            Số điện thoại
         </dt>
 
         <dd>
@@ -107,63 +113,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BankID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Wallet)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Wallet)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BankName)
+            Tên ngân hàng
         </dt>
 
         <dd>
@@ -171,11 +121,51 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BMemName)
+            Tên người dùng
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.BMemName)
+        </dd>
+
+        <dt>
+            Số tài khoản
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankID)
+        </dd>
+
+        <dt>
+            Lương
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt>
+            Số dư
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wallet)
+        </dd>
+
+        <dt>
+            Ảnh
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Photo)
+        </dd>
+
+        <dt>
+            Miêu tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
@@ -187,13 +177,14 @@
         </dd>
 
     </dl>
+    <h3>Bạn có chắc chắn muốn xóa người dùng này?</h3>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Quay lại", "Index")
         </div>
     }
 </div>
