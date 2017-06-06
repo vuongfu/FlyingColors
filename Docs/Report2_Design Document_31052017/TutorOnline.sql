@@ -18,7 +18,7 @@ CREATE TABLE [Users](
 	[Address] [nvarchar](60) NULL,
 	[Email] [nvarchar] (50) NOT NULL,
 	[SkypeID] [nvarchar] (100) NOT NULL,
-	[UserName] [varchar] (100) NOT NULL,
+	[UserName] [varchar] (100) Unique NOT NULL,
 	[Password] [varchar] (100) NOT NULL,
 	[City] [nvarchar](15) NULL,
 	[PostalCode] [nvarchar](10) NULL,
@@ -29,7 +29,7 @@ CREATE TABLE [Users](
 	[Wallet] [money] NULL,
 	[Photo] [image] NULL,
 	[Description] [text] NULL,
-	[BName] [nvarchar](200) null,
+	[BankName] [nvarchar](200) null,
 	[BMemName] [nvarchar](200) null
 );
 
@@ -152,21 +152,21 @@ INSERT INTO [Roles] (RoleName) VALUES ('PreTutor');
 
 --Insert data to Users Table
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (1, '', 'Viet Vuong', 'Tran', '19950831', 1, 'Binh Minh, Thang Binh', 'vuongtv@gmail.com', 'vuongtv' ,'123456' ,'vuongfu', 'Quang Nam', '', 'Viet Nam', '01666432971', '', '', '', '', 'I am a System Admin');
+			VALUES (1, '', 'Viet Vuong', 'Tran', '19950831', 1, 'Binh Minh, Thang Binh', 'vuongtv@gmail.com','vuongfu', 'vuongtv' ,'123456' , 'Quang Nam', '', 'Viet Nam', '01666432971', '', '', '', '', 'I am a System Admin');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (2, '', 'Huy Phat', 'Nguyen', '19951022', 1, '28 Truong Chinh', 'phatnh@gmail.com', 'phatnh' , '123456' , 'phatfu', 'Hai Phong', '', 'Viet Nam', '0169555432', '', '', '', '', 'I am a Supporter');
+			VALUES (2, '', 'Huy Phat', 'Nguyen', '19951022', 1, '28 Truong Chinh', 'phatnh@gmail.com', 'phatfu','phatnh' , '123456' , 'Hai Phong', '', 'Viet Nam', '0169555432', '', '', '', '', 'I am a Supporter');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (3, '', 'Thi Hoai Thuong', 'Nong', '19950901', 2, 'Tra Linh', 'thuongnth@gmail.com', 'thuongnth' , '123456', 'thuongfu' , 'Cao Bang', '', 'Viet Nam', '0905231400', '', '', '', '', 'I am an Accountant');
+			VALUES (3, '', 'Thi Hoai Thuong', 'Nong', '19950901', 2, 'Tra Linh', 'thuongnth@gmail.com','thuongfu' , 'thuongnth' , '123456',  'Cao Bang', '', 'Viet Nam', '0905231400', '', '', '', '', 'I am an Accountant');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (4, '', 'Bao Long', 'Nguyen', '19951003', 1, 'Ha Dong', 'longnb@gmail.com', 'longnb' , '123456' , 'longfu' , 'Ha Noi', '', 'Viet Nam', '01222423200', '', '', '', '', 'I am a Manager');
+			VALUES (4, '', 'Bao Long', 'Nguyen', '19951003', 1, 'Ha Dong', 'longnb@gmail.com','longfu' , 'longnb' , '123456' ,  'Ha Noi', '', 'Viet Nam', '01222423200', '', '', '', '', 'I am a Manager');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (5, '', 'Truong Lam', 'Phan', '1970', 1, 'Thanh Xuan', 'lampt@gmail.com','lampt' , '123456' , 'lampt', 'Ha Noi', '', 'Viet Nam', '0169322455', '', '', '', '', 'I am a Parent');
+			VALUES (5, '', 'Truong Lam', 'Phan', '1970', 1, 'Thanh Xuan', 'lampt@gmail.com','lampt', 'lampt' , '123456' ,  'Ha Noi', '', 'Viet Nam', '0169322455', '', '', '', '', 'I am a Parent');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (6, 5, 'The Lam', 'Vo', '19950723', 1, 'Thanh Xuan', 'lamvt@gmail.com','lamvt' , '123456' , 'lamfu', 'Ha Noi', '', 'Viet Nam', '0169444620', '', '', 5000000, '', 'I am a Student');
+			VALUES (6, 5, 'The Lam', 'Vo', '19950723', 1, 'Thanh Xuan', 'lamvt@gmail.com','lamfu','lamvt' , '123456' ,  'Ha Noi', '', 'Viet Nam', '0169444620', '', '', 5000000, '', 'I am a Student');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password], City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (7, '', 'Thi Khanh Huyen', 'Nguyen', '19940707', 2, 'Quan Ho', 'huyenntk@gmail.com','huyenntk' , '123456' , 'huyenntk', 'Bac Ninh', '', 'Viet Nam', '0986709041', '00125419005', '300000', '6000000', '', 'I am a Tutor');
+			VALUES (7, '', 'Thi Khanh Huyen', 'Nguyen', '19940707', 2, 'Quan Ho', 'huyenntk@gmail.com','huyenntk' ,'huyenntk', '123456' ,  'Bac Ninh', '', 'Viet Nam', '0986709041', '00125419005', '300000', '6000000', '', 'I am a Tutor');
 INSERT INTO [Users] (RoleID, ParentID, LastName, FirstName, BirthDate, [Gender], [Address], [Email], SkypeID, UserName,[Password],City, PostalCode, Country, PhoneNumber, BankID, Salary, Wallet, Photo, [Description]) 
-			VALUES (8, '', 'Huu Vu', 'Hoang', '19950907', 1, 'Binh Minh, Thang Binh', 'vuhh@gmail.com','vuhh' , '123456' , 'vuhh', 'Quang Nam', '', 'Viet Nam', '0923666777', '', '', '', '', 'I am a free Tutor');
+			VALUES (8, '', 'Huu Vu', 'Hoang', '19950907', 1, 'Binh Minh, Thang Binh', 'vuhh@gmail.com','vuhh' ,'vuhh', '123456' ,  'Quang Nam', '', 'Viet Nam', '0923666777', '', '', '', '', 'I am a free Tutor');
 
 --Insert data to Transactions table
 INSERT INTO [Transactions] (UserID, Content, Amount, TranDate) VALUES (5, 'Nop 5000000vnd cho hoc vien Vo The Lam', 5000000, '20170603');
