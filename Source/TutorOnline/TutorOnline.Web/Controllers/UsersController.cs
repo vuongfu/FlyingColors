@@ -4,12 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Tutor.Business.Repository;
+using TutorOnline.Business.Repository;
 using TutorOnline.DataAccess;
+using TutorOnline.Web.Models;
 
-namespace Tutor.Web.Controllers
+namespace TutorOnline.Web.Controllers
 {
     public class UsersController : Controller
     {
@@ -29,6 +29,7 @@ namespace Tutor.Web.Controllers
             if (searchString == null || roleString == null )
             {
                 users = URes.GetAllUser().Where(s => s.Username == "-1");
+                ViewBag.totalRecord = users.Count();
                 return View(users.ToList());
             }    
                              
@@ -45,6 +46,7 @@ namespace Tutor.Web.Controllers
             if(genderString != null)
                 users = users.Where(s => s.Gender == genderString);
 
+            ViewBag.totalRecord = users.Count();
             return View(users.ToList());
         }
 
@@ -67,6 +69,11 @@ namespace Tutor.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName");
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem {  Text = "Male", Value = "1"},
+                new SelectListItem {  Text = "Female", Value = "2"},
+            }, "Value", "Text");
             return View();
         }
 
@@ -75,16 +82,17 @@ namespace Tutor.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RoleID,Username,Password,LastName,FirstName,BirthDate,Gender,Address,Email,SkypeID,City,PostalCode,Country,PhoneNumber,BankID,Salary,Wallet,Photo,Description")] User user)
+        public ActionResult Create(CreateUserViewModels userViewModel)
         {
             if (ModelState.IsValid)
             {
+                User user = MapCreateViewToUser(userViewModel);
                 URes.Add(user);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName", user.RoleID);
-            return View(user);
+            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName", userViewModel.RoleID);
+            return View(userViewModel);
         }
 
         // GET: Users/Edit/5
@@ -150,6 +158,35 @@ namespace Tutor.Web.Controllers
                 URes.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected User MapCreateViewToUser(CreateUserViewModels model)
+        {
+            User temp = new User();
+     
+            temp.Address = model.Address;
+            temp.BankID = model.BankID;
+            temp.BankName = model.BankName;
+            temp.BirthDate = model.BirthDate;
+            temp.BMemName = model.BMemName;
+            temp.City = model.City;
+            temp.Country = model.Country;
+            temp.Description = model.Description;
+            temp.Email = model.Email;
+            temp.FirstName = model.FirstName;
+            temp.Gender = model.Gender;
+            temp.LastName = model.LastName;
+            temp.Password = model.Password;
+            temp.PhoneNumber = model.PhoneNumber;
+            temp.Photo = model.Photo;
+            temp.PostalCode = model.PostalCode;
+            temp.RoleID = model.RoleID;
+            temp.Salary = model.Salary;
+            temp.SkypeID = model.SkypeID;
+            temp.Username = model.Username;
+            temp.Wallet = model.Wallet;
+
+            return temp;
         }
     }
 }

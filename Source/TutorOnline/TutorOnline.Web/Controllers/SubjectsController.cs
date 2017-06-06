@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using TutorOnline.DataAccess;
 
-namespace Tutor.Web.Controllers
+namespace TutorOnline.Web.Controllers
 {
     public class SubjectsController : Controller
     {

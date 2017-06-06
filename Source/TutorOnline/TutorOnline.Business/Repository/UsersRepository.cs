@@ -8,7 +8,7 @@ using System.Web;
 using TutorOnline.DataAccess;
 using System.Data.Entity;
 
-namespace Tutor.Business.Repository
+namespace TutorOnline.Business.Repository
 {
     public class UsersRepository : BaseRepository
     {

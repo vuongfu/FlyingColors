@@ -1,35 +1,7 @@
-﻿.sign-in-facebook {
-    background-image: url('../Image/fb_icon.png');
-    background-position: -9px -7px;
-    background-repeat: no-repeat;
-    background-size: 39px 43px;
-    padding-left: 41px;
-    color: #000;
-}
-.sign-in-facebook:hover {
-    background-image: url('../Image/fb_icon.png');
-    background-position: -9px -7px;
-    background-repeat: no-repeat;
-    background-size: 39px 43px;
-    padding-left: 41px;
-    color: #000;
-}
-.sign-in-google {
-    background-image: url('../Image/gg_icon.png');
-    background-position: -9px -7px;
-    background-repeat: no-repeat;
-    background-size: 39px 43px;
-    padding-left: 41px;
-    color: #000;
-}
-.sign-in-google:hover {
-    background-image: url('../Image/gg_icon.png');
-    background-position: -9px -7px;
-    background-repeat: no-repeat;
-    background-size: 39px 43px;
-    padding-left: 41px;
-    color: #000;
-}
+﻿/*Login*/
+
+
+
 /*Carousel*/
 /*
 Fade content bs-carousel with hero headers
