@@ -14,7 +14,7 @@ namespace TutorOnline.Web.Controllers
     {
         public ManagerController()
         {
-        }
 
+        }
     }
 }
