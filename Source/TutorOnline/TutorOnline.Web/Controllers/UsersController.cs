@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Tutor.Business.Repository;
+using TutorOnline.Business.Repository;
 using TutorOnline.DataAccess;
 
-namespace Tutor.Web.Controllers
+namespace TutorOnline.Web.Controllers
 {
     public class UsersController : Controller
     {
