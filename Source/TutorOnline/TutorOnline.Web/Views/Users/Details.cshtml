@@ -1,4 +1,4 @@
-﻿@model Tutor.DataAccess.User
+﻿@model TutorOnline.DataAccess.User
 
 @{
     ViewBag.Title = "Details";
@@ -10,14 +10,6 @@
     <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.ParentID)
         </dt>
@@ -47,7 +39,7 @@
         </dt>
 
         <dd>
-            @Model.BirthDate.Value.Date.ToString("dd/MM/yyyy")
+            @Html.DisplayFor(model => model.BirthDate)
         </dd>
 
         <dt>
@@ -55,19 +47,7 @@
         </dt>
 
         <dd>
-            @if(Model.Gender == 1)
-            {
-                @("Male")
-            }
-            else if (Model.Gender == 2)
-            {
-                @("Female")
-            }
-            else
-            {
-                @("3rd Gender")
-            }
-           
+            @Html.DisplayFor(model => model.Gender)
         </dd>
 
         <dt>
@@ -164,6 +144,38 @@
 
         <dd>
             @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BMemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BMemName)
         </dd>
 
         <dt>

@@ -7,8 +7,8 @@
     <ProjectGuid>{CC8C76D0-1D2A-492C-9CD7-9E28D6073AA0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tutor.DataAccess</RootNamespace>
-    <AssemblyName>Tutor.DataAccess</AssemblyName>
+    <RootNamespace>TutorOnline.DataAccess</RootNamespace>
+    <AssemblyName>TutorOnline.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

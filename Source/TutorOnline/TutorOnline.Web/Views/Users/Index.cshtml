@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tutor.DataAccess.User>
+﻿@model IEnumerable<TutorOnline.DataAccess.User>
 
 @{
     ViewBag.Title = "Index";
@@ -11,17 +11,27 @@
     @using (Html.BeginForm("Index", "Users", FormMethod.Get))
     {
     <p>
-        Username: @Html.TextBox("SearchString") 
-        Role: @Html.DropDownList("roleString", "All")
-        Gender: @Html.DropDownList("genderString", "All")
-        <br /><input type="submit" value="Search" />
+        <table cellspacing="2">
+            <tr>
+                <th class="col-lg-6">Search</th>
+                <th class="col-lg-3">Role</th>
+                <th class="col-lg-3">Gender</th>
+            </tr>
+            <tr>
+                <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
+                <td>@Html.DropDownList("roleString", null,"All", htmlAttributes: new { @class = "form-control" })</td>
+                <td>@Html.DropDownList("genderString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
+            </tr>
+        </table>
+              
+        <input type="submit" value="Search" class="btn"/>
     </p>
     }
     
 </p>
 
 
-    <table class="table">
+    <table class="table table-striped">
         <tr> 
             <th>
                 @Html.DisplayNameFor(model => model.Username)

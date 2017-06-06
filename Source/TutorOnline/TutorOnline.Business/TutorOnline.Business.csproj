@@ -7,8 +7,8 @@
     <ProjectGuid>{C52CDB62-610C-477C-9090-51355BF33BBF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tutor.Business</RootNamespace>
-    <AssemblyName>Tutor.Business</AssemblyName>
+    <RootNamespace>TutorOnline.Business</RootNamespace>
+    <AssemblyName>TutorOnline.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
