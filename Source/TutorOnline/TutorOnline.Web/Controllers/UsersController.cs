@@ -6,34 +6,35 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Tutor.DataAccess;
+using Tutor.Business.Repository;
+using TutorOnline.DataAccess;
 
 namespace Tutor.Web.Controllers
 {
     public class UsersController : Controller
     {
-        private TutorOnlineContext db = new TutorOnlineContext();
+        private UsersRepository URes = new UsersRepository();
 
         // GET: Users
         public ActionResult Index(string searchString, string roleString, int? genderString, string yearString)
         {
-            ViewBag.roleString = new SelectList(db.Roles, "RoleName", "RoleName");
+            ViewBag.roleString = new SelectList(URes.GetAllRole(), "RoleName", "RoleName");
             ViewBag.genderString = new SelectList(new List<SelectListItem>
             {
                 new SelectListItem {  Text = "Male", Value = "1"},
                 new SelectListItem {  Text = "Female", Value = "2"},
             },"Value","Text");
 
-            var users = db.Users.Include(u => u.Role);
+            var users = URes.GetAllUser();
             if (searchString == null || roleString == null )
             {
-                users = db.Users.Where(s => s.Username == "-1");
+                users = URes.GetAllUser().Where(s => s.Username == "-1");
                 return View(users.ToList());
             }    
                              
             if (!String.IsNullOrEmpty(searchString))
             {               
-                users = users.Where(s => s.Username.Contains(searchString));               
+                users = users.Where(s => s.Username.Contains(searchString) || s.FirstName.Contains(searchString) || s.LastName.Contains(searchString));               
             }
 
             if (!String.IsNullOrEmpty(roleString))
@@ -54,7 +55,7 @@ namespace Tutor.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = URes.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -65,7 +66,7 @@ namespace Tutor.Web.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.RoleID = new SelectList(db.Roles, "Id", "RoleName");
+            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName");
             return View();
         }
 
@@ -74,16 +75,15 @@ namespace Tutor.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RoleID,ParentID,LastName,FirstName,BirthDate,Gender,Address,Email,SkypeID,City,PostalCode,Country,PhoneNumber,BankID,Salary,Wallet,Photo,Description")] User user)
+        public ActionResult Create([Bind(Include = "Id,RoleID,Username,Password,LastName,FirstName,BirthDate,Gender,Address,Email,SkypeID,City,PostalCode,Country,PhoneNumber,BankID,Salary,Wallet,Photo,Description")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                URes.Add(user);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RoleID = new SelectList(db.Roles, "Id", "RoleName", user.RoleID);
+            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName", user.RoleID);
             return View(user);
         }
 
@@ -94,12 +94,12 @@ namespace Tutor.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = URes.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RoleID = new SelectList(db.Roles, "Id", "RoleName", user.RoleID);
+            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4).Union(URes.GetAllRole().Where(x => x.RoleName == "Tutor")), "Id", "RoleName", user.RoleID);
             return View(user);
         }
 
@@ -108,15 +108,14 @@ namespace Tutor.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RoleID,ParentID,LastName,FirstName,BirthDate,Gender,Address,Email,SkypeID,City,PostalCode,Country,PhoneNumber,BankID,Salary,Wallet,Photo,Description")] User user)
+        public ActionResult Edit([Bind(Include = "Id,RoleID,Username,Password,LastName,FirstName,BirthDate,Gender,Address,Email,SkypeID,City,PostalCode,Country,PhoneNumber,BankID,Salary,Wallet,Photo,Description")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                URes.Edit(user);
                 return RedirectToAction("Index");
             }
-            ViewBag.RoleID = new SelectList(db.Roles, "Id", "RoleName", user.RoleID);
+            ViewBag.RoleID = new SelectList(URes.GetAllRole(), "Id", "RoleName", user.RoleID);
             return View(user);
         }
 
@@ -127,7 +126,7 @@ namespace Tutor.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = URes.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -140,9 +139,7 @@ namespace Tutor.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+            URes.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -150,7 +147,7 @@ namespace Tutor.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                URes.Dispose();
             }
             base.Dispose(disposing);
         }
