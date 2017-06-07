@@ -2,20 +2,21 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
-<h2>Users Management</h2>
+<h2>Quản lý người dùng</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Tạo mới", "Create")
     @using (Html.BeginForm("Index", "Users", FormMethod.Get))
     {
     <p>
         <table cellspacing="2">
             <tr>
-                <th class="col-lg-6">Search</th>
-                <th class="col-lg-3">Role</th>
-                <th class="col-lg-3">Gender</th>
+                <th class="col-lg-6">Tim kiếm</th>
+                <th class="col-lg-3">Chức vụ</th>
+                <th class="col-lg-3">Giới tính</th>
             </tr>
             <tr>
                 <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
@@ -24,44 +25,49 @@
             </tr>
         </table>
               
-        <input type="submit" value="Search" class="btn"/>
+        <input type="submit" value="Tìm" class="btn"/>
     </p>
     }
     
 </p>
-
-
+    Có @ViewBag.totalRecord kết quả tìm kiếm
     <table class="table table-striped">
         <tr> 
             <th>
-                @Html.DisplayNameFor(model => model.Username)
+                STT
+            </th>
+            <th>
+                Tài khoản
             </th>      
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Họ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Tên
             </th>                      
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SkypeID)
+                Skype
             </th>                    
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                Số điện thoại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Wallet)
+                Số dư
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Role.RoleName)
+                Chức vụ
             </th>
             <th></th>
         </tr>
 
     @foreach (var item in Model) {
         <tr>
+            <td>
+                
+            </td>
             <td>
                 @Html.ActionLink(item.Username, "Details", new { id = item.Id })       
             </td>
