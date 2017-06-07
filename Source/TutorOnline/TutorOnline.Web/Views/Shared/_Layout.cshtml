@@ -11,7 +11,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -95,7 +95,7 @@
             <a href="https://myaccount.google.com/" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <p class="container-fluid text-center">
-            <a href="#myPage" title="To Top">
+            <a href="#HomePage" title="To Top">
                 <span class="glyphicon glyphicon-chevron-up"></span>
             </a>
         </p>
@@ -107,7 +107,7 @@
     <script>
         $(document).ready(function () {
             // Add smooth scrolling to all links in navbar + footer link
-            $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+            $(".navbar a, footer a[href='#HomePage']").on('click', function (event) {
                 // Make sure this.hash has a value before overriding default behavior
                 if (this.hash !== "") {
                     // Prevent default anchor click behavior
