@@ -31,6 +31,16 @@ namespace TutorOnline.Web.Models
         public string Description { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "NewPassword")]
+        public string NewPassword { get; set; }
+        [DataType(DataType.Password)]
+        [Display(Name = "ConfirmPassword")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
         public string BankName { get; set; }
         public string BMemName { get; set; }
     }

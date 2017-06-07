@@ -29,8 +29,11 @@
     </div>
     <div class="container body-content">
         @if (TempData["message"] != null)
-            {
-            <div class="alert alert-success">@TempData["message"]</div>
+        {
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                @TempData["message"]
+            </div>
         }
 
         <div class="container-fluid">
@@ -41,7 +44,7 @@
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="@Url.Action("Index", "Manager", new { id = 4 })">Thông tin cá nhân</a></li>
-                        <li><a href="@Url.Action("UpdatePerInfo", "Manager", new { id = 4 })">Đổi mật khẩu</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Manager", new { id = 4 })">Đổi mật khẩu</a></li>
                         <li><a href="@Url.Action("ManageSub", "Manager")">Quản lý môn học</a></li>
                         <li><a href="@Url.Action("ManageCourse", "Manager")">Quản lý khóa học</a></li>
                         <li><a href="@Url.Action("ListPreTutor", "Manager")">Danh sách gia sư ứng tuyển</a></li>

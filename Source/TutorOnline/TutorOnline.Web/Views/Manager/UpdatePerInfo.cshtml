@@ -1,7 +1,7 @@
 ﻿@model TutorOnline.Web.Models.PersonalViewModel
 
 @{
-    ViewBag.Title = "UpdatePerInfo";
+    ViewBag.Title = "Thay Đổi Thông Tin";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
@@ -15,7 +15,8 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.RoleID)
         @Html.HiddenFor(model => model.Password)
-
+        @Html.HiddenFor(model => model.ConfirmPassword)
+        @Html.HiddenFor(model => model.NewPassword)
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
