@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TutorOnline.DataAccess.Transaction>
+@{
+    ViewBag.Title = "AccountantIndex";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<h2>Transaction Management</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
+    {
+    <p>
+        <table cellspacing="2">
+            <tr>
+                <th class="col-lg-6">Search</th>
+                <th class="col-lg-3">Role</th>
+            </tr>
+            <tr>
+                <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
+                <td>@Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Search" class="btn" />
+    </p>
+    }
+
+    </p>
+
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                ID người dùng
+            </th>
+            <th>
+                Nội dung giao dịch
+            </th>
+            <th>
+                Số tiền
+            </th>
+            <th>
+                Ngày thực hiện
+            </th>
+            <th>
+                Tên tài khoản
+            </th>
+            <th>
+                Họ
+            </th>
+            <th>
+                Tên
+            </th>   
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Id.ToString(), "Details", new { id = item.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TranDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>   
+            </tr>
+        }
+
+    </table>
+
