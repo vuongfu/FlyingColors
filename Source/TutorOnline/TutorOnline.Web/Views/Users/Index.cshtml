@@ -1,13 +1,17 @@
-﻿@model IEnumerable<TutorOnline.DataAccess.User>
+﻿@model PagedList.IPagedList<TutorOnline.DataAccess.User>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+    ViewBag.Count = 0;
 }
 
-<h2>Quản lý người dùng</h2>
 
-<p>
+<h2>Quản lý người dùng</h2>
+<div>
+    
     @Html.ActionLink("Tạo mới", "Create")
     @using (Html.BeginForm("Index", "Users", FormMethod.Get))
     {
@@ -29,7 +33,7 @@
     </p>
     }
     
-</p>
+</div>
     Có @ViewBag.totalRecord kết quả tìm kiếm
     <table class="table table-striped">
         <tr> 
@@ -66,7 +70,7 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                
+                @(ViewBag.Count++ + 1)              
             </td>
             <td>
                 @Html.ActionLink(item.Username, "Details", new { id = item.Id })       
@@ -96,3 +100,8 @@
     }
 
     </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))

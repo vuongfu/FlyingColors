@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using TutorOnline.Business.Repository;
 using TutorOnline.DataAccess;
 using TutorOnline.Web.Models;
+using PagedList;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -16,8 +17,15 @@ namespace TutorOnline.Web.Controllers
         private UsersRepository URes = new UsersRepository();
 
         // GET: Users
-        public ActionResult Index(string searchString, string roleString, int? genderString, string yearString)
+        public ActionResult Index(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.SearchStr = searchString;
+            ViewBag.RoleStr = roleString;
+            ViewBag.GenderStr = genderString;
+
             ViewBag.roleString = new SelectList(URes.GetAllRole(), "RoleName", "RoleName");
             ViewBag.genderString = new SelectList(new List<SelectListItem>
             {
@@ -26,11 +34,11 @@ namespace TutorOnline.Web.Controllers
             },"Value","Text");
 
             var users = URes.GetAllUser();
-            if (searchString == null || roleString == null )
+            if ((searchString == null || roleString == null) && page == null)
             {
                 users = URes.GetAllUser().Where(s => s.Username == "-1");
                 ViewBag.totalRecord = users.Count();
-                return View(users.ToList());
+                return View(users.ToPagedList(pageNumber, pageSize));
             }    
                              
             if (!String.IsNullOrEmpty(searchString))
@@ -46,8 +54,9 @@ namespace TutorOnline.Web.Controllers
             if(genderString != null)
                 users = users.Where(s => s.Gender == genderString);
 
+
             ViewBag.totalRecord = users.Count();
-            return View(users.ToList());
+            return View(users.OrderBy(x => x.Username).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Users/Details/5
