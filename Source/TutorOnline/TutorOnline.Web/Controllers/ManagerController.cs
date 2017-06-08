@@ -73,6 +73,10 @@ namespace TutorOnline.Web.Controllers
                 manager.FirstName = user.FirstName;
                 manager.LastName = user.LastName;
                 manager.Username = user.Username;
+                manager.Password = user.Password;
+                manager.OldPassword = user.Password;
+                manager.NewPassword = user.Password;
+                manager.ConfirmPassword = user.Password;
                 manager.BirthDate = user.BirthDate;
                 manager.Gender = user.Gender;
                 manager.Address = user.Address;
@@ -84,15 +88,6 @@ namespace TutorOnline.Web.Controllers
                 manager.PhoneNumber = user.PhoneNumber;
                 manager.Photo = user.Photo;
                 manager.Description = user.Description;
-                manager.Wallet = user.Wallet;
-                manager.Salary = user.Salary;
-                manager.BankID = user.BankID;
-                manager.BankName = user.BankName;
-                manager.BMemName = user.BMemName;
-                manager.ParentID = user.ParentID;
-                manager.Password = user.Password;
-                manager.NewPassword = user.Password;
-                manager.ConfirmPassword = user.Password;
             }
             return View(manager);
         }
@@ -103,12 +98,11 @@ namespace TutorOnline.Web.Controllers
         {
             User user = new User();
             user.Id = manager.Id;
+            user.RoleID = manager.RoleID;
             user.FirstName = manager.FirstName;
             user.LastName = manager.LastName;
             user.Username = manager.Username;
             user.Password = manager.Password;
-            user.ParentID = manager.ParentID;
-            user.RoleID = manager.RoleID;
             user.BirthDate = manager.BirthDate;
             user.Gender = manager.Gender;
             user.Address = manager.Address;
@@ -120,9 +114,6 @@ namespace TutorOnline.Web.Controllers
             user.PhoneNumber = manager.PhoneNumber;
             user.Photo = manager.Photo;
             user.Description = manager.Description;
-            user.BankID = manager.BankID;
-            user.BankName = manager.BankName;
-            user.BMemName = manager.BMemName;
 
             if (ModelState.IsValid)
             {
@@ -151,6 +142,7 @@ namespace TutorOnline.Web.Controllers
                 manager.FirstName = user.FirstName;
                 manager.LastName = user.LastName;
                 manager.Username = user.Username;
+                manager.FullName = user.FirstName + " " + user.LastName;
                 manager.BirthDate = user.BirthDate;
                 manager.Gender = user.Gender;
                 manager.Address = user.Address;
@@ -162,15 +154,10 @@ namespace TutorOnline.Web.Controllers
                 manager.PhoneNumber = user.PhoneNumber;
                 manager.Photo = user.Photo;
                 manager.Description = user.Description;
-                manager.Wallet = user.Wallet;
-                manager.Salary = user.Salary;
-                manager.BankID = user.BankID;
-                manager.BankName = user.BankName;
-                manager.BMemName = user.BMemName;
-                manager.ParentID = user.ParentID;
                 manager.Password = user.Password;
-                manager.NewPassword = user.Password;
-                manager.ConfirmPassword = user.Password;
+                manager.OldPassword = "";
+                manager.NewPassword = "";
+                manager.ConfirmPassword = "";
             }
             return View(manager);
         }
@@ -185,7 +172,6 @@ namespace TutorOnline.Web.Controllers
             user.LastName = manager.LastName;
             user.Username = manager.Username;
             user.Password = manager.NewPassword;
-            user.ParentID = manager.ParentID;
             user.RoleID = manager.RoleID;
             user.BirthDate = manager.BirthDate;
             user.Gender = manager.Gender;
@@ -198,9 +184,6 @@ namespace TutorOnline.Web.Controllers
             user.PhoneNumber = manager.PhoneNumber;
             user.Photo = manager.Photo;
             user.Description = manager.Description;
-            user.BankID = manager.BankID;
-            user.BankName = manager.BankName;
-            user.BMemName = manager.BMemName;
 
             if (ModelState.IsValid)
             {

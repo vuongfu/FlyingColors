@@ -1,37 +1,44 @@
 ﻿@model TutorOnline.Web.Models.PersonalViewModel
 
 @{
-    ViewBag.Title = "Đổi Mật Khẩu";
+    ViewBag.Title = "Manager";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.RoleID)
         @Html.HiddenFor(model => model.LastName)
         @Html.HiddenFor(model => model.FirstName)
+        @Html.HiddenFor(model => model.FullName)
+        @Html.HiddenFor(model => model.Username)
         @Html.HiddenFor(model => model.BirthDate)
         @Html.HiddenFor(model => model.Gender)
         @Html.HiddenFor(model => model.Address)
         @Html.HiddenFor(model => model.Email)
         @Html.HiddenFor(model => model.SkypeID)
-        @Html.HiddenFor(model => model.Username)
         @Html.HiddenFor(model => model.City)
         @Html.HiddenFor(model => model.PostalCode)
         @Html.HiddenFor(model => model.Country)
         @Html.HiddenFor(model => model.Photo)
         @Html.HiddenFor(model => model.PhoneNumber)
         @Html.HiddenFor(model => model.Description)
+        @Html.HiddenFor(model => model.Password)
 
+        <div class="form-group">
+            <p class="control-label col-md-2">Họ và tên:</p>
+            <h4 class="col-md-10">@Html.DisplayFor(model => model.FullName)</h4>
+        </div>
+        <br/>
         <div class="form-group">
             <p class="control-label col-md-2">Mật khẩu cũ: </p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.OldPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -53,7 +60,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="Thay Đổi" class="btn btn-success" />
+                <a href="#">Quên mật khẩu?</a>
             </div>
         </div>
     </div>

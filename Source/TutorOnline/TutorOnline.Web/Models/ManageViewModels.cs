@@ -10,11 +10,11 @@ namespace TutorOnline.Web.Models
     {
         public int Id { get; set; }
         public Nullable<int> RoleID { get; set; }
-        public Nullable<int> ParentID { get; set; }
         public string FullName { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string RoleName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> BirthDate { get; set; }
         public int Gender { get; set; }
         public string Address { get; set; }
@@ -24,24 +24,26 @@ namespace TutorOnline.Web.Models
         public string PostalCode { get; set; }
         public string Country { get; set; }
         public string PhoneNumber { get; set; }
-        public string BankID { get; set; }
-        public Nullable<decimal> Salary { get; set; }
-        public Nullable<decimal> Wallet { get; set; }
         public byte[] Photo { get; set; }
         public string Description { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "OldPassword")]
+        [Compare("Password", ErrorMessage = "The old password is incorrect.")]
+        public string OldPassword { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "NewPassword")]
         public string NewPassword { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "ConfirmPassword")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        public string BankName { get; set; }
-        public string BMemName { get; set; }
     }
 }
