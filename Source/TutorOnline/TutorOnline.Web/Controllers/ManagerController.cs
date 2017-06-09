@@ -11,6 +11,8 @@ using TutorOnline.Business.Repository;
 using System.Collections.Generic;
 using TutorOnline.DataAccess;
 using System.Net;
+using TutorOnline.Common;
+using PagedList;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -188,13 +190,91 @@ namespace TutorOnline.Web.Controllers
             if (ModelState.IsValid)
             {
                 MRes.Edit(user);
-                TempData["message"] = "Bạn đã đổi mật khẩu thành công";
+                TempData["message"] = new StringCommon().changePwdSuccess.ToString();
                 return RedirectToAction("ChangePwd", new { id = user.Id });
             }
             return View(manager);
         }
 
+        public ActionResult ManageCategories(string searchString, int? page)
+        {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
 
+            ViewBag.searchStr = searchString;
+
+            var Categories = MRes.GetAllCategories();
+            List<CategoriesViewModel> result = new List<CategoriesViewModel>();
+
+            //Mapping Entity to ViewModel
+            if(Categories.Count() > 0)
+            {
+                foreach (var item in Categories)
+                {
+                    CategoriesViewModel model = new CategoriesViewModel();
+                    model.Id = item.Id;
+                    model.CategoryName = item.CategoryName;
+                    model.Description = item.Description;
+                    result.Add(model);
+                }
+            }
+
+            if (searchString == null && page == null)
+            {
+                result = result.Where(x => x.Id == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                return View(result.ToPagedList(pageNumber, pageSize));
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(x => MRes.SearchForString(x.CategoryName, searchString) ||
+                                           MRes.SearchForString(x.Description, searchString)).ToList();
+            }
+
+            ViewBag.totalRecord = result.Count();
+            return View(result.OrderBy(x => x.CategoryName).ToList().ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult ManageSubjects(string searchString, string cateString, int? page)
+        {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.searchStr = searchString;
+            ViewBag.cateStr = new SelectList(MRes.GetAllCategories(), "CategoryName", "CategoryName");
+
+            var result = MRes.GetAllSubject();
+            int totalRecord = result.Count();
+
+            if ((searchString == null || cateString == null) && page == null)
+            {
+                result = result.Where(x => x.Id == 0);
+                totalRecord = result.Count();
+                return View(result.ToPagedList(pageNumber, pageSize));
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(x => MRes.SearchForString(x.SubjectName, searchString) ||
+                                           MRes.SearchForString(x.Description, searchString) ||
+                                           MRes.SearchForString(x.Category.CategoryName, searchString));
+            }
+
+            if (!String.IsNullOrEmpty(cateString))
+            {
+                result = result.Where(x => x.Category.CategoryName == cateString);
+            }
+
+            ViewBag.totalRecord = totalRecord;
+            return View(result.OrderBy(x => x.SubjectName).ToPagedList(pageNumber, pageSize));
+
+        }
+
+        public ActionResult ListPreTutor()
+        {
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {

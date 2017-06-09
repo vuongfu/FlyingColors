@@ -8,6 +8,6 @@ namespace TutorOnline.Common
 {
     public class StringCommon
     {
-        public string addSubjectSuccessfully = "Them mon hoc moi thanh cong.";
+        public string changePwdSuccess = "Bạn đã đổi mật khẩu thành công";
     }
 }

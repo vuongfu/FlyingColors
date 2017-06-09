@@ -48,8 +48,8 @@
                         <li hidden="@(ViewBag.SystemAdmin == true? false:true)"><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
                         @if (ViewBag.title == "Manager")
                         {                           
-                            <li><a href="@Url.Action("ManageSub", "Manager")">Quản lý môn học</a></li>
-                            <li><a href="@Url.Action("ManageCourse", "Manager")">Quản lý khóa học</a></li>
+                            <li><a href="@Url.Action("ManageCategories", "Manager")">Quản lý môn học</a></li>
+                            <li><a href="@Url.Action("ManageSubjects", "Manager")">Quản lý khóa học</a></li>
                             <li><a href="@Url.Action("ListPreTutor", "Manager")">Danh sách gia sư ứng tuyển</a></li>
                         }
                         else if (ViewBag.title == "AdminSystem")

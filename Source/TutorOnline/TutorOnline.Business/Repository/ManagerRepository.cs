@@ -33,6 +33,32 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
+        public IEnumerable<Category> GetAllCategories()
+        {
+            var categories = _dbContext.Categories;
+            return categories;
+        }
+        public IEnumerable<Subject> GetAllSubject()
+        {
+            var subjects = _dbContext.Subjects.Include(x => x.Category);
+            return subjects;
+        }
+        public Category FindCategory(int? id)
+        {
+            Category category = _dbContext.Categories.Find(id);
+            return category;
+        }
+        /// <summary>
+        /// This function find all Subject which have CategoriesID same.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>subjects</returns>
+        public List<Subject> FindSubjects(int? id)
+        {
+            List<Subject> listSub = GetAllSubject().Where(x => x.CategoryID == id).ToList();
+            return listSub;
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();

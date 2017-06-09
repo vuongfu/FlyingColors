@@ -47,5 +47,22 @@ namespace TutorOnline.Web.Models
         public string ConfirmPassword { get; set; }
     }
 
-    
+    public class CategoriesViewModel
+    {
+        public int Id { get; set; }
+        public string CategoryName { get; set; }
+        public string Description { get; set; }
+    }
+    public class SubjectViewModel
+    {
+        public int Id { get; set; }
+        public string SubjectName { get; set; }
+        public int CategoryID { get; set; }
+        public string Description { get; set; }
+        public int Duration { get; set; }
+        public string Purpose { get; set; }
+        public string Requirement { get; set; }
+        public byte[] Photo { get; set; }
+        public decimal Price { get; set; }
+    }
 }
