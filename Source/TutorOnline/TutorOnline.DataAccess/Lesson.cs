@@ -22,7 +22,7 @@ namespace TutorOnline.DataAccess
     
         public int Id { get; set; }
         public string LessonName { get; set; }
-        public Nullable<int> SubjectID { get; set; }
+        public int SubjectID { get; set; }
         public string Content { get; set; }
     
         public virtual Subject Subject { get; set; }

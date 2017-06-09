@@ -23,7 +23,7 @@ namespace TutorOnline.DataAccess
         public int Id { get; set; }
         public int LanguageID { get; set; }
         public string CriteriaName { get; set; }
-        public Nullable<int> SubjectID { get; set; }
+        public int SubjectID { get; set; }
         public int Type { get; set; }
     
         public virtual Subject Subject { get; set; }

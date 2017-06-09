@@ -28,7 +28,7 @@ namespace TutorOnline.DataAccess
         }
     
         public int Id { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public int RoleID { get; set; }
         public Nullable<int> ParentID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -50,6 +50,7 @@ namespace TutorOnline.DataAccess
         public string Password { get; set; }
         public string BankName { get; set; }
         public string BMemName { get; set; }
+        public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuditLog> AuditLogs { get; set; }

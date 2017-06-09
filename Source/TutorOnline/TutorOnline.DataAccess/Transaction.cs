@@ -15,7 +15,7 @@ namespace TutorOnline.DataAccess
     public partial class Transaction
     {
         public int Id { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int UserID { get; set; }
         public string Content { get; set; }
         public decimal Amount { get; set; }
         public System.DateTime TranDate { get; set; }

@@ -24,7 +24,7 @@ namespace TutorOnline.DataAccess
     
         public int Id { get; set; }
         public string SubjectName { get; set; }
-        public Nullable<int> CategoryID { get; set; }
+        public int CategoryID { get; set; }
         public string Description { get; set; }
         public int Duration { get; set; }
         public string Purpose { get; set; }

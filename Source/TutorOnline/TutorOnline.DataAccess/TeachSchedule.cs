@@ -15,7 +15,7 @@ namespace TutorOnline.DataAccess
     public partial class TeachSchedule
     {
         public int Id { get; set; }
-        public Nullable<int> TutorID { get; set; }
+        public int TutorID { get; set; }
         public System.DateTime OrderDate { get; set; }
         public string OrderSlot { get; set; }
     

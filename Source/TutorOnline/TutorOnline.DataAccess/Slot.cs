@@ -21,9 +21,9 @@ namespace TutorOnline.DataAccess
         }
     
         public int Id { get; set; }
-        public Nullable<int> StudentID { get; set; }
-        public Nullable<int> TutorID { get; set; }
-        public Nullable<int> LessonID { get; set; }
+        public int StudentID { get; set; }
+        public int TutorID { get; set; }
+        public int LessonID { get; set; }
         public int SlotOrder { get; set; }
         public System.DateTime SlotDate { get; set; }
         public int Status { get; set; }

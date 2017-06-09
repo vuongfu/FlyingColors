@@ -15,8 +15,8 @@ namespace TutorOnline.DataAccess
     public partial class AuditLog
     {
         public int Id { get; set; }
-        public Nullable<int> DocumentID { get; set; }
-        public Nullable<int> ModifierID { get; set; }
+        public int DocumentID { get; set; }
+        public int ModifierID { get; set; }
         public System.DateTime ModifyDate { get; set; }
         public string Content { get; set; }
     
