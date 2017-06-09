@@ -12,6 +12,7 @@ using PagedList;
 
 namespace TutorOnline.Web.Controllers
 {
+     
     public class UsersController : Controller
     {
         private UsersRepository URes = new UsersRepository();
@@ -43,7 +44,10 @@ namespace TutorOnline.Web.Controllers
                              
             if (!String.IsNullOrEmpty(searchString))
             {               
-                users = users.Where(s => s.Username.Contains(searchString) || s.FirstName.Contains(searchString) || s.LastName.Contains(searchString));               
+                users = users.Where(s => URes.SearchForString(s.Username, searchString) || 
+                                         URes.SearchForString(s.FirstName,searchString) || 
+                                         URes.SearchForString(s.LastName,searchString)
+                                    );               
             }
 
             if (!String.IsNullOrEmpty(roleString))
@@ -71,7 +75,31 @@ namespace TutorOnline.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            DetailUserViewModels viewModel = new DetailUserViewModels();
+            viewModel.Address = user.Address;
+            viewModel.BankID = user.BankID;
+            viewModel.BankName = user.BankName;
+            viewModel.BirthDate = user.BirthDate;
+            viewModel.BMemName = user.BMemName;
+            viewModel.City = user.City;
+            viewModel.Country = user.Country;
+            viewModel.Description = user.Description;
+            viewModel.Email = user.Email;
+            viewModel.FirstName = user.FirstName;
+            viewModel.Gender = user.Gender;
+            viewModel.LastName = user.LastName;
+            viewModel.PhoneNumber = user.PhoneNumber;
+            viewModel.Photo = user.Photo;
+            viewModel.PostalCode = user.PostalCode;
+            viewModel.RoleName = user.Role.RoleName;
+            viewModel.Salary = user.Salary;
+            viewModel.SkypeID = user.SkypeID;
+            viewModel.Username = user.Username;
+            viewModel.Wallet = user.Wallet;
+            viewModel.Id = user.Id;
+
+            return View(viewModel);
         }
 
         // GET: Users/Create
@@ -197,5 +225,6 @@ namespace TutorOnline.Web.Controllers
 
             return temp;
         }
+               
     }
 }

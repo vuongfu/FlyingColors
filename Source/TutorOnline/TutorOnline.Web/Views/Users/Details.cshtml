@@ -1,4 +1,4 @@
-﻿@model TutorOnline.DataAccess.User
+﻿@model TutorOnline.Web.Models.DetailUserViewModels
 
 @{
     ViewBag.Title = "Details";
@@ -171,11 +171,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Role.RoleName)
+            Chức vụ
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Role.RoleName)
+            @Html.DisplayFor(model => model.RoleName)
         </dd>
 
     </dl>
