@@ -1,0 +1,39 @@
+﻿@model TutorOnline.Web.Models.CategoriesViewModel
+
+@{
+    ViewBag.Title = "Chi tiết môn học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <h3>Chi tiết môn học</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên môn học</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
+                        <td>
+                            @Html.ActionLink("Chỉnh sửa", "EditCategories", new { @id = Model.Id }) |
+                            @Html.ActionLink("Xóa", "DeleteCategories", new { @id = Model.Id })
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("Trở lại", "ManageCategories", new { @id = Model.Id }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

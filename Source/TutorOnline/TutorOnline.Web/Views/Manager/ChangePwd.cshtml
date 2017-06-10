@@ -1,7 +1,7 @@
 ﻿@model TutorOnline.Web.Models.PersonalViewModel
 
 @{
-    ViewBag.Title = "Manager";
+    ViewBag.Title = "Đổi mật khẩu";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
@@ -9,7 +9,10 @@
 {
     @Html.AntiForgeryToken()
 
+    <h3>Đổi mật khẩu</h3>
+    <hr />
     <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.RoleID)
         @Html.HiddenFor(model => model.LastName)
@@ -29,11 +32,6 @@
         @Html.HiddenFor(model => model.Description)
         @Html.HiddenFor(model => model.Password)
 
-        <div class="form-group">
-            <p class="control-label col-md-2">Họ và tên:</p>
-            <h4 class="col-md-10">@Html.DisplayFor(model => model.FullName)</h4>
-        </div>
-        <br/>
         <div class="form-group">
             <p class="control-label col-md-2">Mật khẩu cũ: </p>
             <div class="col-md-10">
@@ -61,7 +59,13 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Thay Đổi" class="btn btn-success" />
-                <a href="#">Quên mật khẩu?</a>
+                @Html.ActionLink("Trở lại", "Index", new { @id = Model.Id }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Quên mật khẩu?", "ForgotPassword", new { @id = Model.Id })
             </div>
         </div>
     </div>
