@@ -1,0 +1,88 @@
+﻿@model PagedList.IPagedList<TutorOnline.DataAccess.User>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+    ViewBag.Count = 1;
+}
+
+<h2>Tìm kiếm người dùng</h2>
+<div>
+
+    @using (Html.BeginForm("Search", "Accountant", FormMethod.Get))
+    {
+        <p>
+            <table cellspacing="2">
+                <tr>
+                    <th class="col-lg-5">Tim kiếm</th>
+                    <th class="col-lg-2"></th>
+                    <th class="col-lg-2">Chức vụ</th>
+                    <th class="col-lg-1"></th>
+                    <th class="col-lg-2">Giới tính</th>
+                </tr>
+                <tr>
+                    <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
+                    <td></td>
+                    <td>@Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
+                    <td></td>
+                    <td>@Html.DropDownList("genderString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
+                </tr>
+            </table>
+
+            <input type="submit" value="Tìm" class="btn" />
+        </p>
+    }
+
+</div>
+    Có @ViewBag.totalRecord kết quả tìm kiếm
+    <table class="table table-striped">
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tài khoản
+            </th>
+            <th>
+                Họ
+            </th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Số dư
+            </th>
+            <th>
+                Chức vụ
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(ViewBag.Count++)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Username, "Create", new { id = item.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wallet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.RoleName)
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Search",
+    new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
