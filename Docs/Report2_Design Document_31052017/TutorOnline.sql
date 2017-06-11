@@ -9,7 +9,7 @@ CREATE TABLE [Roles](
 
 CREATE TABLE [Users](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[RoleID] [int] FOREIGN KEY REFERENCES [Roles](Id),
+	[RoleID] [int] FOREIGN KEY REFERENCES [Roles](Id) NOT NULL,
 	[ParentID] [int] NULL,
 	[LastName] [nvarchar](20) NOT NULL,
 	[FirstName] [nvarchar](10) NOT NULL,
@@ -30,12 +30,14 @@ CREATE TABLE [Users](
 	[Photo] [image] NULL,
 	[Description] [text] NULL,
 	[BankName] [nvarchar](200) null,
-	[BMemName] [nvarchar](200) null
+	[BMemName] [nvarchar](200) null,
+	[isDeleted] [bit] not null default 0,
+	[CV] [varchar](200) null
 );
 
 CREATE TABLE [Transactions] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[UserID] [int] FOREIGN KEY REFERENCES [Users](Id),
+	[UserID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	[Content] [text] NOT NULL,
 	[Amount] [money] NOT NULL,
 	[TranDate] [datetime] NOT NULL
@@ -50,7 +52,7 @@ CREATE TABLE [Categories](
 CREATE TABLE [Subjects](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[SubjectName] [varchar](255) NOT NULL,
-	[CategoryID] [int] FOREIGN KEY REFERENCES [Categories](Id),
+	[CategoryID] [int] FOREIGN KEY REFERENCES [Categories](Id) NOT NULL,
 	[Description] [text] NULL,
 	[Duration] [float] NOT NULL,
 	[Purpose] [text] NULL,
@@ -62,15 +64,15 @@ CREATE TABLE [Subjects](
 CREATE TABLE [Lessons] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[LessonName] [varchar](500) NOT NULL,
-	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id),
+	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id) NOT NULL,
 	[Content] [text] NULL
 );
 
 CREATE TABLE [Slots] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[StudentID] [int] FOREIGN KEY REFERENCES [Users](Id),
-	[TutorID] [int] FOREIGN KEY REFERENCES [Users](Id),
-	[LessonID] [int] FOREIGN KEY REFERENCES [Lessons](Id),
+	[StudentID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
+	[TutorID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
+	[LessonID] [int] FOREIGN KEY REFERENCES [Lessons](Id) NOT NULL,
 	[SlotOrder] [int] NOT NULL,
 	[SlotDate] [datetime] NOT NULL,
 	[Status] [int] NOT NULL,
@@ -82,29 +84,29 @@ CREATE TABLE [Criterias] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[LanguageID] [int] NOT NULL,
 	[CriteriaName] [varchar](255) NOT NULL,
-	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id),
+	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id) NOT NULL,
 	[Type] [int] NOT NULL
 );
 
 CREATE TABLE [Feedbacks] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[AssessorID] [int] FOREIGN KEY REFERENCES [Users](Id),
-	[JudgedID] [int] FOREIGN KEY REFERENCES [Users](Id),
+	[AssessorID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
+	[JudgedID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	[SlotID] [int] FOREIGN KEY REFERENCES [Slots](Id)
 );
 
 CREATE TABLE [FeedbackDetails] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[FeedbackID] [int] FOREIGN KEY REFERENCES [Feedbacks](Id),
-	[CriteriaID] [int] FOREIGN KEY REFERENCES [Criterias](Id),
+	[FeedbackID] [int] FOREIGN KEY REFERENCES [Feedbacks](Id) NOT NULL,
+	[CriteriaID] [int] FOREIGN KEY REFERENCES [Criterias](Id) NOT NULL,
 	CONSTRAINT UC_FeedbackDe UNIQUE (FeedbackID, CriteriaID),
 	[Score] [int] NOT NULL
 );
 
 CREATE TABLE [StudentSubjects] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id),
-	[StudentID] [int] FOREIGN KEY REFERENCES [Users](Id),
+	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id) NOT NULL,
+	[StudentID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	CONSTRAINT UC_StudentSub UNIQUE (SubjectID, StudentID),
 	[StartDate] [datetime] NOT NULL,
 	[EndDate] [datetime] NOT NULL,
@@ -113,7 +115,7 @@ CREATE TABLE [StudentSubjects] (
 
 CREATE TABLE [TeachSchedules] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[TutorID] [int] FOREIGN KEY REFERENCES [Users](Id),
+	[TutorID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	[OrderDate] [datetime] NOT NULL,
 	[OrderSlot] [varchar](150) NULL
 );
@@ -126,14 +128,14 @@ CREATE TABLE [DocumentType] (
 CREATE TABLE [Documents] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[DocUrl] [varchar](200) NOT NULL,
-	[DocType] [int] FOREIGN KEY REFERENCES [DocumentType](Id),
+	[DocType] [int] FOREIGN KEY REFERENCES [DocumentType](Id) NOT NULL,
 	[Description] [text] NULL
 );
 
 CREATE TABLE [AuditLog] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
-	[DocumentID] [int] FOREIGN KEY REFERENCES [Documents](Id),
-	[ModifierID] [int] FOREIGN KEY REFERENCES [Users](Id),
+	[DocumentID] [int] FOREIGN KEY REFERENCES [Documents](Id) NOT NULL,
+	[ModifierID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	[ModifyDate] [datetime] NOT NULL,
 	[Content] [text] NOT NULL
 );
