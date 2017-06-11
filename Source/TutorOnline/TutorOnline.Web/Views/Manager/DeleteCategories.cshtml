@@ -1,0 +1,22 @@
+﻿@model TutorOnline.Web.Models.CategoriesViewModel
+
+@{
+    ViewBag.Title = "Xóa môn học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div>
+    <h3>Xóa môn học</h3>
+    <hr />
+    
+    <div class="alert alert-danger">
+        <strong>Cảnh báo!</strong> Bạn có chắc chắn muốn xóa môn học này?
+    </div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa môn học" class="btn btn-danger" />
+            @Html.ActionLink("Trở lại", "DetailsCategories", new { @id = Model.Id }, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

@@ -1,48 +1,39 @@
-﻿@model TutorOnline.DataAccess.Category
+﻿@model TutorOnline.Web.Models.CategoriesViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Chỉnh sửa môn học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    <h3>Chỉnh sửa môn học</h3>
+    <hr />
     <div class="form-horizontal">
-        <h4>Category</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <p class="control-label col-md-2">Tên môn học: </p>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <p class="control-label col-md-2">Mô tả: </p>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Cập Nhật" class="btn btn-success" />
+                @Html.ActionLink("Trở lại", "DetailsCategories", new { @id = Model.Id }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

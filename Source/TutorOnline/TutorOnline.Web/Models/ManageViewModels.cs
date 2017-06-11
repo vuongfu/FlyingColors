@@ -9,7 +9,7 @@ namespace TutorOnline.Web.Models
     public class PersonalViewModel
     {
         public int Id { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public int RoleID { get; set; }
         public string FullName { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -45,5 +45,30 @@ namespace TutorOnline.Web.Models
         [Display(Name = "ConfirmPassword")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class CategoriesViewModel
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public string CategoryName { get; set; }
+        public string Description { get; set; }
+    }
+    public class SubjectViewModel
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public string SubjectName { get; set; }
+        public int CategoryID { get; set; }
+        public string Description { get; set; }
+        public int Duration { get; set; }
+        public string Purpose { get; set; }
+        public string Requirement { get; set; }
+        public byte[] Photo { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
     }
 }
