@@ -12,7 +12,7 @@ using PagedList;
 
 namespace TutorOnline.Web.Controllers
 {
-     
+    [Authorize]
     public class UsersController : Controller
     {
         private UsersRepository URes = new UsersRepository();
@@ -64,8 +64,13 @@ namespace TutorOnline.Web.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool? info)
         {
+            if(info == true)
+            {
+                ViewBag.InfoClick = true;
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,6 +128,12 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (URes.isExistsUsername(userViewModel.Username))
+                {
+                    TempData["message"] = "Username is exists";
+                    return View(userViewModel);
+                }
+                    
                 User user = MapCreateViewToUser(userViewModel);
                 URes.Add(user);
                 return RedirectToAction("Index");
@@ -133,8 +144,13 @@ namespace TutorOnline.Web.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, bool? info)
         {
+            if(info == true)
+            {
+                ViewBag.InfoClick = true;
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

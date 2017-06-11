@@ -21,8 +21,12 @@
                 @Html.ActionLink("Tutor Online", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>                       
+                        <a href="@Url.Action("Logout", "Account")">
+                            Welcome @HttpContext.Current.User.Identity.Name ! Log Out <span class="glyphicon glyphicon-log-in"> </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -40,16 +44,32 @@
             <div class="row">
                 <div class="col-md-12"><h2>Gia Sư Trực Tuyến</h2></div>
             </div>
+            @{ 
+                string Rid = "";
+                string Rname = "";
+                if (Request.Cookies["Role"] != null)
+                {
+                    if (Request.Cookies["Role"]["RoleId"] != null)
+                    {
+                        Rid = Request.Cookies["Role"]["RoleId"];
+                    }
+                    if (Request.Cookies["Role"]["RoleId"] != null)
+                    {
+                        Rname = Request.Cookies["Role"]["RoleName"];
+                    }
+
+                }
+            }
             <div class="row">
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="@Url.Action("Index", "Manager", new { id = 4 })">Thông tin cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangePwd", "Manager", new { id = 4 })">Đổi mật khẩu</a></li>
-                        <li hidden="@(ViewBag.SystemAdmin == true? false:true)"><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
-                        <li><a href="@Url.Action("ManageCategories", "Manager")">Quản lý môn học</a></li>
-                        <li><a href="@Url.Action("ManageSubjects", "Manager")">Quản lý khóa học</a></li>
-                        <li><a href="@Url.Action("ListPreTutor", "Manager")">Danh sách gia sư ứng tuyển</a></li>
-                        <li><a href="@Url.Action("Index", "Accountant")">Quản lý tài chính</a></li>
+                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Rid.ToString(), info = true })">Thông tin cá nhân</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Manager", new { id =  Rid.ToString() })">Đổi mật khẩu</a></li>
+                        <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("ManageCategories", "Manager")">Quản lý môn học</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("ManageSubjects", "Manager")">Quản lý khóa học</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("ListPreTutor", "Manager")">Danh sách gia sư ứng tuyển</a></li>
+                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý tài chính</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9">
@@ -63,9 +83,18 @@
         </footer>
     </div>
 
+    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)   
     
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('li.active').removeClass('active');
+            $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+        });
+    </script>
+
 </body>
 </html>

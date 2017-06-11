@@ -8,7 +8,6 @@
 <h2>Chi tiết</h2>
 
 <div>
-    <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
 
@@ -180,8 +179,18 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if (ViewBag.InfoClick == true)
+{
+    <p>
+        @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
