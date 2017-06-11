@@ -180,9 +180,19 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@if (ViewBag.InfoClick = true)
+{
+    <div>
+        @Html.ActionLink("Cancel", "Index")
+    </div>
+}
+else
+{
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
