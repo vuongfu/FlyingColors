@@ -23,8 +23,8 @@
                         <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
                         <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
                         <td>
-                            @Html.ActionLink("Chỉnh sửa", "EditCategories", new { @id = Model.Id }) |
-                            @Html.ActionLink("Xóa", "DeleteCategories", new { @id = Model.Id })
+                            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.Id }) |
+                            @Html.ActionLink("Xóa", "Delete", new { @id = Model.Id })
                         </td>
                     </tr>
                 </tbody>
@@ -33,7 +33,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            @Html.ActionLink("Trở lại", "ManageCategories", new { @id = Model.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Trở lại", "Index", new { @id = Model.Id }, new { @class = "btn btn-default" })
         </div>
     </div>
 </div>

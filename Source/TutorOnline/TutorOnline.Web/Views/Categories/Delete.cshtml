@@ -16,7 +16,7 @@
         @Html.AntiForgeryToken()
         <div class="form-actions no-color">
             <input type="submit" value="Xóa môn học" class="btn btn-danger" />
-            @Html.ActionLink("Trở lại", "DetailsCategories", new { @id = Model.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Trở lại", "Details", new { @id = Model.Id }, new { @class = "btn btn-default" })
         </div>
     }
 </div>

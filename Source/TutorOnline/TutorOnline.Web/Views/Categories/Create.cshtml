@@ -1,20 +1,18 @@
 ﻿@model TutorOnline.Web.Models.CategoriesViewModel
 
 @{
-    ViewBag.Title = "Chỉnh sửa môn học";
+    ViewBag.Title = "Thêm môn học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-
-    <h3>Chỉnh sửa môn học</h3>
-    <hr />
+    
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        
+        <h3>Thêm môn học</h3>
+        <hr />
         <div class="form-group">
             <p class="control-label col-md-2">Tên môn học: </p>
             <div class="col-md-10">
@@ -22,6 +20,7 @@
                 @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             <p class="control-label col-md-2">Mô tả: </p>
             <div class="col-md-10">
@@ -29,10 +28,11 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Cập Nhật" class="btn btn-success" />
-                @Html.ActionLink("Trở lại", "DetailsCategories", new { @id = Model.Id }, new { @class = "btn btn-default" })
+                <input type="submit" value="Thêm môn học" class="btn btn-success" />
+                @Html.ActionLink("Trở lại", "Index", "Categories", new { @class = "btn btn-default" })
             </div>
         </div>
     </div>

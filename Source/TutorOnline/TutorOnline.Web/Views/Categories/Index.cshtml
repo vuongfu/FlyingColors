@@ -13,7 +13,7 @@
     <hr />
     <div class="row">
         <div class="col-md-8">
-            @using (Html.BeginForm("ManageCategories", "Manager", FormMethod.Get))
+            @using (Html.BeginForm("Index", "Categories", FormMethod.Get))
             {
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Tất cả</span>
@@ -25,7 +25,7 @@
             }
         </div>
         <div class="col-md-4">
-            @Html.ActionLink("Thêm Môn Học", "CreateCategories", "Manager", new { @class = "btn btn-success" })
+            @Html.ActionLink("Thêm môn Học", "Create", "Subjects", new { @class = "btn btn-success" })
         </div>
     </div>
     </br>
@@ -52,15 +52,15 @@
                     <tbody>
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.CategoryName, "DetailsCategories", new { id = item.Id })</td>
+                            <td>@Html.ActionLink(item.CategoryName, "Details", new { id = item.Id })</td>
                             <td>@Html.DisplayFor(modelItem => item.Description)</td>
                         </tr>
                     </tbody>
                 }
             </table>
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("ManageCategories",
-                                 new { page, searchString = ViewBag.searchStr }))
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                 new { page, searchString = ViewBag.searchStr}))
         </div>
     </div>
 </div>
