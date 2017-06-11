@@ -3,12 +3,14 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Manager";
+    ViewBag.Title = "Quản lý môn học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
     ViewBag.Count = 0;
 }
 
 <div class="container-fluid">
+    <h3>Quản lý môn học</h3>
+    <hr />
     <div class="row">
         <div class="col-md-8">
             @using (Html.BeginForm("ManageCategories", "Manager", FormMethod.Get))
@@ -23,7 +25,7 @@
             }
         </div>
         <div class="col-md-4">
-            @Html.ActionLink("Thêm Môn Học", "CateCreate", "Manager", new { @class = "btn btn-success"})
+            @Html.ActionLink("Thêm Môn Học", "CreateCategories", "Manager", new { @class = "btn btn-success" })
         </div>
     </div>
     </br>
@@ -50,7 +52,7 @@
                     <tbody>
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.CategoryName, "CateDetails", new { id = item.Id })</td>
+                            <td>@Html.ActionLink(item.CategoryName, "DetailsCategories", new { id = item.Id })</td>
                             <td>@Html.DisplayFor(modelItem => item.Description)</td>
                         </tr>
                     </tbody>

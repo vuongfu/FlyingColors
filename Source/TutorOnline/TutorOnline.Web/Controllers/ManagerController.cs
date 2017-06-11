@@ -236,6 +236,120 @@ namespace TutorOnline.Web.Controllers
             return View(result.OrderBy(x => x.CategoryName).ToList().ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult CreateCategories ()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCategories (CategoriesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Category category = new Category();
+                //Mapping Entity to ViewModel
+                category.Id = model.Id;
+                category.CategoryName = model.CategoryName;
+                category.Description = model.Description;
+
+                MRes.AddCategory(category);
+                TempData["message"] = new StringCommon().addCategoriesSuccess.ToString();
+                return RedirectToAction("ManageCategories");
+            }
+
+            return View(model);
+        }
+
+        public ActionResult DetailsCategories (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = MRes.FindCategory(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            CategoriesViewModel model = new CategoriesViewModel();
+
+            //Mapping Entity to ViewModel
+            model.Id = category.Id;
+            model.CategoryName = category.CategoryName;
+            model.Description = category.Description;
+
+            return View(model);
+        }
+
+        public ActionResult EditCategories (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = MRes.FindCategory(id);
+            CategoriesViewModel model = new CategoriesViewModel();
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                model.Id = category.Id;
+                model.CategoryName = category.CategoryName;
+                model.Description = category.Description;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategories(CategoriesViewModel model)
+        {
+            Category category = new Category();
+            category.Id = model.Id;
+            category.CategoryName = model.CategoryName;
+            category.Description = model.Description;
+
+            if (ModelState.IsValid)
+            {
+                MRes.EditCategory(category);
+                return RedirectToAction("DetailsCategories", new { id = model.Id });
+            }
+            return View(model);
+        }
+        public ActionResult DeleteCategories (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = MRes.FindCategory(id);
+            CategoriesViewModel model = new CategoriesViewModel();
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                model.Id = category.Id;
+                model.CategoryName = category.CategoryName;
+                model.Description = category.Description;
+            }
+            return View(model);
+        }
+
+        [HttpPost, ActionName("DeleteCategories")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCategories(int id)
+        {
+            MRes.DeleteCategory(id);
+            TempData["message"] = new StringCommon().deleteCategoriesSuccess.ToString();
+            return RedirectToAction("ManageCategories");
+        }
+
         public ActionResult ManageSubjects(string searchString, string cateString, int? page)
         {
             int pageSize = 3;
