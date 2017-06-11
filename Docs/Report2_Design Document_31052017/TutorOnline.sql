@@ -32,7 +32,8 @@ CREATE TABLE [Users](
 	[BankName] [nvarchar](200) null,
 	[BMemName] [nvarchar](200) null,
 	[isDeleted] [bit] not null default 0,
-	[CV] [varchar](200) null
+	[CV] [varchar](200) null,
+	[isActived ] [bit] not null default 0
 );
 
 CREATE TABLE [Transactions] (
