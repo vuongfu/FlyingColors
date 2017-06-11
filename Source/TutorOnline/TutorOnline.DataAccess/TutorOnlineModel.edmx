@@ -171,6 +171,7 @@
           <Property Name="BMemName" Type="nvarchar" MaxLength="50" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="CV" Type="varchar" MaxLength="200" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK__AuditLog__Docume__5070F446">
           <End Role="Documents" Type="Self.Documents" Multiplicity="1" />
@@ -701,6 +702,7 @@
           <Property Name="BMemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CV" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK__AuditLog__Docume__5070F446">
           <End Role="Documents" Type="Self.Document" Multiplicity="1" />
@@ -1183,6 +1185,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TutorOnlineModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="CV" ColumnName="CV" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="BMemName" ColumnName="BMemName" />

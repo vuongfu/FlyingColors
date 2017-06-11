@@ -52,6 +52,7 @@ namespace TutorOnline.DataAccess
         public string BMemName { get; set; }
         public bool isDeleted { get; set; }
         public string CV { get; set; }
+        public bool isActived { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuditLog> AuditLogs { get; set; }

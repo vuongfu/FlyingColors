@@ -183,7 +183,7 @@
 @if (ViewBag.InfoClick = true)
 {
     <div>
-        @Html.ActionLink("Cancel", "Index")
+        @Html.ActionLink("Cancel", "Details", new { id = Model.Id, info = true })
     </div>
 }
 else

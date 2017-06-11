@@ -18,6 +18,12 @@ namespace TutorOnline.Business.Repository
             return users;
         }
 
+        public IEnumerable<User> GetTutor(bool isActive)
+        {
+            var user =  _dbContext.Users.Where(x => x.isActived == isActive);
+            return user;
+        }
+
         public IEnumerable<Role> GetAllRole()
         {
             return _dbContext.Roles;
@@ -61,5 +67,15 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
+
+        public bool checkPassword(int id, string pass)
+        {
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id && x.Password == pass);
+            if (user == null)
+                return false;
+            else
+                return true;
+        }
+
     }
 }
