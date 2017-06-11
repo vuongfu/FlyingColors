@@ -52,5 +52,14 @@ namespace TutorOnline.Business.Repository
         {
             _dbContext.Dispose();
         }
+
+        public bool isExistsUsername(string name)
+        {
+            var user = _dbContext.Users.FirstOrDefault(x => x.Username == name);
+            if (user == null)
+                return false;
+            else
+                return true;
+        }
     }
 }
