@@ -26,11 +26,11 @@ namespace TutorOnline.DataAccess
         public string SubjectName { get; set; }
         public int CategoryID { get; set; }
         public string Description { get; set; }
-        public int Duration { get; set; }
         public string Purpose { get; set; }
         public string Requirement { get; set; }
         public byte[] Photo { get; set; }
         public decimal Price { get; set; }
+        public double Duration { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

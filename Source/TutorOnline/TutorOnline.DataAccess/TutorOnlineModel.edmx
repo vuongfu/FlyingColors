@@ -170,6 +170,7 @@
           <Property Name="BankName" Type="nvarchar" MaxLength="200" />
           <Property Name="BMemName" Type="nvarchar" MaxLength="50" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="CV" Type="varchar" MaxLength="200" />
         </EntityType>
         <Association Name="FK__AuditLog__Docume__5070F446">
           <End Role="Documents" Type="Self.Documents" Multiplicity="1" />
@@ -631,7 +632,6 @@
           <Property Name="SubjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Duration" Type="Int32" Nullable="false" />
           <Property Name="Purpose" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Requirement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -640,6 +640,7 @@
           <NavigationProperty Name="Criterias" Relationship="Self.FK__Criterias__Subje__37A5467C" FromRole="Subjects" ToRole="Criterias" />
           <NavigationProperty Name="Lessons" Relationship="Self.FK__Lessons__Subject__300424B4" FromRole="Subjects" ToRole="Lessons" />
           <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Subje__44FF419A" FromRole="Subjects" ToRole="StudentSubjects" />
+          <Property Name="Duration" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="TeachSchedule">
           <Key>
@@ -699,6 +700,7 @@
           <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="BMemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CV" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__AuditLog__Docume__5070F446">
           <End Role="Documents" Type="Self.Document" Multiplicity="1" />
@@ -1145,11 +1147,11 @@
           <EntitySetMapping Name="Subjects">
             <EntityTypeMapping TypeName="TutorOnlineModel.Subject">
               <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
                 <ScalarProperty Name="Requirement" ColumnName="Requirement" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
@@ -1181,6 +1183,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TutorOnlineModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CV" ColumnName="CV" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="BMemName" ColumnName="BMemName" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
