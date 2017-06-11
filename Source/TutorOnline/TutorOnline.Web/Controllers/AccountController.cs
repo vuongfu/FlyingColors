@@ -33,25 +33,8 @@ namespace TutorOnline.Web.Controllers
                     Role["RoleId"] = user.Id.ToString();
                     Role["RoleName"] = user.Role.RoleName;
                     Role.Expires.Add(new TimeSpan(0, 15, 0));
-                    Response.Cookies.Add(Role);
-                    string actionUrl = "";
-                    switch (user.Role.RoleName)
-                    {
-                        case "System Admin":
-                            actionUrl = "Users";
-                            break;
-                        case "Accountant":
-                            actionUrl = "Accountant";
-                            break;
-                        case "Manager":
-                            actionUrl = "Manager";
-                            break;
-                        default:
-                            actionUrl = "Home";
-                            break;
-                    }
-
-                    return Redirect(returnUrl ?? Url.Action("Index", actionUrl));
+                    Response.Cookies.Add(Role);            
+                    return Redirect(returnUrl ?? Url.Action("Index", "Users" ,new { id = user.Id, info = true }));
                 }
                 else
                 {

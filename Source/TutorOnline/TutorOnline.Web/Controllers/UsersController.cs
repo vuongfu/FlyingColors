@@ -204,6 +204,42 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ChangePwd(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = URes.Find(id);
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
+            model.Id = user.Id;
+            model.Name = user.LastName + " " + user.FirstName;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePwd(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var checkPass = URes.checkPassword(model.Id, model.Password);
+                if (!checkPass)
+                {
+                    TempData["message"] = "Mật khẩu cũ không chính xác";
+                    return View(model);
+                }
+                var user = URes.Find(model.Id);
+                user.Password = model.NewPassword;
+                URes.Edit(user);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
