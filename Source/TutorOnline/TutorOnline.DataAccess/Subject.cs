@@ -26,7 +26,7 @@ namespace TutorOnline.DataAccess
         public string SubjectName { get; set; }
         public int CategoryID { get; set; }
         public string Description { get; set; }
-        public int Duration { get; set; }
+        public float Duration { get; set; }
         public string Purpose { get; set; }
         public string Requirement { get; set; }
         public byte[] Photo { get; set; }

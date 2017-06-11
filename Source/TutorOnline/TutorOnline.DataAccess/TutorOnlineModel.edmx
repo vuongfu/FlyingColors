@@ -121,7 +121,7 @@
           <Property Name="Requirement" Type="text" />
           <Property Name="Photo" Type="image" />
           <Property Name="Price" Type="money" Nullable="false" />
-          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Duration" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="TeachSchedules">
           <Key>
