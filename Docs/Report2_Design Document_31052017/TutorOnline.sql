@@ -34,6 +34,7 @@ CREATE TABLE [Users](
 	[isDeleted] [bit] not null default 0,
 	[CV] [varchar](200) null,
 	[isActived ] [bit] not null default 0
+	
 );
 
 CREATE TABLE [Transactions] (
