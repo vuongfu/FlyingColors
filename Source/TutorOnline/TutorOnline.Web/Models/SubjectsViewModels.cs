@@ -6,7 +6,7 @@ using System.Web;
 
 namespace TutorOnline.Web.Models
 {
-    public class SubjectsViewModel
+    public class SubjectsViewModels
     {
         public int Id { get; set; }
 

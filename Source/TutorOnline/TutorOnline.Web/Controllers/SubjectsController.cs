@@ -28,14 +28,14 @@ namespace TutorOnline.Web.Controllers
             ViewBag.cateString = new SelectList(CRes.GetAllCategories(), "CategoryName", "CategoryName");
 
             var subjects = SRes.GetAllSubject();
-            List<SubjectsViewModel> result = new List<SubjectsViewModel>();
+            List<SubjectsViewModels> result = new List<SubjectsViewModels>();
 
             //Mapping Entity to ViewModel
             if (subjects.Count() > 0)
             {
                 foreach (var item in subjects)
                 {
-                    SubjectsViewModel model = new SubjectsViewModel();
+                    SubjectsViewModels model = new SubjectsViewModels();
                     model.Id = item.Id;
                     model.SubjectName = item.SubjectName;
                     model.CategoryID = item.CategoryID;
@@ -84,7 +84,7 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SubjectsViewModel model)
+        public ActionResult Create(SubjectsViewModels model)
         {
             if (ModelState.IsValid)
             {
@@ -124,7 +124,7 @@ namespace TutorOnline.Web.Controllers
                 return HttpNotFound();
             }
 
-            SubjectsViewModel model = new SubjectsViewModel();
+            SubjectsViewModels model = new SubjectsViewModels();
 
             //Mapping Entity to ViewModel
             model.Id = subject.Id;
@@ -148,7 +148,7 @@ namespace TutorOnline.Web.Controllers
             }
 
             Subject subject = SRes.FindSubject(id);
-            SubjectsViewModel model = new SubjectsViewModel();
+            SubjectsViewModels model = new SubjectsViewModels();
             if (subject == null)
             {
                 return HttpNotFound();
@@ -173,7 +173,7 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SubjectsViewModel model)
+        public ActionResult Edit(SubjectsViewModels model)
         {
             Subject subject = new Subject();
 
@@ -203,7 +203,7 @@ namespace TutorOnline.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subject subject = SRes.FindSubject(id);
-            SubjectsViewModel model = new SubjectsViewModel();
+            SubjectsViewModels model = new SubjectsViewModels();
             if (subject == null)
             {
                 return HttpNotFound();

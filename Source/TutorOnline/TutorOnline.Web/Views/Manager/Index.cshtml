@@ -1,23 +1,23 @@
-﻿@model PagedList.IPagedList<TutorOnline.Web.Models.SubjectsViewModels>
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.ApprovePretutorViewModel>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Quản lý khóa học";
+    ViewBag.Title = "Quản lý Pretutor";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
     ViewBag.Count = 0;
 }
 
 <div class="container-fluid">
-    <h3>Quản lý khóa học</h3>
+    <h3>Quản lý danh sách đăng ký tutor</h3>
     <hr />
     <div class="row">
-        @using (Html.BeginForm("Index", "Subjects", FormMethod.Get))
+        @using (Html.BeginForm("Index", "Manager", FormMethod.Get))
         {
             <div class="col-md-3">
-                @Html.DropDownList("cateString", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("genderString", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
             </div>
-            <div class="col-md-7">
+            <div class="col-md-9">
                 <div class="input-group">
                     @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm..." })
                     <span class="input-group-btn">
@@ -26,9 +26,6 @@
                 </div>
             </div>
         }
-        <div class="col-md-2">
-            @Html.ActionLink("Thêm Khóa Học", "Create", "Subjects", new { @class = "btn btn-success" })
-        </div>
     </div>
     </br>
     @if (@ViewBag.totalRecord > 0)
@@ -45,12 +42,12 @@
                 <thead>
                     <tr>
                         <th>Stt</th>
-                        <th>Tên khóa học</th>
-                        <th>Loại môn học</th>
-                        <th>Mục tiêu</th>
-                        <th>Yêu cầu</th>
-                        <th>Giá khóa học</th>
-                        <th>Hình ảnh</th>
+                        <th>Họ và tên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>Skype</th>
+                        <th>CV</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 @foreach (var item in Model)
@@ -58,19 +55,22 @@
                     <tbody>
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.Id })</td>
-                            <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Requirement)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Photo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.BirthDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GenderStr)</td>
+                            <td>@Html.DisplayFor(modelItem => item.SkypeID)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Cv)</td>
+                            <td>
+                                @Html.ActionLink("Chấp Nhận", "ApprovedPretutor", "Manager", new { @class = "btn btn-success" })
+                                @Html.ActionLink("Từ chối", "RejectPretutor", "Manager", new { @class = "btn btn-danger" })
+                            </td>
                         </tr>
                     </tbody>
                 }
             </table>
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             @Html.PagedListPager(Model, page => Url.Action("Index",
-                                 new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr }))
+                                 new { page, searchString = ViewBag.searchStr, genderString = ViewBag.genderStr }))
         </div>
     </div>
 </div>

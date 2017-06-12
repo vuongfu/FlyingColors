@@ -26,14 +26,14 @@ namespace TutorOnline.Web.Controllers
             ViewBag.searchStr = searchString;
 
             var Categories = CRes.GetAllCategories();
-            List<CategoriesViewModel> result = new List<CategoriesViewModel>();
+            List<CategoriesViewModels> result = new List<CategoriesViewModels>();
 
             //Mapping Entity to ViewModel
             if (Categories.Count() > 0)
             {
                 foreach (var item in Categories)
                 {
-                    CategoriesViewModel model = new CategoriesViewModel();
+                    CategoriesViewModels model = new CategoriesViewModels();
                     model.Id = item.Id;
                     model.CategoryName = item.CategoryName;
                     model.Description = item.Description;
@@ -65,7 +65,7 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CategoriesViewModel model)
+        public ActionResult Create(CategoriesViewModels model)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace TutorOnline.Web.Controllers
                 return HttpNotFound();
             }
 
-            CategoriesViewModel model = new CategoriesViewModel();
+            CategoriesViewModels model = new CategoriesViewModels();
 
             //Mapping Entity to ViewModel
             model.Id = category.Id;
@@ -117,7 +117,7 @@ namespace TutorOnline.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = CRes.FindCategory(id);
-            CategoriesViewModel model = new CategoriesViewModel();
+            CategoriesViewModels model = new CategoriesViewModels();
             if (category == null)
             {
                 return HttpNotFound();
@@ -133,7 +133,7 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CategoriesViewModel model)
+        public ActionResult Edit(CategoriesViewModels model)
         {
             Category category = new Category();
             category.Id = model.Id;
@@ -154,7 +154,7 @@ namespace TutorOnline.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = CRes.FindCategory(id);
-            CategoriesViewModel model = new CategoriesViewModel();
+            CategoriesViewModels model = new CategoriesViewModels();
             if (category == null)
             {
                 return HttpNotFound();
