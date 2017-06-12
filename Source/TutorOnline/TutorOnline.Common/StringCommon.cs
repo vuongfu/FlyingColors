@@ -13,5 +13,7 @@ namespace TutorOnline.Common
         public string deleteCategoriesSuccess = "Đã xóa môn học thành công";
         public string addSubjectsSuccess = "Đã thêm khóa học mới thành công";
         public string deleteSubjectsSuccess = "Đã xóa khóa học thành công";
+        public string isExitCategoryName = "Tên môn học đã tồn tại";
+        public string isExitSubjectName = "Tên khóa học đã tồn tại";
     }
 }

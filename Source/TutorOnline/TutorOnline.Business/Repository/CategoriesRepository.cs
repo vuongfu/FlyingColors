@@ -41,6 +41,15 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
+        public bool isExistsCategoryName(string name)
+        {
+            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryName == name);
+            if (category == null)
+                return false;
+            else
+                return true;
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();

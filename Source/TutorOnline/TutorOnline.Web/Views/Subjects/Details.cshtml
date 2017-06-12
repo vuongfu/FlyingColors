@@ -1,0 +1,51 @@
+﻿@model TutorOnline.Web.Models.SubjectsViewModel
+
+@{
+    ViewBag.Title = "Chi tiết khóa học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <h3>Chi tiết khóa học</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên khóa học</th>
+                        <th>Loại môn học</th>
+                        <th>Mục tiêu</th>
+                        <th>Yêu cầu</th>
+                        <th>Thời gian học</th>
+                        <th>Mô tả</th>
+                        <th>Giá khóa học</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Photo)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.SubjectName)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Purpose)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Requirement)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Duration)<p> tháng</p></td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => modelItem.Price)</td>
+                        <td>
+                            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.Id }) |
+                            @Html.ActionLink("Xóa", "Delete", new { @id = Model.Id })
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("Trở lại", "Index", new { @id = Model.Id }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

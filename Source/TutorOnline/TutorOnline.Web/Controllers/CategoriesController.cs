@@ -12,6 +12,7 @@ using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         // GET: Categories
@@ -68,6 +69,11 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (CRes.isExistsCategoryName(model.CategoryName))
+                {
+                    TempData["message"] = new StringCommon().isExitCategoryName.ToString();
+                    return View(model);
+                }
                 Category category = new Category();
                 //Mapping Entity to ViewModel
                 category.Id = model.Id;

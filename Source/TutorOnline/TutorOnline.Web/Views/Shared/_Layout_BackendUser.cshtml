@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                Tutor Online
+                <a class="navbar-brand" href="#">TUTOR ONLINE</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -67,8 +67,8 @@
                         <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Rid.ToString() })">Đổi mật khẩu</a></li>
                         <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Categories")">Quản lý môn học</a></li>
-                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("ManageSubjects", "Manager")">Quản lý khóa học</a></li>
-                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("ListPreTutor", "Manager")">Danh sách gia sư ứng tuyển</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Subjects")">Quản lý khóa học</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Pretutor")">Danh sách gia sư ứng tuyển</a></li>
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý tài chính</a></li>
                     </ul>
                 </div>
