@@ -5,8 +5,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DocumentID" Type="Int32" />
-    <Property Name="ModifierID" Type="Int32" />
+    <Property Name="DocumentID" Type="Int32" Nullable="false" />
+    <Property Name="ModifierID" Type="Int32" Nullable="false" />
     <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Document" Relationship="Self.FK__AuditLog__Docume__5070F446" FromRole="AuditLog" ToRole="Documents" />
@@ -28,7 +28,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="LanguageID" Type="Int32" Nullable="false" />
     <Property Name="CriteriaName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="SubjectID" Type="Int32" />
+    <Property Name="SubjectID" Type="Int32" Nullable="false" />
     <Property Name="Type" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Subject" Relationship="Self.FK__Criterias__Subje__37A5467C" FromRole="Criterias" ToRole="Subjects" />
     <NavigationProperty Name="FeedbackDetails" Relationship="Self.FK__FeedbackD__Crite__412EB0B6" FromRole="Criterias" ToRole="FeedbackDetails" />
@@ -39,7 +39,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DocUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="DocType" Type="Int32" />
+    <Property Name="DocType" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="AuditLogs" Relationship="Self.FK__AuditLog__Docume__5070F446" FromRole="Documents" ToRole="AuditLog" />
     <NavigationProperty Name="DocumentType" Relationship="Self.FK__Documents__DocTy__4D94879B" FromRole="Documents" ToRole="DocumentType" />
@@ -68,9 +68,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="AssessorID" Type="Int32" />
-    <Property Name="JudgedID" Type="Int32" />
-    <Property Name="SlotID" Type="Int32" />
+    <Property Name="AssessorID" Type="Int32" Nullable="false" />
+    <Property Name="JudgedID" Type="Int32" Nullable="false" />
+    <Property Name="SlotID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="FeedbackDetails" Relationship="Self.FK__FeedbackD__Feedb__403A8C7D" FromRole="Feedbacks" ToRole="FeedbackDetails" />
     <NavigationProperty Name="User" Relationship="Self.FK__Feedbacks__Asses__3A81B327" FromRole="Feedbacks" ToRole="Users" />
     <NavigationProperty Name="User1" Relationship="Self.FK__Feedbacks__Judge__3B75D760" FromRole="Feedbacks" ToRole="Users" />
@@ -82,7 +82,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="LessonName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="SubjectID" Type="Int32" />
+    <Property Name="SubjectID" Type="Int32" Nullable="false" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Subject" Relationship="Self.FK__Lessons__Subject__300424B4" FromRole="Lessons" ToRole="Subjects" />
     <NavigationProperty Name="Slots" Relationship="Self.FK__Slots__LessonID__34C8D9D1" FromRole="Lessons" ToRole="Slots" />
@@ -101,9 +101,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StudentID" Type="Int32" />
-    <Property Name="TutorID" Type="Int32" />
-    <Property Name="LessonID" Type="Int32" />
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="TutorID" Type="Int32" Nullable="false" />
+    <Property Name="LessonID" Type="Int32" Nullable="false" />
     <Property Name="SlotOrder" Type="Int32" Nullable="false" />
     <Property Name="SlotDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Status" Type="Int32" Nullable="false" />
@@ -133,9 +133,8 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SubjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Duration" Type="Int32" Nullable="false" />
     <Property Name="Purpose" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Requirement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -144,13 +143,14 @@
     <NavigationProperty Name="Criterias" Relationship="Self.FK__Criterias__Subje__37A5467C" FromRole="Subjects" ToRole="Criterias" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK__Lessons__Subject__300424B4" FromRole="Subjects" ToRole="Lessons" />
     <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Subje__44FF419A" FromRole="Subjects" ToRole="StudentSubjects" />
+    <Property Name="Duration" Type="Double" Nullable="false" />
   </EntityType>
   <EntityType Name="TeachSchedule">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TutorID" Type="Int32" />
+    <Property Name="TutorID" Type="Int32" Nullable="false" />
     <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="OrderSlot" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="User" Relationship="Self.FK__TeachSche__Tutor__48CFD27E" FromRole="TeachSchedules" ToRole="Users" />
@@ -160,7 +160,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="TranDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -171,7 +171,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoleID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
     <Property Name="ParentID" Type="Int32" />
     <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="FirstName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
@@ -200,9 +200,14 @@
     <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__286302EC" FromRole="Users" ToRole="Transactions" />
     <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BMemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CV" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
   </EntityType>
   <Association Name="FK__AuditLog__Docume__5070F446">
-    <End Role="Documents" Type="Self.Document" Multiplicity="0..1" />
+    <End Role="Documents" Type="Self.Document" Multiplicity="1" />
     <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Documents">
@@ -214,7 +219,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__AuditLog__Modifi__5165187F">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -226,7 +231,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Subjects__Catego__2D27B809">
-    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
     <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Categories">
@@ -238,7 +243,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Criterias__Subje__37A5467C">
-    <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Subjects" Type="Self.Subject" Multiplicity="1" />
     <End Role="Criterias" Type="Self.Criteria" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Subjects">
@@ -262,7 +267,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Documents__DocTy__4D94879B">
-    <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="0..1" />
+    <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
     <End Role="Documents" Type="Self.Document" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DocumentType">
@@ -286,7 +291,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Feedbacks__Asses__3A81B327">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Feedbacks" Type="Self.Feedback" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -298,7 +303,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Feedbacks__Judge__3B75D760">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Feedbacks" Type="Self.Feedback" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -310,7 +315,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Feedbacks__SlotI__3C69FB99">
-    <End Role="Slots" Type="Self.Slot" Multiplicity="0..1" />
+    <End Role="Slots" Type="Self.Slot" Multiplicity="1" />
     <End Role="Feedbacks" Type="Self.Feedback" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Slots">
@@ -322,7 +327,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Lessons__Subject__300424B4">
-    <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Subjects" Type="Self.Subject" Multiplicity="1" />
     <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Subjects">
@@ -334,7 +339,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Slots__LessonID__34C8D9D1">
-    <End Role="Lessons" Type="Self.Lesson" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lesson" Multiplicity="1" />
     <End Role="Slots" Type="Self.Slot" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Lessons">
@@ -346,7 +351,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Users__RoleID__25869641">
-    <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
     <End Role="Users" Type="Self.User" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">
@@ -358,7 +363,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Slots__StudentID__32E0915F">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Slots" Type="Self.Slot" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -370,7 +375,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Slots__TutorID__33D4B598">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Slots" Type="Self.Slot" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -406,7 +411,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__TeachSche__Tutor__48CFD27E">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="TeachSchedules" Type="Self.TeachSchedule" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -418,7 +423,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Transacti__UserI__286302EC">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">

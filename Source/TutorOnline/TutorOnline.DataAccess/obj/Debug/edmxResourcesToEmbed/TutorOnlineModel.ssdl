@@ -5,8 +5,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DocumentID" Type="int" />
-    <Property Name="ModifierID" Type="int" />
+    <Property Name="DocumentID" Type="int" Nullable="false" />
+    <Property Name="ModifierID" Type="int" Nullable="false" />
     <Property Name="ModifyDate" Type="datetime" Nullable="false" />
     <Property Name="Content" Type="text" Nullable="false" />
   </EntityType>
@@ -25,7 +25,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="LanguageID" Type="int" Nullable="false" />
     <Property Name="CriteriaName" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="SubjectID" Type="int" />
+    <Property Name="SubjectID" Type="int" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Documents">
@@ -34,7 +34,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DocUrl" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="DocType" Type="int" />
+    <Property Name="DocType" Type="int" Nullable="false" />
     <Property Name="Description" Type="text" />
   </EntityType>
   <EntityType Name="DocumentType">
@@ -58,9 +58,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AssessorID" Type="int" />
-    <Property Name="JudgedID" Type="int" />
-    <Property Name="SlotID" Type="int" />
+    <Property Name="AssessorID" Type="int" Nullable="false" />
+    <Property Name="JudgedID" Type="int" Nullable="false" />
+    <Property Name="SlotID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Lessons">
     <Key>
@@ -68,7 +68,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="LessonName" Type="varchar" MaxLength="500" Nullable="false" />
-    <Property Name="SubjectID" Type="int" />
+    <Property Name="SubjectID" Type="int" Nullable="false" />
     <Property Name="Content" Type="text" />
   </EntityType>
   <EntityType Name="Roles">
@@ -84,9 +84,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="StudentID" Type="int" />
-    <Property Name="TutorID" Type="int" />
-    <Property Name="LessonID" Type="int" />
+    <Property Name="StudentID" Type="int" Nullable="false" />
+    <Property Name="TutorID" Type="int" Nullable="false" />
+    <Property Name="LessonID" Type="int" Nullable="false" />
     <Property Name="SlotOrder" Type="int" Nullable="false" />
     <Property Name="SlotDate" Type="datetime" Nullable="false" />
     <Property Name="Status" Type="int" Nullable="false" />
@@ -110,20 +110,20 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SubjectName" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="CategoryID" Type="int" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
     <Property Name="Description" Type="text" />
     <Property Name="Purpose" Type="text" />
     <Property Name="Requirement" Type="text" />
     <Property Name="Photo" Type="image" />
     <Property Name="Price" Type="money" Nullable="false" />
-    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="Duration" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="TeachSchedules">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TutorID" Type="int" />
+    <Property Name="TutorID" Type="int" Nullable="false" />
     <Property Name="OrderDate" Type="datetime" Nullable="false" />
     <Property Name="OrderSlot" Type="varchar" MaxLength="150" />
   </EntityType>
@@ -132,7 +132,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="int" />
+    <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Content" Type="text" Nullable="false" />
     <Property Name="Amount" Type="money" Nullable="false" />
     <Property Name="TranDate" Type="datetime" Nullable="false" />
@@ -142,7 +142,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleID" Type="int" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
     <Property Name="ParentID" Type="int" />
     <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="10" Nullable="false" />
@@ -162,9 +162,14 @@
     <Property Name="Description" Type="text" />
     <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="200" />
+    <Property Name="BMemName" Type="nvarchar" MaxLength="50" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="CV" Type="varchar" MaxLength="200" />
+    <Property Name="isActived" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="FK__AuditLog__Docume__5070F446">
-    <End Role="Documents" Type="Self.Documents" Multiplicity="0..1" />
+    <End Role="Documents" Type="Self.Documents" Multiplicity="1" />
     <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Documents">
@@ -176,7 +181,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__AuditLog__Modifi__5165187F">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -188,7 +193,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Criterias__Subje__37A5467C">
-    <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+    <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
     <End Role="Criterias" Type="Self.Criterias" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Subjects">
@@ -200,7 +205,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Documents__DocTy__4D94879B">
-    <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="0..1" />
+    <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
     <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DocumentType">
@@ -236,7 +241,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Feedbacks__Asses__3A81B327">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -248,7 +253,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Feedbacks__Judge__3B75D760">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -260,7 +265,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Feedbacks__SlotI__3C69FB99">
-    <End Role="Slots" Type="Self.Slots" Multiplicity="0..1" />
+    <End Role="Slots" Type="Self.Slots" Multiplicity="1" />
     <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Slots">
@@ -272,7 +277,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Lessons__Subject__300424B4">
-    <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+    <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
     <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Subjects">
@@ -284,7 +289,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Slots__LessonID__34C8D9D1">
-    <End Role="Lessons" Type="Self.Lessons" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
     <End Role="Slots" Type="Self.Slots" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Lessons">
@@ -296,7 +301,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Slots__StudentID__32E0915F">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Slots" Type="Self.Slots" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -308,7 +313,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Slots__TutorID__33D4B598">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Slots" Type="Self.Slots" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -344,7 +349,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Subjects__Catego__2D27B809">
-    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
     <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Categories">
@@ -356,7 +361,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__TeachSche__Tutor__48CFD27E">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="TeachSchedules" Type="Self.TeachSchedules" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -368,7 +373,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Transacti__UserI__286302EC">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -380,7 +385,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Users__RoleID__25869641">
-    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
     <End Role="Users" Type="Self.Users" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">

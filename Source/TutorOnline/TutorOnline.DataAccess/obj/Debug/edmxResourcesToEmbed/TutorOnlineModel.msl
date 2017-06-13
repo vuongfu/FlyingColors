@@ -119,11 +119,11 @@
     <EntitySetMapping Name="Subjects">
       <EntityTypeMapping TypeName="TutorOnlineModel.Subject">
         <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Duration" ColumnName="Duration" />
           <ScalarProperty Name="Purpose" ColumnName="Purpose" />
           <ScalarProperty Name="Requirement" ColumnName="Requirement" />
           <ScalarProperty Name="Photo" ColumnName="Photo" />
@@ -155,6 +155,11 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="TutorOnlineModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="isActived" ColumnName="isActived" />
+          <ScalarProperty Name="CV" ColumnName="CV" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="BMemName" ColumnName="BMemName" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Id" ColumnName="Id" />
