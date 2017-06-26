@@ -10,7 +10,7 @@ CREATE TABLE [Roles](
 CREATE TABLE [Users](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[RoleID] [int] FOREIGN KEY REFERENCES [Roles](Id) NOT NULL,
-	[ParentID] [int] NULL,
+	[ParentID] [int] FOREIGN KEY REFERENCES [Users](Id) NULL,
 	[LastName] [nvarchar](20) NOT NULL,
 	[FirstName] [nvarchar](10) NOT NULL,
 	[BirthDate] [datetime] NULL,
@@ -37,6 +37,17 @@ CREATE TABLE [Users](
 	
 );
 
+CREATE TABLE [TutorStatus](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
+	[TutorID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
+	[StatusID] [int] FOREIGN KEY REFERENCES [Status](Id) NOT NULL
+)
+
+CREATE TABLE [Status](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Status] [nvarchar] (20) NOT NULL
+)	
+
 CREATE TABLE [Transactions] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[UserID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
@@ -56,7 +67,6 @@ CREATE TABLE [Subjects](
 	[SubjectName] [varchar](255) NOT NULL,
 	[CategoryID] [int] FOREIGN KEY REFERENCES [Categories](Id) NOT NULL,
 	[Description] [text] NULL,
-	[Duration] [float] NOT NULL,
 	[Purpose] [text] NULL,
 	[Requirement] [text] NULL,
 	[Photo] [image] NULL,
@@ -110,9 +120,13 @@ CREATE TABLE [StudentSubjects] (
 	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id) NOT NULL,
 	[StudentID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	CONSTRAINT UC_StudentSub UNIQUE (SubjectID, StudentID),
-	[StartDate] [datetime] NOT NULL,
-	[EndDate] [datetime] NOT NULL,
 	[Status] [int] NOT NULL
+);
+CREATE TABLE [TutorSubjects] (
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
+	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id) NOT NULL,
+	[TutorID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
+	CONSTRAINT UC_StudentSub UNIQUE (SubjectID, StudentID)
 );
 
 CREATE TABLE [TeachSchedules] (
