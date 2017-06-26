@@ -93,7 +93,8 @@ CREATE TABLE [Slots] (
 	[LessonID] [int] FOREIGN KEY REFERENCES [Lessons](Id) NOT NULL,
 	[SlotOrder] [int] NOT NULL,
 	[SlotDate] [datetime] NOT NULL,
-	[Status] [int] NOT NULL,
+	[Status] [int] FOREIGN KEY REFERENCES [Status](Id) NOT NULL,
+	[Type] [int] NOT NULL,
 	[CanReason] [text] NULL,
 	[Price] [money] NOT NULL
 );
@@ -126,7 +127,7 @@ CREATE TABLE [StudentSubjects] (
 	[SubjectID] [int] FOREIGN KEY REFERENCES [Subjects](Id) NOT NULL,
 	[StudentID] [int] FOREIGN KEY REFERENCES [Users](Id) NOT NULL,
 	CONSTRAINT UC_StudentSub UNIQUE (SubjectID, StudentID),
-	[Status] [int] NOT NULL
+	[Status] [int] FOREIGN KEY REFERENCES [Status](Id) NOT NULL
 );
 CREATE TABLE [TutorSubjects] (
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
