@@ -56,6 +56,7 @@ CREATE TABLE [Transactions] (
 	[TranDate] [datetime] NOT NULL
 );
 
+
 CREATE TABLE [Categories](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY,
 	[CategoryName] [nvarchar](50) NOT NULL,
