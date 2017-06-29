@@ -1,16 +1,22 @@
-﻿@model TutorOnline.Web.Models.DetailBackEndUserViewModels
+﻿@model TutorOnline.Web.Models.DetailUserViewModels
 
 @{
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
 
 <div>
-    <h4>Thông tin chi tiết</h4>
+    <h4>Thông tin người dùng</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
 
-            @Html.HiddenFor(model => model.RoleID)
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.RoleName)
@@ -58,7 +64,6 @@
                 @("Nữ")
             }
         </dd>
-       
 
         <dt>
             @Html.DisplayNameFor(model => model.Address)
@@ -106,15 +111,82 @@
 
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>
+        </dd>       
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
+        @if (ViewBag.Rid >= 5)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.SkypeID)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SkypeID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostalCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Balance)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Balance)
+            </dd>
+
+            if (ViewBag.Rid >= 7)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.BankID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BankID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Salary)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BankName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BankName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BMemName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BMemName)
+                </dd>
+            }
+
+            if (ViewBag.Rid == 6)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ParentName)
+                </dd>
+            }
+
+        }
+
+        
 
     </dl>
 </div>
@@ -127,7 +199,10 @@
 else
 {
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @if (ViewBag.Rid < 5)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @("|")
+        }      
         @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>

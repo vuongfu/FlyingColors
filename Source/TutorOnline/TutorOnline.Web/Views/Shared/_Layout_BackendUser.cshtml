@@ -47,6 +47,7 @@
             @{ 
                 string Rid = "";
                 string Rname = "";
+                string Uid = "";
                 if (Request.Cookies["Role"] != null)
                 {
                     if (Request.Cookies["Role"]["RoleId"] != null)
@@ -59,12 +60,19 @@
                     }
 
                 }
+                if (Request.Cookies["UserInfo"] != null)
+                {
+                    if (Request.Cookies["UserInfo"]["UserId"] != null)
+                    {
+                        Uid = Request.Cookies["UserInfo"]["UserId"];
+                    }
+                }
             }
             <div class="row">
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Rid.ToString(), info = true })">Thông tin cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Rid.ToString() })">Đổi mật khẩu</a></li>
+                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rid })">Đổi mật khẩu</a></li>
                         <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Categories")">Quản lý môn học</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Subjects")">Quản lý khóa học</a></li>

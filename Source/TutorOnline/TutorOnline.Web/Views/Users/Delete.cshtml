@@ -1,4 +1,4 @@
-﻿@model TutorOnline.DataAccess.User
+﻿@model TutorOnline.DataAccess.BackendUser
 
 @{
     ViewBag.Title = "Delete";
@@ -15,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Username)
+            @Html.DisplayFor(model => model.UserName)
         </dd>
 
         <dt>
@@ -69,10 +69,6 @@
             Skype
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SkypeID)
-        </dd>
-
         <dt>
             Địa chỉ
         </dt>
@@ -90,14 +86,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
-
-        <dt>
             Quốc gia
         </dt>
 
@@ -111,46 +99,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            Tên ngân hàng
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankName)
-        </dd>
-
-        <dt>
-            Tên người dùng
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BMemName)
-        </dd>
-
-        <dt>
-            Số tài khoản
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankID)
-        </dd>
-
-        <dt>
-            Lương
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
-
-        <dt>
-            Số dư
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Wallet)
         </dd>
 
         <dt>

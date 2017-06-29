@@ -154,10 +154,11 @@ namespace TutorOnline.Web.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.Rid = Rid;
 
-                DetailParentUserViewModels viewModel = new DetailParentUserViewModels(user);
+                DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
-                return View("DetailsParent",viewModel);
+                return View(viewModel);
             }else if(Rid == 6)
             {
                 Student user = URes.FindStudentUser(id);
@@ -165,10 +166,11 @@ namespace TutorOnline.Web.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.Rid = Rid;
 
-                DetailStudentUserViewModels viewModel = new DetailStudentUserViewModels(user);
+                DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
-                return View("DetailsStudent", viewModel);              
+                return View(viewModel);              
             }else if(Rid == 7)
             {
                 Tutor user = URes.FindTutorUser(id);
@@ -176,10 +178,11 @@ namespace TutorOnline.Web.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.Rid = Rid;
 
-                DetailTutorUserViewModels viewModel = new DetailTutorUserViewModels(user);
+                DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
-                return View("DetailsTutor", viewModel);
+                return View(viewModel);
             }
             else
             {
@@ -188,222 +191,265 @@ namespace TutorOnline.Web.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.Rid = Rid;
 
-                DetailBackEndUserViewModels viewModel = new DetailBackEndUserViewModels(user);
+                DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
-                return View("DetailsBackEnd", viewModel);
+                return View(viewModel);
             }
-
-            //User user = URes.FindBackEndUser(id);
-            //if (user == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            //DetailUserViewModels viewModel = new DetailUserViewModels();
-            //viewModel.Address = user.Address;
-            //viewModel.BankID = user.BankID;
-            //viewModel.BankName = user.BankName;
-            //viewModel.BirthDate = user.BirthDate;
-            //viewModel.BMemName = user.BMemName;
-            //viewModel.City = user.City;
-            //viewModel.Country = user.Country;
-            //viewModel.Description = user.Description;
-            //viewModel.Email = user.Email;
-            //viewModel.FirstName = user.FirstName;
-            //viewModel.Gender = user.Gender;
-            //viewModel.LastName = user.LastName;
-            //viewModel.PhoneNumber = user.PhoneNumber;
-            //viewModel.Photo = user.Photo;
-            //viewModel.PostalCode = user.PostalCode;
-            //viewModel.RoleName = user.Role.RoleName;
-            //viewModel.Salary = user.Salary;
-            //viewModel.SkypeID = user.SkypeID;
-            //viewModel.Username = user.Username;
-            //viewModel.Wallet = user.Wallet;
-            //viewModel.Id = user.Id;
-
-            //return View(viewModel);
+          
         }
 
-        //// GET: Users/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName");
-        //    ViewBag.Gender = new SelectList(new List<SelectListItem>
-        //    {
-        //        new SelectListItem {  Text = "Male", Value = "1"},
-        //        new SelectListItem {  Text = "Female", Value = "2"},
-        //    }, "Value", "Text");
-        //    return View();
-        //}
+        // GET: Users/Create
+        public ActionResult Create()
+        {
+            ViewBag.RoleId = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName");
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem {  Text = "Male", Value = "1"},
+                new SelectListItem {  Text = "Female", Value = "2"},
+            }, "Value", "Text");
+            return View();
+        }
 
-        //// POST: Users/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(CreateUserViewModels userViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (URes.isExistsUsername(userViewModel.Username))
-        //        {
-        //            TempData["message"] = "Username is exists";
-        //            return View(userViewModel);
-        //        }
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateUserViewModels userViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (URes.isExistsUsername(userViewModel.Username))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Male", Value = "1"},
+                        new SelectListItem {  Text = "Female", Value = "2"},
+                    }, "Value", "Text");
+                    TempData["message"] = "Username is exists";
+                    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+                    return View(userViewModel);
+                }
 
-        //        User user = MapCreateViewToUser(userViewModel);
-        //        URes.Add(user);
-        //        return RedirectToAction("Index");
-        //    }
+                BackendUser user = new BackendUser();
+                user.Address = userViewModel.Address;
+                user.BirthDate = userViewModel.BirthDate;
+                user.City = userViewModel.City;
+                user.Country = userViewModel.Country;
+                user.Description = userViewModel.Description;
+                user.Email = userViewModel.Email;
+                user.FirstName = userViewModel.FirstName;
+                user.Gender = userViewModel.Gender;
+                user.LastName = userViewModel.LastName;
+                user.Password = userViewModel.Password;
+                user.PhoneNumber = userViewModel.PhoneNumber;
+                user.Photo = userViewModel.Photo;
+                user.RoleId = userViewModel.RoleId;
+                user.UserName = userViewModel.Username;
 
-        //    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "Id", "RoleName", userViewModel.RoleID);
-        //    return View(userViewModel);
-        //}
+                URes.AddBackEndUser(user);
 
-        //// GET: Users/Edit/5
-        //public ActionResult Edit(int? id, bool? info)
-        //{
-        //    if(info == true)
-        //    {
-        //        ViewBag.InfoClick = true;
-        //    }
+                return RedirectToAction("Index");
+            }
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Male", Value = "1"},
+                        new SelectListItem {  Text = "Female", Value = "2"},
+                    }, "Value", "Text");
+            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+            return View(userViewModel);
+        }
 
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = URes.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4).Union(URes.GetAllRole().Where(x => x.RoleName == "Tutor")), "Id", "RoleName", user.RoleID);
-        //    DetailUserViewModels model = new DetailUserViewModels();
-        //    model.Id = user.Id;
-        //    model.Address = user.Address;
-        //    model.BankID = user.BankID;
-        //    model.BankName = user.BankName;
-        //    model.BirthDate = user.BirthDate;
-        //    model.BMemName = user.BMemName;
-        //    model.City = user.City;
-        //    model.Country = user.Country;
-        //    model.Description = user.Description;
-        //    model.Email = user.Email;
-        //    model.FirstName = user.FirstName;
-        //    model.Gender = user.Gender;
-        //    model.LastName = user.LastName;
-        //    model.PhoneNumber = user.PhoneNumber;
-        //    model.Photo = user.Photo;
-        //    model.PostalCode = user.PostalCode;
-        //    model.RoleID = user.RoleID;
-        //    model.Salary = user.Salary;
-        //    model.SkypeID = user.SkypeID;
-        //    model.Username = user.Username;
-        //    model.Wallet = user.Wallet;
+        // GET: Users/Edit/5
+        public ActionResult Edit(int? id, bool? info)
+        {
+            if (info == true)
+            {
+                ViewBag.InfoClick = true;
+            }
 
-        //    return View(model);
-        //}
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BackendUser user = URes.FindBackEndUser(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Male", Value = "1"},
+                        new SelectListItem {  Text = "Female", Value = "2"},
+                    }, "Value", "Text");
+            ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", user.RoleId);
+            DetailBackEndUserViewModels model = new DetailBackEndUserViewModels(user);
+            
 
-        //// POST: Users/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(DetailUserViewModels model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        User user = URes.Find(model.Id);
-        //        user.Id = model.Id;
-        //        user.Address = model.Address;
-        //        user.BankID = model.BankID;
-        //        user.BankName = model.BankName;
-        //        user.BirthDate = model.BirthDate;
-        //        user.BMemName = model.BMemName;
-        //        user.City = model.City;
-        //        user.Country = model.Country;
-        //        user.Description = model.Description;
-        //        user.Email = model.Email;
-        //        user.FirstName = model.FirstName;
-        //        user.Gender = model.Gender;
-        //        user.LastName = model.LastName;
-        //        user.PhoneNumber = model.PhoneNumber;
-        //        user.Photo = model.Photo;
-        //        user.PostalCode = model.PostalCode;
-        //        user.RoleID = model.RoleID;
-        //        user.Salary = model.Salary;
-        //        user.SkypeID = model.SkypeID;
-        //        user.Username = model.Username;
-        //        user.Wallet = model.Wallet;
+            return View(model);
+        }
 
-        //        URes.Edit(user);
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.RoleID = new SelectList(URes.GetAllRole(), "Id", "RoleName", model.RoleID);
-        //    return View(model);
-        //}
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(DetailBackEndUserViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                BackendUser user = URes.FindBackEndUser(model.Id);
+                user.BackendUserId = model.Id;
+                user.Address = model.Address;
+                user.City = model.City;
+                user.Country = model.Country;
+                user.Description = model.Description;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.Gender = model.Gender;
+                user.LastName = model.LastName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.Photo = model.Photo;
 
-        //// GET: Users/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = URes.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+                URes.EditBackEndUser(user);
+                return RedirectToAction("Index");
+            }
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Male", Value = "1"},
+                        new SelectListItem {  Text = "Female", Value = "2"},
+                    }, "Value", "Text");
+            ViewBag.RoleID = new SelectList(URes.GetAllRole(), "RoleId", "RoleName", model.RoleID);
+            return View(model);
+        }
 
-        //// POST: Users/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    URes.DeleteBackEndUser(id);
-        //    return RedirectToAction("Index");
-        //}
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BackendUser user = URes.FindBackEndUser(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
 
-        //public ActionResult ChangePwd(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    var user = URes.Find(id);
-        //    if(user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ChangePasswordViewModel model = new ChangePasswordViewModel();
-        //    model.Id = user.Id;
-        //    model.Name = user.LastName + " " + user.FirstName;
-        //    return View(model);
-        //}
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            URes.DeleteBackEndUser(id);
+            return RedirectToAction("Index");
+        }
 
-        //[HttpPost]
-        //public ActionResult ChangePwd(ChangePasswordViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var checkPass = URes.checkPassword(model.Id, model.Password);
-        //        if (!checkPass)
-        //        {
-        //            TempData["message"] = "Mật khẩu cũ không chính xác";
-        //            return View(model);
-        //        }
-        //        var user = URes.Find(model.Id);
-        //        user.Password = model.NewPassword;
-        //        URes.EditBackEndUser(user);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
+        public ActionResult ChangePwd(int? id, string role)
+        {
+            if (id == null || role == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            int roleid = int.Parse(role);
+
+            if(roleid == 5)
+            {
+                var user = URes.FindParentUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                ChangePasswordViewModel model = new ChangePasswordViewModel();
+                model.Id = user.ParentId;
+                model.Name = user.LastName + " " + user.FirstName;
+                model.UserRole = user.RoleId;
+                return View(model);
+            }
+            else if(roleid == 6)
+            {
+                var user = URes.FindStudentUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                ChangePasswordViewModel model = new ChangePasswordViewModel();
+                model.Id = user.StudentId;
+                model.Name = user.LastName + " " + user.FirstName;
+                model.UserRole = user.RoleId;
+                return View(model);
+            }else if(roleid >= 7)
+            {
+                var user = URes.FindTutorUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                ChangePasswordViewModel model = new ChangePasswordViewModel();
+                model.Id = user.TutorId;
+                model.Name = user.LastName + " " + user.FirstName;
+                model.UserRole = user.RoleId;
+                return View(model);
+            }else
+            {
+                var user = URes.FindBackEndUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                ChangePasswordViewModel model = new ChangePasswordViewModel();
+                model.Id = user.BackendUserId;
+                model.Name = user.LastName + " " + user.FirstName;
+                model.UserRole = user.RoleId;
+                return View(model);
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult ChangePwd(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var checkPass = URes.checkPassword(model.Id, model.Password, model.UserRole);
+                if (!checkPass)
+                {
+                    TempData["message"] = "Mật khẩu cũ không chính xác";
+                    return View(model);
+                }
+
+                if(model.UserRole == 5)
+                {
+                    var user = URes.FindParentUser(model.Id);
+                    user.Password = model.NewPassword;
+                    URes.EditParentUser(user);
+                }else if(model.UserRole == 6)
+                {
+                    var user = URes.FindStudentUser(model.Id);
+                    user.Password = model.NewPassword;
+                    URes.EditStudentUser(user);
+                }else if(model.UserRole >= 7)
+                {
+                    var user = URes.FindTutorUser(model.Id);
+                    user.Password = model.NewPassword;
+                    URes.EditTutorUser(user);
+                }else
+                {
+                    var user = URes.FindBackEndUser(model.Id);
+                    user.Password = model.NewPassword;
+                    URes.EditBackEndUser(user);
+                }
+               
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -413,35 +459,5 @@ namespace TutorOnline.Web.Controllers
             }
             base.Dispose(disposing);
         }
-
-        //protected User MapCreateViewToUser(CreateUserViewModels model)
-        //{
-        //    User temp = new User();
-
-        //    temp.Address = model.Address;
-        //    temp.BankID = model.BankID;
-        //    temp.BankName = model.BankName;
-        //    temp.BirthDate = model.BirthDate;
-        //    temp.BMemName = model.BMemName;
-        //    temp.City = model.City;
-        //    temp.Country = model.Country;
-        //    temp.Description = model.Description;
-        //    temp.Email = model.Email;
-        //    temp.FirstName = model.FirstName;
-        //    temp.Gender = model.Gender;
-        //    temp.LastName = model.LastName;
-        //    temp.Password = model.Password;
-        //    temp.PhoneNumber = model.PhoneNumber;
-        //    temp.Photo = model.Photo;
-        //    temp.PostalCode = model.PostalCode;
-        //    temp.RoleID = model.RoleID;
-        //    temp.Salary = model.Salary;
-        //    temp.SkypeID = model.SkypeID;
-        //    temp.Username = model.Username;
-        //    temp.Wallet = model.Wallet;
-
-        //    return temp;
-        //}
-
     }
 }

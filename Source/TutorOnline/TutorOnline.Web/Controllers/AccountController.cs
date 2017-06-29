@@ -62,7 +62,14 @@ namespace TutorOnline.Web.Controllers
                         
                     
                     Role.Expires.Add(new TimeSpan(0, 15, 0));
-                    Response.Cookies.Add(Role);            
+                    Response.Cookies.Add(Role);
+
+                    HttpCookie UserInfo = new HttpCookie("UserInfo");
+                    UserInfo["UserId"] = tempId.ToString();
+                    UserInfo["UserName"] = model.Username;
+                    UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
+                    Response.Cookies.Add(UserInfo);
+
                     return Redirect(returnUrl ?? Url.Action("Details", "Users" ,new { id = tempId, info = true }));
                 }
                 else
@@ -79,6 +86,11 @@ namespace TutorOnline.Web.Controllers
             if (Request.Cookies["Role"] != null)
             {
                 Response.Cookies["Role"].Expires = DateTime.Now.AddDays(-1);
+            }
+
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                Response.Cookies["UserInfo"].Expires = DateTime.Now.AddDays(-1);
             }
 
             FormsAuthentication.SignOut();
