@@ -14,11 +14,11 @@ namespace TutorOnline.DataAccess
     
     public partial class TeachSchedule
     {
-        public int Id { get; set; }
-        public int TutorID { get; set; }
+        public int TeachScheduleId { get; set; }
+        public int TutorId { get; set; }
         public System.DateTime OrderDate { get; set; }
         public string OrderSlot { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Tutor Tutor { get; set; }
     }
 }

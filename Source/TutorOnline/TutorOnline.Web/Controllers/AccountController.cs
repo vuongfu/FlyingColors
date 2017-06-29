@@ -25,16 +25,45 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (AccRes.Authenticate(model.Username, model.Password))
+                var RoleName = AccRes.Authenticate(model.Username, model.Password);
+                if (!string.IsNullOrEmpty(RoleName))
                 {
-                    FormsAuthentication.SetAuthCookie(model.Username, false);
-                    var user = AccRes.getCurrentUser(model.Username);
+                    int tempId;
                     HttpCookie Role = new HttpCookie("Role");
-                    Role["RoleId"] = user.Id.ToString();
-                    Role["RoleName"] = user.Role.RoleName;
+                    FormsAuthentication.SetAuthCookie(model.Username, false);
+                    if(RoleName == "Parent")
+                    {
+                        var user  = AccRes.getCurrentUserTypeParent(model.Username);
+                        Role["RoleId"] = user.RoleId.ToString();
+                        Role["RoleName"] = user.Role.RoleName;
+                        tempId = user.ParentId;
+                    }
+                    else if (RoleName == "Student")
+                    {
+                        var user = AccRes.getCurrentUserTypeStudent(model.Username);
+                        Role["RoleId"] = user.RoleId.ToString();
+                        Role["RoleName"] = user.Role.RoleName;
+                        tempId = user.StudentId;
+                    }
+                    else if(RoleName == "Tutor")
+                    {
+                        var user = AccRes.getCurrentUserTypeTutor(model.Username);
+                        Role["RoleId"] = user.RoleId.ToString();
+                        Role["RoleName"] = user.Role.RoleName;
+                        tempId = user.TutorId;
+                    }
+                    else
+                    {
+                        var user = AccRes.getCurrentUserTypeBackEnd(model.Username);
+                        Role["RoleId"] = user.RoleId.ToString();
+                        Role["RoleName"] = user.Role.RoleName;
+                        tempId = user.BackendUserId;
+                    }
+                        
+                    
                     Role.Expires.Add(new TimeSpan(0, 15, 0));
                     Response.Cookies.Add(Role);            
-                    return Redirect(returnUrl ?? Url.Action("Index", "Users" ,new { id = user.Id, info = true }));
+                    return Redirect(returnUrl ?? Url.Action("Details", "Users" ,new { id = tempId, info = true }));
                 }
                 else
                 {

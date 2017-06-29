@@ -14,12 +14,11 @@ namespace TutorOnline.DataAccess
     
     public partial class Transaction
     {
-        public int Id { get; set; }
-        public int UserID { get; set; }
+        public int TransactionId { get; set; }
         public string Content { get; set; }
         public decimal Amount { get; set; }
         public System.DateTime TranDate { get; set; }
-    
-        public virtual User User { get; set; }
+        public int UserID { get; set; }
+        public int UserType { get; set; }
     }
 }

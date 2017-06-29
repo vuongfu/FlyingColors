@@ -14,13 +14,13 @@ namespace TutorOnline.DataAccess
     
     public partial class AuditLog
     {
-        public int Id { get; set; }
-        public int DocumentID { get; set; }
-        public int ModifierID { get; set; }
+        public int AuditId { get; set; }
+        public string TableName { get; set; }
+        public int ModifierId { get; set; }
+        public int ModifierRole { get; set; }
         public System.DateTime ModifyDate { get; set; }
         public string Content { get; set; }
     
-        public virtual Document Document { get; set; }
-        public virtual User User { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

@@ -17,27 +17,25 @@ namespace TutorOnline.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Subject()
         {
-            this.Criterias = new HashSet<Criteria>();
             this.Lessons = new HashSet<Lesson>();
             this.StudentSubjects = new HashSet<StudentSubject>();
+            this.TutorSubjects = new HashSet<TutorSubject>();
         }
     
-        public int Id { get; set; }
+        public int SubjectId { get; set; }
         public string SubjectName { get; set; }
-        public int CategoryID { get; set; }
+        public int CategoryId { get; set; }
         public string Description { get; set; }
         public string Purpose { get; set; }
         public string Requirement { get; set; }
         public byte[] Photo { get; set; }
-        public decimal Price { get; set; }
-        public double Duration { get; set; }
     
         public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Criteria> Criterias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentSubject> StudentSubjects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TutorSubject> TutorSubjects { get; set; }
     }
 }

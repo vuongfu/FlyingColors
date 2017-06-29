@@ -1,6 +1,6 @@
-D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\Tutor.DataAccess.dll.config
-D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\Tutor.DataAccess.dll
-D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\Tutor.DataAccess.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\TutorOnline.DataAccess.dll.config
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\TutorOnline.DataAccess.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\TutorOnline.DataAccess.pdb
 D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\EntityFramework.dll
 D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
 D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\TutorOnline.Common.dll
@@ -8,5 +8,5 @@ D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\Tu
 D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\EntityFramework.xml
 D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
 D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\obj\Debug\TutorOnline.DataAccess.csprojResolveAssemblyReference.cache
-D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\obj\Debug\Tutor.DataAccess.dll
-D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\obj\Debug\Tutor.DataAccess.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\obj\Debug\TutorOnline.DataAccess.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.DataAccess\obj\Debug\TutorOnline.DataAccess.pdb

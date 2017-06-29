@@ -17,16 +17,30 @@ namespace TutorOnline.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Lesson()
         {
-            this.Slots = new HashSet<Slot>();
+            this.Criteria = new HashSet<Criterion>();
+            this.Questions = new HashSet<Question>();
+            this.Schedules = new HashSet<Schedule>();
+            this.StudentFeedbacks = new HashSet<StudentFeedback>();
+            this.TutorFeedbacks = new HashSet<TutorFeedback>();
         }
     
-        public int Id { get; set; }
+        public int LessonId { get; set; }
         public string LessonName { get; set; }
-        public int SubjectID { get; set; }
+        public int SubjectId { get; set; }
         public string Content { get; set; }
+        public int MaterialId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Criterion> Criteria { get; set; }
+        public virtual LearningMaterial LearningMaterial { get; set; }
         public virtual Subject Subject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Slot> Slots { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentFeedback> StudentFeedbacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TutorFeedback> TutorFeedbacks { get; set; }
     }
 }

@@ -14,14 +14,13 @@ namespace TutorOnline.DataAccess
     
     public partial class StudentSubject
     {
-        public int Id { get; set; }
-        public Nullable<int> SubjectID { get; set; }
-        public Nullable<int> StudentID { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public int StudentSubjectId { get; set; }
+        public int SubjectId { get; set; }
+        public int StudentId { get; set; }
         public int Status { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Status Status1 { get; set; }
+        public virtual Student Student { get; set; }
         public virtual Subject Subject { get; set; }
     }
 }

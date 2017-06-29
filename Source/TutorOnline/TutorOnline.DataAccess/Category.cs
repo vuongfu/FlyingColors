@@ -20,7 +20,7 @@ namespace TutorOnline.DataAccess
             this.Subjects = new HashSet<Subject>();
         }
     
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
     

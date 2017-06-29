@@ -51,35 +51,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answer.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AuditLog.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackendUser.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Criteria.cs">
+    <Compile Include="Criterion.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Document.cs">
-      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DocumentType.cs">
-      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Feedback.cs">
-      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FeedbackDetail.cs">
+    <Compile Include="LearningMaterial.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Lesson.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MaterialType.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parent.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Slot.cs">
+    <Compile Include="Schedule.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Status.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Student.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StudentFeedback.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentSubject.cs">
@@ -92,6 +107,15 @@
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tutor.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TutorFeedback.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TutorFeedbackDetail.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TutorOnlineModel.Context.cs">
@@ -109,7 +133,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="User.cs">
+    <Compile Include="TutorSubject.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

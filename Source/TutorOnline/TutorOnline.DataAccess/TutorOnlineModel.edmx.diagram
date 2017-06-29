@@ -4,41 +4,64 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7e71f0beb8f84dc6ad3d9ad7b11459cf" Name="Diagram1" ZoomLevel="68">
-        <EntityTypeShape EntityType="TutorOnlineModel.AuditLog" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+      <Diagram DiagramId="ccd0d10192bc4d8382a60d2dd9017931" Name="Diagram1">
+        <EntityTypeShape EntityType="TutorOnlineModel.Answer" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.AuditLog" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.BackendUser" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TutorOnlineModel.Category" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Criteria" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Document" Width="1.5" PointX="2.625" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.DocumentType" Width="1.5" PointX="0.5" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.FeedbackDetail" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Feedback" Width="1.5" PointX="8.25" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Lesson" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Role" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Slot" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.StudentSubject" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Subject" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.TeachSchedule" Width="1.5" PointX="5.375" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.Transaction" Width="1.5" PointX="5.375" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="TutorOnlineModel.User" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
-        <AssociationConnector Association="TutorOnlineModel.FK__AuditLog__Docume__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__AuditLog__Modifi__5165187F" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Subjects__Catego__2D27B809" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Criterias__Subje__37A5467C" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__FeedbackD__Crite__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Documents__DocTy__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__FeedbackD__Feedb__403A8C7D" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Feedbacks__Asses__3A81B327" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Feedbacks__Judge__3B75D760" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Feedbacks__SlotI__3C69FB99" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Lessons__Subject__300424B4" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Slots__LessonID__34C8D9D1" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Users__RoleID__25869641" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Slots__StudentID__32E0915F" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Slots__TutorID__33D4B598" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__StudentSu__Stude__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__StudentSu__Subje__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__TeachSche__Tutor__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="TutorOnlineModel.FK__Transacti__UserI__286302EC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Criterion" Width="1.5" PointX="6" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.LearningMaterial" Width="1.5" PointX="1.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Lesson" Width="1.5" PointX="3.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.MaterialType" Width="1.5" PointX="1.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Parent" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Question" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Role" Width="1.5" PointX="0.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Schedule" Width="1.5" PointX="14.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Status" Width="1.5" PointX="6.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Student" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.StudentFeedback" Width="1.5" PointX="11.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.StudentSubject" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Subject" Width="1.5" PointX="1.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.TeachSchedule" Width="1.5" PointX="11.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Transaction" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.Tutor" Width="1.5" PointX="9" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.TutorFeedback" Width="1.5" PointX="14.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.TutorFeedbackDetail" Width="1.5" PointX="11.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutorOnlineModel.TutorSubject" Width="1.5" PointX="11.25" PointY="22" IsExpanded="true" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Answer__Question__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__AuditLog__Modifi__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__BackendUs__RoleI__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Subject__Categor__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Criteria__Lesson__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Criteria__RoleId__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Crite__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__LearningM__Mater__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Lesson__Material__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Lesson__SubjectI__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Question__Lesson__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Schedule__Lesson__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentFe__Lesso__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Lesso__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Parent__RoleId__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Student__ParentI__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Student__RoleId__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Tutor__RoleId__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Schedule__Status__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Schedule__Studen__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Schedule__TutorI__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentSu__Statu__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__Tutor__Status__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorSubj__Statu__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentFe__Stude__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentSu__Stude__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Stude__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentFe__Tutor__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentSu__Subje__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorSubj__Subje__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TeachSche__Tutor__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Tutor__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorSubj__Tutor__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Tutor__5CD6CB2B" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

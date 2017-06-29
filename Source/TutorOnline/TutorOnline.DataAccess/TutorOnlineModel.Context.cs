@@ -25,20 +25,28 @@ namespace TutorOnline.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<AuditLog> AuditLogs { get; set; }
+        public virtual DbSet<BackendUser> BackendUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Criteria> Criterias { get; set; }
-        public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
-        public virtual DbSet<FeedbackDetail> FeedbackDetails { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<Criterion> Criteria { get; set; }
+        public virtual DbSet<LearningMaterial> LearningMaterials { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<MaterialType> MaterialTypes { get; set; }
+        public virtual DbSet<Parent> Parents { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Slot> Slots { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<StudentFeedback> StudentFeedbacks { get; set; }
         public virtual DbSet<StudentSubject> StudentSubjects { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<TeachSchedule> TeachSchedules { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Tutor> Tutors { get; set; }
+        public virtual DbSet<TutorFeedback> TutorFeedbacks { get; set; }
+        public virtual DbSet<TutorFeedbackDetail> TutorFeedbackDetails { get; set; }
+        public virtual DbSet<TutorSubject> TutorSubjects { get; set; }
     }
 }
