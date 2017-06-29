@@ -8,11 +8,11 @@ namespace TutorOnline.Web.Models
 {
     public class SubjectsViewModels
     {
-        public int Id { get; set; }
+        public int SubjectId { get; set; }
 
         [Required]
         public string SubjectName { get; set; }
-        public int CategoryID { get; set; }
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
         public double Duration { get; set; }

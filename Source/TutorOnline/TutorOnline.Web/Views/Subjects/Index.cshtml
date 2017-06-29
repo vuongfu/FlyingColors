@@ -58,7 +58,7 @@
                     <tbody>
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.Id })</td>
+                            <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.SubjectId })</td>
                             <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
                             <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
                             <td>@Html.DisplayFor(modelItem => item.Requirement)</td>

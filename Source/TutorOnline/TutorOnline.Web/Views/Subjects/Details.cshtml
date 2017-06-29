@@ -18,9 +18,7 @@
                         <th>Loại môn học</th>
                         <th>Mục tiêu</th>
                         <th>Yêu cầu</th>
-                        <th>Thời gian học</th>
                         <th>Mô tả</th>
-                        <th>Giá khóa học</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -31,12 +29,10 @@
                         <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
                         <td>@Html.DisplayFor(modelItem => modelItem.Purpose)</td>
                         <td>@Html.DisplayFor(modelItem => modelItem.Requirement)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Duration)<p> tháng</p></td>
                         <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Price)</td>
                         <td>
-                            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.Id }) |
-                            @Html.ActionLink("Xóa", "Delete", new { @id = Model.Id })
+                            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.SubjectId }) |
+                            @Html.ActionLink("Xóa", "Delete", new { @id = Model.SubjectId })
                         </td>
                     </tr>
                 </tbody>
@@ -45,7 +41,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            @Html.ActionLink("Trở lại", "Index", new { @id = Model.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Trở lại", "Index", new { @id = Model.SubjectId }, new { @class = "btn btn-default" })
         </div>
     </div>
 </div>

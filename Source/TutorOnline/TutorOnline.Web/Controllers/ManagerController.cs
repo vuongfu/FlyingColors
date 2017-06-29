@@ -9,11 +9,11 @@ using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
-    //[Authorize]
-    //public class ManagerController : Controller
-    //{
-    //    private UsersRepository URes = new UsersRepository();
-    //    // GET: Manager
+    [Authorize]
+    public class ManagerController : Controller
+    {
+        private UsersRepository URes = new UsersRepository();
+        // GET: Manager
     //    public ActionResult Index(string searchString, int? genderString, int? page)
     //    {
     //        int pageSize = 3;
@@ -69,5 +69,5 @@ namespace TutorOnline.Web.Controllers
     //        ViewBag.totalRecord = result.Count();
     //        return View(result.OrderBy(x => x.FullName).ToList().ToPagedList(pageNumber, pageSize));
     //    }
-    //}
+    }
 }
