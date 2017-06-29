@@ -22,7 +22,7 @@ namespace TutorOnline.Business.Repository
         }
         public List<Subject> FindSubjects(int? id)
         {
-            List<Subject> listSub = GetAllSubject().Where(x => x.CategoryID == id).ToList();
+            List<Subject> listSub = GetAllSubject().Where(x => x.CategoryId == id).ToList();
             return listSub;
         }
         public void AddSubject(Subject subject)

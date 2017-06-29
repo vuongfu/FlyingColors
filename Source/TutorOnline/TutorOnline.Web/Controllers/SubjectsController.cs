@@ -36,24 +36,21 @@ namespace TutorOnline.Web.Controllers
                 foreach (var item in subjects)
                 {
                     SubjectsViewModels model = new SubjectsViewModels();
-                    model.Id = item.Id;
+                    model.SubjectId = item.SubjectId;
                     model.SubjectName = item.SubjectName;
-                    model.CategoryID = item.CategoryID;
+                    model.CategoryId = item.CategoryId;
                     model.CategoryName = item.Category.CategoryName;
                     model.Purpose = item.Purpose;
                     model.Requirement = item.Requirement;
                     model.Description = item.Description;
                     model.Photo = item.Photo;
-                    model.Duration = item.Duration;
-                    model.Price = item.Price;
-
                     result.Add(model);
                 }
             }
 
             if ((searchString == null || cateString == null) && page == null)
             {
-                result = result.Where(x => x.Id == 0).ToList();
+                result = result.Where(x => x.SubjectId == 0).ToList();
                 ViewBag.totalRecord = result.Count();
                 return View(result.ToList().ToPagedList(pageNumber, pageSize));
             }
@@ -78,7 +75,7 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
             return View();
         }
 
@@ -95,20 +92,18 @@ namespace TutorOnline.Web.Controllers
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
-                subject.CategoryID = model.CategoryID;
+                subject.CategoryId = model.CategoryId;
                 subject.SubjectName = model.SubjectName;
                 subject.Purpose = model.Purpose;
                 subject.Requirement = model.Requirement;
                 subject.Photo = model.Photo;
-                subject.Price = model.Price;
-                subject.Duration = model.Duration;
                 subject.Description = model.Description;
 
                 SRes.AddSubject(subject);
                 TempData["message"] = new StringCommon().addSubjectsSuccess.ToString();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
             return View(model);
         }
 
@@ -127,16 +122,14 @@ namespace TutorOnline.Web.Controllers
             SubjectsViewModels model = new SubjectsViewModels();
 
             //Mapping Entity to ViewModel
-            model.Id = subject.Id;
-            model.CategoryID = subject.CategoryID;
+            model.SubjectId = subject.SubjectId;
+            model.CategoryId = subject.CategoryId;
             model.CategoryName = subject.Category.CategoryName;
             model.SubjectName = subject.SubjectName;
             model.Purpose = subject.Purpose;
             model.Requirement = subject.Requirement;
-            model.Duration = subject.Duration;
             model.Description = subject.Description;
             model.Photo = subject.Photo;
-            model.Price = subject.Price;
             return View(model);
         }
 
@@ -156,18 +149,16 @@ namespace TutorOnline.Web.Controllers
             else
             {
                 //Mapping Entity to ViewModel
-                model.Id = subject.Id;
-                model.CategoryID = subject.CategoryID;
+                model.SubjectId = subject.SubjectId;
+                model.CategoryId = subject.CategoryId;
                 model.CategoryName = subject.Category.CategoryName;
                 model.SubjectName = subject.SubjectName;
                 model.Purpose = subject.Purpose;
                 model.Requirement = subject.Requirement;
-                model.Duration = subject.Duration;
                 model.Description = subject.Description;
                 model.Photo = subject.Photo;
-                model.Price = subject.Price;
             }
-            ViewBag.CategoryID = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName", model.CategoryID);
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName", model.CategoryId);
             return View(model);
         }
 
@@ -178,22 +169,20 @@ namespace TutorOnline.Web.Controllers
             Subject subject = new Subject();
 
             //Mapping Entity to ViewModel
-            subject.Id = model.Id;
-            subject.CategoryID = model.CategoryID;
+            subject.SubjectId = model.SubjectId;
+            subject.CategoryId = model.CategoryId;
             subject.SubjectName = model.SubjectName;
             subject.Purpose = model.Purpose;
             subject.Requirement = model.Requirement;
-            subject.Duration = model.Duration;
             subject.Description = model.Description;
             subject.Photo = model.Photo;
-            subject.Price = model.Price;
 
             if (ModelState.IsValid)
             {
                 SRes.EditSubject(subject);
-                return RedirectToAction("Details", new { id = model.Id });
+                return RedirectToAction("Details", new { id = model.SubjectId });
             }
-            ViewBag.CategoryID = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
             return View(model);
         }
         public ActionResult Delete(int? id)
@@ -211,14 +200,13 @@ namespace TutorOnline.Web.Controllers
             else
             {
                 //Mapping Entity to ViewModel
-                model.Id = subject.Id;
-                model.CategoryID = subject.CategoryID;
+                model.SubjectId = subject.SubjectId;
+                model.CategoryId = subject.CategoryId;
                 model.CategoryName = subject.Category.CategoryName;
                 model.SubjectName = subject.SubjectName;
                 model.Purpose = subject.Purpose;
                 model.Requirement = subject.Requirement;
                 model.Photo = subject.Photo;
-                model.Price = subject.Price;
             }
             return View(model);
         }
