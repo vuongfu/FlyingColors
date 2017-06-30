@@ -171,5 +171,19 @@ namespace TutorOnline.Business.Repository
                 return true;
         }
 
+        public string checkEmailLogin(string email)
+        {
+            var ParentUser = _dbContext.Parents.FirstOrDefault(x => x.Email == email);
+            var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.Email == email);
+            var StudentUser = _dbContext.Students.FirstOrDefault(x => x.Email == email);
+            var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.Email == email);
+            if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null)
+                return null;
+            string returnString;
+            returnString = (ParentUser == null ? (BackEndUser == null ? (StudentUser == null ? (TutorUser == null ? null : TutorUser.UserName) : StudentUser.UserName) : BackEndUser.UserName) : ParentUser.UserName);
+
+            return returnString;
+        }
+
     }
 }
