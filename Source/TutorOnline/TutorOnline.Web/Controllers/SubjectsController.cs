@@ -75,7 +75,7 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
             return View();
         }
 
@@ -158,7 +158,7 @@ namespace TutorOnline.Web.Controllers
                 model.Description = subject.Description;
                 model.Photo = subject.Photo;
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName", model.CategoryId);
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
             return View(model);
         }
 
