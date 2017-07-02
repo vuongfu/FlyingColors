@@ -66,6 +66,9 @@
     <Compile Include="Criterion.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CV.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LearningMaterial.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
