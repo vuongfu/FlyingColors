@@ -110,7 +110,8 @@ Create table [Tutor](
 CREATE TABLE [Category](
 	[CategoryId] [int] IDENTITY(1,1) PRIMARY KEY,
 	[CategoryName] [nvarchar](50) NOT NULL,
-	[Description] [nvarchar](255) NULL
+	[Description] [nvarchar](255) NULL,
+	[isActived] bit not null default 0
 );
 
 CREATE TABLE [Subject](
@@ -120,7 +121,8 @@ CREATE TABLE [Subject](
 	[Description] [text] NULL,
 	[Purpose] [text] NULL,
 	[Requirement] [text] NULL,
-	[Photo] [image] NULL
+	[Photo] [image] NULL,
+	[isActived] bit not null default 0
 );
 
 CREATE TABLE [MaterialType] (
@@ -128,21 +130,24 @@ CREATE TABLE [MaterialType] (
 	[MaterialTypeName] [nvarchar](200) NOT NULL
 );
 
-CREATE TABLE [LearningMaterial] (
-	[MaterialId] [int] IdENTITY(1,1) PRIMARY KEY,
-	[MaterialUrl] [nvarchar](200) NOT NULL,
-	[MaterialTypeId] [int] FOREIGN KEY REFERENCES [MaterialType](MaterialTypeId) NOT NULL,
-	[Description] [text] NULL
-);
-
-
 CREATE TABLE [Lesson] (
 	[LessonId] [int] IdENTITY(1,1) PRIMARY KEY,
 	[LessonName] [nvarchar](500) NOT NULL,
 	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId) NOT NULL,
 	[Content] [text] NULL,
-	[MaterialId] int FOREIGN KEY REFERENCES [LearningMaterial](MaterialId) NOT NULL,
+	[isActived] bit not null default 0
 );
+
+CREATE TABLE [LearningMaterial] (
+	[MaterialId] [int] IdENTITY(1,1) PRIMARY KEY,
+	[MaterialUrl] [nvarchar](200) NOT NULL,
+	[MaterialTypeId] [int] FOREIGN KEY REFERENCES [MaterialType](MaterialTypeId) NOT NULL,
+	[Description] [text] NULL,
+	[LessonId] int FOREIGN KEY REFERENCES [Lesson](LessonId) NOT NULL,
+);
+
+
+
 
 CREATE TABLE [Schedule] (
 	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
@@ -316,15 +321,17 @@ INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('PDF');
 INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('Materialx');
 INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('Audio file');
 
---Insert data to Material table
-INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description]) VALUES ('C:\Users\MSSQLSERVER\Documents\1', 1, 'Tài liệu học cho bài 1');
-INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description]) VALUES ('C:\Users\MSSQLSERVER\Music', 3, 'Tài liệu nghe cho bài 2');
-INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description]) VALUES ('C:\Users\MSSQLSERVER\Documents\word', 2, 'Tài liệu nghe cho bài 3');
-
 --Insert data to Lesson table
-INSERT INTO [Lesson] (LessonName,SubjectId,Content,MaterialId) VALUES ('Bài 1', 1, 'Sơ lược về tiếng nhật và 25 chữ hira đầu tiên', 1)
-INSERT INTO [Lesson] (LessonName,SubjectId,Content,MaterialId) VALUES ('Bài 2', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 1, Học Hiragana: 20 chữ tiếp theo; Âm đục + Âm bán đục', 2)
-INSERT INTO [Lesson] (LessonName,SubjectId,Content,MaterialId) VALUES ('Bài 3', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 2, Học Hiragana: Âm dài', 3)
+INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 1', 1, 'Sơ lược về tiếng nhật và 25 chữ hira đầu tiên')
+INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 2', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 1, Học Hiragana: 20 chữ tiếp theo; Âm đục + Âm bán đục')
+INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 3', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 2, Học Hiragana: Âm dài')
+
+
+--Insert data to Material table
+INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description], [LessonId]) VALUES ('C:\Users\MSSQLSERVER\Documents\1', 1, 'Tài liệu học cho bài 1',1);
+INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description], [LessonId]) VALUES ('C:\Users\MSSQLSERVER\Music', 3, 'Tài liệu nghe cho bài 2',2);
+INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description], [LessonId]) VALUES ('C:\Users\MSSQLSERVER\Documents\word', 2, 'Tài liệu nghe cho bài 3',3);
+
 
 -- Insert data to Schedule table
 INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,Status,Type,CanReason,Price) VALUES (1, 1, 1, 5, 29-6-2017, 5 ,1, null, 150000);
