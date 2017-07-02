@@ -111,7 +111,7 @@ CREATE TABLE [Category](
 	[CategoryId] [int] IDENTITY(1,1) PRIMARY KEY,
 	[CategoryName] [nvarchar](50) NOT NULL,
 	[Description] [nvarchar](255) NULL,
-	[isActived] bit not null default 0
+	[isActived] bit not null default 1
 );
 
 CREATE TABLE [Subject](
@@ -122,7 +122,7 @@ CREATE TABLE [Subject](
 	[Purpose] [text] NULL,
 	[Requirement] [text] NULL,
 	[Photo] [image] NULL,
-	[isActived] bit not null default 0
+	[isActived] bit not null default 1
 );
 
 CREATE TABLE [MaterialType] (
@@ -135,7 +135,7 @@ CREATE TABLE [Lesson] (
 	[LessonName] [nvarchar](500) NOT NULL,
 	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId) NOT NULL,
 	[Content] [text] NULL,
-	[isActived] bit not null default 0
+	[isActived] bit not null default 1
 );
 
 CREATE TABLE [LearningMaterial] (
@@ -145,9 +145,6 @@ CREATE TABLE [LearningMaterial] (
 	[Description] [text] NULL,
 	[LessonId] int FOREIGN KEY REFERENCES [Lesson](LessonId) NOT NULL,
 );
-
-
-
 
 CREATE TABLE [Schedule] (
 	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
