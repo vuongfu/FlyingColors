@@ -103,7 +103,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new StringCommon().addSubjectsSuccess.ToString();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
             return View(model);
         }
 
@@ -182,7 +182,7 @@ namespace TutorOnline.Web.Controllers
                 SRes.EditSubject(subject);
                 return RedirectToAction("Details", new { id = model.SubjectId });
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "Id", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
             return View(model);
         }
         public ActionResult Delete(int? id)

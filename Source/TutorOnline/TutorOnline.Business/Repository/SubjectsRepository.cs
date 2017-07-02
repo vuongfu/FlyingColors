@@ -12,7 +12,7 @@ namespace TutorOnline.Business.Repository
     {
         public IEnumerable<Subject> GetAllSubject()
         {
-            var subjects = _dbContext.Subjects.Include(x => x.Category);
+            var subjects = _dbContext.Subjects.Include(x => x.Category).Where(x => x.isActived == true);
             return subjects;
         }
         public Subject FindSubject(int? id)
@@ -27,18 +27,19 @@ namespace TutorOnline.Business.Repository
         }
         public void AddSubject(Subject subject)
         {
+            subject.isActived = true;
             _dbContext.Subjects.Add(subject);
             _dbContext.SaveChanges();
         }
         public void EditSubject(Subject subject)
         {
+            subject.isActived = true;
             _dbContext.Entry(subject).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
         public void DeleteSubject(int id)
         {
-            Subject subject = _dbContext.Subjects.Find(id);
-            _dbContext.Subjects.Remove(subject);
+            _dbContext.Subjects.Where(x => x.SubjectId == id).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 

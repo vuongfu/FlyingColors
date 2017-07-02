@@ -8,39 +8,47 @@
 <div class="container-fluid">
     <h3>Chi tiết khóa học</h3>
     <hr />
+
     <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Hình ảnh</th>
-                        <th>Tên khóa học</th>
-                        <th>Loại môn học</th>
-                        <th>Mục tiêu</th>
-                        <th>Yêu cầu</th>
-                        <th>Mô tả</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Photo)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.SubjectName)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Purpose)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Requirement)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
-                        <td>
-                            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.SubjectId }) |
-                            @Html.ActionLink("Xóa", "Delete", new { @id = Model.SubjectId })
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-md-8">
+            <h4><strong>Tên khóa học: </strong>@Html.DisplayFor(modelItem => modelItem.SubjectName)</h4>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
+            <h4><strong>Loại môn học: </strong>@Html.DisplayFor(modelItem => modelItem.CategoryName)</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4><strong>Mục tiêu: </strong>@Html.DisplayFor(modelItem => modelItem.Purpose)</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4><strong>Yêu cầu: </strong>@Html.DisplayFor(modelItem => modelItem.Requirement)</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4><strong>Hình ảnh: </strong>@Html.DisplayFor(modelItem => modelItem.Photo)</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4><strong>Mô tả: </strong>@Html.DisplayFor(modelItem => modelItem.Description)</h4>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.SubjectId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Xóa", "Delete", new { @id = Model.SubjectId }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
             @Html.ActionLink("Trở lại", "Index", new { @id = Model.SubjectId }, new { @class = "btn btn-default" })
         </div>
     </div>

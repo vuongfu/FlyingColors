@@ -12,7 +12,7 @@ namespace TutorOnline.Business.Repository
     {
         public IEnumerable<Category> GetAllCategories()
         {
-            var categories = _dbContext.Categories;
+            var categories = _dbContext.Categories.Where(x => x.isActived == true);
             return categories;
         }
 
@@ -24,20 +24,22 @@ namespace TutorOnline.Business.Repository
 
         public void AddCategory(Category category)
         {
+            category.isActived = true;
             _dbContext.Categories.Add(category);
             _dbContext.SaveChanges();
         }
 
         public void EditCategory(Category category)
         {
+            category.isActived = true;
             _dbContext.Entry(category).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
 
         public void DeleteCategory(int id)
         {
-            Category category = _dbContext.Categories.Find(id);
-            _dbContext.Categories.Remove(category);
+            _dbContext.Categories.Where(x => x.CategoryId == id).ToList().ForEach(x => x.isActived = false);
+            _dbContext.Subjects.Where(x => x.CategoryId == id).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 

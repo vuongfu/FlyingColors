@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.CVViewModels>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Quản lý tutor's CV ";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+    ViewBag.Count = 0;
+}
+
+<div class="container-fluid">
+    <h3>Quản lý tutor's CV</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active">
+                    <button type="submit" value="" class="btn btn-default">Tất cả
+                        <span class="badge">@ViewBag.numAllCV</span>
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button type="submit" value="" class="btn btn-primary">Mới
+                        <span class="badge">@ViewBag.numNewCV</span>
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button type="submit" value="" class="btn btn-success">Đã phê duyệt
+                        <span class="badge">@ViewBag.numApprovedCV</span>
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button type="submit" value="" class="btn btn-danger">Bị từ chối
+                        <span class="badge">@ViewBag.numRejectedCV</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @*<div class="row">
+        @using (Html.BeginForm("Index", "CV", FormMethod.Get))
+        {
+            
+        }
+    </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Có @ViewBag.totalRecord tutor's CV</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Stt</th>
+                            <th>Link download</th>
+                            <th>Thay đổi trạng thái</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@(ViewBag.Count++ + 1)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CVLink)</td>
+                                <td>
+                                    @Html.ActionLink("Chấp Nhận", "ApprovedPretutor", "Manager", new { @class = "btn btn-success" })
+                                    @Html.ActionLink("Từ chối", "RejectPretutor", "Manager", new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                                 new { page, searchString = ViewBag.searchStr, genderString = ViewBag.genderStr }))
+            </div>
+        </div>
+    }*@
+</div>

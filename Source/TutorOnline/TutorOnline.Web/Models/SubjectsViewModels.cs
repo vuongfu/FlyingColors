@@ -12,15 +12,12 @@ namespace TutorOnline.Web.Models
 
         [Required]
         public string SubjectName { get; set; }
+        [Required]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
-        public double Duration { get; set; }
         public string Purpose { get; set; }
         public string Requirement { get; set; }
         public byte[] Photo { get; set; }
-
-        [Required]
-        public decimal Price { get; set; }
     }
 }

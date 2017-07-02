@@ -8,9 +8,19 @@
 <div>
     <h3>Xóa môn học</h3>
     <hr />
-    
+    <div class="row">
+        <div class="col-md-8">
+            <h4><strong>Tên môn học: </strong>@Html.DisplayFor(modelItem => modelItem.CategoryName)</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4><strong>Mô tả: </strong>@Html.DisplayFor(modelItem => modelItem.Description)</h4>
+        </div>
+    </div>
+    <br />
     <div class="alert alert-danger">
-        <strong>Cảnh báo!</strong> Bạn có chắc chắn muốn xóa môn học này?
+        <strong>Cảnh báo! </strong>Bạn có chắc chắn muốn xóa môn học này?
     </div>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
