@@ -1,3 +1,10 @@
+
+USE master
+GO
+if exists (select * from sysdatabases where name='TutorOnline')
+		drop database TutorOnline
+go
+
 use master
 go
 CREATE DATABASE [TutorOnline]
@@ -79,6 +86,13 @@ create table [BackendUser](
 	[isDeleted] [bit] not null default 0
 );
 
+Create table [CV](
+	[CVId] int identity(1,1) primary key,
+	[CVLink] [nvarchar](200) null,
+	[isRead] bit not null default 0,
+	[isApproved] bit not null default 0
+);
+
 Create table [Tutor](
 	[TutorId] int Identity(1,1) primary key,
 	[RoleId] [int] FOREIGN KEY REFERENCES [Role](RoleId) NOT NULL,
@@ -103,7 +117,7 @@ Create table [Tutor](
 	[BankName] [nvarchar](200) null,
 	[BMemName] [nvarchar](200) null,
 	[isDeleted] [bit] not null default 0,
-	[CV] [nvarchar](200) null,
+	[CVId] int foreign key references [CV](CVId) not null,
 	[Status] int FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL
 );
 
@@ -283,10 +297,6 @@ INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirem
 --Insert data to Status table
 INSERT INTO [Status] (Status) VALUES ('user_active');
 INSERT INTO [Status] (Status) VALUES ('user_inactive');
-INSERT INTO [Status] (Status) VALUES ('cv_read');
-INSERT INTO [Status] (Status) VALUES ('cv_unread');
-INSERT INTO [Status] (Status) VALUES ('cv_reject');
-INSERT INTO [Status] (Status) VALUES ('cv_approved');
 INSERT INTO [Status] (Status) VALUES ('schedule_finish');
 INSERT INTO [Status] (Status) VALUES ('schedule_booked');
 INSERT INTO [Status] (Status) VALUES ('schedule_cancel');
@@ -306,10 +316,15 @@ INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Addr
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,2,'Nguyen','An',4-4-2004,1,null,'An123@gmail.com','An333','An1','2','Ha Noi',null,'Viet Nam','12312341351',0,null,null);
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,3,'Nguyen','Hieu',5-5-2005,1,null,'Hieu123@gmail.com','Hieu123','Hieu1','3','Ha Noi',null,'Viet Nam','124351251234',2000000,null,'Ham học hỏi');
 
+--Insert data to CV table
+INSERT INTO [CV] (CVLink) values('abc');
+INSERT INTO [CV] (CVLink) values('def');
+INSERT INTO [CV] (CVLink) values('xyz');
+
 --Insert data to Tutor table
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CV,[Status]) VALUES (7,'Nguyễn','Huyền',3-3-1983,2,'Quận 1','huyenNTK@fpt.edu.vn','Nana','Huyenntk','1','Hồ Chí Minh',null,'Viet Nam','01632594938',1000000,'12345667',100000,null,null,'Tien Phong','HuyenNtk',null,1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CV,[Status]) VALUES (7,'Lý','Trọng',4-4-1984,1,null,'Trong123@gmail.com','LyTrong','An1','2','Ha Noi',null,'Viet Nam','12312341351',0,'203498572',50000,null,null,'VPBank','Ly Trong',null,1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CV,[Status]) VALUES (7,'Thúy','Kiều',5-5-1985,2,null,'Kieu123@gmail.com','ThuyKieu','Hieu1','3','Ha Noi',null,'Viet Nam','124351251234',2000000,'9012367019',100000,null,null,'Vietcombank','Thuy Kieu',null,1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Nguyễn','Huyền',3-3-1983,2,'Quận 1','huyenNTK@fpt.edu.vn','Nana','Huyenntk','1','Hồ Chí Minh',null,'Viet Nam','01632594938',1000000,'12345667',100000,null,null,'Tien Phong','HuyenNtk',1,1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Lý','Trọng',4-4-1984,1,null,'Trong123@gmail.com','LyTrong','An1','2','Ha Noi',null,'Viet Nam','12312341351',0,'203498572',50000,null,null,'VPBank','Ly Trong',2,1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Thúy','Kiều',5-5-1985,2,null,'Kieu123@gmail.com','ThuyKieu','Hieu1','3','Ha Noi',null,'Viet Nam','124351251234',2000000,'9012367019',100000,null,null,'Vietcombank','Thuy Kieu',3,1);
 																																																								
 --Insert data to BackendUser table
 INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Từ','Hải',25-3-1985,1,null,'TuHai@gmail.com','TuHai','1','Ha Noi','Viet Nam','123512132',null,null);
@@ -365,18 +380,18 @@ INSERT INTO TutorFeedbackDetail (TutorFeedbackId,CriteriaId,CriteriaValue) VALUE
 INSERT INTO TutorFeedbackDetail (TutorFeedbackId,CriteriaId,CriteriaValue) VALUES (1,5,5);
 
 --Insert data to StudentSubject table
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,1,12);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (2,1,12);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (3,2,13);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (4,2,12);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,3,14);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,1,8);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (2,1,8);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (3,2,9);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (4,2,8);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,3,10);
 
 --Insert data to TutorSubject table
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (1,1,10);
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (1,2,10);
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (3,2,10);
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (4,2,10);
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (5,2,11);
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (1,1,6);
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (1,2,6);
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (3,2,6);
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (4,2,6);
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status]) VALUES (5,2,7);
 
 --Insert data to TeachSchedule table
 INSERT INTO TeachSchedule (TutorId,OrderDate,OrderSlot) VALUES (1,30-6-2017,3);
