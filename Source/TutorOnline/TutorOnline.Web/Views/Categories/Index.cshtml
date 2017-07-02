@@ -37,31 +37,31 @@
                 <h4>Có @ViewBag.totalRecord kết quả tìm kiếm</h4>
             </div>
         </div>
-    }
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Stt</th>
-                        <th>Tên môn học</th>
-                        <th>Mô tả</th>
-                    </tr>
-                </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })</td>
-                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <th>Stt</th>
+                            <th>Tên môn học</th>
+                            <th>Mô tả</th>
                         </tr>
-                    </tbody>
-                }
-            </table>
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("Index",
-                                 new { page, searchString = ViewBag.searchStr}))
+                    </thead>
+                    @foreach (var item in Model)
+                {
+                        <tbody>
+                            <tr>
+                                <td>@(ViewBag.Count++ + 1)</td>
+                                <td>@Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                                 new { page, searchString = ViewBag.searchStr }))
+            </div>
         </div>
-    </div>
+    }
 </div>
