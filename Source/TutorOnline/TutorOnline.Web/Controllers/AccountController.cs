@@ -97,5 +97,14 @@ namespace TutorOnline.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Register(int? roleId)
+        {
+            if (roleId != null)
+            {
+                ViewBag.isSelectedRole = true;
+            }
+            return View();
+        }
     }
 }
