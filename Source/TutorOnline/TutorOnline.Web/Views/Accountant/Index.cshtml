@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<TutorOnline.DataAccess.Transaction>
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransactionListViewModels>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -9,7 +9,6 @@
 
 <h2>Transaction Management</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
     @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
     {
     <p>
@@ -34,12 +33,12 @@
             </tr>
         </table>
 
-        <input type="submit" value="Tìm kiếm" class="btn" />
+        <input type="submit" name="Search" value="Tìm kiếm" class="btn" />
     </p>
-    }
 
-    </hr>
-
+ 
+if (Model.FirstOrDefault() != null)
+{
 <h4>Có @ViewBag.totalRecord kết quả tìm kiếm </h4>
     <table class="table table-striped">
         <tr>
@@ -47,7 +46,7 @@
                 Stt
             </th>
             <th>
-                ID người dùng
+                Số giao dịch
             </th>
             <th>
                 Nội dung giao dịch
@@ -62,11 +61,11 @@
                 Tên tài khoản
             </th>
             <th>
-                Họ
-            </th>
+                Loại người dùng
+            </th> 
             <th>
-                Tên
-            </th>   
+                Họ và tên
+            </th>
             <th></th>
         </tr>
 
@@ -77,7 +76,7 @@
                     @(ViewBag.Count++)  
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
+                    @Html.DisplayFor(modelItem => item.TransactionId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Content)
@@ -89,20 +88,24 @@
                     @Html.DisplayFor(modelItem => item.TranDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Username)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.LastName)
-                </td>
+                    @Html.DisplayFor(modelItem => item.UserTypeName)
+                </td>  
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName)
-                </td>   
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
             </tr>
         }
 
     </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
+    <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+    <input type="submit" name="Export" value="Export Excel" class="btn" /> @ViewBag.Message
+        }
+    }
+
 

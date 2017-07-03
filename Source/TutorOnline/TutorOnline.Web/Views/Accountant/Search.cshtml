@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<TutorOnline.DataAccess.User>
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransUserViewModel>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -45,9 +45,6 @@
                 Tài khoản
             </th>
             <th>
-                Họ
-            </th>
-            <th>
                 Tên
             </th>
             <th>
@@ -65,19 +62,16 @@
                     @(ViewBag.Count++)
                 </td>
                 <td>
-                    @Html.ActionLink(item.Username, "Create", new { id = item.Id })
+                    @Html.ActionLink(item.Username, "Create", new { RoleName = item.RoleName, id = item.Id, list = Model })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.LastName) @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.Balance)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Wallet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role.RoleName)
+                    @Html.DisplayFor(modelItem => item.RoleName)
                 </td>
             </tr>
         }

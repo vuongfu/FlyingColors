@@ -20,8 +20,8 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public void LoginWithGooglePlus()
         {
-            GoogleConnect.ClientId = "250839049034-4bja10hd1vcfenuifcadct6q5b4askkm.apps.googleusercontent.com";
-            GoogleConnect.ClientSecret = "RoVnqYSab9CnRokzBswoTlla";
+            GoogleConnect.ClientId = "250839049034-dbck1rk5nstqdiks4h8i9st55i463i0o.apps.googleusercontent.com";
+            GoogleConnect.ClientSecret = "q9mPHYdNx8dsGmV7JmgKn5bl";
             GoogleConnect.RedirectUri = Request.Url.AbsoluteUri.Split('?')[0];
             GoogleConnect.Authorize("profile", "email");
         }
