@@ -36,7 +36,38 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
     }
 
+    public class TransUserViewModel
+    {
 
+        public int Id { get; set; }
+
+        public int RoleID { get; set; }
+
+        [Display(Name = "Chức vụ:")]
+        public string RoleName { get; set; }
+
+        [Display(Name = "Họ:")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Tên:")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Email:")]
+        public string Email { get; set; }
+
+        [Display(Name = "Tên đăng nhập:")]
+        public string Username { get; set; }
+
+        [Display(Name = "Giới tính:")]
+        public int Gender { get; set; }
+
+        [Display(Name = "Số điện thoại:")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Số dư:")]
+        [DisplayFormat(DataFormatString = "{0:0,0.00}")]
+        public Nullable<decimal> Balance { get; set; }
+    }
 
     public class DetailBackEndUserViewModels
     {
