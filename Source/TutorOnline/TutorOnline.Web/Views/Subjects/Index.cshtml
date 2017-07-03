@@ -26,11 +26,14 @@
                 </div>
             </div>
         }
-        <div class="col-md-2">
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
             @Html.ActionLink("Thêm Khóa Học", "Create", "Subjects", new { @class = "btn btn-success" })
         </div>
     </div>
-    </br>
+    <br />
     @if (@ViewBag.totalRecord > 0)
     {
         <div class="row">
@@ -38,39 +41,39 @@
                 <h4>Có @ViewBag.totalRecord kết quả tìm kiếm</h4>
             </div>
         </div>
-    }
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Stt</th>
-                        <th>Tên khóa học</th>
-                        <th>Loại môn học</th>
-                        <th>Mục tiêu</th>
-                        <th>Yêu cầu</th>
-                        <th>Giá khóa học</th>
-                        <th>Hình ảnh</th>
-                    </tr>
-                </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.Id })</td>
-                            <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Requirement)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Photo)</td>
+                            <th>Stt</th>
+                            <th>Tên khóa học</th>
+                            <th>Loại môn học</th>
+                            <th>Mục tiêu</th>
+                            <th>Yêu cầu</th>
+                            <th>Hình ảnh</th>
+                            <th>Mô tả</th>
                         </tr>
-                    </tbody>
-                }
-            </table>
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("Index",
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@(ViewBag.Count++ + 1)</td>
+                                <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.SubjectId })</td>
+                                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Requirement)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Photo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index",
                                  new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr }))
+            </div>
         </div>
-    </div>
+    }
 </div>

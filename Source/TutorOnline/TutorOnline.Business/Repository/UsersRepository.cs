@@ -129,6 +129,12 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
+        public void EditParentUser(Parent user)
+        {
+            _dbContext.Entry(user).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+
         public void DeleteBackEndUser(int id)
         {
             BackendUser user = _dbContext.BackendUsers.Find(id);
@@ -136,19 +142,6 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
-        public void DeleteTutorUser(int id)
-        {
-            Tutor user = _dbContext.Tutors.Find(id);
-            _dbContext.Tutors.Remove(user);
-            _dbContext.SaveChanges();
-        }
-
-        public void DeleteStudentUser(int id)
-        {
-            Student user = _dbContext.Students.Find(id);
-            _dbContext.Students.Remove(user);
-            _dbContext.SaveChanges();
-        }
 
         public void Dispose()
         {
@@ -166,13 +159,30 @@ namespace TutorOnline.Business.Repository
                 return true;
         }
 
-        public bool checkPassword(int id, string pass)
+        public bool checkPassword(int id, string pass, int userRole)
         {
-            var user = _dbContext.BackendUsers.FirstOrDefault(x => x.BackendUserId == id && x.Password == pass);
-            if (user == null)
+            var ParentUser = _dbContext.Parents.FirstOrDefault(x => x.ParentId == id && x.Password == pass && x.RoleId == userRole);
+            var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.BackendUserId == id && x.Password == pass && x.RoleId == userRole);
+            var StudentUser = _dbContext.Students.FirstOrDefault(x => x.StudentId == id && x.Password == pass && x.RoleId == userRole);
+            var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.TutorId == id && x.Password == pass && x.RoleId == userRole);
+            if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null )
                 return false;
             else
                 return true;
+        }
+
+        public string checkEmailLogin(string email)
+        {
+            var ParentUser = _dbContext.Parents.FirstOrDefault(x => x.Email == email);
+            var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.Email == email);
+            var StudentUser = _dbContext.Students.FirstOrDefault(x => x.Email == email);
+            var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.Email == email);
+            if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null)
+                return null;
+            string returnString;
+            returnString = (ParentUser == null ? (BackEndUser == null ? (StudentUser == null ? (TutorUser == null ? null : TutorUser.UserName) : StudentUser.UserName) : BackEndUser.UserName) : ParentUser.UserName);
+
+            return returnString;
         }
 
     }

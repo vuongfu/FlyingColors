@@ -18,6 +18,7 @@ namespace TutorOnline.DataAccess
         public Lesson()
         {
             this.Criteria = new HashSet<Criterion>();
+            this.LearningMaterials = new HashSet<LearningMaterial>();
             this.Questions = new HashSet<Question>();
             this.Schedules = new HashSet<Schedule>();
             this.StudentFeedbacks = new HashSet<StudentFeedback>();
@@ -28,11 +29,12 @@ namespace TutorOnline.DataAccess
         public string LessonName { get; set; }
         public int SubjectId { get; set; }
         public string Content { get; set; }
-        public int MaterialId { get; set; }
+        public bool isActived { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Criterion> Criteria { get; set; }
-        public virtual LearningMaterial LearningMaterial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LearningMaterial> LearningMaterials { get; set; }
         public virtual Subject Subject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Question> Questions { get; set; }

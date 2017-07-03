@@ -22,6 +22,8 @@ namespace TutorOnline.Business
 
         public bool SearchForString(string str, string searchStr)
         {
+            if (string.IsNullOrEmpty(str))
+                return false;
             return StandardString(convertToUnSign(str)).Contains(StandardString(convertToUnSign(searchStr)));
         }
 

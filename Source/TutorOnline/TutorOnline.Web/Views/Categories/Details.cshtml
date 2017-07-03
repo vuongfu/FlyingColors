@@ -9,31 +9,26 @@
     <h3>Chi tiết môn học</h3>
     <hr />
     <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Tên môn học</th>
-                        <th>Mô tả</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
-                        <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
-                        <td>
-                            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.Id }) |
-                            @Html.ActionLink("Xóa", "Delete", new { @id = Model.Id })
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-md-8">
+            <h4><strong>Tên môn học: </strong>@Html.DisplayFor(modelItem => modelItem.CategoryName)</h4>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            @Html.ActionLink("Trở lại", "Index", new { @id = Model.Id }, new { @class = "btn btn-default" })
+        <div class="col-md-8">
+            <h4><strong>Mô tả: </strong>@Html.DisplayFor(modelItem => modelItem.Description)</h4>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.CategoryId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Xóa", "Delete", new { @id = Model.CategoryId }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Trở lại", "Index", new { @id = Model.CategoryId }, new { @class = "btn btn-default" })
         </div>
     </div>
 </div>

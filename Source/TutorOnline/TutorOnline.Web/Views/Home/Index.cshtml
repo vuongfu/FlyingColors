@@ -138,28 +138,13 @@
         </div>
     </div>
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
 <!-- Container (GioiThieu Section) -->
 <div id="GioiThieu" class="container-fluid" style="background-color: #ffffff;">
     <div class="row">
-        <div class="col-md-6">
-            <div class="embed-responsive embed-responsive-4by3">
-                <video class="embed-responsive-item" controls="controls" style="max-width:560px; max-height:315px;">
-                    <source src="~/Video/The%20e-Learning%20Advantage.mp4" type="video/mp4" />
-                </video>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h1 style="font-style: normal; font-size: 30px;">Giới thiệu</h1>
-            <p style="font-family: Arial">Flying colors team luôn luôn trăn trở, tìm hiểu và đã cùng nhau tạo ra hệ thống học gia sư trực tuyến. Hằng ngày thậm chí là hằng giờ bạn luôn đau đầu trong việc tìm kiếm cho con em mình một gia sư chất lượng để bổ túc các kiến thức cần thiết và kịp thời trên lớp cũng như bổ sung bồi dưỡng để trang bị cho con những kĩ năng tốt nhất cho các kì thi các cấp. Tiện lợi, nhanh chóng, đảm bảo chất lượng là những gì chúng tôi hướng đến. Hãy suy nghĩ thấu đáo và có một quyết định thông minh ngay từ bây giờ, chúng tôi tin tưởng sẽ làm thỏa mãn các nhu cầu học tập của con em bạn.</p>
-        </div>
     </div>
 </div>
-
+@*@{this.GetOutputWriter().Write(File.ReadAllText(Server.MapPath("~/Views/Shared/404NotFoundPage.html")));}
+@RenderPage("~/Views/Shared/BackendUserHomePage.cshtml")*@
 <!-- Container (KhoaHoc Section) -->
 <div id="KhoaHoc" class="container-fluid">
     <div class="row">
@@ -170,35 +155,23 @@
 <!-- Container (GiaSu Section) -->
 <div id="GiaSu" class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
-            <h2>Đội Ngũ Gia Sư Chuyên Nghiệp</h2><br>
-        </div>
     </div>
 </div>
 
 <!-- Container (HuongDan Section) -->
 <div id="HuongDan" class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
-            <h2>Bạn Đã Sẵn Sàng Để Sử Dụng Dịch Vụ Của Chúng Tôi?</h2>
-        </div>
     </div>
 </div>
 
 <!-- Container (CongGiaSu Section) -->
 <div id="CongGiaSu" class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
-            <h2>Hãy Là Một Gia Sư Chuyên Nghiệp</h2>
-        </div>
     </div>
 </div>
 
 <!-- Container (ChungToi Section) -->
 <div id="ChungToi" class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
-            <h2>Chúng Tôi Là FlyingColors Team</h2>
-        </div>
     </div>
 </div>

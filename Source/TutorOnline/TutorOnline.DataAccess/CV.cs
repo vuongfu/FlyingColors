@@ -12,20 +12,20 @@ namespace TutorOnline.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class CV
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public CV()
         {
-            this.Subjects = new HashSet<Subject>();
+            this.Tutors = new HashSet<Tutor>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public string Description { get; set; }
-        public bool isActived { get; set; }
+        public int CVId { get; set; }
+        public string CVLink { get; set; }
+        public bool isRead { get; set; }
+        public bool isApproved { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject> Subjects { get; set; }
+        public virtual ICollection<Tutor> Tutors { get; set; }
     }
 }

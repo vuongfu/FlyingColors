@@ -8,7 +8,7 @@ namespace TutorOnline.Web.Models
 {
     public class CategoriesViewModels
     {
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         public string CategoryName { get; set; }

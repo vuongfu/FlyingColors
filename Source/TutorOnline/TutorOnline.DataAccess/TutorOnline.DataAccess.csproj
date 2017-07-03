@@ -66,6 +66,9 @@
     <Compile Include="Criterion.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CV.cs">
+      <DependentUpon>TutorOnlineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LearningMaterial.cs">
       <DependentUpon>TutorOnlineModel.tt</DependentUpon>
     </Compile>
@@ -154,6 +157,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TutorOnline.Common\TutorOnline.Common.csproj">
+      <Project>{be0c6ba2-d137-4e0e-97b0-f6e7689be029}</Project>
+      <Name>TutorOnline.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="TutorOnlineModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
@@ -164,12 +173,6 @@
       <DependentUpon>TutorOnlineModel.edmx</DependentUpon>
       <LastGenOutput>TutorOnlineModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TutorOnline.Common\TutorOnline.Common.csproj">
-      <Project>{be0c6ba2-d137-4e0e-97b0-f6e7689be029}</Project>
-      <Name>TutorOnline.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
