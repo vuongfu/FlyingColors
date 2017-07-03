@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,16 @@ namespace TutorOnline.Business.Repository
             cv.isRead = false;
             cv.isApproved = false;
             _dbContext.CVs.Add(cv);
+            _dbContext.SaveChanges();
+        }
+        public CV FindCV(int? id)
+        {
+            CV cv = _dbContext.CVs.Find(id);
+            return cv;
+        }
+        public void ChangeStatus(CV cv)
+        {
+            _dbContext.Entry(cv).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
         public void Dispose()

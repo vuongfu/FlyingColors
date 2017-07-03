@@ -12,35 +12,36 @@
     <h3>Quản lý tutor's CV</h3>
     <hr />
     <div class="row">
-        <div class="col-md-12">
-            <ul class="nav nav-pills" role="tablist">
-                <li role="presentation" class="active">
-                    <button type="submit" value="" class="btn btn-default">Tất cả
-                        <span class="badge">@ViewBag.numAllCV</span>
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button type="submit" value="" class="btn btn-primary">Mới
-                        <span class="badge">@ViewBag.numNewCV</span>
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button type="submit" value="" class="btn btn-success">Đã phê duyệt
-                        <span class="badge">@ViewBag.numApprovedCV</span>
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button type="submit" value="" class="btn btn-danger">Bị từ chối
-                        <span class="badge">@ViewBag.numRejectedCV</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-    @*<div class="row">
         @using (Html.BeginForm("Index", "CV", FormMethod.Get))
         {
-            
+            <div class="col-md-12">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" class="active">
+                        <button type="submit" name="button" value="all" class="btn btn-default">
+                            Tất cả
+                            <span class="badge">@ViewBag.numAllCV</span>
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button type="submit" name="button" value="new" class="btn btn-primary">
+                            Mới
+                            <span class="badge">@ViewBag.numNewCV</span>
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button type="submit" name="button" value="approved" class="btn btn-success">
+                            Đã phê duyệt
+                            <span class="badge">@ViewBag.numApprovedCV</span>
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button type="submit" name="button" value="rejected" class="btn btn-danger">
+                            Bị từ chối
+                            <span class="badge">@ViewBag.numRejectedCV</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         }
     </div>
     <br />
@@ -58,6 +59,7 @@
                         <tr>
                             <th>Stt</th>
                             <th>Link download</th>
+                            <th></th>
                             <th>Thay đổi trạng thái</th>
                         </tr>
                     </thead>
@@ -66,19 +68,37 @@
                         <tbody>
                             <tr>
                                 <td>@(ViewBag.Count++ + 1)</td>
-                                <td>@Html.DisplayFor(modelItem => item.CVLink)</td>
-                                <td>
-                                    @Html.ActionLink("Chấp Nhận", "ApprovedPretutor", "Manager", new { @class = "btn btn-success" })
-                                    @Html.ActionLink("Từ chối", "RejectPretutor", "Manager", new { @class = "btn btn-danger" })
-                                </td>
+                                <td>@Html.ActionLink(item.CVLink, "Download", new { id = item.CVId })</td>
+                                @*@using (Html.BeginForm("Download", "CV", FormMethod.Get))
+                                {
+                                    <td>
+                                        <script>
+                                            function downloadFile(id) {
+                                                window.location = '/CV/Download?id=' + id;
+                                            }
+                                        </script>
+                                    </td>
+                                }*@
+                                @using (Html.BeginForm("ChangeStatus", "CV", FormMethod.Post))
+                                {
+                                    <td>
+                                        <input type="hidden" value="@item.CVId" name="id"/>
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("status", null, htmlAttributes: new {@class="form-control", style = "width:125px;height:40px" })
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Thay đổi" class="btn btn-warning" />
+                                    </td>
+                                }
                             </tr>
                         </tbody>
                     }
                 </table>
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
                 @Html.PagedListPager(Model, page => Url.Action("Index",
-                                 new { page, searchString = ViewBag.searchStr, genderString = ViewBag.genderStr }))
+                                 new { page, button = ViewBag.buttonB}))
             </div>
         </div>
-    }*@
+    }
 </div>
