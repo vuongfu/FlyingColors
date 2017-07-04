@@ -16,7 +16,7 @@
     <script type='text/javascript'>window._sbzq||function(e){e._sbzq=[];var t=e._sbzq;t.push(["_setAccount",65696]);var n=e.location.protocol=="https:"?"https:":"http:";var r=document.createElement("script");r.type="text/javascript";r.async=true;r.src=n+"//static.subiz.com/public/js/loader.js";var i=document.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)}(window);</script>
 </head>
 <body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
-    <div class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -32,9 +32,9 @@
                     <li><a href="#GioiThieu">GIỚI THIỆU</a></li>
                     <li><a href="#KhoaHoc">KHÓA HỌC</a></li>
                     <li><a href="#GiaSu">GIA SƯ</a></li>
-                    <li><a href="#HuongDan">HƯỚNG DẪN HỌC</a></li>
+                    <li><a href="#HuongDan">HƯỚNG DẪN ĐỂ HỌC</a></li>
                     <li><a href="#CongGiaSu">CỔNG GIA SƯ</a></li>
-                    <li><a href="#myFooter">LIÊN HỆ</a></li>
+                    <li><a href="#myFooter">CHÚNG TÔI</a></li>
                 </ul>
 
                 <div class="nav navbar-nav navbar-right">
@@ -43,15 +43,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </nav>
     @if (TempData["message"] != null)
             {
         <div class="alert alert-success">@TempData["message"]</div>
-    }
-    @if (TempData["messageWarning"] != null)
-            {
-        <div class="alert alert-warning">@TempData["messageWarning"]</div>
     }
 
     @RenderBody()

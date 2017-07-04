@@ -9,6 +9,7 @@ namespace TutorOnline.Web.Models
 {
     public class TransactionListViewModels
     {
+        [Required(ErrorMessage = "")]
         [Display(Name = "Mã giao dịch:")]
         public int TransactionId { get; set; }
         [Display(Name = "Nội dung:")]
