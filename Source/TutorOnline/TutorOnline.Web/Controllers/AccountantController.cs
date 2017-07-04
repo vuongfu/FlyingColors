@@ -13,6 +13,7 @@ using PagedList;
 using TutorOnline.Web.Models;
 using Microsoft.Office.Interop.Excel;
 using System.Xml;
+using OfficeOpenXml;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -169,36 +170,33 @@ namespace TutorOnline.Web.Controllers
             }
             if (!String.IsNullOrEmpty(Export))
             {
-                Application xlApp = new Application();
-                if (xlApp == null)
+                System.IO.MemoryStream memStream;
+
+                using (var package = new ExcelPackage())
                 {
-                    ViewBag.Message = "Excel is not properly installed!!";
-                    ViewBag.totalRecord = ListTrans.Count();
-                    return View(ListTrans.OrderBy(x => x.TransactionId).ToPagedList(pageNumber, pageSize));
+                    var worksheet = package.Workbook.Worksheets.Add("New Sheet");
+
+                    worksheet.Cells[1, 1].Value = "Số giao dịch";
+                    worksheet.Cells[1, 2].Value = "Nội dung giao dịch";
+                    worksheet.Cells[1, 3].Value = "Số tiền";
+                    worksheet.Cells[1, 4].Value = "Ngày thực hiện";
+                    worksheet.Cells[1, 5].Value = "Tên tài khoản";
+                    worksheet.Cells[1, 6].Value = "Loại người dùng";
+                    worksheet.Cells[1, 7].Value = "Họ và tên";
+                    for (int i = 0; i < ListTrans.Count(); i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = ListTrans[i].TransactionId.ToString();
+                        worksheet.Cells[i + 2, 2].Value = ListTrans[i].Content.ToString();
+                        worksheet.Cells[i + 2, 3].Value = ListTrans[i].Amount.ToString();
+                        worksheet.Cells[i + 2, 4].Value = ListTrans[i].TranDate.ToString();
+                        worksheet.Cells[i + 2, 5].Value = ListTrans[i].UserName.ToString();
+                        worksheet.Cells[i + 2, 6].Value = ListTrans[i].UserTypeName.ToString();
+                        worksheet.Cells[i + 2, 7].Value = ListTrans[i].Name.ToString();
+                    }
+                        memStream = new System.IO.MemoryStream(package.GetAsByteArray());
                 }
-                object misValue = System.Reflection.Missing.Value;
-                Workbook xlWorkBook = (Workbook)xlApp.Workbooks.Add(misValue);
-                Worksheet xlWorkSheet = (Worksheet)xlWorkBook.Worksheets.get_Item(1); ;
-                xlWorkSheet.Cells[1, 1] = "Số giao dịch";
-                xlWorkSheet.Cells[1, 2] = "Nội dung giao dịch";
-                xlWorkSheet.Cells[1, 3] = "Số tiền";
-                xlWorkSheet.Cells[1, 4] = "Ngày thực hiện";
-                xlWorkSheet.Cells[1, 5] = "Tên tài khoản";
-                xlWorkSheet.Cells[1, 6] = "Loại người dùng";
-                xlWorkSheet.Cells[1, 7] = "Họ và tên";
-                for (int i = 0; i < ListTrans.Count(); i++)
-                {
-                    xlWorkSheet.Cells[i + 2, 1] = ListTrans[i].TransactionId.ToString();
-                    xlWorkSheet.Cells[i + 2, 1] = ListTrans[i].Content.ToString();
-                    xlWorkSheet.Cells[i + 2, 3] = ListTrans[i].Amount.ToString();
-                    xlWorkSheet.Cells[i + 2, 4] = ListTrans[i].TranDate.ToString();
-                    xlWorkSheet.Cells[i + 2, 5] = ListTrans[i].UserName.ToString();
-                    xlWorkSheet.Cells[i + 2, 6] = ListTrans[i].UserTypeName.ToString();
-                    xlWorkSheet.Cells[i + 2, 7] = ListTrans[i].Name.ToString();
-                }
-                xlWorkBook.SaveAs("F:\\hoc\\capstone\\TTO\\FlyingColors\\Source\\TutorOnline\\Export.xlsx", XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-                xlWorkBook.Close(true, misValue, misValue);
-                xlApp.Quit();
+
+                return File(memStream, "application/vnd.ms-excel", "Export.xlsx");
             }
 
             ViewBag.totalRecord = ListTrans.Count();
