@@ -26,6 +26,7 @@ namespace TutorOnline.Business.Repository
         {
             cv.isRead = false;
             cv.isApproved = false;
+            cv.isDeleted = false;
             _dbContext.CVs.Add(cv);
             _dbContext.SaveChanges();
         }
@@ -36,6 +37,7 @@ namespace TutorOnline.Business.Repository
         }
         public void ChangeStatus(CV cv)
         {
+            cv.isDeleted = false;
             _dbContext.Entry(cv).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }

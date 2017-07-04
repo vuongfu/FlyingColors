@@ -18,6 +18,6 @@ namespace TutorOnline.Web.Models
         public string Description { get; set; }
         public string Purpose { get; set; }
         public string Requirement { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
     }
 }

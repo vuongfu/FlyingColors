@@ -73,7 +73,7 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ảnh:")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Display(Name = "Mô tả:")]
         public string Description { get; set; }
@@ -245,7 +245,7 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ảnh:")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Display(Name = "Mô tả:")]
         public string Description { get; set; }
@@ -322,7 +322,7 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ảnh:")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Display(Name = "Mô tả:")]
         public string Description { get; set; }
@@ -405,7 +405,7 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ảnh:")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Display(Name = "Mô tả:")]
         public string Description { get; set; }
@@ -510,7 +510,7 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ảnh:")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Display(Name = "Mô tả:")]
         public string Description { get; set; }
@@ -596,7 +596,7 @@ namespace TutorOnline.Web.Models
 
 
         [Display(Name = "Ảnh:")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Display(Name = "Miêu tả:")]
         public string Description { get; set; }
