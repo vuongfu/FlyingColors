@@ -45,9 +45,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASPSnippets.GoogleAPI, Version=2.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Google_Login\Bin\ASPSnippets.GoogleAPI.dll</HintPath>
+    <Reference Include="ASPSnippets.GoogleAPI">
+      <HintPath>C:\Users\PC\Downloads\Google_Login\Bin\ASPSnippets.GoogleAPI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -232,6 +231,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="CVFiles\CV1.pdf" />
+    <Content Include="CVFiles\CV2.pdf" />
+    <Content Include="CVFiles\CV3.pdf" />
+    <Content Include="CVFiles\CV4.pdf" />
+    <Content Include="CVFiles\CV5.pdf" />
+    <Content Include="CVFiles\CV6.pdf" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
