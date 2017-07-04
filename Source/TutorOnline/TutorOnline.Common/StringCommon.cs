@@ -15,5 +15,7 @@ namespace TutorOnline.Common
         public string deleteSubjectsSuccess = "Đã xóa khóa học thành công";
         public string isExitCategoryName = "Tên môn học đã tồn tại";
         public string isExitSubjectName = "Tên khóa học đã tồn tại";
+        public string mustChangeCVStatus = "Hãy chọn trạng thái muốn thay đổi";
+        public string changeCVStatusSucessfully = "Đã thay đổi trạng thái CV thành công";
     }
 }
