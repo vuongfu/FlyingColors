@@ -39,6 +39,7 @@ namespace TutorOnline.Business.Repository
             _dbContext.Entry(cv).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
+
         public void Dispose()
         {
             _dbContext.Dispose();

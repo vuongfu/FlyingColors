@@ -69,7 +69,6 @@
                             <tr>
                                 <td>@(ViewBag.Count++ + 1)</td>
                                 <td>@Html.ActionLink(item.CVLink, "Download", "CV", new { file = item.CVLink }, null)</td>
-
                                 @using (Html.BeginForm("ChangeStatus", "CV", FormMethod.Post))
                                 {
                                     <td>
