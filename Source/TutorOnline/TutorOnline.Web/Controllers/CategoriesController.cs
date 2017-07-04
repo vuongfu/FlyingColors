@@ -71,7 +71,7 @@ namespace TutorOnline.Web.Controllers
             {
                 if (CRes.isExistsCategoryName(model.CategoryName))
                 {
-                    TempData["message"] = new StringCommon().isExitCategoryName.ToString();
+                    TempData["messageWarning"] = new StringCommon().isExitCategoryName.ToString();
                     return View(model);
                 }
                 Category category = new Category();
@@ -142,7 +142,13 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                if (CRes.isExistsCategoryName(model.CategoryName))
+                {
+                    TempData["messageWarning"] = new StringCommon().isExitCategoryName.ToString();
+                    return View(model);
+                }
                 CRes.EditCategory(category);
+                TempData["message"] = new StringCommon().updateCategoriesSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.CategoryId });
             }
             return View(model);

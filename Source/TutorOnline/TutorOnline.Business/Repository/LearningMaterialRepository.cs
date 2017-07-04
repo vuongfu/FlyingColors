@@ -27,22 +27,21 @@ namespace TutorOnline.Business.Repository
         }
         public void AddMaterial(LearningMaterial material)
         {
-            //material.isActived = true;
+            material.isDeleted = false;
             _dbContext.LearningMaterials.Add(material);
             _dbContext.SaveChanges();
         }
         public void EditMaterial(LearningMaterial material)
         {
-            //material.isActived = true;
+            material.isDeleted = false;
             _dbContext.Entry(material).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
-        //public void DeleteMaterial(int id)
-        //{
-        //    //Miss status in LearningMaterial 
-        //    _dbContext.LearningMaterials.Where(x => x.MaterialId == id).ToList().ForEach(x => x.isActived = false);
-        //    _dbContext.SaveChanges();
-        //}
+        public void DeleteMaterial(int id)
+        {
+            _dbContext.LearningMaterials.Where(x => x.MaterialId == id).ToList().ForEach(x => x.isDeleted = true);
+            _dbContext.SaveChanges();
+        }
 
         public bool isExistsMaterialName(string name)
         {

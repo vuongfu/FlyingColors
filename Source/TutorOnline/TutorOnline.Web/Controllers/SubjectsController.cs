@@ -88,7 +88,8 @@ namespace TutorOnline.Web.Controllers
                 Subject subject = new Subject();
                 if (SRes.isExistsSubjectName(model.SubjectName))
                 {
-                    TempData["message"] = new StringCommon().isExitSubjectName.ToString();
+                    TempData["messageWarning"] = new StringCommon().isExitSubjectName.ToString();
+                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
@@ -166,6 +167,12 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SubjectsViewModels model)
         {
+            if (SRes.isExistsSubjectName(model.SubjectName))
+            {
+                TempData["messageWarning"] = new StringCommon().isExitSubjectName.ToString();
+                ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+                return View(model);
+            }
             Subject subject = new Subject();
 
             //Mapping Entity to ViewModel
@@ -179,7 +186,9 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
+
                 SRes.EditSubject(subject);
+                TempData["message"] = new StringCommon().updateSubjectSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.SubjectId });
             }
             ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
