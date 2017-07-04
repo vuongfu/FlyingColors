@@ -12,7 +12,7 @@ using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CVController : Controller
     {
         private CVRepository CVRes = new CVRepository();
@@ -85,7 +85,7 @@ namespace TutorOnline.Web.Controllers
             var cv = CVRes.FindCV(id);
             //Check status to update Entity
             if (status == 0)
-                TempData["message"] = new StringCommon().mustChangeCVStatus.ToString();
+                TempData["messageWanrning"] = new StringCommon().mustChangeCVStatus.ToString();
             if (status == 1)
             {
                 cv.isRead = true;
@@ -110,15 +110,23 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Index", "CV");
         }
 
-        //[HttpGet]
-        //public FileResult Download(long id)
-        //{
-        //    using (var mem = new MemoryStream())
-        //    {
-        //        // Create spreadsheet based on widgetId...
-        //        // Or get the path for a file on the server...
-        //        return File(mem, "application/pdf", "CV.pdf");
-        //    }
-        //}
+        public ActionResult Downloads()
+        {
+            var dir = new System.IO.DirectoryInfo(Server.MapPath("~/CVFiles/"));
+            System.IO.FileInfo[] fileNames = dir.GetFiles("*.*");
+            List<string> items = new List<string>();
+            foreach (var file in fileNames)
+            {
+                items.Add(file.Name);
+            }
+            return View(items);
+        }
+
+        public FileResult Download(string file)
+        {
+
+            var FileVirtualPath = "~/CVFiles/" + file;
+            return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
+        }
     }
 }

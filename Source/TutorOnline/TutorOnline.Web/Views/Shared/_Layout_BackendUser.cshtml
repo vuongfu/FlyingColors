@@ -41,6 +41,13 @@
                 @TempData["message"]
             </div>
         }
+        @if (TempData["messageWanrning"] != null)
+        {
+            <div class="alert alert-warning alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                @TempData["messageWanrning"]
+            </div>
+        }
 
         <div class="container-fluid">
             <div class="row">
@@ -78,7 +85,8 @@
                         <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Categories")">Quản lý môn học</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Subjects")">Quản lý khóa học</a></li>
-                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Manager")">Danh sách gia sư ứng tuyển</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "CV")">Quản lý tutor's CV</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "Documents")">Quản lý tài liệu học tập</a></li>
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý tài chính</a></li>
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Search", "Accountant")">Chỉnh sửa tài khoản</a></li>
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("ImportExcel", "Accountant")">Nhập từ file Excel</a></li>
