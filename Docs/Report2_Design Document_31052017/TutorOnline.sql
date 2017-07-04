@@ -39,7 +39,7 @@ create table [Parent](
 	[Country] [nvarchar](15) NULL,
 	[PhoneNumber] [nvarchar](24) NOT NULL,
 	[Balance] [money] NULL,
-	[Photo] [image] NULL,
+	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[isDeleted] [bit] not null default 0
 );
@@ -62,7 +62,7 @@ CREATE TABLE [Student](
 	[Country] [nvarchar](15) NULL,
 	[PhoneNumber] [nvarchar](24) NOT NULL,
 	[Balance] [money] NULL,
-	[Photo] [image] NULL,
+	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[isDeleted] [bit] not null default 0
 );
@@ -81,7 +81,7 @@ create table [BackendUser](
 	[City] [nvarchar](15) NULL,
 	[Country] [nvarchar](15) NULL,
 	[PhoneNumber] [nvarchar](24) NOT NULL,
-	[Photo] [image] NULL,
+	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[isDeleted] [bit] not null default 0
 );
@@ -90,7 +90,8 @@ Create table [CV](
 	[CVId] int identity(1,1) primary key,
 	[CVLink] [nvarchar](200) null,
 	[isRead] bit not null default 0,
-	[isApproved] bit not null default 0
+	[isApproved] bit not null default 0,
+	[isDeleted] bit not null default 0
 );
 
 Create table [Tutor](
@@ -112,7 +113,7 @@ Create table [Tutor](
 	[Balance] [money] NULL,
 	[BankId] [nvarchar](24) NULL,
 	[Salary] [money] NULL,
-	[Photo] [image] NULL,
+	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[BankName] [nvarchar](200) null,
 	[BMemName] [nvarchar](200) null,
@@ -135,7 +136,7 @@ CREATE TABLE [Subject](
 	[Description] [text] NULL,
 	[Purpose] [text] NULL,
 	[Requirement] [text] NULL,
-	[Photo] [image] NULL,
+	[Photo] varchar(100) NULL,
 	[isActived] bit not null default 1
 );
 
@@ -158,6 +159,7 @@ CREATE TABLE [LearningMaterial] (
 	[MaterialTypeId] [int] FOREIGN KEY REFERENCES [MaterialType](MaterialTypeId) NOT NULL,
 	[Description] [text] NULL,
 	[LessonId] int FOREIGN KEY REFERENCES [Lesson](LessonId) NOT NULL,
+	[isDeleted] bit not null default 0
 );
 
 CREATE TABLE [Schedule] (
@@ -314,16 +316,20 @@ INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Addr
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,3,'Nguyen','Hieu',5-5-2005,1,null,'Hieu123@gmail.com','Hieu123','Hieu1','3','Ha Noi',null,'Viet Nam','124351251234',2000000,null,'Ham học hỏi');
 
 --Insert data to CV table
-INSERT INTO [CV] (CVLink) values('abc');
-INSERT INTO [CV] (CVLink) values('def');
-INSERT INTO [CV] (CVLink) values('xyz');
+INSERT INTO [CV] (CVLink) values('CV1.pdf');
+INSERT INTO [CV] (CVLink) values('CV2.pdf');
+INSERT INTO [CV] (CVLink) values('CV3.pdf');
+INSERT INTO [CV] (CVLink) values('CV4.pdf');
+INSERT INTO [CV] (CVLink) values('CV5.pdf');
+INSERT INTO [CV] (CVLink) values('CV6.pdf');
 
 --Insert data to Tutor table
 INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Nguyễn','Huyền',3-3-1983,2,'Quận 1','huyenNTK@fpt.edu.vn','Nana','Huyenntk','1','Hồ Chí Minh',null,'Viet Nam','01632594938',1000000,'12345667',100000,null,null,'Tien Phong','HuyenNtk',1,1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Lý','Trọng',4-4-1984,1,null,'Trong123@gmail.com','LyTrong','An1','2','Ha Noi',null,'Viet Nam','12312341351',0,'203498572',50000,null,null,'VPBank','Ly Trong',2,1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Thúy','Kiều',5-5-1985,2,null,'Kieu123@gmail.com','ThuyKieu','Hieu1','3','Ha Noi',null,'Viet Nam','124351251234',2000000,'9012367019',100000,null,null,'Vietcombank','Thuy Kieu',3,1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Lý','Trọng',4-4-1984,1,null,'Trong123@gmail.com','LyTrong','LyTrong','2','Ha Noi',null,'Viet Nam','12312341351',0,'203498572',50000,null,null,'VPBank','Ly Trong',2,1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,CVId,[Status]) VALUES (7,'Thúy','Kiều',5-5-1985,2,null,'Kieu123@gmail.com','ThuyKieu','ThuyKieu','3','Ha Noi',null,'Viet Nam','124351251234',2000000,'9012367019',100000,null,null,'Vietcombank','Thuy Kieu',3,1);
 																																																								
 --Insert data to BackendUser table
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,'Dương','Quá',25-3-1985,1,null,'Ngoisaoden9@gmail.com','DuongQua','1','Ha Noi','Viet Nam','09777777',null,null);
 INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Từ','Hải',25-3-1985,1,null,'TuHai@gmail.com','TuHai','1','Ha Noi','Viet Nam','123512132',null,null);
 INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,'Bá','Kiến',22-2-1989,1,null,'BaKien@gmail.com','BaKien','2','Cao Bằng','Viet Nam','123514154',null,null);
 INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,'Chí','Phèo',21-4-1987,1,null,'ChiPheo@gmail.com','ChiPheo','3','Đà Nẵng','Viet Nam','12341235',null,null);		

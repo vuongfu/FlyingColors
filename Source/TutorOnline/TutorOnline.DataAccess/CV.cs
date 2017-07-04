@@ -24,6 +24,7 @@ namespace TutorOnline.DataAccess
         public string CVLink { get; set; }
         public bool isRead { get; set; }
         public bool isApproved { get; set; }
+        public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tutor> Tutors { get; set; }

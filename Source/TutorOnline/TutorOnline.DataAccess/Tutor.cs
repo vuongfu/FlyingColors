@@ -42,7 +42,7 @@ namespace TutorOnline.DataAccess
         public Nullable<decimal> Balance { get; set; }
         public string BankId { get; set; }
         public Nullable<decimal> Salary { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public string Description { get; set; }
         public string BankName { get; set; }
         public string BMemName { get; set; }

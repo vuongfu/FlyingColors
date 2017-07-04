@@ -28,7 +28,7 @@ namespace TutorOnline.DataAccess
         public string Description { get; set; }
         public string Purpose { get; set; }
         public string Requirement { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public bool isActived { get; set; }
     
         public virtual Category Category { get; set; }
