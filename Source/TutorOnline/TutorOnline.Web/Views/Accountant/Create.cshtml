@@ -4,6 +4,91 @@
     ViewBag.Title = "Change Acc";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var mangso = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+
+    function dochangchuc(so, daydu) {
+        var chuoi = "";
+        chuc = Math.floor(so / 10);
+        donvi = so % 10;
+        if (chuc > 1) {
+            chuoi = " " + mangso[chuc] + " mươi";
+            if (donvi == 1) {
+                chuoi += " mốt";
+            }
+        } else if (chuc == 1) {
+            chuoi = " mười";
+            if (donvi == 1) {
+                chuoi += " một";
+            }
+        } else if (daydu && donvi > 0) {
+            chuoi = " lẻ";
+        }
+        if (donvi == 5 && chuc > 1) {
+            chuoi += " lăm";
+        } else if (donvi > 1 || (donvi == 1 && chuc == 0)) {
+            chuoi += " " + mangso[donvi];
+        }
+        return chuoi;
+    }
+
+    function docblock(so, daydu) {
+        var chuoi = "";
+        tram = Math.floor(so / 100);
+        so = so % 100;
+        if (daydu || tram > 0) {
+            chuoi = " " + mangso[tram] + " trăm";
+            chuoi += dochangchuc(so, true);
+        } else {
+            chuoi = dochangchuc(so, false);
+        }
+        return chuoi;
+    }
+
+    function dochangtrieu(so, daydu) {
+        var chuoi = "";
+        trieu = Math.floor(so / 1000000);
+        so = so % 1000000;
+        if (trieu > 0) {
+            chuoi = docblock(trieu, daydu) + " triệu";
+            daydu = true;
+        }
+        nghin = Math.floor(so / 1000);
+        so = so % 1000;
+        if (nghin > 0) {
+            chuoi += docblock(nghin, daydu) + " nghìn";
+            daydu = true;
+        }
+        if (so > 0) {
+            chuoi += docblock(so, daydu);
+        }
+        return chuoi;
+    }
+
+    function docso(so) {
+        if (so == 0) return mangso[0];
+        var chuoi = "",
+            hauto = "";
+        do {
+            ty = so % 1000000000;
+            so = Math.floor(so / 1000000000);
+            if (so > 0) {
+                chuoi = dochangtrieu(ty, true) + hauto + chuoi;
+            } else {
+                chuoi = dochangtrieu(ty, false) + hauto + chuoi;
+            }
+            hauto = " tỷ";
+        } while (so > 0);
+        return chuoi;
+    }
+    i = 0;
+    $(document).ready(function () {
+        $("#change").keyup(function () {
+            $("#money").text(docso($(this).val()));
+        });
+    });
+</script>
 <h2>Chỉnh sửa số dư</h2>
 
 @using (Html.BeginForm())
@@ -50,9 +135,10 @@
                 Chỉnh sửa số dư
             </dt>
             <dd>
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-                Sử dụng dấu (-) cho việc trừ tài khoản.
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @id = "change" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" }) 
+                <div><span id = "money"></span></div>
+                <div>Sử dụng dấu (-) cho việc trừ tài khoản.</div>
             </dd>
             <dt>
                 Nội dung
@@ -72,9 +158,9 @@
     </div>
 }
     </hr>
-    <div class="col-md-offset-2 col-md-10">
-        @Html.ActionLink("Back to List", "Search")    
-    </div>
+<div class="col-md-offset-2 col-md-10">
+    @Html.ActionLink("Back to List", "Search")
+</div>
 
 
 @section Scripts {
