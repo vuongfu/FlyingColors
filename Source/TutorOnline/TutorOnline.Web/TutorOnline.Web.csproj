@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASPSnippets.GoogleAPI">
+      <HintPath>C:\Users\longnb\Downloads\Google_Login\Bin\ASPSnippets.GoogleAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -144,14 +147,20 @@
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CVController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\LoginSocialController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CategoriesViewModels.cs" />
+    <Compile Include="Models\CVViewModels.cs" />
+    <Compile Include="Models\GoogleAPIViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\SubjectsViewModels.cs" />
     <Compile Include="Models\TransactionViewModels.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,7 +260,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -259,7 +267,6 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Shared\_Layout_BackendUser.cshtml" />
-    <Content Include="Views\Manager\UpdatePerInfo.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Users\ChangePwd.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
@@ -272,6 +279,12 @@
     <Content Include="Views\Accountant\Index.cshtml" />
     <Content Include="Views\Accountant\Search.cshtml" />
     <Content Include="Views\Accountant\ImportExcel.cshtml" />
+    <Content Include="Views\CV\Index.cshtml" />
+    <Content Include="Views\Subjects\Create.cshtml" />
+    <Content Include="Views\Subjects\Delete.cshtml" />
+    <Content Include="Views\Subjects\Details.cshtml" />
+    <Content Include="Views\Subjects\Edit.cshtml" />
+    <Content Include="Views\Subjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
