@@ -15,6 +15,11 @@ namespace TutorOnline.Business.Repository
             var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType);
             return materials;
         }
+        public IEnumerable<LearningMaterial> GetMaCategory(int? id)
+        {
+            var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType).Where(x => x.Lesson.Subject.CategoryId == id);
+            return materials;
+        }
         public LearningMaterial FindMaterial(int? id)
         {
             LearningMaterial material = _dbContext.LearningMaterials.Find(id);

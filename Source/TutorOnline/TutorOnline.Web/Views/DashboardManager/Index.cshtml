@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "Thống kê hệ thống";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+<h2>Thống kê hệ thống</h2>
+<hr />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Môn học <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    Tổng số môn học <span class="pull-right">@ViewBag.numCategories</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numCategories" aria-valuemin="0" aria-valuemax="@ViewBag.numCategories" style="width: 100%;">
+                            100%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Khóa học <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    Tổng số khóa học <span class="pull-right">@ViewBag.numSubjects</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numSubjects" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            100%
+                        </div>
+                    </div>
+                    Số lượng khóa học tiếng nhật <span class="pull-right">@ViewBag.numSubJanpanese</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numSubJanpanese" aria-valuemin="0" aria-valuemax="@ViewBag.numSubjects" style="width: 80%;">
+                            80%
+                        </div>
+                    </div>
+                    Số lượng khóa học tiếng anh <span class="pull-right">@ViewBag.numSubEnglish</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numSubEnglish" aria-valuemin="0" aria-valuemax="@ViewBag.numSubjects" style="width: 20%;">
+                            20%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Bài học <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    Tổng số bài học <span class="pull-right">100</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            100%
+                        </div>
+                    </div>
+                    Tổng số lượng bài học môn tiếng nhật <span class="pull-right">50</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                            50%
+                        </div>
+                    </div>
+                    Tổng số lượng bài học môn tiếng anh <span class="pull-right">50</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                            50%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    Tài liệu học tập <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    Tổng số tài liệu <span class="pull-right">500</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            100%
+                        </div>
+                    </div>
+                    Tài liệu môn tiếng nhật <span class="pull-right">300</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            60%
+                        </div>
+                    </div>
+                    Tài liệu môn tiếng anh <span class="pull-right">200</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                            40%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    Gia sư <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    Tổng số gia sư <span class="pull-right">500</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            100%
+                        </div>
+                    </div>
+                    Gia sư việt nam <span class="pull-right">300</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            60%
+                        </div>
+                    </div>
+                    Gia sư nước ngoài <span class="pull-right">200</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                            40%
+                        </div>
+                    </div>
+                    Số lượng gia sư được phê duyệt trong tháng <span class="pull-right">20</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100" style="width: 4%;">
+                            4%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Học viên <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    Tổng số học viên <span class="pull-right">500</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            100%
+                        </div>
+                    </div>
+                    Học viên việt nam <span class="pull-right">300</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            60%
+                        </div>
+                    </div>
+                    Học viên nước ngoài <span class="pull-right">200</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                            40%
+                        </div>
+                    </div>
+                    Số lượng học viên đăng ký trong tháng <span class="pull-right">20</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100" style="width: 4%;">
+                            4%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
