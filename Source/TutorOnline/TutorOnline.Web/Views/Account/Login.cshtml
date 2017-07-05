@@ -3,11 +3,10 @@
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
 <div class="container">
     <div class="login-container">
         <div id="output"></div>
-        <div class="avatar"></div>
+        <div class="avatar" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
         <div class="form-box">
 
             @using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new {  }))

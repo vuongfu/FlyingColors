@@ -11,6 +11,22 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+        @if (String.IsNullOrEmpty(Model.Photo))
+        {
+            <dd>
+                @("N/A")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <img src="~/Content/Uploads/Thumbnails/@Model.Photo.Substring(3)" />
+            </dd>
+        }
+        
+        <dt>
             @Html.DisplayNameFor(model => model.Username)
         </dt>
 

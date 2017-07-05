@@ -10,6 +10,7 @@ using TutorOnline.DataAccess;
 using TutorOnline.Web.Models;
 using PagedList;
 using System.Web.Security;
+using System.Web;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -155,7 +156,7 @@ namespace TutorOnline.Web.Controllers
                     return HttpNotFound();
                 }
                 ViewBag.Rid = Rid;
-
+                if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);
@@ -167,7 +168,7 @@ namespace TutorOnline.Web.Controllers
                     return HttpNotFound();
                 }
                 ViewBag.Rid = Rid;
-
+                if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);              
@@ -179,7 +180,7 @@ namespace TutorOnline.Web.Controllers
                     return HttpNotFound();
                 }
                 ViewBag.Rid = Rid;
-
+                if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);
@@ -192,7 +193,7 @@ namespace TutorOnline.Web.Controllers
                     return HttpNotFound();
                 }
                 ViewBag.Rid = Rid;
-
+                if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);
@@ -217,7 +218,7 @@ namespace TutorOnline.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateUserViewModels userViewModel)
+        public ActionResult Create(HttpPostedFileBase file, CreateUserViewModels userViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -245,7 +246,7 @@ namespace TutorOnline.Web.Controllers
                 user.LastName = userViewModel.LastName;
                 user.Password = userViewModel.Password;
                 user.PhoneNumber = userViewModel.PhoneNumber;
-                user.Photo = userViewModel.Photo;
+                user.Photo = FileUpload.UploadFile(file);
                 user.RoleId = userViewModel.RoleId;
                 user.UserName = userViewModel.Username;
 
@@ -296,10 +297,12 @@ namespace TutorOnline.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DetailBackEndUserViewModels model)
+        public ActionResult Edit(DetailBackEndUserViewModels model, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                string photoUrl = FileUpload.UploadFile(file);
+
                 BackendUser user = URes.FindBackEndUser(model.Id);
                 user.BackendUserId = model.Id;
                 user.Address = model.Address;
@@ -311,7 +314,8 @@ namespace TutorOnline.Web.Controllers
                 user.Gender = model.Gender;
                 user.LastName = model.LastName;
                 user.PhoneNumber = model.PhoneNumber;
-                user.Photo = model.Photo;
+                user.Photo = (string.IsNullOrEmpty(photoUrl)? model.Photo:photoUrl);
+                user.RoleId = model.RoleID;
 
                 URes.EditBackEndUser(user);
                 return RedirectToAction("Index");
