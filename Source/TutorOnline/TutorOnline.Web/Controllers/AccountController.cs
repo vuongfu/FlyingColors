@@ -13,6 +13,7 @@ namespace TutorOnline.Web.Controllers
     public class AccountController : Controller
     {
         private AccountRepository AccRes = new AccountRepository();
+        private UsersRepository URes = new UsersRepository();
 
         [AllowAnonymous]
         public ActionResult Login()
@@ -70,7 +71,8 @@ namespace TutorOnline.Web.Controllers
                     UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
                     Response.Cookies.Add(UserInfo);
 
-                    return Redirect(returnUrl ?? Url.Action("Details", "Users" ,new { id = tempId, info = true }));
+                    string url = (String.IsNullOrEmpty(returnUrl) ? Url.Action("Details", "Users", new { id = tempId, info = true }) : returnUrl);
+                    return Redirect(url);
                 }
                 else
                 {
@@ -98,12 +100,26 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Register(int? roleId)
+        [AllowAnonymous]
+        public ActionResult Register(CreateUserViewModels model , int? roleId)
         {
             if (roleId != null)
             {
-                ViewBag.isSelectedRole = true;
+                ViewBag.isSelectedRole = roleId;
             }
+            if(!String.IsNullOrEmpty(model.Email))
+            {
+                ViewBag.RegisterLoginSocial = true;
+                ViewBag.Email = model.Email;
+            }
+
+            ViewBag.RoleId = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName");
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem {  Text = "Male", Value = "1"},
+                new SelectListItem {  Text = "Female", Value = "2"},
+            }, "Value", "Text");
+
             return View();
         }
     }

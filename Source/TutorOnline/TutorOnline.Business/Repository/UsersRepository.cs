@@ -171,7 +171,7 @@ namespace TutorOnline.Business.Repository
                 return true;
         }
 
-        public string checkEmailLogin(string email)
+        public UserLoginInfo checkEmailLogin(string email)
         {
             var ParentUser = _dbContext.Parents.FirstOrDefault(x => x.Email == email);
             var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.Email == email);
@@ -179,11 +179,74 @@ namespace TutorOnline.Business.Repository
             var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.Email == email);
             if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null)
                 return null;
-            string returnString;
-            returnString = (ParentUser == null ? (BackEndUser == null ? (StudentUser == null ? (TutorUser == null ? null : TutorUser.UserName) : StudentUser.UserName) : BackEndUser.UserName) : ParentUser.UserName);
+            UserLoginInfo returnResult;
+            
+            if(ParentUser != null)
+            {
+                returnResult = new UserLoginInfo(ParentUser);
+            }else if(BackEndUser != null)
+            {
+                returnResult = new UserLoginInfo(BackEndUser);
+            }else if(StudentUser != null)
+            {
+                returnResult = new UserLoginInfo(StudentUser);
+            }else if(TutorUser != null)
+            {
+                returnResult = new UserLoginInfo(TutorUser);
+            }else
+            {
+                return null;
+            }
 
-            return returnString;
+            return returnResult;
         }
 
+    }
+
+    public class UserLoginInfo
+    {
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string email { get; set; }
+
+        public UserLoginInfo()
+        {
+
+        }
+
+        public UserLoginInfo(Tutor data)
+        {
+            this.UserId = data.TutorId;
+            this.UserName = data.UserName;
+            this.RoleId = data.RoleId;
+            this.RoleName = data.Role.RoleName;
+            this.email = data.Email;
+        }
+        public UserLoginInfo(Parent data)
+        {
+            this.UserId = data.ParentId;
+            this.UserName = data.UserName;
+            this.RoleId = data.RoleId;
+            this.RoleName = data.Role.RoleName;
+            this.email = data.Email;
+        }
+        public UserLoginInfo(BackendUser data)
+        {
+            this.UserId = data.BackendUserId;
+            this.UserName = data.UserName;
+            this.RoleId = data.RoleId;
+            this.RoleName = data.Role.RoleName;
+            this.email = data.Email;
+        }
+        public UserLoginInfo(Student data)
+        {
+            this.UserId = data.StudentId;
+            this.UserName = data.UserName;
+            this.RoleId = data.RoleId;
+            this.RoleName = data.Role.RoleName;
+            this.email = data.Email;
+        }
     }
 }

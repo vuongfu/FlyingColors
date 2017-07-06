@@ -617,6 +617,82 @@ namespace TutorOnline.Web.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class CreateFrontEndUserViewModels
+    {
+        [Required]
+        [Display(Name = "Chức vụ:")]
+        public int RoleId { get; set; }
+
+        [Required]
+        [Display(Name = "Họ:")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Tên:")]
+        public string FirstName { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Ngày sinh:")]
+        public Nullable<System.DateTime> BirthDate { get; set; }
+
+        [Display(Name = "Giới tính:")]
+        public int Gender { get; set; }
+
+        [Display(Name = "Địa chỉ:")]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "Email:")]
+        public string Email { get; set; }
+
+        [Display(Name = "Thành phố:")]
+        public string City { get; set; }
+
+        [Display(Name = "Mã vùng:")]
+        public string PostalCode { get; set; }
+
+        [Display(Name = "Quốc gia:")]
+        public string Country { get; set; }
+
+        [Required]
+        [Display(Name = "Số điện thoại:")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name ="Skype")]
+        public string SkypeId { get; set; }
+
+        [Display(Name = "Ảnh:")]
+        public string Photo { get; set; }
+
+        [Display(Name = "Miêu tả:")]
+        public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Tên đăng nhập:")]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Xác nhận mật khẩu")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Số tài khoản:")]
+        public string BankID { get; set; }
+
+        [Display(Name = "Tên ngân hàng:")]
+        public string BankName { get; set; }
+
+        [Display(Name = "Người thụ hưởng:")]
+        public string BMemName { get; set; }
+    }
+
     public class ChangePasswordViewModel
     {
         public int Id { get; set; }

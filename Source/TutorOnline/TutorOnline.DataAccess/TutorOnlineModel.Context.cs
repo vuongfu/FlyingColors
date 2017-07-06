@@ -30,7 +30,6 @@ namespace TutorOnline.DataAccess
         public virtual DbSet<BackendUser> BackendUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Criterion> Criteria { get; set; }
-        public virtual DbSet<CV> CVs { get; set; }
         public virtual DbSet<LearningMaterial> LearningMaterials { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<MaterialType> MaterialTypes { get; set; }

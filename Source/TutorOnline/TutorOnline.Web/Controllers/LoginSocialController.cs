@@ -35,15 +35,29 @@ namespace TutorOnline.Web.Controllers
                 string json = GoogleConnect.Fetch("me", code);
                 GoogleProfile profile = new JavaScriptSerializer().Deserialize<GoogleProfile>(json);
 
-                string username = URes.checkEmailLogin(profile.Emails.Find(email => email.Type == "account").Value);
-                if (username != null)
+                UserLoginInfo data = URes.checkEmailLogin(profile.Emails.Find(email => email.Type == "account").Value);
+                if (data != null)
                 {
-                    FormsAuthentication.SetAuthCookie(username, false);
+                    FormsAuthentication.SetAuthCookie(data.UserName, false);
+                    HttpCookie Role = new HttpCookie("Role");
+                    Role["RoleId"] = data.RoleId.ToString();
+                    Role["RoleName"] = data.RoleName;
+
+                    HttpCookie UserInfo = new HttpCookie("UserInfo");
+                    UserInfo["UserId"] = data.UserId.ToString();
+                    UserInfo["UserName"] = data.UserName;
+                    UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
+                    Response.Cookies.Add(UserInfo);
+
+                    Role.Expires.Add(new TimeSpan(0, 15, 0));
+                    Response.Cookies.Add(Role);
                     return RedirectToAction("Index", "Home");
                 }
                 else
-                {
-                    return RedirectToAction("Login","Account");
+                {                
+                    CreateUserViewModels viewModel = new CreateUserViewModels();
+                    viewModel.Email = profile.Emails.Find(email => email.Type == "account").Value;
+                    return RedirectToAction("Register","Account",viewModel);
                 }
                 
 
