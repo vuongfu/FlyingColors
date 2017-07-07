@@ -42,15 +42,31 @@ namespace TutorOnline.Business.Repository
             _dbContext.Entry(subject).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
+        public bool isExistedLessonIn(int id)
+        {
+            var lesson = _dbContext.Lessons.FirstOrDefault(x => x.SubjectId == id);
+            if (lesson == null)
+                return false;
+            else
+                return true;
+        }
+        public bool isExistedStudentIn(int id)
+        {
+            var student = _dbContext.StudentSubjects.FirstOrDefault(x => x.SubjectId == id);
+            if (student == null)
+                return false;
+            else
+                return true;
+        }
         public void DeleteSubject(int id)
         {
             _dbContext.Subjects.Where(x => x.SubjectId == id).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 
-        public bool isExistsSubjectName(string name)
+        public bool isExistsSubjectName(string name, int id)
         {
-            var subject = _dbContext.Subjects.FirstOrDefault(x => x.SubjectName == name);
+            var subject = _dbContext.Subjects.Where(x => x.CategoryId == id).FirstOrDefault(x => x.SubjectName == name);
             if (subject == null)
                 return false;
             else

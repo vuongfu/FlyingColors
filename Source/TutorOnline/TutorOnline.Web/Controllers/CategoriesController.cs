@@ -18,12 +18,13 @@ namespace TutorOnline.Web.Controllers
         // GET: Categories
         private CategoriesRepository CRes = new CategoriesRepository();
 
-        public ActionResult Index(string searchString, int? page)
+        public ActionResult Index(string btnSearch, string searchString, int? page)
         {
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
             ViewBag.searchStr = searchString;
+            ViewBag.btnSearch = btnSearch;
 
             var Categories = CRes.GetAllCategories();
             List<CategoriesViewModels> result = new List<CategoriesViewModels>();
@@ -36,7 +37,10 @@ namespace TutorOnline.Web.Controllers
                     CategoriesViewModels model = new CategoriesViewModels();
                     model.CategoryId = item.CategoryId;
                     model.CategoryName = item.CategoryName;
-                    model.Description = item.Description;
+                    if (item.Description != null && item.Description.ToString().Length >= 30)
+                        model.Description = item.Description.ToString().Substring(0, 30) + "...";
+                    else
+                        model.Description = item.Description;
                     result.Add(model);
                 }
             }
@@ -50,8 +54,7 @@ namespace TutorOnline.Web.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                result = result.Where(x => CRes.SearchForString(x.CategoryName, searchString) ||
-                                           CRes.SearchForString(x.Description, searchString)).ToList();
+                result = result.Where(x => CRes.SearchForString(x.CategoryName, searchString)).ToList();
             }
 
             ViewBag.totalRecord = result.Count();
@@ -71,7 +74,7 @@ namespace TutorOnline.Web.Controllers
             {
                 if (CRes.isExistsCategoryName(model.CategoryName))
                 {
-                    TempData["messageWarning"] = new StringCommon().isExitCategoryName.ToString();
+                    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
                     return View(model);
                 }
                 Category category = new Category();
@@ -81,7 +84,7 @@ namespace TutorOnline.Web.Controllers
                 category.Description = model.Description;
 
                 CRes.AddCategory(category);
-                TempData["message"] = new StringCommon().addCategoriesSuccess.ToString();
+                TempData["message"] = new ManagerStringCommon().addCategoriesSuccess.ToString();
                 return RedirectToAction("Index");
             }
 
@@ -144,11 +147,11 @@ namespace TutorOnline.Web.Controllers
             {
                 if (CRes.isExistsCategoryName(model.CategoryName))
                 {
-                    TempData["messageWarning"] = new StringCommon().isExitCategoryName.ToString();
+                    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
                     return View(model);
                 }
                 CRes.EditCategory(category);
-                TempData["message"] = new StringCommon().updateCategoriesSuccess.ToString();
+                TempData["message"] = new ManagerStringCommon().updateCategoriesSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.CategoryId });
             }
             return View(model);
@@ -178,8 +181,14 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            CRes.DeleteCategory(id);
-            TempData["message"] = new StringCommon().deleteCategoriesSuccess.ToString();
+            if (CRes.isExistedSubjectIn(id))
+                TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectIn.ToString();
+            else
+            {
+                CRes.DeleteCategory(id);
+                TempData["message"] = new ManagerStringCommon().deleteCategoriesSuccess.ToString();
+            }
+
             return RedirectToAction("Index");
         }
 

@@ -18,7 +18,7 @@ namespace TutorOnline.Web.Controllers
         // GET: Subjects
         private SubjectsRepository SRes = new SubjectsRepository();
         private CategoriesRepository CRes = new CategoriesRepository();
-        public ActionResult Index(string searchString, string cateString, int? page)
+        public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
             int pageSize = 3;
             int pageNumber = (page ?? 1);
@@ -26,6 +26,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.searchStr = searchString;
             ViewBag.cateStr = cateString;
             ViewBag.cateString = new SelectList(CRes.GetAllCategories(), "CategoryName", "CategoryName");
+            ViewBag.btnSearch = btnSearch;
 
             var subjects = SRes.GetAllSubject();
             List<SubjectsViewModels> result = new List<SubjectsViewModels>();
@@ -40,9 +41,18 @@ namespace TutorOnline.Web.Controllers
                     model.SubjectName = item.SubjectName;
                     model.CategoryId = item.CategoryId;
                     model.CategoryName = item.Category.CategoryName;
-                    model.Purpose = item.Purpose;
-                    model.Requirement = item.Requirement;
-                    model.Description = item.Description;
+                    if (item.Purpose != null && item.Purpose.ToString().Length >= 30)
+                        model.Purpose = item.Purpose.ToString().Substring(0, 30) + "...";
+                    else
+                        model.Purpose = item.Purpose;
+                    if (item.Requirement != null && item.Requirement.ToString().Length >= 30)
+                        model.Requirement = item.Requirement.ToString().Substring(0, 30) + "...";
+                    else
+                        model.Requirement = item.Requirement;
+                    if (item.Description != null && item.Description.ToString().Length >= 30)
+                        model.Description = item.Description.ToString().Substring(0, 30) + "...";
+                    else
+                        model.Description = item.Description;
                     model.Photo = item.Photo;
                     result.Add(model);
                 }
@@ -81,14 +91,15 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SubjectsViewModels model)
+        public ActionResult Create(SubjectsViewModels model, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                string photoUrl = FileUpload.UploadFile(file);
                 Subject subject = new Subject();
-                if (SRes.isExistsSubjectName(model.SubjectName))
+                if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
                 {
-                    TempData["messageWarning"] = new StringCommon().isExitSubjectName.ToString();
+                    TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
                     ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
                     return View(model);
                 }
@@ -97,11 +108,11 @@ namespace TutorOnline.Web.Controllers
                 subject.SubjectName = model.SubjectName;
                 subject.Purpose = model.Purpose;
                 subject.Requirement = model.Requirement;
-                subject.Photo = model.Photo;
+                subject.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
                 subject.Description = model.Description;
 
                 SRes.AddSubject(subject);
-                TempData["message"] = new StringCommon().addSubjectsSuccess.ToString();
+                TempData["message"] = new ManagerStringCommon().addSubjectsSuccess.ToString();
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
@@ -165,11 +176,12 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SubjectsViewModels model)
+        public ActionResult Edit(SubjectsViewModels model, HttpPostedFileBase file)
         {
-            if (SRes.isExistsSubjectName(model.SubjectName))
+            string photoUrl = FileUpload.UploadFile(file);
+            if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
             {
-                TempData["messageWarning"] = new StringCommon().isExitSubjectName.ToString();
+                TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
                 ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
                 return View(model);
             }
@@ -182,13 +194,12 @@ namespace TutorOnline.Web.Controllers
             subject.Purpose = model.Purpose;
             subject.Requirement = model.Requirement;
             subject.Description = model.Description;
-            subject.Photo = model.Photo;
+            subject.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
 
             if (ModelState.IsValid)
             {
-
                 SRes.EditSubject(subject);
-                TempData["message"] = new StringCommon().updateSubjectSuccess.ToString();
+                TempData["message"] = new ManagerStringCommon().updateSubjectSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.SubjectId });
             }
             ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
@@ -224,8 +235,18 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
+            if (SRes.isExistedStudentIn(id))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistStudentIn.ToString();
+                return RedirectToAction("Index");
+            }
+            if (SRes.isExistedLessonIn(id))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistLessonIn.ToString();
+                return RedirectToAction("Index");
+            }
             SRes.DeleteSubject(id);
-            TempData["message"] = new StringCommon().deleteSubjectsSuccess.ToString();
+            TempData["message"] = new ManagerStringCommon().deleteSubjectsSuccess.ToString();
             return RedirectToAction("Index");
         }
 

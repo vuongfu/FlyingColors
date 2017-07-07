@@ -26,7 +26,7 @@
                 <div class="input-group">
                     @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm..." })
                     <span class="input-group-btn">
-                        <input type="submit" value="Tìm Kiếm" class="btn btn-default" />
+                        <input type="submit" value="Tìm Kiếm" class="btn btn-default" name="btnSearch" />
                     </span>
                 </div>
             </div>
@@ -43,41 +43,43 @@
     {
         <div class="row">
             <div class="col-md-12">
-                <h4>Có @ViewBag.totalRecord kết quả tìm kiếm</h4>
+                <h4>Tìm thấy @ViewBag.totalRecord kết quả.</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Stt</th>
-                            <th>Tên khóa học</th>
-                            <th>Loại môn học</th>
-                            <th>Mục tiêu</th>
-                            <th>Yêu cầu</th>
-                            <th>Hình ảnh</th>
-                            <th>Mô tả</th>
-                        </tr>
-                    </thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên khóa học</th>
+                        <th>Loại môn học</th>
+                        <th>Mục tiêu</th>
+                        <th>Yêu cầu</th>
+                        <th>Mô tả</th>
+                    </tr>
                     @foreach (var item in Model)
                     {
-                        <tbody>
-                            <tr>
-                                <td>@(ViewBag.Count++ + 1)</td>
-                                <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.SubjectId })</td>
-                                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Requirement)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Photo)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                            </tr>
-                        </tbody>
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.SubjectId })</td>
+                            <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Requirement)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        </tr>
                     }
                 </table>
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
                 @Html.PagedListPager(Model, page => Url.Action("Index",
-                                 new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr }))
+                                 new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr, btnSearch = ViewBag.btnSearch }))
+            </div>
+        </div>
+    }
+    else if (@ViewBag.btnSearch != null && ViewBag.totalRecord == 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Tìm thấy @ViewBag.totalRecord kết quả</h4>
             </div>
         </div>
     }

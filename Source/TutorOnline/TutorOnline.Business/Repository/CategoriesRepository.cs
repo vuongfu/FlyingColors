@@ -51,7 +51,14 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
-
+        public bool isExistedSubjectIn(int id)
+        {
+            var subject = _dbContext.Subjects.FirstOrDefault(x => x.CategoryId == id);
+            if (subject == null)
+                return false;
+            else
+                return true;
+        }
         public void Dispose()
         {
             _dbContext.Dispose();

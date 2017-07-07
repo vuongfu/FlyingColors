@@ -10,7 +10,18 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>Hình ảnh:</dt>
-        <dd>@Html.DisplayFor(modelItem => modelItem.Photo)</dd>
+        @if (String.IsNullOrEmpty(Model.Photo))
+        {
+            <dd>
+                @("N/A")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <img src="~/Content/Uploads/SubjectPhoto/@Model.Photo.Substring(3)" />
+            </dd>
+        }
         <dt>Tên khóa học:</dt>
         <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
         <dt>Loại môn học:</dt>

@@ -16,7 +16,7 @@
         <div class="form-group">
             <p class="control-label col-md-2">Tên môn học: </p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", style = "width:150px;" } })
                 @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="form-group">
             <p class="control-label col-md-2">Mô tả: </p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "width:300px; height: 50px;" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
