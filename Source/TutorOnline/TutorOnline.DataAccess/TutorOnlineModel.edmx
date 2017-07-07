@@ -44,7 +44,7 @@
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="24" Nullable="false" />
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Category">
@@ -74,7 +74,7 @@
           <Property Name="MaterialTypeId" Type="int" Nullable="false" />
           <Property Name="Description" Type="text" />
           <Property Name="LessonId" Type="int" Nullable="false" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -115,7 +115,7 @@
           <Property Name="Balance" Type="money" />
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Question">
@@ -123,8 +123,10 @@
             <PropertyRef Name="QuestionId" />
           </Key>
           <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Content" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="LessonId" Type="int" Nullable="false" />
+          <Property Name="LessonId" Type="int" />
+          <Property Name="SubjectId" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -178,7 +180,7 @@
           <Property Name="Balance" Type="money" />
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" />
         </EntityType>
         <EntityType Name="StudentFeedback">
@@ -261,8 +263,7 @@
           <Property Name="Description" Type="text" />
           <Property Name="BankName" Type="nvarchar" MaxLength="200" />
           <Property Name="BMemName" Type="nvarchar" MaxLength="200" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TutorFeedback">
@@ -308,7 +309,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AuditLog__Modifi__778AC167">
+        <Association Name="FK__AuditLog__Modifi__76969D2E">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -332,7 +333,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Criteria__Lesson__571DF1D5">
+        <Association Name="FK__Criteria__Lesson__5629CD9C">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="Criteria" Type="Self.Criteria" Multiplicity="*" />
           <ReferentialConstraint>
@@ -344,7 +345,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Criteria__RoleId__5812160E">
+        <Association Name="FK__Criteria__RoleId__571DF1D5">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Criteria" Type="Self.Criteria" Multiplicity="*" />
           <ReferentialConstraint>
@@ -356,7 +357,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LearningM__Lesso__4D94879B">
+        <Association Name="FK__LearningM__Lesso__4CA06362">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -368,7 +369,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LearningM__Mater__4CA06362">
+        <Association Name="FK__LearningM__Mater__4BAC3F29">
           <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="1" />
           <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -380,7 +381,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Lesson__SubjectI__48CFD27E">
+        <Association Name="FK__Lesson__SubjectI__47DBAE45">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
           <ReferentialConstraint>
@@ -404,8 +405,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Question__Lesson__7A672E12">
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+        <Association Name="FK__Question__Lesson__797309D9">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Lesson">
@@ -416,7 +417,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__Lesson__534D60F1">
+        <Association Name="FK__Question__Subjec__7A672E12">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__Lesson__52593CB8">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -428,7 +441,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__Status__5441852A">
+        <Association Name="FK__Schedule__Status__534D60F1">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -440,7 +453,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__Studen__5165187F">
+        <Association Name="FK__Schedule__Studen__5070F446">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -452,7 +465,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__TutorI__52593CB8">
+        <Association Name="FK__Schedule__TutorI__5165187F">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -488,7 +501,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentFe__Lesso__5CD6CB2B">
+        <Association Name="FK__StudentFe__Lesso__5BE2A6F2">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -500,7 +513,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentFe__Stude__5BE2A6F2">
+        <Association Name="FK__StudentFe__Stude__5AEE82B9">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -512,7 +525,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentFe__Tutor__5AEE82B9">
+        <Association Name="FK__StudentFe__Tutor__59FA5E80">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -524,7 +537,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentSu__Statu__6B24EA82">
+        <Association Name="FK__StudentSu__Statu__6A30C649">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -536,7 +549,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentSu__Stude__6A30C649">
+        <Association Name="FK__StudentSu__Stude__693CA210">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -548,7 +561,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentSu__Subje__693CA210">
+        <Association Name="FK__StudentSu__Subje__68487DD7">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -560,7 +573,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subject__Categor__4316F928">
+        <Association Name="FK__Subject__Categor__4222D4EF">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -572,7 +585,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TeachSche__Tutor__74AE54BC">
+        <Association Name="FK__TeachSche__Tutor__73BA3083">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TeachSchedule" Type="Self.TeachSchedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -596,19 +609,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tutor__Status__3C69FB99">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="Tutor">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TutorFeed__Crite__656C112C">
+        <Association Name="FK__TutorFeed__Crite__6477ECF3">
           <End Role="Criteria" Type="Self.Criteria" Multiplicity="1" />
           <End Role="TutorFeedbackDetail" Type="Self.TutorFeedbackDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -620,7 +621,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Lesso__619B8048">
+        <Association Name="FK__TutorFeed__Lesso__60A75C0F">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -632,7 +633,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Stude__60A75C0F">
+        <Association Name="FK__TutorFeed__Stude__5FB337D6">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -644,7 +645,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Tutor__5FB337D6">
+        <Association Name="FK__TutorFeed__Tutor__5EBF139D">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -656,7 +657,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Tutor__6477ECF3">
+        <Association Name="FK__TutorFeed__Tutor__6383C8BA">
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="1" />
           <End Role="TutorFeedbackDetail" Type="Self.TutorFeedbackDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -668,7 +669,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Statu__70DDC3D8">
+        <Association Name="FK__TutorSubj__Statu__6FE99F9F">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -680,7 +681,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Subje__6EF57B66">
+        <Association Name="FK__TutorSubj__Subje__6E01572D">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -692,7 +693,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Tutor__6FE99F9F">
+        <Association Name="FK__TutorSubj__Tutor__6EF57B66">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -732,7 +733,7 @@
             <End Role="Question" EntitySet="Question" />
             <End Role="Answer" EntitySet="Answer" />
           </AssociationSet>
-          <AssociationSet Name="FK__AuditLog__Modifi__778AC167" Association="Self.FK__AuditLog__Modifi__778AC167">
+          <AssociationSet Name="FK__AuditLog__Modifi__76969D2E" Association="Self.FK__AuditLog__Modifi__76969D2E">
             <End Role="Role" EntitySet="Role" />
             <End Role="AuditLog" EntitySet="AuditLog" />
           </AssociationSet>
@@ -740,23 +741,23 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="BackendUser" EntitySet="BackendUser" />
           </AssociationSet>
-          <AssociationSet Name="FK__Criteria__Lesson__571DF1D5" Association="Self.FK__Criteria__Lesson__571DF1D5">
+          <AssociationSet Name="FK__Criteria__Lesson__5629CD9C" Association="Self.FK__Criteria__Lesson__5629CD9C">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Criteria" EntitySet="Criteria" />
           </AssociationSet>
-          <AssociationSet Name="FK__Criteria__RoleId__5812160E" Association="Self.FK__Criteria__RoleId__5812160E">
+          <AssociationSet Name="FK__Criteria__RoleId__571DF1D5" Association="Self.FK__Criteria__RoleId__571DF1D5">
             <End Role="Role" EntitySet="Role" />
             <End Role="Criteria" EntitySet="Criteria" />
           </AssociationSet>
-          <AssociationSet Name="FK__LearningM__Lesso__4D94879B" Association="Self.FK__LearningM__Lesso__4D94879B">
+          <AssociationSet Name="FK__LearningM__Lesso__4CA06362" Association="Self.FK__LearningM__Lesso__4CA06362">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="LearningMaterial" EntitySet="LearningMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__LearningM__Mater__4CA06362" Association="Self.FK__LearningM__Mater__4CA06362">
+          <AssociationSet Name="FK__LearningM__Mater__4BAC3F29" Association="Self.FK__LearningM__Mater__4BAC3F29">
             <End Role="MaterialType" EntitySet="MaterialType" />
             <End Role="LearningMaterial" EntitySet="LearningMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Lesson__SubjectI__48CFD27E" Association="Self.FK__Lesson__SubjectI__48CFD27E">
+          <AssociationSet Name="FK__Lesson__SubjectI__47DBAE45" Association="Self.FK__Lesson__SubjectI__47DBAE45">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Lesson" EntitySet="Lesson" />
           </AssociationSet>
@@ -764,23 +765,27 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Parent" EntitySet="Parent" />
           </AssociationSet>
-          <AssociationSet Name="FK__Question__Lesson__7A672E12" Association="Self.FK__Question__Lesson__7A672E12">
+          <AssociationSet Name="FK__Question__Lesson__797309D9" Association="Self.FK__Question__Lesson__797309D9">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Lesson__534D60F1" Association="Self.FK__Schedule__Lesson__534D60F1">
+          <AssociationSet Name="FK__Question__Subjec__7A672E12" Association="Self.FK__Question__Subjec__7A672E12">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__Lesson__52593CB8" Association="Self.FK__Schedule__Lesson__52593CB8">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Status__5441852A" Association="Self.FK__Schedule__Status__5441852A">
+          <AssociationSet Name="FK__Schedule__Status__534D60F1" Association="Self.FK__Schedule__Status__534D60F1">
             <End Role="Status" EntitySet="Status" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Studen__5165187F" Association="Self.FK__Schedule__Studen__5165187F">
+          <AssociationSet Name="FK__Schedule__Studen__5070F446" Association="Self.FK__Schedule__Studen__5070F446">
             <End Role="Student" EntitySet="Student" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__TutorI__52593CB8" Association="Self.FK__Schedule__TutorI__52593CB8">
+          <AssociationSet Name="FK__Schedule__TutorI__5165187F" Association="Self.FK__Schedule__TutorI__5165187F">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
@@ -792,35 +797,35 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Lesso__5CD6CB2B" Association="Self.FK__StudentFe__Lesso__5CD6CB2B">
+          <AssociationSet Name="FK__StudentFe__Lesso__5BE2A6F2" Association="Self.FK__StudentFe__Lesso__5BE2A6F2">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="StudentFeedback" EntitySet="StudentFeedback" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Stude__5BE2A6F2" Association="Self.FK__StudentFe__Stude__5BE2A6F2">
+          <AssociationSet Name="FK__StudentFe__Stude__5AEE82B9" Association="Self.FK__StudentFe__Stude__5AEE82B9">
             <End Role="Student" EntitySet="Student" />
             <End Role="StudentFeedback" EntitySet="StudentFeedback" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Tutor__5AEE82B9" Association="Self.FK__StudentFe__Tutor__5AEE82B9">
+          <AssociationSet Name="FK__StudentFe__Tutor__59FA5E80" Association="Self.FK__StudentFe__Tutor__59FA5E80">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="StudentFeedback" EntitySet="StudentFeedback" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentSu__Statu__6B24EA82" Association="Self.FK__StudentSu__Statu__6B24EA82">
+          <AssociationSet Name="FK__StudentSu__Statu__6A30C649" Association="Self.FK__StudentSu__Statu__6A30C649">
             <End Role="Status" EntitySet="Status" />
             <End Role="StudentSubject" EntitySet="StudentSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentSu__Stude__6A30C649" Association="Self.FK__StudentSu__Stude__6A30C649">
+          <AssociationSet Name="FK__StudentSu__Stude__693CA210" Association="Self.FK__StudentSu__Stude__693CA210">
             <End Role="Student" EntitySet="Student" />
             <End Role="StudentSubject" EntitySet="StudentSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentSu__Subje__693CA210" Association="Self.FK__StudentSu__Subje__693CA210">
+          <AssociationSet Name="FK__StudentSu__Subje__68487DD7" Association="Self.FK__StudentSu__Subje__68487DD7">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="StudentSubject" EntitySet="StudentSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__Subject__Categor__4316F928" Association="Self.FK__Subject__Categor__4316F928">
+          <AssociationSet Name="FK__Subject__Categor__4222D4EF" Association="Self.FK__Subject__Categor__4222D4EF">
             <End Role="Category" EntitySet="Category" />
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
-          <AssociationSet Name="FK__TeachSche__Tutor__74AE54BC" Association="Self.FK__TeachSche__Tutor__74AE54BC">
+          <AssociationSet Name="FK__TeachSche__Tutor__73BA3083" Association="Self.FK__TeachSche__Tutor__73BA3083">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="TeachSchedule" EntitySet="TeachSchedule" />
           </AssociationSet>
@@ -828,39 +833,35 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Tutor" EntitySet="Tutor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tutor__Status__3C69FB99" Association="Self.FK__Tutor__Status__3C69FB99">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Tutor" EntitySet="Tutor" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Crite__656C112C" Association="Self.FK__TutorFeed__Crite__656C112C">
+          <AssociationSet Name="FK__TutorFeed__Crite__6477ECF3" Association="Self.FK__TutorFeed__Crite__6477ECF3">
             <End Role="Criteria" EntitySet="Criteria" />
             <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Lesso__619B8048" Association="Self.FK__TutorFeed__Lesso__619B8048">
+          <AssociationSet Name="FK__TutorFeed__Lesso__60A75C0F" Association="Self.FK__TutorFeed__Lesso__60A75C0F">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="TutorFeedback" EntitySet="TutorFeedback" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Stude__60A75C0F" Association="Self.FK__TutorFeed__Stude__60A75C0F">
+          <AssociationSet Name="FK__TutorFeed__Stude__5FB337D6" Association="Self.FK__TutorFeed__Stude__5FB337D6">
             <End Role="Student" EntitySet="Student" />
             <End Role="TutorFeedback" EntitySet="TutorFeedback" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Tutor__5FB337D6" Association="Self.FK__TutorFeed__Tutor__5FB337D6">
+          <AssociationSet Name="FK__TutorFeed__Tutor__5EBF139D" Association="Self.FK__TutorFeed__Tutor__5EBF139D">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="TutorFeedback" EntitySet="TutorFeedback" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Tutor__6477ECF3" Association="Self.FK__TutorFeed__Tutor__6477ECF3">
+          <AssociationSet Name="FK__TutorFeed__Tutor__6383C8BA" Association="Self.FK__TutorFeed__Tutor__6383C8BA">
             <End Role="TutorFeedback" EntitySet="TutorFeedback" />
             <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Statu__70DDC3D8" Association="Self.FK__TutorSubj__Statu__70DDC3D8">
+          <AssociationSet Name="FK__TutorSubj__Statu__6FE99F9F" Association="Self.FK__TutorSubj__Statu__6FE99F9F">
             <End Role="Status" EntitySet="Status" />
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Subje__6EF57B66" Association="Self.FK__TutorSubj__Subje__6EF57B66">
+          <AssociationSet Name="FK__TutorSubj__Subje__6E01572D" Association="Self.FK__TutorSubj__Subje__6E01572D">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Tutor__6FE99F9F" Association="Self.FK__TutorSubj__Tutor__6FE99F9F">
+          <AssociationSet Name="FK__TutorSubj__Tutor__6EF57B66" Association="Self.FK__TutorSubj__Tutor__6EF57B66">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
@@ -890,7 +891,7 @@
           <Property Name="ModifierRole" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__AuditLog__Modifi__778AC167" FromRole="AuditLog" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__AuditLog__Modifi__76969D2E" FromRole="AuditLog" ToRole="Role" />
         </EntityType>
         <EntityType Name="BackendUser">
           <Key>
@@ -911,7 +912,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="Self.FK__BackendUs__RoleI__34C8D9D1" FromRole="BackendUser" ToRole="Role" />
         </EntityType>
@@ -923,7 +924,7 @@
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Subjects" Relationship="Self.FK__Subject__Categor__4316F928" FromRole="Category" ToRole="Subject" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK__Subject__Categor__4222D4EF" FromRole="Category" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Criterion">
           <Key>
@@ -933,9 +934,9 @@
           <Property Name="CriteriaName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LessonId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK__Criteria__Lesson__571DF1D5" FromRole="Criteria" ToRole="Lesson" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__Criteria__RoleId__5812160E" FromRole="Criteria" ToRole="Role" />
-          <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Crite__656C112C" FromRole="Criteria" ToRole="TutorFeedbackDetail" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__Criteria__Lesson__5629CD9C" FromRole="Criteria" ToRole="Lesson" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Criteria__RoleId__571DF1D5" FromRole="Criteria" ToRole="Role" />
+          <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Crite__6477ECF3" FromRole="Criteria" ToRole="TutorFeedbackDetail" />
         </EntityType>
         <EntityType Name="LearningMaterial">
           <Key>
@@ -946,9 +947,9 @@
           <Property Name="MaterialTypeId" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LessonId" Type="Int32" Nullable="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK__LearningM__Lesso__4D94879B" FromRole="LearningMaterial" ToRole="Lesson" />
-          <NavigationProperty Name="MaterialType" Relationship="Self.FK__LearningM__Mater__4CA06362" FromRole="LearningMaterial" ToRole="MaterialType" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__LearningM__Lesso__4CA06362" FromRole="LearningMaterial" ToRole="Lesson" />
+          <NavigationProperty Name="MaterialType" Relationship="Self.FK__LearningM__Mater__4BAC3F29" FromRole="LearningMaterial" ToRole="MaterialType" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -959,13 +960,13 @@
           <Property Name="SubjectId" Type="Int32" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Criteria" Relationship="Self.FK__Criteria__Lesson__571DF1D5" FromRole="Lesson" ToRole="Criteria" />
-          <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Lesso__4D94879B" FromRole="Lesson" ToRole="LearningMaterial" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Lesson__SubjectI__48CFD27E" FromRole="Lesson" ToRole="Subject" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Lesson__7A672E12" FromRole="Lesson" ToRole="Question" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Lesson__534D60F1" FromRole="Lesson" ToRole="Schedule" />
-          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Lesso__5CD6CB2B" FromRole="Lesson" ToRole="StudentFeedback" />
-          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Lesso__619B8048" FromRole="Lesson" ToRole="TutorFeedback" />
+          <NavigationProperty Name="Criteria" Relationship="Self.FK__Criteria__Lesson__5629CD9C" FromRole="Lesson" ToRole="Criteria" />
+          <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Lesso__4CA06362" FromRole="Lesson" ToRole="LearningMaterial" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Lesson__SubjectI__47DBAE45" FromRole="Lesson" ToRole="Subject" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Lesson__797309D9" FromRole="Lesson" ToRole="Question" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Lesson__52593CB8" FromRole="Lesson" ToRole="Schedule" />
+          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Lesso__5BE2A6F2" FromRole="Lesson" ToRole="StudentFeedback" />
+          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Lesso__60A75C0F" FromRole="Lesson" ToRole="TutorFeedback" />
         </EntityType>
         <EntityType Name="MaterialType">
           <Key>
@@ -973,7 +974,7 @@
           </Key>
           <Property Name="MaterialTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaterialTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Mater__4CA06362" FromRole="MaterialType" ToRole="LearningMaterial" />
+          <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Mater__4BAC3F29" FromRole="MaterialType" ToRole="LearningMaterial" />
         </EntityType>
         <EntityType Name="Parent">
           <Key>
@@ -997,7 +998,7 @@
           <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Parent__RoleId__286302EC" FromRole="Parent" ToRole="Role" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Parent" ToRole="Student" />
@@ -1007,10 +1008,13 @@
             <PropertyRef Name="QuestionId" />
           </Key>
           <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LessonId" Type="Int32" Nullable="false" />
+          <Property Name="LessonId" Type="Int32" />
+          <Property Name="SubjectId" Type="Int32" />
           <NavigationProperty Name="Answers" Relationship="Self.FK__Answer__Question__7D439ABD" FromRole="Question" ToRole="Answer" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK__Question__Lesson__7A672E12" FromRole="Question" ToRole="Lesson" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__Question__Lesson__797309D9" FromRole="Question" ToRole="Lesson" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Question__Subjec__7A672E12" FromRole="Question" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1018,9 +1022,9 @@
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AuditLogs" Relationship="Self.FK__AuditLog__Modifi__778AC167" FromRole="Role" ToRole="AuditLog" />
+          <NavigationProperty Name="AuditLogs" Relationship="Self.FK__AuditLog__Modifi__76969D2E" FromRole="Role" ToRole="AuditLog" />
           <NavigationProperty Name="BackendUsers" Relationship="Self.FK__BackendUs__RoleI__34C8D9D1" FromRole="Role" ToRole="BackendUser" />
-          <NavigationProperty Name="Criteria" Relationship="Self.FK__Criteria__RoleId__5812160E" FromRole="Role" ToRole="Criteria" />
+          <NavigationProperty Name="Criteria" Relationship="Self.FK__Criteria__RoleId__571DF1D5" FromRole="Role" ToRole="Criteria" />
           <NavigationProperty Name="Parents" Relationship="Self.FK__Parent__RoleId__286302EC" FromRole="Role" ToRole="Parent" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__RoleId__2E1BDC42" FromRole="Role" ToRole="Student" />
           <NavigationProperty Name="Tutors" Relationship="Self.FK__Tutor__RoleId__3A81B327" FromRole="Role" ToRole="Tutor" />
@@ -1039,10 +1043,10 @@
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="CanReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK__Schedule__Lesson__534D60F1" FromRole="Schedule" ToRole="Lesson" />
-          <NavigationProperty Name="Status1" Relationship="Self.FK__Schedule__Status__5441852A" FromRole="Schedule" ToRole="Status" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__Schedule__Studen__5165187F" FromRole="Schedule" ToRole="Student" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK__Schedule__TutorI__52593CB8" FromRole="Schedule" ToRole="Tutor" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__Schedule__Lesson__52593CB8" FromRole="Schedule" ToRole="Lesson" />
+          <NavigationProperty Name="Status1" Relationship="Self.FK__Schedule__Status__534D60F1" FromRole="Schedule" ToRole="Status" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Schedule__Studen__5070F446" FromRole="Schedule" ToRole="Student" />
+          <NavigationProperty Name="Tutor" Relationship="Self.FK__Schedule__TutorI__5165187F" FromRole="Schedule" ToRole="Tutor" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1050,10 +1054,9 @@
           </Key>
           <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Status__5441852A" FromRole="Status" ToRole="Schedule" />
-          <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Statu__6B24EA82" FromRole="Status" ToRole="StudentSubject" />
-          <NavigationProperty Name="Tutors" Relationship="Self.FK__Tutor__Status__3C69FB99" FromRole="Status" ToRole="Tutor" />
-          <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Statu__70DDC3D8" FromRole="Status" ToRole="TutorSubject" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Status__534D60F1" FromRole="Status" ToRole="Schedule" />
+          <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Statu__6A30C649" FromRole="Status" ToRole="StudentSubject" />
+          <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Statu__6FE99F9F" FromRole="Status" ToRole="TutorSubject" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -1078,14 +1081,14 @@
           <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Parent" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Student" ToRole="Parent" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Student__RoleId__2E1BDC42" FromRole="Student" ToRole="Role" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Studen__5165187F" FromRole="Student" ToRole="Schedule" />
-          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Stude__5BE2A6F2" FromRole="Student" ToRole="StudentFeedback" />
-          <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Stude__6A30C649" FromRole="Student" ToRole="StudentSubject" />
-          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Stude__60A75C0F" FromRole="Student" ToRole="TutorFeedback" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Studen__5070F446" FromRole="Student" ToRole="Schedule" />
+          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Stude__5AEE82B9" FromRole="Student" ToRole="StudentFeedback" />
+          <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Stude__693CA210" FromRole="Student" ToRole="StudentSubject" />
+          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Stude__5FB337D6" FromRole="Student" ToRole="TutorFeedback" />
         </EntityType>
         <EntityType Name="StudentFeedback">
           <Key>
@@ -1098,9 +1101,9 @@
           <Property Name="FeedbackDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Rate" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK__StudentFe__Lesso__5CD6CB2B" FromRole="StudentFeedback" ToRole="Lesson" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__StudentFe__Stude__5BE2A6F2" FromRole="StudentFeedback" ToRole="Student" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK__StudentFe__Tutor__5AEE82B9" FromRole="StudentFeedback" ToRole="Tutor" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__StudentFe__Lesso__5BE2A6F2" FromRole="StudentFeedback" ToRole="Lesson" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__StudentFe__Stude__5AEE82B9" FromRole="StudentFeedback" ToRole="Student" />
+          <NavigationProperty Name="Tutor" Relationship="Self.FK__StudentFe__Tutor__59FA5E80" FromRole="StudentFeedback" ToRole="Tutor" />
         </EntityType>
         <EntityType Name="StudentSubject">
           <Key>
@@ -1110,9 +1113,9 @@
           <Property Name="SubjectId" Type="Int32" Nullable="false" />
           <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Status1" Relationship="Self.FK__StudentSu__Statu__6B24EA82" FromRole="StudentSubject" ToRole="Status" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__StudentSu__Stude__6A30C649" FromRole="StudentSubject" ToRole="Student" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__StudentSu__Subje__693CA210" FromRole="StudentSubject" ToRole="Subject" />
+          <NavigationProperty Name="Status1" Relationship="Self.FK__StudentSu__Statu__6A30C649" FromRole="StudentSubject" ToRole="Status" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__StudentSu__Stude__693CA210" FromRole="StudentSubject" ToRole="Student" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__StudentSu__Subje__68487DD7" FromRole="StudentSubject" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -1126,10 +1129,11 @@
           <Property Name="Requirement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Subject__Categor__4316F928" FromRole="Subject" ToRole="Category" />
-          <NavigationProperty Name="Lessons" Relationship="Self.FK__Lesson__SubjectI__48CFD27E" FromRole="Subject" ToRole="Lesson" />
-          <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Subje__693CA210" FromRole="Subject" ToRole="StudentSubject" />
-          <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Subje__6EF57B66" FromRole="Subject" ToRole="TutorSubject" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Subject__Categor__4222D4EF" FromRole="Subject" ToRole="Category" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK__Lesson__SubjectI__47DBAE45" FromRole="Subject" ToRole="Lesson" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Subjec__7A672E12" FromRole="Subject" ToRole="Question" />
+          <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Subje__68487DD7" FromRole="Subject" ToRole="StudentSubject" />
+          <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Subje__6E01572D" FromRole="Subject" ToRole="TutorSubject" />
         </EntityType>
         <EntityType Name="TeachSchedule">
           <Key>
@@ -1139,7 +1143,7 @@
           <Property Name="TutorId" Type="Int32" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderSlot" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK__TeachSche__Tutor__74AE54BC" FromRole="TeachSchedule" ToRole="Tutor" />
+          <NavigationProperty Name="Tutor" Relationship="Self.FK__TeachSche__Tutor__73BA3083" FromRole="TeachSchedule" ToRole="Tutor" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -1178,16 +1182,14 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="BMemName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Tutor__RoleId__3A81B327" FromRole="Tutor" ToRole="Role" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__TutorI__52593CB8" FromRole="Tutor" ToRole="Schedule" />
-          <NavigationProperty Name="Status1" Relationship="Self.FK__Tutor__Status__3C69FB99" FromRole="Tutor" ToRole="Status" />
-          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Tutor__5AEE82B9" FromRole="Tutor" ToRole="StudentFeedback" />
-          <NavigationProperty Name="TeachSchedules" Relationship="Self.FK__TeachSche__Tutor__74AE54BC" FromRole="Tutor" ToRole="TeachSchedule" />
-          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Tutor__5FB337D6" FromRole="Tutor" ToRole="TutorFeedback" />
-          <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Tutor__6FE99F9F" FromRole="Tutor" ToRole="TutorSubject" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__TutorI__5165187F" FromRole="Tutor" ToRole="Schedule" />
+          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Tutor__59FA5E80" FromRole="Tutor" ToRole="StudentFeedback" />
+          <NavigationProperty Name="TeachSchedules" Relationship="Self.FK__TeachSche__Tutor__73BA3083" FromRole="Tutor" ToRole="TeachSchedule" />
+          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Tutor__5EBF139D" FromRole="Tutor" ToRole="TutorFeedback" />
+          <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Tutor__6EF57B66" FromRole="Tutor" ToRole="TutorSubject" />
         </EntityType>
         <EntityType Name="TutorFeedback">
           <Key>
@@ -1199,10 +1201,10 @@
           <Property Name="LessonId" Type="Int32" />
           <Property Name="FeedbackDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK__TutorFeed__Lesso__619B8048" FromRole="TutorFeedback" ToRole="Lesson" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__TutorFeed__Stude__60A75C0F" FromRole="TutorFeedback" ToRole="Student" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorFeed__Tutor__5FB337D6" FromRole="TutorFeedback" ToRole="Tutor" />
-          <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Tutor__6477ECF3" FromRole="TutorFeedback" ToRole="TutorFeedbackDetail" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK__TutorFeed__Lesso__60A75C0F" FromRole="TutorFeedback" ToRole="Lesson" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__TutorFeed__Stude__5FB337D6" FromRole="TutorFeedback" ToRole="Student" />
+          <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorFeed__Tutor__5EBF139D" FromRole="TutorFeedback" ToRole="Tutor" />
+          <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Tutor__6383C8BA" FromRole="TutorFeedback" ToRole="TutorFeedbackDetail" />
         </EntityType>
         <EntityType Name="TutorFeedbackDetail">
           <Key>
@@ -1212,8 +1214,8 @@
           <Property Name="TutorFeedbackId" Type="Int32" Nullable="false" />
           <Property Name="CriteriaId" Type="Int32" Nullable="false" />
           <Property Name="CriteriaValue" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Criterion" Relationship="Self.FK__TutorFeed__Crite__656C112C" FromRole="TutorFeedbackDetail" ToRole="Criteria" />
-          <NavigationProperty Name="TutorFeedback" Relationship="Self.FK__TutorFeed__Tutor__6477ECF3" FromRole="TutorFeedbackDetail" ToRole="TutorFeedback" />
+          <NavigationProperty Name="Criterion" Relationship="Self.FK__TutorFeed__Crite__6477ECF3" FromRole="TutorFeedbackDetail" ToRole="Criteria" />
+          <NavigationProperty Name="TutorFeedback" Relationship="Self.FK__TutorFeed__Tutor__6383C8BA" FromRole="TutorFeedbackDetail" ToRole="TutorFeedback" />
         </EntityType>
         <EntityType Name="TutorSubject">
           <Key>
@@ -1225,9 +1227,9 @@
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Experience" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Status1" Relationship="Self.FK__TutorSubj__Statu__70DDC3D8" FromRole="TutorSubject" ToRole="Status" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__TutorSubj__Subje__6EF57B66" FromRole="TutorSubject" ToRole="Subject" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorSubj__Tutor__6FE99F9F" FromRole="TutorSubject" ToRole="Tutor" />
+          <NavigationProperty Name="Status1" Relationship="Self.FK__TutorSubj__Statu__6FE99F9F" FromRole="TutorSubject" ToRole="Status" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__TutorSubj__Subje__6E01572D" FromRole="TutorSubject" ToRole="Subject" />
+          <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorSubj__Tutor__6EF57B66" FromRole="TutorSubject" ToRole="Tutor" />
         </EntityType>
         <Association Name="FK__Answer__Question__7D439ABD">
           <End Role="Question" Type="Self.Question" Multiplicity="1" />
@@ -1241,7 +1243,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AuditLog__Modifi__778AC167">
+        <Association Name="FK__AuditLog__Modifi__76969D2E">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1265,7 +1267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subject__Categor__4316F928">
+        <Association Name="FK__Subject__Categor__4222D4EF">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1277,7 +1279,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Criteria__Lesson__571DF1D5">
+        <Association Name="FK__Criteria__Lesson__5629CD9C">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="Criteria" Type="Self.Criterion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1289,7 +1291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Criteria__RoleId__5812160E">
+        <Association Name="FK__Criteria__RoleId__571DF1D5">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Criteria" Type="Self.Criterion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1301,7 +1303,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Crite__656C112C">
+        <Association Name="FK__TutorFeed__Crite__6477ECF3">
           <End Role="Criteria" Type="Self.Criterion" Multiplicity="1" />
           <End Role="TutorFeedbackDetail" Type="Self.TutorFeedbackDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1313,7 +1315,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LearningM__Lesso__4D94879B">
+        <Association Name="FK__LearningM__Lesso__4CA06362">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1325,7 +1327,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LearningM__Mater__4CA06362">
+        <Association Name="FK__LearningM__Mater__4BAC3F29">
           <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="1" />
           <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1337,7 +1339,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Lesson__SubjectI__48CFD27E">
+        <Association Name="FK__Lesson__SubjectI__47DBAE45">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1349,8 +1351,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Question__Lesson__7A672E12">
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+        <Association Name="FK__Question__Lesson__797309D9">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Lesson">
@@ -1361,7 +1363,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__Lesson__534D60F1">
+        <Association Name="FK__Schedule__Lesson__52593CB8">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1373,7 +1375,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentFe__Lesso__5CD6CB2B">
+        <Association Name="FK__StudentFe__Lesso__5BE2A6F2">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1385,7 +1387,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Lesso__619B8048">
+        <Association Name="FK__TutorFeed__Lesso__60A75C0F">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1421,6 +1423,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Question__Subjec__7A672E12">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Student__RoleId__2E1BDC42">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
@@ -1445,7 +1459,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__Status__5441852A">
+        <Association Name="FK__Schedule__Status__534D60F1">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1457,7 +1471,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__Studen__5165187F">
+        <Association Name="FK__Schedule__Studen__5070F446">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1469,7 +1483,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__TutorI__52593CB8">
+        <Association Name="FK__Schedule__TutorI__5165187F">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1481,7 +1495,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentSu__Statu__6B24EA82">
+        <Association Name="FK__StudentSu__Statu__6A30C649">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1493,19 +1507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tutor__Status__3C69FB99">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="Tutor">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TutorSubj__Statu__70DDC3D8">
+        <Association Name="FK__TutorSubj__Statu__6FE99F9F">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1517,7 +1519,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentFe__Stude__5BE2A6F2">
+        <Association Name="FK__StudentFe__Stude__5AEE82B9">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1529,7 +1531,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentSu__Stude__6A30C649">
+        <Association Name="FK__StudentSu__Stude__693CA210">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1541,7 +1543,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Stude__60A75C0F">
+        <Association Name="FK__TutorFeed__Stude__5FB337D6">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1553,7 +1555,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentFe__Tutor__5AEE82B9">
+        <Association Name="FK__StudentFe__Tutor__59FA5E80">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1565,7 +1567,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentSu__Subje__693CA210">
+        <Association Name="FK__StudentSu__Subje__68487DD7">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1577,7 +1579,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Subje__6EF57B66">
+        <Association Name="FK__TutorSubj__Subje__6E01572D">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1589,7 +1591,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TeachSche__Tutor__74AE54BC">
+        <Association Name="FK__TeachSche__Tutor__73BA3083">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TeachSchedule" Type="Self.TeachSchedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1601,7 +1603,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Tutor__5FB337D6">
+        <Association Name="FK__TutorFeed__Tutor__5EBF139D">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1613,7 +1615,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Tutor__6FE99F9F">
+        <Association Name="FK__TutorSubj__Tutor__6EF57B66">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1625,7 +1627,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorFeed__Tutor__6477ECF3">
+        <Association Name="FK__TutorFeed__Tutor__6383C8BA">
           <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="1" />
           <End Role="TutorFeedbackDetail" Type="Self.TutorFeedbackDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1665,7 +1667,7 @@
             <End Role="Question" EntitySet="Questions" />
             <End Role="Answer" EntitySet="Answers" />
           </AssociationSet>
-          <AssociationSet Name="FK__AuditLog__Modifi__778AC167" Association="Self.FK__AuditLog__Modifi__778AC167">
+          <AssociationSet Name="FK__AuditLog__Modifi__76969D2E" Association="Self.FK__AuditLog__Modifi__76969D2E">
             <End Role="Role" EntitySet="Roles" />
             <End Role="AuditLog" EntitySet="AuditLogs" />
           </AssociationSet>
@@ -1673,47 +1675,47 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="BackendUser" EntitySet="BackendUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Subject__Categor__4316F928" Association="Self.FK__Subject__Categor__4316F928">
+          <AssociationSet Name="FK__Subject__Categor__4222D4EF" Association="Self.FK__Subject__Categor__4222D4EF">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Subject" EntitySet="Subjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__Criteria__Lesson__571DF1D5" Association="Self.FK__Criteria__Lesson__571DF1D5">
+          <AssociationSet Name="FK__Criteria__Lesson__5629CD9C" Association="Self.FK__Criteria__Lesson__5629CD9C">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="Criteria" EntitySet="Criteria" />
           </AssociationSet>
-          <AssociationSet Name="FK__Criteria__RoleId__5812160E" Association="Self.FK__Criteria__RoleId__5812160E">
+          <AssociationSet Name="FK__Criteria__RoleId__571DF1D5" Association="Self.FK__Criteria__RoleId__571DF1D5">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Criteria" EntitySet="Criteria" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Crite__656C112C" Association="Self.FK__TutorFeed__Crite__656C112C">
+          <AssociationSet Name="FK__TutorFeed__Crite__6477ECF3" Association="Self.FK__TutorFeed__Crite__6477ECF3">
             <End Role="Criteria" EntitySet="Criteria" />
             <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__LearningM__Lesso__4D94879B" Association="Self.FK__LearningM__Lesso__4D94879B">
+          <AssociationSet Name="FK__LearningM__Lesso__4CA06362" Association="Self.FK__LearningM__Lesso__4CA06362">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LearningMaterial" EntitySet="LearningMaterials" />
           </AssociationSet>
-          <AssociationSet Name="FK__LearningM__Mater__4CA06362" Association="Self.FK__LearningM__Mater__4CA06362">
+          <AssociationSet Name="FK__LearningM__Mater__4BAC3F29" Association="Self.FK__LearningM__Mater__4BAC3F29">
             <End Role="MaterialType" EntitySet="MaterialTypes" />
             <End Role="LearningMaterial" EntitySet="LearningMaterials" />
           </AssociationSet>
-          <AssociationSet Name="FK__Lesson__SubjectI__48CFD27E" Association="Self.FK__Lesson__SubjectI__48CFD27E">
+          <AssociationSet Name="FK__Lesson__SubjectI__47DBAE45" Association="Self.FK__Lesson__SubjectI__47DBAE45">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="Lesson" EntitySet="Lessons" />
           </AssociationSet>
-          <AssociationSet Name="FK__Question__Lesson__7A672E12" Association="Self.FK__Question__Lesson__7A672E12">
+          <AssociationSet Name="FK__Question__Lesson__797309D9" Association="Self.FK__Question__Lesson__797309D9">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Lesson__534D60F1" Association="Self.FK__Schedule__Lesson__534D60F1">
+          <AssociationSet Name="FK__Schedule__Lesson__52593CB8" Association="Self.FK__Schedule__Lesson__52593CB8">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Lesso__5CD6CB2B" Association="Self.FK__StudentFe__Lesso__5CD6CB2B">
+          <AssociationSet Name="FK__StudentFe__Lesso__5BE2A6F2" Association="Self.FK__StudentFe__Lesso__5BE2A6F2">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Lesso__619B8048" Association="Self.FK__TutorFeed__Lesso__619B8048">
+          <AssociationSet Name="FK__TutorFeed__Lesso__60A75C0F" Association="Self.FK__TutorFeed__Lesso__60A75C0F">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
           </AssociationSet>
@@ -1725,6 +1727,10 @@
             <End Role="Parent" EntitySet="Parents" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
+          <AssociationSet Name="FK__Question__Subjec__7A672E12" Association="Self.FK__Question__Subjec__7A672E12">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
           <AssociationSet Name="FK__Student__RoleId__2E1BDC42" Association="Self.FK__Student__RoleId__2E1BDC42">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Student" EntitySet="Students" />
@@ -1733,67 +1739,63 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Tutor" EntitySet="Tutors" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Status__5441852A" Association="Self.FK__Schedule__Status__5441852A">
+          <AssociationSet Name="FK__Schedule__Status__534D60F1" Association="Self.FK__Schedule__Status__534D60F1">
             <End Role="Status" EntitySet="Status" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Studen__5165187F" Association="Self.FK__Schedule__Studen__5165187F">
+          <AssociationSet Name="FK__Schedule__Studen__5070F446" Association="Self.FK__Schedule__Studen__5070F446">
             <End Role="Student" EntitySet="Students" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__TutorI__52593CB8" Association="Self.FK__Schedule__TutorI__52593CB8">
+          <AssociationSet Name="FK__Schedule__TutorI__5165187F" Association="Self.FK__Schedule__TutorI__5165187F">
             <End Role="Tutor" EntitySet="Tutors" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentSu__Statu__6B24EA82" Association="Self.FK__StudentSu__Statu__6B24EA82">
+          <AssociationSet Name="FK__StudentSu__Statu__6A30C649" Association="Self.FK__StudentSu__Statu__6A30C649">
             <End Role="Status" EntitySet="Status" />
             <End Role="StudentSubject" EntitySet="StudentSubjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tutor__Status__3C69FB99" Association="Self.FK__Tutor__Status__3C69FB99">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Tutor" EntitySet="Tutors" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Statu__70DDC3D8" Association="Self.FK__TutorSubj__Statu__70DDC3D8">
+          <AssociationSet Name="FK__TutorSubj__Statu__6FE99F9F" Association="Self.FK__TutorSubj__Statu__6FE99F9F">
             <End Role="Status" EntitySet="Status" />
             <End Role="TutorSubject" EntitySet="TutorSubjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Stude__5BE2A6F2" Association="Self.FK__StudentFe__Stude__5BE2A6F2">
+          <AssociationSet Name="FK__StudentFe__Stude__5AEE82B9" Association="Self.FK__StudentFe__Stude__5AEE82B9">
             <End Role="Student" EntitySet="Students" />
             <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentSu__Stude__6A30C649" Association="Self.FK__StudentSu__Stude__6A30C649">
+          <AssociationSet Name="FK__StudentSu__Stude__693CA210" Association="Self.FK__StudentSu__Stude__693CA210">
             <End Role="Student" EntitySet="Students" />
             <End Role="StudentSubject" EntitySet="StudentSubjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Stude__60A75C0F" Association="Self.FK__TutorFeed__Stude__60A75C0F">
+          <AssociationSet Name="FK__TutorFeed__Stude__5FB337D6" Association="Self.FK__TutorFeed__Stude__5FB337D6">
             <End Role="Student" EntitySet="Students" />
             <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Tutor__5AEE82B9" Association="Self.FK__StudentFe__Tutor__5AEE82B9">
+          <AssociationSet Name="FK__StudentFe__Tutor__59FA5E80" Association="Self.FK__StudentFe__Tutor__59FA5E80">
             <End Role="Tutor" EntitySet="Tutors" />
             <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentSu__Subje__693CA210" Association="Self.FK__StudentSu__Subje__693CA210">
+          <AssociationSet Name="FK__StudentSu__Subje__68487DD7" Association="Self.FK__StudentSu__Subje__68487DD7">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="StudentSubject" EntitySet="StudentSubjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Subje__6EF57B66" Association="Self.FK__TutorSubj__Subje__6EF57B66">
+          <AssociationSet Name="FK__TutorSubj__Subje__6E01572D" Association="Self.FK__TutorSubj__Subje__6E01572D">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="TutorSubject" EntitySet="TutorSubjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__TeachSche__Tutor__74AE54BC" Association="Self.FK__TeachSche__Tutor__74AE54BC">
+          <AssociationSet Name="FK__TeachSche__Tutor__73BA3083" Association="Self.FK__TeachSche__Tutor__73BA3083">
             <End Role="Tutor" EntitySet="Tutors" />
             <End Role="TeachSchedule" EntitySet="TeachSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Tutor__5FB337D6" Association="Self.FK__TutorFeed__Tutor__5FB337D6">
+          <AssociationSet Name="FK__TutorFeed__Tutor__5EBF139D" Association="Self.FK__TutorFeed__Tutor__5EBF139D">
             <End Role="Tutor" EntitySet="Tutors" />
             <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Tutor__6FE99F9F" Association="Self.FK__TutorSubj__Tutor__6FE99F9F">
+          <AssociationSet Name="FK__TutorSubj__Tutor__6EF57B66" Association="Self.FK__TutorSubj__Tutor__6EF57B66">
             <End Role="Tutor" EntitySet="Tutors" />
             <End Role="TutorSubject" EntitySet="TutorSubjects" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Tutor__6477ECF3" Association="Self.FK__TutorFeed__Tutor__6477ECF3">
+          <AssociationSet Name="FK__TutorFeed__Tutor__6383C8BA" Association="Self.FK__TutorFeed__Tutor__6383C8BA">
             <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
             <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetails" />
           </AssociationSet>
@@ -1844,7 +1846,7 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1877,7 +1879,7 @@
                 <ScalarProperty Name="MaterialTypeId" ColumnName="MaterialTypeId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="LessonId" ColumnName="LessonId" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1921,7 +1923,7 @@
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1930,8 +1932,10 @@
             <EntityTypeMapping TypeName="TutorOnlineModel.Question">
               <MappingFragment StoreEntitySet="Question">
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="LessonId" ColumnName="LessonId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1989,7 +1993,7 @@
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2078,8 +2082,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
                 <ScalarProperty Name="BMemName" ColumnName="BMemName" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
               </MappingFragment>
             </EntityTypeMapping>

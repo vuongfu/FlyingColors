@@ -8,37 +8,20 @@
 <div class="container-fluid">
     <h3>Chi tiết khóa học</h3>
     <hr />
-
-    <div class="row">
-        <div class="col-md-8">
-            <h4><strong>Tên khóa học: </strong>@Html.DisplayFor(modelItem => modelItem.SubjectName)</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h4><strong>Loại môn học: </strong>@Html.DisplayFor(modelItem => modelItem.CategoryName)</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h4><strong>Mục tiêu: </strong>@Html.DisplayFor(modelItem => modelItem.Purpose)</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h4><strong>Yêu cầu: </strong>@Html.DisplayFor(modelItem => modelItem.Requirement)</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h4><strong>Hình ảnh: </strong>@Html.DisplayFor(modelItem => modelItem.Photo)</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h4><strong>Mô tả: </strong>@Html.DisplayFor(modelItem => modelItem.Description)</h4>
-        </div>
-    </div>
+    <dl class="dl-horizontal">
+        <dt>Hình ảnh:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Photo)</dd>
+        <dt>Tên khóa học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+        <dt>Loại môn học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.CategoryName)</dd>
+        <dt>Mục tiêu:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Purpose)</dd>
+        <dt>Yêu cầu:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Requirement)</dd>
+        <dt>Mô tả:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Description)</dd>
+    </dl>
     <br />
     <div class="row">
         <div class="col-md-8">

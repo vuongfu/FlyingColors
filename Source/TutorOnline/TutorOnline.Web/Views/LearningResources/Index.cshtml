@@ -1,8 +1,46 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý tài nguyên học tập";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Quản lý tài nguyên học tập</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Môn học <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success" role="alert">Quản lý tất cả các môn học có trong hệ thống</div>
+                @Html.ActionLink("Đến trang quản lý", "Index", "Categories", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Khóa học <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success" role="alert">Quản lý tất cả các khóa học có trong hệ thống</div>
+                @Html.ActionLink("Đến trang quản lý", "Index", "Subjects", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Bài học <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success" role="alert">Quản lý tất cả các bài học của mỗi khóa học có trong hệ thống</div>
+                @Html.ActionLink("Đến trang quản lý", "Index", "Lessons", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+</div>
 

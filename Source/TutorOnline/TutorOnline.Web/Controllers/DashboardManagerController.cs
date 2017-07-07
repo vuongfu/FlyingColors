@@ -7,6 +7,7 @@ using TutorOnline.Business.Repository;
 
 namespace TutorOnline.Web.Controllers
 {
+    [Authorize]
     public class DashboardManagerController : Controller
     {
         CategoriesRepository CRes = new CategoriesRepository();

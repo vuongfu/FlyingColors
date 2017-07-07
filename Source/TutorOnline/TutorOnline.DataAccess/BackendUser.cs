@@ -29,7 +29,7 @@ namespace TutorOnline.DataAccess
         public string PhoneNumber { get; set; }
         public string Photo { get; set; }
         public string Description { get; set; }
-        public bool isDeleted { get; set; }
+        public bool isActived { get; set; }
         public Nullable<System.DateTime> RegisterDate { get; set; }
     
         public virtual Role Role { get; set; }

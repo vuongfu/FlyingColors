@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace TutorOnline.Web.Controllers
 {
+    [Authorize]
     public class LearningResourcesController : Controller
     {
         // GET: LearningResources
