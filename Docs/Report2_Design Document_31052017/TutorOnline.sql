@@ -41,7 +41,7 @@ create table [Parent](
 	[Balance] [money] NULL,
 	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
-	[isDeleted] [bit] not null default 0,
+	[isActived] [bit] not null default 1,
 	[RegisterDate] datetime default getdate()
 ); 
 
@@ -65,7 +65,7 @@ CREATE TABLE [Student](
 	[Balance] [money] NULL,
 	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
-	[isDeleted] [bit] not null default 0,
+	[isActived] [bit] not null default 1,
 	[RegisterDate] datetime default getdate()
 );
 
@@ -85,7 +85,7 @@ create table [BackendUser](
 	[PhoneNumber] [nvarchar](24) NOT NULL,
 	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
-	[isDeleted] [bit] not null default 0,
+	[isActived] [bit] not null default 1,
 	[RegisterDate] datetime default GETDATE()
 );
 
@@ -112,8 +112,7 @@ Create table [Tutor](
 	[Description] [text] NULL,	 
 	[BankName] [nvarchar](200) null,
 	[BMemName] [nvarchar](200) null,
-	[isDeleted] [bit] not null default 0,
-	[Status] int FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
+	[isActived] [bit] not null default 0,
 	[RegisterDate] datetime default getdate()
 );
 
@@ -154,7 +153,7 @@ CREATE TABLE [LearningMaterial] (
 	[MaterialTypeId] [int] FOREIGN KEY REFERENCES [MaterialType](MaterialTypeId) NOT NULL,
 	[Description] [text] NULL,
 	[LessonId] int FOREIGN KEY REFERENCES [Lesson](LessonId) NOT NULL,
-	[isDeleted] bit not null default 0
+	[isActived] bit not null default 1
 );
 
 CREATE TABLE [Schedule] (
@@ -239,8 +238,10 @@ CREATE TABLE [AuditLog] (
 
 Create table [Question](
 	[QuestionId] int Identity(1,1) primary key,
+	[Photo] varchar(100) NULL,
 	[Content] nvarchar(1000) not null,
-	[LessonId] int foreign key references [Lesson](LessonId) not null
+	[LessonId] int foreign key references [Lesson](LessonId),
+	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId)
 );
 
 create table [Answer](
@@ -291,8 +292,6 @@ INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirem
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Hoa Hoc lop 11', 5, 'Hoa Hoc danh cho hoc sinh lop 11', 'Tim hieu va luyen cac dang bai tap nang cao hoa hoc lop 11', 'Co nen tang hoa hoc tot, can on luyen kien thuc de chuan bi cho cac ki thi cap huyen hoac tinh', NULL);
 
 --Insert data to Status table
-INSERT INTO [Status] (Status) VALUES ('user_active');
-INSERT INTO [Status] (Status) VALUES ('user_inactive');
 INSERT INTO [Status] (Status) VALUES ('schedule_finish');
 INSERT INTO [Status] (Status) VALUES ('schedule_booked');
 INSERT INTO [Status] (Status) VALUES ('schedule_cancel');
@@ -313,9 +312,9 @@ INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Addr
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,3,'Nguyen','Hieu',5-5-2005,1,null,'Hieu123@gmail.com','Hieu123','Hieu1','3','Ha Noi',null,'Viet Nam','124351251234',2000000,null,'Ham học hỏi');
 
 --Insert data to Tutor table
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,[Status]) VALUES (7,'Nguyễn','Huyền',3-3-1983,2,'Quận 1','huyenNTK@fpt.edu.vn','Nana','Huyenntk','1','Hồ Chí Minh',null,'Viet Nam','01632594938',1000000,'12345667',100000,null,null,'Tien Phong','HuyenNtk',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,[Status]) VALUES (7,'Lý','Trọng',4-4-1984,1,null,'Trong123@gmail.com','LyTrong','LyTrong','2','Ha Noi',null,'Viet Nam','12312341351',0,'203498572',50000,null,null,'VPBank','Ly Trong',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,[Status]) VALUES (7,'Thúy','Kiều',5-5-1985,2,null,'Kieu123@gmail.com','ThuyKieu','ThuyKieu','3','Ha Noi',null,'Viet Nam','124351251234',2000000,'9012367019',100000,null,null,'Vietcombank','Thuy Kieu',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Nguyễn','Huyền',3-3-1983,2,'Quận 1','huyenNTK@fpt.edu.vn','Nana','Huyenntk','1','Hồ Chí Minh',null,'Viet Nam','01632594938',1000000,'12345667',100000,null,null,'Tien Phong','HuyenNtk');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Lý','Trọng',4-4-1984,1,null,'Trong123@gmail.com','LyTrong','LyTrong','2','Ha Noi',null,'Viet Nam','12312341351',0,'203498572',50000,null,null,'VPBank','Ly Trong');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Thúy','Kiều',5-5-1985,2,null,'Kieu123@gmail.com','ThuyKieu','ThuyKieu','3','Ha Noi',null,'Viet Nam','124351251234',2000000,'9012367019',100000,null,null,'Vietcombank','Thuy Kieu');
 																																																								
 --Insert data to BackendUser table
 INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,'Dương','Quá',25-3-1985,1,null,'Ngoisaoden9@gmail.com','DuongQua','1','Ha Noi','Viet Nam','09777777',null,null);
@@ -341,9 +340,9 @@ INSERT INTO [LearningMaterial] (MaterialUrl, MaterialTypeId, [Description], [Les
 
 
 -- Insert data to Schedule table
-INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,Status,Type,CanReason,Price) VALUES (1, 1, 1, 5, 29-6-2017, 5 ,1, null, 150000);
-INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,Status,Type,CanReason,Price) VALUES (2, 1, 1, 8, 29-6-2017, 5 ,1, null, 150000);
-INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,Status,Type,CanReason,Price) VALUES (1, 2, 2, 6, 30-6-2017, 6 ,1, 'Trục trặc máy móc', 150000);
+INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,[Status],[Type],CanReason,Price) VALUES (1, 1, 1, 5, 29-6-2017, 2 ,1, null, 150000);
+INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,[Status],[Type],CanReason,Price) VALUES (2, 1, 1, 8, 29-6-2017, 2 ,1, null, 150000);
+INSERT INTO [Schedule] (StudentId,TutorId,LessonId,SlotOrder,SlotDate,[Status],[Type],CanReason,Price) VALUES (1, 2, 2, 6, 30-6-2017, 3 ,1, 'Trục trặc máy móc', 150000);
 
 --Insert data to Criteria table
 INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('khả năng nhận biết hiragana',1,1);
@@ -372,18 +371,18 @@ INSERT INTO TutorFeedbackDetail (TutorFeedbackId,CriteriaId,CriteriaValue) VALUE
 INSERT INTO TutorFeedbackDetail (TutorFeedbackId,CriteriaId,CriteriaValue) VALUES (1,5,5);
 
 --Insert data to StudentSubject table
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,1,8);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (2,1,8);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (3,2,9);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (4,2,8);
-INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,3,10);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,1,6);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (2,1,6);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (3,2,7);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (4,2,6);
+INSERT INTO StudentSubject (SubjectId,StudentId,[Status]) VALUES (1,3,8);
 
 --Insert data to TutorSubject table
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (1,1,6,'deu biet tho');
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (1,2,6,'deu biet tho');
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (3,2,6,'deu biet tho');
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (4,2,6,'deu biet tho');
-INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (5,2,7,'deu biet tho');
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (1,1,4,'deu biet tho');
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (1,2,4,'deu biet tho');
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (3,2,4,'deu biet tho');
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (4,2,4,'deu biet tho');
+INSERT INTO TutorSubject (SubjectId,TutorId,[Status],[Experience]) VALUES (5,2,5,'deu biet tho');
 
 --Insert data to TeachSchedule table
 INSERT INTO TeachSchedule (TutorId,OrderDate,OrderSlot) VALUES (1,30-6-2017,3);
@@ -402,9 +401,9 @@ INSERT INTO TeachSchedule (TutorId,OrderDate,OrderSlot) VALUES (2,30-6-2017,7);
 INSERT INTO TeachSchedule (TutorId,OrderDate,OrderSlot) VALUES (2,30-6-2017,8);
 
 --Insert data to Question table
-INSERT INTO Question (Content,LessonId) VALUES ('1+1=?',1);
-INSERT INTO Question (Content,LessonId) VALUES ('Thủ đô của nước Nhật là?',1);
-INSERT INTO Question (Content,LessonId) VALUES ('Aka trong tiếng Việt nghĩa là gì?',1);
+INSERT INTO Question (Photo,Content,LessonId, SubjectId) VALUES (NULL,'1+1=?',1,NULL);
+INSERT INTO Question (Photo,Content,LessonId, SubjectId) VALUES (NULL,'Thủ đô của nước Nhật là?',1, NULL);
+INSERT INTO Question (Photo,Content,LessonId, SubjectId) VALUES (NULL,'Aka trong tiếng Việt nghĩa là gì?',1,NULL);
 
 --Insert data to Answer table
 INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('2',1,1);
