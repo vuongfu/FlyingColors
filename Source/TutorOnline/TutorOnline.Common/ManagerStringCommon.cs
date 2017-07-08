@@ -33,5 +33,8 @@ namespace TutorOnline.Common
         public string deleteMaterialSuccess = "Đã xóa tài liệu của môn học thành công.";
         public string isExistMaterialName = "Tên tài liệu này đã tồn tại. Hãy nhập tên khác!";
         public string updateMaterialSuccess = "Đã thay đổi thông tin của tài liệu thành công.";
+
+        public string vn = "việt nam";
+        public string foreign = "foreign";
     }
 }

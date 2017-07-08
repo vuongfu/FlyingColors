@@ -15,7 +15,7 @@ namespace TutorOnline.Business.Repository
             var subjects = _dbContext.Subjects.Include(x => x.Category).Where(x => x.isActived == true);
             return subjects;
         }
-        public IEnumerable<Subject> GetSubCategory(int? id)
+        public IEnumerable<Subject> GetSubByCategory(int? id)
         {
             var subjects = _dbContext.Subjects.Include(x => x.Category).Where(x => x.isActived == true && x.CategoryId == id);
             return subjects;
