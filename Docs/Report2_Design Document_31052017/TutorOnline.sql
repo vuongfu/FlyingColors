@@ -42,7 +42,7 @@ create table [Parent](
 	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[isActived] [bit] not null default 1,
-	[RegisterDate] datetime default getdate()
+	[RegisterDate] datetime not null default getdate()
 ); 
 
 CREATE TABLE [Student](
@@ -66,7 +66,7 @@ CREATE TABLE [Student](
 	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[isActived] [bit] not null default 1,
-	[RegisterDate] datetime default getdate()
+	[RegisterDate] datetime not null default getdate()
 );
 
 create table [BackendUser](
@@ -86,7 +86,7 @@ create table [BackendUser](
 	[Photo] varchar(100) NULL,
 	[Description] [text] NULL,	 
 	[isActived] [bit] not null default 1,
-	[RegisterDate] datetime default GETDATE()
+	[RegisterDate] datetime not null default GETDATE()
 );
 
 Create table [Tutor](
@@ -113,7 +113,7 @@ Create table [Tutor](
 	[BankName] [nvarchar](200) null,
 	[BMemName] [nvarchar](200) null,
 	[isActived] [bit] not null default 0,
-	[RegisterDate] datetime default getdate()
+	[RegisterDate] datetime not null default getdate()
 );
 
 CREATE TABLE [Category](
@@ -241,14 +241,16 @@ Create table [Question](
 	[Photo] varchar(100) NULL,
 	[Content] nvarchar(1000) not null,
 	[LessonId] int foreign key references [Lesson](LessonId),
-	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId)
+	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId),
+	[isActived] bit not null default 1
 );
 
 create table [Answer](
 	[AnswerId] int Identity(1,1) primary key,
 	[Content] nvarchar(1000) not null,
 	[QuestionId] int foreign key references [Question](QuestionId) not null,
-	[isCorrect] bit not null
+	[isCorrect] bit not null,
+	[isActived] bit not null default 1
 );
 
 CREATE TABLE [Transaction] (

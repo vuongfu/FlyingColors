@@ -46,6 +46,28 @@ namespace TutorOnline.Business.Repository
             return returnRoleId;
         }
 
+        public string GetRoleName(string username)
+        {
+            var CheckBackEndUser = _dbContext.BackendUsers.FirstOrDefault(a =>  a.UserName == username);
+            var CheckTutor = _dbContext.Tutors.FirstOrDefault(a =>  a.UserName == username);
+            var CheckStudent = _dbContext.Students.FirstOrDefault(a => a.UserName == username);
+            var CheckParent = _dbContext.Parents.FirstOrDefault(a =>  a.UserName == username);
+            if (CheckBackEndUser == null && CheckTutor == null && CheckStudent == null && CheckParent == null)
+                return null;
+
+            string returnRole = null;
+            if (CheckBackEndUser != null)
+                returnRole = CheckBackEndUser.Role.RoleName;
+            if (CheckTutor != null)
+                returnRole = CheckTutor.Role.RoleName;
+            if (CheckStudent != null)
+                returnRole = CheckStudent.Role.RoleName;
+            if (CheckParent != null)
+                returnRole = CheckParent.Role.RoleName;
+
+            return returnRole;
+        }
+
         public IEnumerable<Parent> GetAllParentUser()
         {
             var users = _dbContext.Parents.Include(x => x.Role);
@@ -68,6 +90,23 @@ namespace TutorOnline.Business.Repository
         {
             return _dbContext.Roles;
         }
+
+        public IEnumerable<ParentInfo> GetAllParent()
+        {
+
+            var users = _dbContext.Parents.Include(x => x.Role);
+            List<ParentInfo> list = new List<ParentInfo>();
+            foreach (var item in users)
+            {
+                ParentInfo temp = new ParentInfo();
+                temp.ParentId = item.ParentId;
+                temp.ParentName = item.LastName + " " + item.FirstName;
+                list.Add(temp);
+            }
+            return list;
+        }
+
+
 
         public BackendUser FindBackEndUser(int? id)
         {
@@ -95,19 +134,29 @@ namespace TutorOnline.Business.Repository
 
         public void AddBackEndUser(BackendUser user)
         {
+            user.RegisterDate = DateTime.Now;
             _dbContext.BackendUsers.Add(user);
             _dbContext.SaveChanges();
         }
 
         public void AddTutor(Tutor user)
         {
+            user.RegisterDate = DateTime.Now;
             _dbContext.Tutors.Add(user);
             _dbContext.SaveChanges();
         }
 
         public void AddStudent(Student user)
         {
+            user.RegisterDate = DateTime.Now;
             _dbContext.Students.Add(user);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddParent(Parent user)
+        {
+            user.RegisterDate = DateTime.Now;
+            _dbContext.Parents.Add(user);
             _dbContext.SaveChanges();
         }
 
@@ -165,7 +214,7 @@ namespace TutorOnline.Business.Repository
             var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.BackendUserId == id && x.Password == pass && x.RoleId == userRole);
             var StudentUser = _dbContext.Students.FirstOrDefault(x => x.StudentId == id && x.Password == pass && x.RoleId == userRole);
             var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.TutorId == id && x.Password == pass && x.RoleId == userRole);
-            if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null )
+            if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null)
                 return false;
             else
                 return true;
@@ -180,20 +229,24 @@ namespace TutorOnline.Business.Repository
             if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null)
                 return null;
             UserLoginInfo returnResult;
-            
-            if(ParentUser != null)
+
+            if (ParentUser != null)
             {
                 returnResult = new UserLoginInfo(ParentUser);
-            }else if(BackEndUser != null)
+            }
+            else if (BackEndUser != null)
             {
                 returnResult = new UserLoginInfo(BackEndUser);
-            }else if(StudentUser != null)
+            }
+            else if (StudentUser != null)
             {
                 returnResult = new UserLoginInfo(StudentUser);
-            }else if(TutorUser != null)
+            }
+            else if (TutorUser != null)
             {
                 returnResult = new UserLoginInfo(TutorUser);
-            }else
+            }
+            else
             {
                 return null;
             }
@@ -201,6 +254,12 @@ namespace TutorOnline.Business.Repository
             return returnResult;
         }
 
+    }
+
+    public class ParentInfo
+    {
+        public int ParentId { get; set; }
+        public string ParentName { get; set; }
     }
 
     public class UserLoginInfo

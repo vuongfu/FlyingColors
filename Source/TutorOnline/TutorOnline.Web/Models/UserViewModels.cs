@@ -621,17 +621,21 @@ namespace TutorOnline.Web.Models
     {
         [Required]
         [Display(Name = "Chức vụ:")]
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
+
+        public string RoleName { get; set; }
 
         [Required]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
+        public int? ParentId { get; set; }
+
         [Required]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
-        [DataType(DataType.Date)]
+        
         [Display(Name = "Ngày sinh:")]
         public Nullable<System.DateTime> BirthDate { get; set; }
 
@@ -717,6 +721,8 @@ namespace TutorOnline.Web.Models
         public string ConfirmPassword { get; set; }
 
         public int UserRole { get; set; }
+
+        public string Rolename { get; set; }
     }
     public class TransUserViewModel
     {

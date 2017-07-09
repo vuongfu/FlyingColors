@@ -18,6 +18,7 @@ namespace TutorOnline.DataAccess
         public string Content { get; set; }
         public int QuestionId { get; set; }
         public bool isCorrect { get; set; }
+        public bool isActived { get; set; }
     
         public virtual Question Question { get; set; }
     }

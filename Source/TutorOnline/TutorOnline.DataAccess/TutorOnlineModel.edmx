@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="AnswerId" />
@@ -13,6 +13,7 @@
           <Property Name="Content" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="QuestionId" Type="int" Nullable="false" />
           <Property Name="isCorrect" Type="bit" Nullable="false" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AuditLog">
           <Key>
@@ -45,7 +46,7 @@
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
           <Property Name="isActived" Type="bit" Nullable="false" />
-          <Property Name="RegisterDate" Type="datetime" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -116,7 +117,7 @@
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
           <Property Name="isActived" Type="bit" Nullable="false" />
-          <Property Name="RegisterDate" Type="datetime" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -127,6 +128,7 @@
           <Property Name="Content" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="LessonId" Type="int" />
           <Property Name="SubjectId" Type="int" />
+          <Property Name="isActived" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -181,7 +183,7 @@
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
           <Property Name="isActived" Type="bit" Nullable="false" />
-          <Property Name="RegisterDate" Type="datetime" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="StudentFeedback">
           <Key>
@@ -264,7 +266,7 @@
           <Property Name="BankName" Type="nvarchar" MaxLength="200" />
           <Property Name="BMemName" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
-          <Property Name="RegisterDate" Type="datetime" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TutorFeedback">
           <Key>
@@ -297,7 +299,7 @@
           <Property Name="Experience" Type="text" Nullable="false" />
           <Property Name="isActived" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Answer__Question__7D439ABD">
+        <Association Name="FK__Answer__Question__7E37BEF6">
           <End Role="Question" Type="Self.Question" Multiplicity="1" />
           <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -729,7 +731,7 @@
           <EntitySet Name="TutorFeedback" EntityType="Self.TutorFeedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TutorFeedbackDetail" EntityType="Self.TutorFeedbackDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TutorSubject" EntityType="Self.TutorSubject" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Answer__Question__7D439ABD" Association="Self.FK__Answer__Question__7D439ABD">
+          <AssociationSet Name="FK__Answer__Question__7E37BEF6" Association="Self.FK__Answer__Question__7E37BEF6">
             <End Role="Question" EntitySet="Question" />
             <End Role="Answer" EntitySet="Answer" />
           </AssociationSet>
@@ -866,8 +868,7 @@
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TutorOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -880,6 +881,7 @@
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="isCorrect" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Question" Relationship="Self.FK__Answer__Question__7D439ABD" FromRole="Answer" ToRole="Question" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="AuditLog">
           <Key>
@@ -913,7 +915,7 @@
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK__BackendUs__RoleI__34C8D9D1" FromRole="BackendUser" ToRole="Role" />
         </EntityType>
         <EntityType Name="Category">
@@ -999,7 +1001,7 @@
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Parent__RoleId__286302EC" FromRole="Parent" ToRole="Role" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Parent" ToRole="Student" />
         </EntityType>
@@ -1015,6 +1017,7 @@
           <NavigationProperty Name="Answers" Relationship="Self.FK__Answer__Question__7D439ABD" FromRole="Question" ToRole="Answer" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK__Question__Lesson__797309D9" FromRole="Question" ToRole="Lesson" />
           <NavigationProperty Name="Subject" Relationship="Self.FK__Question__Subjec__7A672E12" FromRole="Question" ToRole="Subject" />
+          <Property Name="isActived" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1082,7 +1085,7 @@
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Parent" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Student" ToRole="Parent" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Student__RoleId__2E1BDC42" FromRole="Student" ToRole="Role" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Studen__5070F446" FromRole="Student" ToRole="Schedule" />
@@ -1183,7 +1186,7 @@
           <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="BMemName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Tutor__RoleId__3A81B327" FromRole="Tutor" ToRole="Role" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__TutorI__5165187F" FromRole="Tutor" ToRole="Schedule" />
           <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Tutor__59FA5E80" FromRole="Tutor" ToRole="StudentFeedback" />
@@ -1809,6 +1812,7 @@
           <EntitySetMapping Name="Answers">
             <EntityTypeMapping TypeName="TutorOnlineModel.Answer">
               <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
@@ -1931,6 +1935,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="TutorOnlineModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Content" ColumnName="Content" />

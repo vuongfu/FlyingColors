@@ -129,7 +129,7 @@
             @Html.DisplayFor(model => model.Description)
         </dd>       
 
-        @if (ViewBag.Rid >= 5)
+        @if (ViewBag.RName == "Parent" || ViewBag.RName == "Student" || ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
         {
             <dt>
                 @Html.DisplayNameFor(model => model.SkypeID)
@@ -155,7 +155,7 @@
                 @Html.DisplayFor(model => model.Balance)
             </dd>
 
-            if (ViewBag.Rid >= 7)
+            if (ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
             {
                 <dt>
                     @Html.DisplayNameFor(model => model.BankID)
@@ -189,7 +189,7 @@
                 </dd>
             }
 
-            if (ViewBag.Rid == 6)
+            if (ViewBag.RName == "Student")
             {
                 <dt>
                     @Html.DisplayNameFor(model => model.ParentName)
