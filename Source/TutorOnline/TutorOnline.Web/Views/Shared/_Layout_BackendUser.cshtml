@@ -7,13 +7,12 @@
     <link rel="shortcut icon" href="~/Image/TutorOnline_Icon.png" />
     <link rel="stylesheet" href="~/Content/Style.css" type="text/css">
     <link rel="stylesheet" href="~/Content/Footer-with-map.css">
-
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background: #333333;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -81,8 +80,6 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
                         <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "DashboardManager")">Thống kê hệ thống</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "LearningResources")">Quản lý tài nguyên học tập</a></li>
@@ -90,6 +87,8 @@
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý tài chính</a></li>
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Search", "Accountant")">Chỉnh sửa tài khoản</a></li>
                         <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("ImportExcel", "Accountant")">Nhập từ file Excel</a></li>
+                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9">
