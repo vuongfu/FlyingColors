@@ -28,11 +28,14 @@ namespace TutorOnline.Common
         public string deleteLessonSuccess = "Đã xóa bài học thành công.";
         public string isExistLessonName = "Tên bài học này đã tồn tại. Hãy nhập tên khác!";
         public string updateLessonSuccess = "Đã thay đổi thông tin bài học thành công.";
+        public string isExistMaterialIn = "Có tồn tại tài liệu học tập của bài học này. Hãy xóa tài liệu học tập trước!";
+        public string isExistQuestionIn = "Có tồn tại bài tập của bài học này. Hãy xóa bài tập trước!";
 
         public string addMaterialSuccess = "Đã thêm tài liệu cho môn học thành công.";
         public string deleteMaterialSuccess = "Đã xóa tài liệu của môn học thành công.";
         public string isExistMaterialName = "Tên tài liệu này đã tồn tại. Hãy nhập tên khác!";
         public string updateMaterialSuccess = "Đã thay đổi thông tin của tài liệu thành công.";
+        public string isExistAnswerIn = "Có tồn tại câu trả lời của câu hỏi này. Hãy xóa câu trả lời trước!";
 
         public string vn = "việt nam";
         public string foreign = "foreign";

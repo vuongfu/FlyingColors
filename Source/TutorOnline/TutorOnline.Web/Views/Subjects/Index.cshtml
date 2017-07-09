@@ -20,7 +20,7 @@
         @using (Html.BeginForm("Index", "Subjects", FormMethod.Get))
         {
             <div class="col-md-3">
-                @Html.DropDownList("cateString", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("cateString", null, "--Thuộc môn học--", htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="col-md-7">
                 <div class="input-group">
@@ -52,7 +52,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên khóa học</th>
-                        <th>Loại môn học</th>
+                        <th>Thuộc môn học</th>
                         <th>Mục tiêu</th>
                         <th>Yêu cầu</th>
                         <th>Mô tả</th>

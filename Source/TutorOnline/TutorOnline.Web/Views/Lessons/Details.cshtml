@@ -1,0 +1,32 @@
+﻿@model TutorOnline.Web.Models.LessonViewModels
+
+@{
+    ViewBag.Title = "Chi tiết bài học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <h3>Chi tiết bài học</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên bài học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.LessonName)</dd>
+        <dt>Thuộc khóa học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+        <dt>Nội dung:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Content)</dd>
+    </dl>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.LessonId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Xóa", "Delete", new { @id = Model.LessonId }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Trở lại", "Index", new { @id = Model.LessonId }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

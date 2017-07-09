@@ -1,9 +1,8 @@
-﻿@model PagedList.IPagedList<TutorOnline.Web.Models.CategoriesViewModels>
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.LessonViewModels>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
 @{
-    ViewBag.Title = "Quản lý môn học";
+    ViewBag.Title = "Quản lý bài học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
     ViewBag.Count = 0;
 }
@@ -11,33 +10,34 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3 style="margin-bottom: -40px;">Quản lý môn học</h3>
+            <h3 style="margin-bottom: -40px;">Quản lý bài học</h3>
             @Html.ActionLink("Trở lại", "Index", "LearningResources", null, new { @class = "btn btn-info pull-right" })
         </div>
     </div>
     <hr />
     <div class="row">
-        <div class="col-md-8">
-            @using (Html.BeginForm("Index", "Categories", FormMethod.Get))
-            {
+        @using (Html.BeginForm("Index", "Lessons", FormMethod.Get))
+        {
+            <div class="col-md-3">
+                @Html.DropDownList("subString", null, "--Thuộc khóa học--", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-md-7">
                 <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1">Tất cả</span>
-                    @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm môn học..." })
+                    @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm..." })
                     <span class="input-group-btn">
-                        <input type="submit" value="Tìm Kiếm" class="btn btn-default" name="btnSearch"/>
+                        <input type="submit" value="Tìm Kiếm" class="btn btn-default" name="btnSearch" />
                     </span>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
-    <br/>
+    <br />
     <div class="row">
         <div class="col-md-4">
-            @Html.ActionLink("Thêm Môn Học", "Create", "Categories", new { @class = "btn btn-success" })
+            @Html.ActionLink("Thêm Bài Học", "Create", "Lessons", new { @class = "btn btn-success" })
         </div>
     </div>
-    <br/>
-
+    <br />
     @if (@ViewBag.totalRecord > 0)
     {
         <div class="row">
@@ -50,21 +50,23 @@
                 <table class="table table-striped">
                     <tr>
                         <th>STT</th>
-                        <th>Tên môn học</th>
-                        <th>Mô tả</th>
+                        <th>Tên bài học</th>
+                        <th>Thuộc khóa học</th>
+                        <th>Nội dung</th>
                     </tr>
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })</td>
-                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.ActionLink(item.LessonName, "Details", new { id = item.LessonId })</td>
+                            <td>@Html.DisplayFor(modelItem => item.SubjectName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Content)</td>
                         </tr>
                     }
                 </table>
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
                 @Html.PagedListPager(Model, page => Url.Action("Index",
-                                 new { page, searchString = ViewBag.searchStr }))
+                                 new { page, searchString = ViewBag.searchString, subString = ViewBag.subStr, btnSearch = ViewBag.btnSearch }))
             </div>
         </div>
     }

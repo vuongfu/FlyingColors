@@ -1,0 +1,32 @@
+﻿@model TutorOnline.Web.Models.LessonViewModels
+
+@{
+    ViewBag.Title = "Xóa bài học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div>
+    <h3>Xóa bài học</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên bài học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.LessonName)</dd>
+        <dt>Thuộc khóa học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+        <dt>Nội dung:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Content)</dd>
+    </dl>
+    <br />
+    <div class="alert alert-danger">
+        Bạn có chắc chắn muốn xóa bài học này?
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa bài học" class="btn btn-danger" />
+            @Html.ActionLink("Trở lại", "Details", new { @id = Model.LessonId }, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>
+
