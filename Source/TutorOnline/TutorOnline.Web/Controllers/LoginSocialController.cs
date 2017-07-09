@@ -55,7 +55,7 @@ namespace TutorOnline.Web.Controllers
                 }
                 else
                 {                
-                    CreateUserViewModels viewModel = new CreateUserViewModels();
+                    CreateFrontEndUserViewModels viewModel = new CreateFrontEndUserViewModels();
                     viewModel.Email = profile.Emails.Find(email => email.Type == "account").Value;
                     return RedirectToAction("Register","Account",viewModel);
                 }

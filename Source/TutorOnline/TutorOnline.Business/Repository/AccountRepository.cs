@@ -18,17 +18,17 @@ namespace TutorOnline.Business.Repository
             if (CheckBackEndUser == null && CheckTutor == null && CheckStudent == null && CheckParent == null)
                 return null;
 
-            string returnRoleId = null;
+            string returnRoleName = null;
             if (CheckBackEndUser != null)
-                returnRoleId = CheckBackEndUser.Role.RoleName;
+                returnRoleName = CheckBackEndUser.Role.RoleName;
             if (CheckTutor != null)
-                returnRoleId = CheckTutor.Role.RoleName;
+                returnRoleName = CheckTutor.Role.RoleName;
             if (CheckStudent != null)
-                returnRoleId = CheckStudent.Role.RoleName;
+                returnRoleName = CheckStudent.Role.RoleName;
             if (CheckParent != null)
-                returnRoleId = CheckParent.Role.RoleName;
+                returnRoleName = CheckParent.Role.RoleName;
 
-            return returnRoleId;
+            return returnRoleName;
         }
 
         public BackendUser getCurrentUserTypeBackEnd(string Username)

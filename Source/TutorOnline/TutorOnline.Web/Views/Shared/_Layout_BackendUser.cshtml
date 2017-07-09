@@ -82,7 +82,7 @@
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
                         <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rid })">Đổi mật khẩu</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
                         <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "DashboardManager")">Thống kê hệ thống</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "LearningResources")">Quản lý tài nguyên học tập</a></li>

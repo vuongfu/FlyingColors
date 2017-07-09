@@ -67,11 +67,21 @@
                     <li><a href="#CongGiaSu">CỔNG GIA SƯ</a></li>
                     <li><a href="#myFooter">LIÊN HỆ</a></li>
                 </ul>
-
-                <div class="nav navbar-nav navbar-right">
-                    @Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
-                    @Html.ActionLink("Đăng ký", "Signin", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="nav navbar-nav navbar-right">
+                        @Html.ActionLink("Xin chào " + User.Identity.Name + " | ", "#", "#", new { area = "" }, new { @class = "" })
+                        @Html.ActionLink("Đăng xuất", "Logout", "Account", new { area = "" }, new { @class = "" })
+                    </div>
+                }
+                else
+                {
+                    <div class="nav navbar-nav navbar-right">
+                        @Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+                        @Html.ActionLink("Đăng ký", "Signin", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+                    </div>
+                }
+                
             </div>
         </div>
     </div>

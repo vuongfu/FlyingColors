@@ -11,6 +11,7 @@ using TutorOnline.Web.Models;
 using PagedList;
 using System.Web.Security;
 using System.Web;
+using TutorOnline.Common;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -18,8 +19,10 @@ namespace TutorOnline.Web.Controllers
     public class UsersController : Controller
     {
         private UsersRepository URes = new UsersRepository();
-
+        private UserStringCommon StrCmm = new UserStringCommon();
         // GET: Users
+
+        [Authorize(Roles = "System Admin")]
         public ActionResult Index(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
             int pageSize = 3;
@@ -134,7 +137,7 @@ namespace TutorOnline.Web.Controllers
         // GET: Users/Details/5
         public ActionResult Details(int? id, bool? info, string username)
         {
-            int Rid = -1;
+            string RName = null;
 
             if (info == true)
             {
@@ -146,40 +149,40 @@ namespace TutorOnline.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Rid = URes.GetRoleId(id, username);
+            RName = URes.GetRoleName(username);
 
-            if (Rid == 5)
+            if (RName == StrCmm.Parent)
             {
                 Parent user = URes.FindParentUser(id);
                 if (user == null)
                 {
                     return HttpNotFound();
                 }
-                ViewBag.Rid = Rid;
+                ViewBag.RName = RName;
                 if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);
-            }else if(Rid == 6)
+            }else if(RName == StrCmm.Student)
             {
                 Student user = URes.FindStudentUser(id);
                 if(user == null)
                 {
                     return HttpNotFound();
                 }
-                ViewBag.Rid = Rid;
+                ViewBag.RName = RName;
                 if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);              
-            }else if(Rid == 7)
+            }else if(RName == StrCmm.Tutor)
             {
                 Tutor user = URes.FindTutorUser(id);
                 if (user == null)
                 {
                     return HttpNotFound();
                 }
-                ViewBag.Rid = Rid;
+                ViewBag.RName = RName;
                 if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
@@ -192,7 +195,7 @@ namespace TutorOnline.Web.Controllers
                 {
                     return HttpNotFound();
                 }
-                ViewBag.Rid = Rid;
+                ViewBag.RName = RName;
                 if (user.Photo == null) user.Photo = "";
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
@@ -201,7 +204,9 @@ namespace TutorOnline.Web.Controllers
           
         }
 
+
         // GET: Users/Create
+        [Authorize(Roles = "System Admin")]
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName");
@@ -222,7 +227,7 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (URes.isExistsUsername(userViewModel.Username))
+                if (URes.isExistsUsername(userViewModel.Username) || URes.checkEmailLogin(userViewModel.Email) != null)
                 {
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
@@ -264,6 +269,7 @@ namespace TutorOnline.Web.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize(Roles = "System Admin")]
         public ActionResult Edit(int? id, bool? info)
         {
             if (info == true)
@@ -304,12 +310,10 @@ namespace TutorOnline.Web.Controllers
                 string photoUrl = FileUpload.UploadFile(file);
 
                 BackendUser user = URes.FindBackEndUser(model.Id);
-                user.BackendUserId = model.Id;
                 user.Address = model.Address;
                 user.City = model.City;
                 user.Country = model.Country;
                 user.Description = model.Description;
-                user.Email = model.Email;
                 user.FirstName = model.FirstName;
                 user.Gender = model.Gender;
                 user.LastName = model.LastName;
@@ -330,6 +334,7 @@ namespace TutorOnline.Web.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize(Roles = "System Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -360,9 +365,8 @@ namespace TutorOnline.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int roleid = int.Parse(role);
-
-            if(roleid == 5)
+            
+            if(role == StrCmm.Parent)
             {
                 var user = URes.FindParentUser(id);
                 if (user == null)
@@ -373,9 +377,10 @@ namespace TutorOnline.Web.Controllers
                 model.Id = user.ParentId;
                 model.Name = user.LastName + " " + user.FirstName;
                 model.UserRole = user.RoleId;
+                model.Rolename = role;
                 return View(model);
             }
-            else if(roleid == 6)
+            else if(role == StrCmm.Student)
             {
                 var user = URes.FindStudentUser(id);
                 if (user == null)
@@ -386,8 +391,9 @@ namespace TutorOnline.Web.Controllers
                 model.Id = user.StudentId;
                 model.Name = user.LastName + " " + user.FirstName;
                 model.UserRole = user.RoleId;
+                model.Rolename = role;
                 return View(model);
-            }else if(roleid >= 7)
+            }else if(role == StrCmm.Tutor || role == StrCmm.PreTutor)
             {
                 var user = URes.FindTutorUser(id);
                 if (user == null)
@@ -398,6 +404,7 @@ namespace TutorOnline.Web.Controllers
                 model.Id = user.TutorId;
                 model.Name = user.LastName + " " + user.FirstName;
                 model.UserRole = user.RoleId;
+                model.Rolename = role;
                 return View(model);
             }else
             {
@@ -410,6 +417,7 @@ namespace TutorOnline.Web.Controllers
                 model.Id = user.BackendUserId;
                 model.Name = user.LastName + " " + user.FirstName;
                 model.UserRole = user.RoleId;
+                model.Rolename = role;
                 return View(model);
             }
             
@@ -427,17 +435,17 @@ namespace TutorOnline.Web.Controllers
                     return View(model);
                 }
 
-                if(model.UserRole == 5)
+                if(model.Rolename == StrCmm.Parent)
                 {
                     var user = URes.FindParentUser(model.Id);
                     user.Password = model.NewPassword;
                     URes.EditParentUser(user);
-                }else if(model.UserRole == 6)
+                }else if(model.Rolename == StrCmm.Student)
                 {
                     var user = URes.FindStudentUser(model.Id);
                     user.Password = model.NewPassword;
                     URes.EditStudentUser(user);
-                }else if(model.UserRole >= 7)
+                }else if(model.Rolename == StrCmm.Tutor || model.Rolename == StrCmm.PreTutor)
                 {
                     var user = URes.FindTutorUser(model.Id);
                     user.Password = model.NewPassword;

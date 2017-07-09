@@ -25,6 +25,7 @@ namespace TutorOnline.DataAccess
         public string Content { get; set; }
         public Nullable<int> LessonId { get; set; }
         public Nullable<int> SubjectId { get; set; }
+        public bool isActived { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }

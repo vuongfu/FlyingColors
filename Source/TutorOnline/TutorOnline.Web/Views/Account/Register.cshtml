@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
@@ -22,7 +24,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+                    @Html.HiddenFor(model => model.RoleId)
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -40,15 +42,17 @@
                     </div>
 
                     <div class="row">
+
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Ngày sinh", tabindex = "3" } })
+                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Ngày sinh", tabindex = "4", id = "datepicker" } })
                                 @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
-                                @Html.DropDownList("Gender", null, htmlAttributes: new { @class = "form-control input-lg", style = "width:120px", tabindex = "4" })
+                                @Html.DropDownList("Gender", null, "--Giới tính--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "5" })
                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -57,13 +61,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Địa chỉ", tabindex = "5" } })
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Địa chỉ", tabindex = "6" } })
                                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số điện thoại", tabindex = "6" } })
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số điện thoại", tabindex = "7" } })
                                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -72,13 +76,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "7" } })
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "8" } })
                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Quốc gia", tabindex = "8" } })
+                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Quốc gia", tabindex = "9" } })
                                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -87,22 +91,34 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.SkypeId, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "7" } })
+                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Mã vùng", tabindex = "10" } })
+                                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.SkypeId, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Skype", tabindex = "11" } })
                                 @Html.ValidationMessageFor(model => model.SkypeId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Quốc gia", tabindex = "8" } })
-                                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="row">
+                        @if (ViewBag.SelectedRoleName == "Student")
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    @Html.DropDownList("ParentId", null, "--Phụ huynh--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "3" })
+                                    @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        
+
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <textarea cols="40" class="form-control input-lg" , placeholder="Mô tả" tabindex="9" id="Description" name="Description" rows="5"></textarea>
+                                <textarea class="form-control input-lg" style="width:100%;" placeholder="Mô tả" tabindex="12" id="Description" name="Description" rows="5"></textarea>
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -116,7 +132,7 @@
                             @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-xs-6 col-sm-6 col-md-6">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Email Address", tabindex = "4", value = ViewBag.Email } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Email Address", tabindex = "4" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -135,7 +151,45 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="colorgraph">
+
+                    if (ViewBag.SelectedRoleName == "Tutor" || ViewBag.SelectedRoleName == "PreTutor")
+                    {
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.BankID, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số tài khoản", tabindex = "5" } })
+                                    @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Tên ngân hàng", tabindex = "6" } })
+                                    @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.BMemName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Người thụ hưởng", tabindex = "5" } })
+                                    @Html.ValidationMessageFor(model => model.BMemName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                        </div>
+                    }
+
+                    <div class="row">
+                        
+                        <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" name="file" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<hr class="colorgraph">
                     <div class="row">
                         <div class="col-md-2">
                             <span class="button-checkbox">
@@ -146,21 +200,29 @@
                         <div class="col-md-10">
                             By clicking <strong class="label label-primary">Create My Account</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
                         </div>
-                    </div>
+                    </div>*@
 
                     <hr class="colorgraph">
                     <div class="row">
                         <div class="col-md-6"><input type="submit" value="Create My Account" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-                        <div class="col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign Me In</a></div>
+                        <div class="col-md-6"><a href="~/Account/Login" class="btn btn-success btn-block btn-lg">Sign Me In</a></div>
                     </div>
                 }
             }
             else
             {
-                @using (Html.BeginForm("Register", "Account", FormMethod.Get))
-                {                 
-                    @Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })
-                    <input type="submit" value="Tìm" class="btn" />
+                using (Html.BeginForm("Register", "Account", FormMethod.Get))
+                {
+                    @Html.HiddenFor(model => model.Email)
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                @Html.DropDownList("RoleId", null, "--Loại tài khoản--", htmlAttributes: new { @class = "form-control", style = "width:180px" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Continue" class="btn" />
                 }
             }
 
@@ -190,6 +252,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
+
 <style>
     .colorgraph {
         height: 5px;
@@ -202,6 +265,17 @@
         background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
     }
 </style>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker();
+    });
+</script>
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
