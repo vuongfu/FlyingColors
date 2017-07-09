@@ -32,7 +32,7 @@ namespace TutorOnline.Business.Repository
         }
         public IEnumerable<Student> GetStuInMonth()
         {
-            var students = _dbContext.Students.Include(x => x.Role).Where(x => x.RegisterDate.Value.Month == DateTime.Now.Month);
+            var students = _dbContext.Students.Include(x => x.Role).Where(x => x.RegisterDate.Month == DateTime.Now.Month);
             return students;
         }
 
