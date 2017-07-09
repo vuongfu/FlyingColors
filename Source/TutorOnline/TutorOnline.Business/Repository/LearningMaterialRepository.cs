@@ -10,6 +10,11 @@ namespace TutorOnline.Business.Repository
 {
     public class LearningMaterialRepository : BaseRepository
     {
+        public IEnumerable<MaterialType> GetAllMaType()
+        {
+            var matype = _dbContext.MaterialTypes;
+            return matype;
+        }
         public IEnumerable<LearningMaterial> GetAllMaterial()
         {
             var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType);
@@ -48,9 +53,9 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
-        public bool isExistsMaterialName(string name)
+        public bool isExistsMaterialName(string name, int id)
         {
-            var material = _dbContext.LearningMaterials.FirstOrDefault(x => x.MaterialUrl == name);
+            var material = _dbContext.LearningMaterials.Where(x => x.LessonId == id).FirstOrDefault(x => x.MaterialUrl == name);
             if (material == null)
                 return false;
             else
