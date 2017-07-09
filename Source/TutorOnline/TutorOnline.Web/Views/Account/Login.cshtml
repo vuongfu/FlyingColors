@@ -1,10 +1,10 @@
 ﻿@model TutorOnline.Web.Models.LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Đăng nhập";
 }
 
-<div class="container">
-    <div class="login-container">
+<div class="row" style="background: #289399;">
+    <div class="login-container" style="background: #f6ebeb;">
         <div id="output"></div>
         <div class="avatar" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
         <div class="form-box">
@@ -24,14 +24,13 @@
 
                 <button class="btn btn-info btn-block login" type="submit">Login</button>                            
             }
+            
             <form action="@Url.Action("LoginWithGooglePlus", "LoginSocial")" method="post">
                 @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-danger"><i class="fa fa-google-plus"></i>  Login with Google + </button>
-
+                <button class="btn btn-danger btn-block login" type="submit"><i class="fa fa-google-plus"></i> Login with Google +</button>
             </form>
-            <p>
-                @Html.ActionLink("Đăng ký", "Register")
-            </p>
+            <br/>
+            <a href="#">Quên mật khẩu?</a>
         </div>
     </div>
 </div>
