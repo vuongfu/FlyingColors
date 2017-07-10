@@ -28,6 +28,12 @@
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
+                            <a href="~/Account/Register?Email=@ViewBag.Email" class="btn btn-success btn-block btn-lg">Chọn lại chức vụ</a>
+                        </div>
+                    </div>
+                    <hr class="colorgraph">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Họ", tabindex = "1" } })
                                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
@@ -45,14 +51,14 @@
 
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Ngày sinh", tabindex = "4", id = "datepicker" } })
+                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-lg datepicker", placeholder = "Ngày sinh", tabindex = "3", id = "datepicker" } })
                                 @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
-                                @Html.DropDownList("Gender", null, "--Giới tính--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "5" })
+                                @Html.DropDownList("Gender", null, "--Giới tính--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "4" })
                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -61,13 +67,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Địa chỉ", tabindex = "6" } })
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Địa chỉ", tabindex = "5" } })
                                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số điện thoại", tabindex = "7" } })
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số điện thoại", tabindex = "6" } })
                                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -76,13 +82,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "8" } })
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "7" } })
                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Quốc gia", tabindex = "9" } })
+                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Quốc gia", tabindex = "8" } })
                                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -91,13 +97,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Mã vùng", tabindex = "10" } })
+                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Mã vùng", tabindex = "9" } })
                                 @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.SkypeId, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Skype", tabindex = "11" } })
+                                @Html.EditorFor(model => model.SkypeId, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Skype", tabindex = "10" } })
                                 @Html.ValidationMessageFor(model => model.SkypeId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -105,7 +111,7 @@
                     </div>
 
                     <div class="row">
-                        @if (ViewBag.SelectedRoleName == "Student")
+                        @*@if (ViewBag.SelectedRoleName == "Student")
                         {
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -113,12 +119,12 @@
                                     @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        }
+                        }*@
                         
 
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <textarea class="form-control input-lg" style="width:100%;" placeholder="Mô tả" tabindex="12" id="Description" name="Description" rows="5"></textarea>
+                                <textarea class="form-control input-lg" style="width:100%;" placeholder="Mô tả" tabindex="11" id="Description" name="Description" rows="5"></textarea>
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -128,11 +134,11 @@
 
                     <div class="row">
                         <div class="form-group col-xs-6 col-sm-6 col-md-6">
-                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Tên đăng nhập", tabindex = "3" } })
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Tên đăng nhập", tabindex = "12" } })
                             @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-xs-6 col-sm-6 col-md-6">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Email Address", tabindex = "4" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Email Address", tabindex = "13" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -140,13 +146,13 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Mật khẩu", tabindex = "5" } })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Mật khẩu", tabindex = "14" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Xác nhận mật khẩu", tabindex = "6" } })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Xác nhận mật khẩu", tabindex = "15" } })
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -157,13 +163,13 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.BankID, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số tài khoản", tabindex = "5" } })
+                                    @Html.EditorFor(model => model.BankID, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Số tài khoản", tabindex = "16" } })
                                     @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Tên ngân hàng", tabindex = "6" } })
+                                    @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Tên ngân hàng", tabindex = "17" } })
                                     @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -171,7 +177,7 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.BMemName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Người thụ hưởng", tabindex = "5" } })
+                                    @Html.EditorFor(model => model.BMemName, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Người thụ hưởng", tabindex = "18" } })
                                     @Html.ValidationMessageFor(model => model.BMemName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -203,8 +209,8 @@
                     </div>*@
 
                     <hr class="colorgraph">
-                    <div class="row">
-                        <div class="col-md-6"><input type="submit" value="Create My Account" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                    <div class="row">                        
+                        <div class="col-md-6"><input type="submit" value="Create My Account" class="btn btn-primary btn-block btn-lg"></div>              
                         <div class="col-md-6"><a href="~/Account/Login" class="btn btn-success btn-block btn-lg">Sign Me In</a></div>
                     </div>
                 }
@@ -266,16 +272,15 @@
     }
 </style>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $(".datepicker").datepicker();
-    });
-</script>
 
-
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<script>
+$('.datepicker').datepicker({
+    format: 'dd/mm/yyyy',
+});
+</script>

@@ -12,6 +12,7 @@ using PagedList;
 using System.Web.Security;
 using System.Web;
 using TutorOnline.Common;
+using System.Globalization;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -19,10 +20,9 @@ namespace TutorOnline.Web.Controllers
     public class UsersController : Controller
     {
         private UsersRepository URes = new UsersRepository();
-        private UserStringCommon StrCmm = new UserStringCommon();
         // GET: Users
 
-        [Authorize(Roles = "System Admin")]
+        [Authorize(Roles = UserCommonString.SysAdmin)]
         public ActionResult Index(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
             int pageSize = 3;
@@ -151,7 +151,7 @@ namespace TutorOnline.Web.Controllers
 
             RName = URes.GetRoleName(username);
 
-            if (RName == StrCmm.Parent)
+            if (RName == UserCommonString.Parent)
             {
                 Parent user = URes.FindParentUser(id);
                 if (user == null)
@@ -163,7 +163,7 @@ namespace TutorOnline.Web.Controllers
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);
-            }else if(RName == StrCmm.Student)
+            }else if(RName == UserCommonString.Student)
             {
                 Student user = URes.FindStudentUser(id);
                 if(user == null)
@@ -175,7 +175,7 @@ namespace TutorOnline.Web.Controllers
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);              
-            }else if(RName == StrCmm.Tutor)
+            }else if(RName == UserCommonString.Tutor)
             {
                 Tutor user = URes.FindTutorUser(id);
                 if (user == null)
@@ -206,7 +206,7 @@ namespace TutorOnline.Web.Controllers
 
 
         // GET: Users/Create
-        [Authorize(Roles = "System Admin")]
+        [Authorize(Roles = UserCommonString.SysAdmin)]
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName");
@@ -215,6 +215,7 @@ namespace TutorOnline.Web.Controllers
                 new SelectListItem {  Text = "Male", Value = "1"},
                 new SelectListItem {  Text = "Female", Value = "2"},
             }, "Value", "Text");
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key"); 
             return View();
         }
 
@@ -270,7 +271,7 @@ namespace TutorOnline.Web.Controllers
         }
 
         // GET: Users/Edit/5
-        [Authorize(Roles = "System Admin")]
+        [Authorize(Roles = UserCommonString.SysAdmin + "," + UserCommonString.Accountant + "," + UserCommonString.Supporter + "," + UserCommonString.Manager)]
         public ActionResult Edit(int? id, bool? info)
         {
             if (info == true)
@@ -294,7 +295,7 @@ namespace TutorOnline.Web.Controllers
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", user.RoleId);
             DetailBackEndUserViewModels model = new DetailBackEndUserViewModels(user);
-            
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", user.Country);
 
             return View(model);
         }
@@ -324,7 +325,7 @@ namespace TutorOnline.Web.Controllers
 
                 URes.EditBackEndUser(user);
                 TempData["message"] = "Đã cập nhặt thông tin của người dùng " + user.UserName + " thành công.";
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Users", new { id = model.Id, info = true });
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
@@ -337,7 +338,7 @@ namespace TutorOnline.Web.Controllers
         }
 
         // GET: Users/Delete/5
-        [Authorize(Roles = "System Admin")]
+        [Authorize(Roles = UserCommonString.SysAdmin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -370,7 +371,7 @@ namespace TutorOnline.Web.Controllers
             }
 
             
-            if(role == StrCmm.Parent)
+            if(role == UserCommonString.Parent)
             {
                 var user = URes.FindParentUser(id);
                 if (user == null)
@@ -384,7 +385,7 @@ namespace TutorOnline.Web.Controllers
                 model.Rolename = role;
                 return View(model);
             }
-            else if(role == StrCmm.Student)
+            else if(role == UserCommonString.Student)
             {
                 var user = URes.FindStudentUser(id);
                 if (user == null)
@@ -397,7 +398,7 @@ namespace TutorOnline.Web.Controllers
                 model.UserRole = user.RoleId;
                 model.Rolename = role;
                 return View(model);
-            }else if(role == StrCmm.Tutor || role == StrCmm.PreTutor)
+            }else if(role == UserCommonString.Tutor || role == UserCommonString.PreTutor)
             {
                 var user = URes.FindTutorUser(id);
                 if (user == null)
@@ -439,17 +440,17 @@ namespace TutorOnline.Web.Controllers
                     return View(model);
                 }
 
-                if(model.Rolename == StrCmm.Parent)
+                if(model.Rolename == UserCommonString.Parent)
                 {
                     var user = URes.FindParentUser(model.Id);
                     user.Password = model.NewPassword;
                     URes.EditParentUser(user);
-                }else if(model.Rolename == StrCmm.Student)
+                }else if(model.Rolename == UserCommonString.Student)
                 {
                     var user = URes.FindStudentUser(model.Id);
                     user.Password = model.NewPassword;
                     URes.EditStudentUser(user);
-                }else if(model.Rolename == StrCmm.Tutor || model.Rolename == StrCmm.PreTutor)
+                }else if(model.Rolename == UserCommonString.Tutor || model.Rolename == UserCommonString.PreTutor)
                 {
                     var user = URes.FindTutorUser(model.Id);
                     user.Password = model.NewPassword;
@@ -467,6 +468,23 @@ namespace TutorOnline.Web.Controllers
 
             TempData["messageWarning"] = "Đã có lỗi xảy ra trong quá trình cập nhật mật khẩu mới.";
             return View(model);
+        }
+
+        public KeyValuePair<string,string>[] GetAllCountries()
+        {
+            var objDict = new Dictionary<string, string>();
+            foreach (var cultureInfo in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                var regionInfo = new RegionInfo(cultureInfo.Name);
+                if (!objDict.ContainsKey(regionInfo.EnglishName))
+                {
+                    objDict.Add(regionInfo.EnglishName, regionInfo.TwoLetterISORegionName.ToLower());
+                }
+            }
+            var obj = objDict.OrderBy(p => p.Key).ToArray();
+            
+
+            return obj;
         }
 
         protected override void Dispose(bool disposing)
