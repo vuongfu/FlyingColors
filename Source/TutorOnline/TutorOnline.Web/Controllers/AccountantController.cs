@@ -168,7 +168,7 @@ namespace TutorOnline.Web.Controllers
                 //}
                 //ListTrans = ListTransTemp;
 
-                ListTrans = ListTrans.Where(s => s.UserName.Contains(searchString) || s.Name.Contains(searchString)).ToList();
+                ListTrans = ListTrans.Where(s => AccRes.SearchForString(s.UserName, searchString) || AccRes.SearchForString(s.Name, searchString)).ToList();
             }
             if (!String.IsNullOrEmpty(Export))
             {
@@ -270,7 +270,10 @@ namespace TutorOnline.Web.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                ListUsers = ListUsers.Where(s => s.Username.Contains(searchString) || s.FirstName.Contains(searchString) || s.LastName.Contains(searchString)).ToList();
+                ListUsers = ListUsers.Where(s => URes.SearchForString(s.Username, searchString) ||
+                         URes.SearchForString(s.FirstName, searchString) ||
+                         URes.SearchForString(s.LastName, searchString)
+                    ).ToList();
             }
 
             if (!String.IsNullOrEmpty(roleString))
