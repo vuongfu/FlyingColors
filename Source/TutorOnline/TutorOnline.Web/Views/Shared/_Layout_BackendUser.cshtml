@@ -84,9 +84,7 @@
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "DashboardManager")">Thống kê hệ thống</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "LearningResources")">Quản lý tài nguyên học tập</a></li>
                         <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "TutorManagement")">Quản lý danh sách gia sư</a></li>
-                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý tài chính</a></li>
-                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Search", "Accountant")">Chỉnh sửa tài khoản</a></li>
-                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("ImportExcel", "Accountant")">Nhập từ file Excel</a></li>
+                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý giao dịch</a></li>
                         <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
                         <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
                     </ul>
