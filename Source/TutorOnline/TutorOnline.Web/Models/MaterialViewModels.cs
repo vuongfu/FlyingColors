@@ -13,9 +13,15 @@ namespace TutorOnline.Web.Models
         [Required]
         public string MaterialUrl { get; set; }
         public int MaterialTypeId { get; set; }
+        public string MaterialTypeName { get; set; }
         public string Description { get; set; }
 
         [Required]
         public int LessonId { get; set; }
+        public string LessonName { get; set; }
+
+        [Required]
+        public int SubjectId { get; set; }
+        public string SubjectName { get; set; }
     }
 }
