@@ -4,46 +4,92 @@
     ViewBag.Title = "Chi tiết khóa học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
+@Html.HiddenFor(model => model.SubjectId)
 
 <div class="container-fluid">
     <h3>Chi tiết khóa học</h3>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Hình ảnh:</dt>
-        @if (String.IsNullOrEmpty(Model.Photo))
-        {
-            <dd>
-                @("N/A")
-            </dd>
-        }
-        else
-        {
-            <dd>
-                <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" />
-            </dd>
-        }
-        <dt>Tên khóa học:</dt>
-        <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
-        <dt>Thuộc môn học:</dt>
-        <dd>@Html.DisplayFor(modelItem => modelItem.CategoryName)</dd>
-        <dt>Mục tiêu:</dt>
-        <dd>@Html.DisplayFor(modelItem => modelItem.Purpose)</dd>
-        <dt>Yêu cầu:</dt>
-        <dd>@Html.DisplayFor(modelItem => modelItem.Requirement)</dd>
-        <dt>Mô tả:</dt>
-        <dd>@Html.DisplayFor(modelItem => modelItem.Description)</dd>
-    </dl>
-    <br />
-    <div class="row">
-        <div class="col-md-8">
-            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.SubjectId }, new { @class = "btn btn-success" })
-            @Html.ActionLink("Xóa", "Delete", new { @id = Model.SubjectId }, new { @class = "btn btn-danger" })
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <span class="glyphicon glyphicon-education" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TTKH"> Thông tin khóa học</a>
+                </h4>
+            </div>
+            <div id="TTKH" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <dl class="dl-horizontal">
+                                <dt>Hình ảnh:</dt>
+                                @if (String.IsNullOrEmpty(Model.Photo))
+                                {
+                                    <dd>
+                                        @("N/A")
+                                    </dd>
+                                }
+                                else
+                                {
+                                    <dd>
+                                        <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" />
+                                    </dd>
+                                }
+                                <dt>Tên khóa học:</dt>
+                                <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+                                <dt>Thuộc môn học:</dt>
+                                <dd>@Html.DisplayFor(modelItem => modelItem.CategoryName)</dd>
+                                <dt>Mục tiêu:</dt>
+                                <dd>@Html.DisplayFor(modelItem => modelItem.Purpose)</dd>
+                                <dt>Yêu cầu:</dt>
+                                <dd>@Html.DisplayFor(modelItem => modelItem.Requirement)</dd>
+                                <dt>Mô tả:</dt>
+                                <dd>@Html.DisplayFor(modelItem => modelItem.Description)</dd>
+                            </dl>
+                            <br />
+                            <div style="margin-left: 100px;">
+                                @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.SubjectId }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("Xóa", "Delete", new { @id = Model.SubjectId }, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-8">
-            @Html.ActionLink("Trở lại", "Index", new { @id = Model.SubjectId }, new { @class = "btn btn-default" })
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#DSBH"> Danh sách bài học</a>
+                </h4>
+            </div>
+            <div id="DSBH" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @RenderPage("~/Views/Subjects/LessonsInSubject.cshtml", new { id = Model.SubjectId})
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TLKH"> Tài liệu khóa học</a>
+                </h4>
+            </div>
+            <div id="TLKH" class="panel-collapse collapse">
+                <div class="panel-body">
+                    TLKH
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#BTKH"> Bài tập khóa học</a>
+                </h4>
+            </div>
+            <div id="BTKH" class="panel-collapse collapse">
+                <div class="panel-body">
+                    BTKH
+                </div>
+            </div>
         </div>
     </div>
 </div>

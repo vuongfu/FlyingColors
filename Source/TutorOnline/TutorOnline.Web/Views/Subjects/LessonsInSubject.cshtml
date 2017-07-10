@@ -1,0 +1,42 @@
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.LessonViewModels>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách bài học trong khóa học</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tr>
+                    <th>STT</th>
+                    <th>Tên bài học</th>
+                    <th>Thuộc khóa học</th>
+                    <th>Nội dung</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(ViewBag.Count++ + 1)</td>
+                        <td>@Html.ActionLink(item.LessonName, "Details", new { id = item.LessonId })</td>
+                        <td>@Html.DisplayFor(modelItem => item.SubjectName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                    </tr>
+                }
+            </table>
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                 new { page, searchString = ViewBag.searchStr }))
+        </div>
+    </div>
+
+</body>
+</html>

@@ -22,6 +22,7 @@ namespace TutorOnline.Web.Controllers
         private AnswersRepository ARes = new AnswersRepository();
         private SubjectsRepository SRes = new SubjectsRepository();
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Index(string btnSearch, string searchString, string subString, int? page)
         {
             int pageSize = 3;
@@ -77,6 +78,7 @@ namespace TutorOnline.Web.Controllers
 
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
@@ -111,6 +113,7 @@ namespace TutorOnline.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -135,6 +138,7 @@ namespace TutorOnline.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -190,6 +194,8 @@ namespace TutorOnline.Web.Controllers
 
             return View(model);
         }
+
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -13,11 +13,7 @@
                     Môn học <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                 </div>
                 <div class="panel-body">
-                    Số lượng môn học khả dụng<span class="pull-right">@ViewBag.numCategories</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{@ViewBag.numCategories}" aria-valuemin="0" aria-valuemax="{@ViewBag.numCategories}" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-success">Số lượng môn học khả dụng <span class="badge">@ViewBag.numCategories</span></h4>
                 </div>
             </div>
         </div>
@@ -27,11 +23,7 @@
                     Khóa học <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
                 </div>
                 <div class="panel-body">
-                    Số lượng khóa học khả dụng <span class="pull-right">@ViewBag.numSubjects</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numSubjects" aria-valuemin="0" aria-valuemax="@ViewBag.numSubjects" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-success">Số lượng khóa học khả dụng <span class="badge">@ViewBag.numSubjects</span></h4>
                     Số lượng khóa học tiếng nhật <span class="pull-right">@ViewBag.numSubJanpanese</span>
                     <div class="progress">
                         @{
@@ -56,7 +48,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-info">
@@ -64,11 +55,7 @@
                     Bài học <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                 </div>
                 <div class="panel-body">
-                    Số lượng bài học khả dụng <span class="pull-right">@ViewBag.numLessons</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="@ViewBag.numLessons" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-success">Số lượng bài học khả dụng <span class="badge">@ViewBag.numLessons</span></h4>
                     Số lượng bài học môn tiếng nhật <span class="pull-right">@ViewBag.numLesJapanese</span>
                     <div class="progress">
                         @{
@@ -98,11 +85,7 @@
                     Tài liệu học tập <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                 </div>
                 <div class="panel-body">
-                    Số lượng tài liệu khả dụng <span class="pull-right">@ViewBag.numMaterial</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numMaterial" aria-valuemin="0" aria-valuemax="@ViewBag.numMaterial" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-success">Số lượng tài liệu khả dụng <span class="badge">@ViewBag.numMaterial</span></h4>
                     Số lượng tài liệu môn tiếng nhật <span class="pull-right">@ViewBag.numMaJapanese</span>
                     <div class="progress">
                         @{
@@ -134,11 +117,7 @@
                     Gia sư <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 </div>
                 <div class="panel-body">
-                    Số lượng gia sư khả dụng <span class="pull-right">@ViewBag.numTutor</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numTutor" aria-valuemin="0" aria-valuemax="@ViewBag.numTutor" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-success">Số lượng gia sư khả dụng <span class="badge">@ViewBag.numTutor</span></h4>
                     Số lượng gia sư việt nam <span class="pull-right">@ViewBag.numTuVN</span>
                     <div class="progress">
                         @{
@@ -159,11 +138,7 @@
                             @TuForeignPercent%
                         </div>
                     </div>
-                    Số lượng gia sư được chưa được phê duyệt <span class="pull-right">@ViewBag.numTuNotApproved</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-danger">Số lượng gia sư được chưa được phê duyệt <span class="badge">@ViewBag.numTuNotApproved</span></h4>
                 </div>
             </div>
         </div>
@@ -173,11 +148,7 @@
                     Học viên <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 </div>
                 <div class="panel-body">
-                    Tổng số học viên hiện có<span class="pull-right">@ViewBag.numStudent</span>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                        </div>
-                    </div>
+                    <h4 class="text-success">Tổng số học viên hiện có <span class="badge">@ViewBag.numStudent</span></h4>
                     Số lượng học viên việt nam <span class="pull-right">@ViewBag.numStuVN</span>
                     <div class="progress">
                         @{

@@ -10,7 +10,7 @@ namespace TutorOnline.Web.Models
     {
         public int CategoryId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Hãy nhập tên môn học.")]
         public string CategoryName { get; set; }
         public string Description { get; set; }
     }

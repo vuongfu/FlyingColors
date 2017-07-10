@@ -18,6 +18,9 @@ namespace TutorOnline.Web.Controllers
         // GET: Subjects
         private SubjectsRepository SRes = new SubjectsRepository();
         private CategoriesRepository CRes = new CategoriesRepository();
+        private LessonRepository LRes = new LessonRepository();
+
+        [Authorize(Roles = "Manager")]
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
             int pageSize = 3;
@@ -83,6 +86,7 @@ namespace TutorOnline.Web.Controllers
 
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
@@ -119,6 +123,7 @@ namespace TutorOnline.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -145,6 +150,7 @@ namespace TutorOnline.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -205,6 +211,8 @@ namespace TutorOnline.Web.Controllers
             ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
             return View(model);
         }
+
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -248,6 +256,50 @@ namespace TutorOnline.Web.Controllers
             SRes.DeleteSubject(id);
             TempData["message"] = new ManagerStringCommon().deleteSubjectsSuccess.ToString();
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult LessonsInSubject(int? id, int? page)
+        {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.subjectId = id;
+
+            var lessons = LRes.GetAllLessons();
+            List<LessonViewModels> result = new List<LessonViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (lessons.Count() > 0)
+            {
+                foreach (var item in lessons)
+                {
+                    LessonViewModels model = new LessonViewModels();
+                    model.LessonId = item.LessonId;
+                    model.LessonName = item.LessonName;
+                    model.SubjectId = item.SubjectId;
+                    model.SubjectName = item.Subject.SubjectName;
+                    if (item.Content != null && item.Content.ToString().Length >= 30)
+                        model.Content = item.Content.ToString().Substring(0, 30) + "...";
+                    else
+                        model.Content = item.Content;
+
+                    result.Add(model);
+                }
+            }
+
+            if (id == null && page == null)
+            {
+                result = result.Where(x => x.LessonId == 0).ToList();
+                return View(result.ToList().ToPagedList(pageNumber, pageSize));
+            }
+
+            if (id != null)
+            {
+                result = result.Where(x => x.SubjectId == id).ToList();
+            }
+
+            return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
         }
 
         protected override void Dispose(bool disposing)

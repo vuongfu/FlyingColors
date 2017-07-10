@@ -19,6 +19,7 @@ namespace TutorOnline.Web.Controllers
         TutorRepository TRes = new TutorRepository();
         StudentRepository StuRes = new StudentRepository();
         // GET: DashboardManager
+        [Authorize(Roles = "Manager")]
         public ActionResult Index()
         {
             //Categories statistic

@@ -9,6 +9,7 @@ namespace TutorOnline.Web.Controllers
     [Authorize]
     public class LearningResourcesController : Controller
     {
+        [Authorize(Roles = "Manager")]
         // GET: LearningResources
         public ActionResult Index()
         {
