@@ -16,7 +16,6 @@ namespace TutorOnline.Web.Controllers
     {
         private AccountRepository AccRes = new AccountRepository();
         private UsersRepository URes = new UsersRepository();
-        private UserStringCommon StrCmm = new UserStringCommon();
 
         [AllowAnonymous]
         public ActionResult Login()
@@ -35,7 +34,7 @@ namespace TutorOnline.Web.Controllers
                             Rid = Request.Cookies["Role"]["RoleId"];
                             Rname = Request.Cookies["Role"]["RoleName"];
                         }
-                        if (Rname == StrCmm.Parent || Rname == StrCmm.Student || Rname == StrCmm.Tutor || Rname == StrCmm.PreTutor)
+                        if (Rname == UserCommonString.Parent || Rname == UserCommonString.Student || Rname == UserCommonString.Tutor || Rname == UserCommonString.PreTutor)
                             return RedirectToAction("Index", "Home");
                         else
                             return RedirectToAction("Details", "Users", new { id = Rid, info = true });
@@ -60,21 +59,21 @@ namespace TutorOnline.Web.Controllers
                     int tempId;
                     HttpCookie Role = new HttpCookie("Role");
                     FormsAuthentication.SetAuthCookie(model.Username, false);
-                    if (RoleName == StrCmm.Parent)
+                    if (RoleName == UserCommonString.Parent)
                     {
                         var user = AccRes.getCurrentUserTypeParent(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = user.Role.RoleName;
                         tempId = user.ParentId;
                     }
-                    else if (RoleName == StrCmm.Student)
+                    else if (RoleName == UserCommonString.Student)
                     {
                         var user = AccRes.getCurrentUserTypeStudent(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = user.Role.RoleName;
                         tempId = user.StudentId;
                     }
-                    else if (RoleName == StrCmm.Tutor)
+                    else if (RoleName == UserCommonString.Tutor)
                     {
                         var user = AccRes.getCurrentUserTypeTutor(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
@@ -99,16 +98,16 @@ namespace TutorOnline.Web.Controllers
                     UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
                     Response.Cookies.Add(UserInfo);
 
-                    if(RoleName == StrCmm.Manager)
+                    if(RoleName == UserCommonString.Manager)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "DashboardManager") : ReturnUrl);
                         return Redirect(url);
-                    }else if(RoleName == StrCmm.SysAdmin)
+                    }else if(RoleName == UserCommonString.SysAdmin)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Users") : ReturnUrl);
                         return Redirect(url);
                     }
-                    else if (RoleName == StrCmm.Accountant)
+                    else if (RoleName == UserCommonString.Accountant)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Accountant") : ReturnUrl);
                         return Redirect(url);
@@ -161,8 +160,8 @@ namespace TutorOnline.Web.Controllers
                 ViewBag.Email = model.Email;
             }
 
-            ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == StrCmm.Parent
-            || x.RoleName == StrCmm.PreTutor || x.RoleName == StrCmm.Student), "RoleId", "RoleName", model.RoleId);
+            ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
+            || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
             ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
 
             ViewBag.Gender = new SelectList(new List<SelectListItem>
@@ -192,8 +191,8 @@ namespace TutorOnline.Web.Controllers
                         ViewBag.Email = model.Email;
                     }
 
-                    ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == StrCmm.Parent
-                    || x.RoleName == StrCmm.PreTutor || x.RoleName == StrCmm.Student), "RoleId", "RoleName", model.RoleId);
+                    ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
+                    || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
                     ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
 
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
@@ -205,7 +204,7 @@ namespace TutorOnline.Web.Controllers
                     return View(model);
                 }
                 string roleName = URes.GetAllRole().FirstOrDefault(x => x.RoleId == model.RoleId).RoleName;
-                if (roleName == StrCmm.Student)
+                if (roleName == UserCommonString.Student)
                 {
                     Student temp = new Student();
                     temp.RoleId = (int)model.RoleId;
@@ -227,7 +226,7 @@ namespace TutorOnline.Web.Controllers
                     temp.Email = model.Email;
 
                     URes.AddStudent(temp);                   
-                } else if (roleName == StrCmm.Parent)
+                } else if (roleName == UserCommonString.Parent)
                 {
                     Parent temp = new Parent();
                     temp.RoleId = (int)model.RoleId;
@@ -249,7 +248,7 @@ namespace TutorOnline.Web.Controllers
 
                     URes.AddParent(temp);
                     
-                } else if (roleName == StrCmm.Tutor)
+                } else if (roleName == UserCommonString.Tutor)
                 {
                     Tutor temp = new Tutor();
                     temp.RoleId = (int)model.RoleId;
@@ -288,8 +287,8 @@ namespace TutorOnline.Web.Controllers
                 ViewBag.Email = model.Email;
             }
 
-            ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == StrCmm.Parent
-            || x.RoleName == StrCmm.PreTutor || x.RoleName == StrCmm.Student), "RoleId", "RoleName", model.RoleId);
+            ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
+            || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
             ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
 
             ViewBag.Gender = new SelectList(new List<SelectListItem>

@@ -68,7 +68,9 @@
     }
 
     function docso(so) {
+        var dau = 0;
         if (so == 0) return mangso[0];
+        if (so < 0) { so = so * -1; dau = 1; }
         var chuoi = "",
             hauto = "";
         do {
@@ -81,6 +83,7 @@
             }
             hauto = " tỷ";
         } while (so > 0);
+        if (dau == 1) { chuoi = "âm" + chuoi; }
         return chuoi;
     }
     i = 0;
@@ -135,13 +138,13 @@
                 @TranString.TransAmount
             </dt>
             <dd>
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control col-lg-2", @id = "change" } }) 
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @id = "change" } }) 
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </dd>
             <dt>
             </dt>
             <dd>
-                <span id="money">   </span>
+                <span id="money">  </span>
             </dd>
             <dt>
             </dt>

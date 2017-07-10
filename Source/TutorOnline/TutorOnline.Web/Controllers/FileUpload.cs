@@ -64,6 +64,16 @@ namespace TutorOnline.Web.Controllers
             return fileName;
         }
 
+        public static string GetFileType(HttpPostedFileBase file)
+        {
+            if (null == file) return null;
+            string filename = file.FileName;
+            int count = filename.Length;
+            while (filename[count] != '.' && count >= 0)
+                count--;
+            return filename.Substring(count+1).ToLower();
+        }
+
         public static void DeleteFile(string fileName)
         {
             // Don't do anything if there is no name

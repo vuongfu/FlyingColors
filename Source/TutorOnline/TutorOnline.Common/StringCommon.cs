@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace TutorOnline.Common
 {
-    public class UserStringCommon
+    public static class UserCommonString
     {
-        public string Parent = "Parent";
-        public string Student = "Student";
-        public string Tutor = "Tutor";
-        public string PreTutor = "PreTutor";
-        public string SysAdmin = "System Admin";
-        public string Supporter = "Supporter";
-        public string Accountant = "Accountant";
-        public string Manager = "Manager";
+        public const string Parent = "Parent";
+        public const string Student = "Student";
+        public const string Tutor = "Tutor";
+        public const string PreTutor = "PreTutor";
+        public const string SysAdmin = "System Admin";
+        public const string Supporter = "Supporter";
+        public const string Accountant = "Accountant";
+        public const string Manager = "Manager";
     }
 }
