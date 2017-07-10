@@ -43,4 +43,41 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Tài liệu học tập <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success" role="alert">Quản lý tất cả các tài liệu học tập của mỗi bài học có trong hệ thống.</div>
+                @Html.ActionLink("Đến trang quản lý", "Index", "Materials", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                Câu hỏi trắc nghiệm <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success" role="alert">Quản lý tất cả các câu hỏi trắc nghiệm của mỗi bài học và mỗi khóa học có trong hệ thống.</div>
+                @Html.ActionLink("Đến trang quản lý", "Index", "Questions", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Đáp án của câu hỏi <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success" role="alert">Quản lý tất cả các câu trả lời cho từng câu hỏi có trong hệ thống.</div>
+                @Html.ActionLink("Đến trang quản lý", "Index", "Answers", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+</div>
 

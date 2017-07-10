@@ -8,11 +8,11 @@
     <div class="error-code m-b-10 m-t-20">404 <i class="fa fa-warning"></i></div>
     <h2 class="font-bold">Lỗi 404! Không tìm thấy trang yêu cầu.</h2>
     <div class="error-desc">
-        Xin lỗi, địa chỉ trang bạn đang yêu cầu đã không thể tìm thấy hoặc không tồn tại. <br />
-        Tải lại trang hoặc nhấn vào nút bên dưới để quay lại trang chủ.
+        <h4>Xin lỗi, địa chỉ trang bạn đang yêu cầu đã không thể tìm thấy hoặc không tồn tại. </h4>
+        <h4>Tải lại trang hoặc nhấn vào nút bên dưới để quay lại trang chủ và đăng nhập lại.</h4>
         <div>
             <br />
-            @Html.ActionLink("Trở lại trang chủ", "Index", "Home", null, new { @class = "btn btn-primary glyphicon glyphicon-home"})
+            @Html.ActionLink("Trở lại trang chủ", "Logout", "Account", null, new { @class = "btn btn-primary glyphicon glyphicon-home"})
         </div>
     </div>
 </div>

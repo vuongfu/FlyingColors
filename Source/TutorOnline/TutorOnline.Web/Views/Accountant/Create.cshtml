@@ -1,7 +1,8 @@
 ﻿@model TutorOnline.Web.Models.TransactionViewModels
-
+@using TutorOnline.Common;
 @{
-    ViewBag.Title = "Change Acc";
+    TranStringCommon TranString = new TranStringCommon();
+    ViewBag.Title = TranString.CreateTitle;
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -89,13 +90,12 @@
         });
     });
 </script>
-<h2>Chỉnh sửa số dư</h2>
+<h2>Thực hiện giao dịch</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div>
-        <h4>User</h4>
         <hr />
         @Html.HiddenFor(model => model.UserID)
         @Html.HiddenFor(model => model.Name)
@@ -106,42 +106,50 @@
 
         <dl class="dl-horizontal">
             <dt>
-                Tên đăng nhập
+                @TranString.Account
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.UserName)
             </dd>
             <dt>
-                Họ tên
+                @TranString.Name
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
             <dt>
             <dt>
-                Loại người dùng
+                @TranString.UserType
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.UserTypeName)
             </dd>
             <dt>
-                Số dư
+                @TranString.Balance
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Balance)
             </dd>
 
             <dt>
-                Chỉnh sửa số dư
+                @TranString.TransAmount
             </dt>
             <dd>
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @id = "change" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" }) 
-                <div><span id = "money"></span></div>
-                <div>Sử dụng dấu (-) cho việc trừ tài khoản.</div>
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control col-lg-2", @id = "change" } }) 
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </dd>
             <dt>
-                Nội dung
+            </dt>
+            <dd>
+                <span id="money">   </span>
+            </dd>
+            <dt>
+            </dt>
+            <dd>
+                @TranString.Note
+            </dd>
+            <dt>
+                @TranString.Content
             </dt>
             <dd>
                 @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
@@ -152,15 +160,18 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Cập nhật" class="btn btn-default" />
+            <input type="submit" value="@TranString.UpdateButton" class="btn" />
             @ViewBag.message
         </div>
     </div>
 }
     </hr>
-<div class="col-md-offset-2 col-md-10">
-    @Html.ActionLink("Back to List", "Search")
+<div class="col-lg-5">
+    <div class="col-lg-offset-4">
+        @Html.ActionLink(TranString.BackToList, "Search")
+    </div>
 </div>
+
 
 
 @section Scripts {

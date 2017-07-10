@@ -1,22 +1,26 @@
 ﻿@*@model IList<TutorOnline.Web.Models.TransactionViewModels>*@
 @*@using PagedList.Mvc;*@
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
+@using TutorOnline.Common;
 @{
-    ViewBag.Title = "Import file Excel";
+    TranStringCommon TranString = new TranStringCommon();
+    ViewBag.Title = TranString.ImportExcel;
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
-    ViewBag.Count = 0;
+    //ViewBag.Count = 0;
 }
 
-<h2>ImportExcel</h2>
+
+<h2>@TranString.ImportExcel</h2>
 @using (Html.BeginForm("ImportExcel", "Accountant", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <h4>@TranString.Guide</h4>
     <table>
        <tr>
         <th>
             <input type="file" name="file" />
         </th>
         <th>
-            <input type="submit" value="OK" />
+            <input type="submit" value="@TranString.ImportButton" />
         </th>
        </tr>
     </table>
@@ -103,9 +107,4 @@
 }
 @*<div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>}
 @Html.PagedListPager(Model, page => Url.Action("ImportExcel", new { }))*@
-
-
-
-
-
 
