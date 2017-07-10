@@ -14,7 +14,7 @@ Image credits: unsplash.com
 /********************************/
 .fade-carousel {
     position: relative;
-    height: 100vh;
+    height: 100vh; 
 }
 .fade-carousel .carousel-inner .item {
     height: 100vh;
@@ -240,8 +240,7 @@ html,body{
 
 .form-box input[type="text"]{
     border-radius: 5px 5px 0 0;
-    text-transform: lowercase;
-}
+} 
 
 .form-box input[type="password"]{
     border-radius: 0 0 5px 5px;

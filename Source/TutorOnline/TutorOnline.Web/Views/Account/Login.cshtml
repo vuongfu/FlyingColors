@@ -3,21 +3,23 @@
     ViewBag.Title = "Đăng nhập";
 }
 
+
 <div class="row" style="background: #289399;">
     <div class="login-container" style="background: #f6ebeb;">
         <div id="output"></div>
         <div class="avatar" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
         <div class="form-box">
-
-            @using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new {  }))
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new {id = "login-form-custom"  }))
             {
                 @*@Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-                @Html.TextBoxFor(m => m.Username, new { @placeholder = "username" })
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Tên đăng nhập" })
                 @*@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })*@
 
-                @Html.PasswordFor(m => m.Password, new{ @placeholder = "password" })
+                @Html.PasswordFor(m => m.Password, new{ @placeholder = "Mật khẩu" })
                 @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
 
                 
@@ -34,6 +36,27 @@
         </div>
     </div>
 </div>
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var textfield = $("input[name=Username]");
+        var textfield1 = $("input[name=Password]")
+        $('#login-form-custom').submit(function (e) {
+            e.preventDefault();// to stop the form from submitting
+            if (textfield.val() != "" && textfield1.val() != "") {
+                this.submit();               
+            } else {
+                //remove success mesage replaced with error message
+                $("#output").removeClass(' alert alert-success');
+                $("#output").addClass("alert alert-danger animated fadeInUp").html("Bạn phải điền đầy đủ Tên đăng nhập và Mật khẩu");
+            }
+
+        });
+    });
+</script>
