@@ -9,6 +9,7 @@ using TutorOnline.Common;
 using PagedList;
 using TutorOnline.Web.Models;
 using System.Net;
+using System.IO;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -94,28 +95,29 @@ namespace TutorOnline.Web.Controllers
         {
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
             ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-            ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+            //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MaterialViewModels model)
+        public ActionResult Create(MaterialViewModels model, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
                 LearningMaterial material = new LearningMaterial();
                 if (LMRes.isExistsMaterialName(model.MaterialUrl, model.LessonId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialName.ToString();
                     ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
                     ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-                    ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+                    //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
                 material.MaterialId = model.MaterialId;
-                material.MaterialUrl = model.MaterialUrl;
+                material.MaterialUrl = (string.IsNullOrEmpty(docUrl) ? model.MaterialUrl : docUrl);
                 material.LessonId = model.LessonId;
                 material.MaterialTypeId = model.MaterialTypeId;
 
@@ -126,7 +128,7 @@ namespace TutorOnline.Web.Controllers
 
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
             ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-            ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+            //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
             return View(model);
         }
 
@@ -187,20 +189,22 @@ namespace TutorOnline.Web.Controllers
 
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", model.SubjectId);
             ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName", model.LessonId);
-            ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName", model.MaterialTypeId);
+            //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName", model.MaterialTypeId);
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(MaterialViewModels model)
+        public ActionResult Edit(MaterialViewModels model, HttpPostedFileBase file)
         {
+            string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
+
             if (LMRes.isExistsMaterialName(model.LessonName, model.LessonId))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialName.ToString();
                 ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
                 ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-                ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+                //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
                 return View(model);
             }
 
@@ -208,7 +212,7 @@ namespace TutorOnline.Web.Controllers
 
             //Mapping Entity to ViewModel
             material.MaterialId = model.MaterialId;
-            material.MaterialUrl = model.MaterialUrl;
+            material.MaterialUrl = (string.IsNullOrEmpty(docUrl) ? model.MaterialUrl : docUrl);
             material.LessonId = model.LessonId;
             material.MaterialTypeId = model.MaterialTypeId;
 
@@ -220,7 +224,7 @@ namespace TutorOnline.Web.Controllers
             }
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
             ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-            ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+            //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
             return View(model);
         }
         public ActionResult Delete(int? id)
@@ -257,6 +261,26 @@ namespace TutorOnline.Web.Controllers
             LMRes.DeleteMaterial(id);
             TempData["message"] = new ManagerStringCommon().deleteMaterialSuccess.ToString();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Downloads()
+        {
+            var dir = new System.IO.DirectoryInfo(Server.MapPath("~/Content/Uploads/Document/"));
+            System.IO.FileInfo[] fileNames = dir.GetFiles("*.*");
+            List<string> items = new List<string>();
+            foreach (var file in fileNames)
+            {
+                items.Add(file.Name);
+            }
+
+            return View(items);
+        }
+
+        public FileResult Download(string file)
+        {
+
+            var FileVirtualPath = "~/Content/Uploads/Document/" + file;
+            return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
         }
 
         protected override void Dispose(bool disposing)
