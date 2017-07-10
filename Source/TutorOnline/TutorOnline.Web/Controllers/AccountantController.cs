@@ -17,9 +17,10 @@ using TutorOnline.Common;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Accountant")]
     public class AccountantController : Controller
     {
+
         TranStringCommon TranString = new TranStringCommon();
         private AccountantRepository AccRes = new AccountantRepository();
         private UsersRepository URes = new UsersRepository();
