@@ -251,12 +251,12 @@ namespace TutorOnline.Web.Controllers
                 user.LastName = userViewModel.LastName;
                 user.Password = userViewModel.Password;
                 user.PhoneNumber = userViewModel.PhoneNumber;
-                user.Photo = FileUpload.UploadFile(file);
+                user.Photo = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                 user.RoleId = userViewModel.RoleId;
                 user.UserName = userViewModel.Username;
 
                 URes.AddBackEndUser(user);
-
+                TempData["message"] = "Đã thêm thành công người dùng " + user.UserName;
                 return RedirectToAction("Index");
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
@@ -265,6 +265,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Female", Value = "2"},
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+            TempData["messageWarning"] = "Đã có lỗi xảy ra khi thêm người dùng " + userViewModel.Username;
             return View(userViewModel);
         }
 
@@ -307,7 +308,7 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                string photoUrl = FileUpload.UploadFile(file);
+                string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
 
                 BackendUser user = URes.FindBackEndUser(model.Id);
                 user.Address = model.Address;
@@ -322,6 +323,7 @@ namespace TutorOnline.Web.Controllers
                 user.RoleId = model.RoleID;
 
                 URes.EditBackEndUser(user);
+                TempData["message"] = "Đã cập nhặt thông tin của người dùng " + user.UserName + " thành công.";
                 return RedirectToAction("Index");
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
@@ -330,6 +332,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Female", Value = "2"},
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole(), "RoleId", "RoleName", model.RoleID);
+            TempData["messageWarning"] = "Đã có lỗi xảy ra khi cập nhật thông tin của người dùng " + model.Username;
             return View(model);
         }
 
@@ -355,6 +358,7 @@ namespace TutorOnline.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             URes.DeleteBackEndUser(id);
+            TempData["message"] = "Đã xóa người dùng thành công";
             return RedirectToAction("Index");
         }
 
@@ -456,10 +460,12 @@ namespace TutorOnline.Web.Controllers
                     user.Password = model.NewPassword;
                     URes.EditBackEndUser(user);
                 }
-               
 
+                TempData["message"] = "Đã thay đổi mật khẩu thành công.";
                 return RedirectToAction("Index");
             }
+
+            TempData["messageWarning"] = "Đã có lỗi xảy ra trong quá trình cập nhật mật khẩu mới.";
             return View(model);
         }
 

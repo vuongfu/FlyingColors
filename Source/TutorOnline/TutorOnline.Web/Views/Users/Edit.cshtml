@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
+
+
 <h2>Chỉnh sửa thông tin</h2>
 
-@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data", runat = "server" }))
 {
     @Html.AntiForgeryToken()
     
@@ -16,6 +18,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Photo)
         <div class="form-group">
             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -98,8 +101,9 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="file" />
+            <div class="col-md-10">             
+                <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;" id="blah" />    
+                <input type="file" name="file" id="imgInp" />            
             </div>
         </div>
 
@@ -132,6 +136,23 @@ else
     </div>
 }
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

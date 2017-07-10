@@ -95,7 +95,7 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                string photoUrl = FileUpload.UploadFile(file);
+                string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                 Subject subject = new Subject();
                 if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
                 {
@@ -178,7 +178,7 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SubjectsViewModels model, HttpPostedFileBase file)
         {
-            string photoUrl = FileUpload.UploadFile(file);
+            string photoUrl = FileUpload.UploadFile(file,  FileUpload.TypeUpload.image);
             if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();

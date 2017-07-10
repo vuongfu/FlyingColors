@@ -50,7 +50,7 @@ namespace TutorOnline.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -99,20 +99,31 @@ namespace TutorOnline.Web.Controllers
                     UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
                     Response.Cookies.Add(UserInfo);
 
-                    if(RoleName == StrCmm.Manager || RoleName == StrCmm.Accountant || RoleName == StrCmm.SysAdmin || RoleName == StrCmm.Supporter)
+                    if(RoleName == StrCmm.Manager)
                     {
-                        string url = (String.IsNullOrEmpty(returnUrl) ? Url.Action("Details", "Users", new { id = tempId, info = true }) : returnUrl);
+                        string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "DashboardManager") : ReturnUrl);
                         return Redirect(url);
-                    }else
+                    }else if(RoleName == StrCmm.SysAdmin)
+                    {
+                        string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Users") : ReturnUrl);
+                        return Redirect(url);
+                    }
+                    else if (RoleName == StrCmm.Accountant)
+                    {
+                        string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Accountant") : ReturnUrl);
+                        return Redirect(url);
+                    }
+                    else
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    
-                    
+
+
                 }
                 else
                 {
                     ModelState.AddModelError("", "Incorrect username or password");
+                    TempData["messageWarning"] = "Tài khoản hoặc mật khẩu không chính xác";
                     return View();
                 }
             }
@@ -209,7 +220,7 @@ namespace TutorOnline.Web.Controllers
                     temp.ParentId = model.ParentId;
                     temp.Password = model.Password;
                     temp.PhoneNumber = model.PhoneNumber;
-                    temp.Photo = FileUpload.UploadFile(file);
+                    temp.Photo = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                     temp.PostalCode = model.PostalCode;
                     temp.SkypeId = model.SkypeId;
                     temp.UserName = model.Username;
@@ -230,7 +241,7 @@ namespace TutorOnline.Web.Controllers
                     temp.LastName = model.LastName;
                     temp.Password = model.Password;
                     temp.PhoneNumber = model.PhoneNumber;
-                    temp.Photo = FileUpload.UploadFile(file);
+                    temp.Photo = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                     temp.PostalCode = model.PostalCode;
                     temp.SkypeId = model.SkypeId;
                     temp.UserName = model.Username;
@@ -252,7 +263,7 @@ namespace TutorOnline.Web.Controllers
                     temp.LastName = model.LastName;
                     temp.Password = model.Password;
                     temp.PhoneNumber = model.PhoneNumber;
-                    temp.Photo = FileUpload.UploadFile(file);
+                    temp.Photo = FileUpload.UploadFile(file , FileUpload.TypeUpload.image);
                     temp.PostalCode = model.PostalCode;
                     temp.SkypeId = model.SkypeId;
                     temp.UserName = model.Username;

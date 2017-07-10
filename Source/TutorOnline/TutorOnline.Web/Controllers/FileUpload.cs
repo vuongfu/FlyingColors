@@ -11,9 +11,11 @@ namespace TutorOnline.Web.Controllers
     public static class FileUpload
     {
         public static char DirSeparator = System.IO.Path.DirectorySeparatorChar;
-        public static string FilesPath = HttpContext.Current.Server.MapPath("~\\Content" + DirSeparator + "Uploads" + DirSeparator);
+        public static string ImagePath = HttpContext.Current.Server.MapPath("~\\Content" + DirSeparator + "Uploads" + DirSeparator + "Images" + DirSeparator);
+        public static string DocPath = HttpContext.Current.Server.MapPath("~\\Content" + DirSeparator + "Uploads" + DirSeparator + "Documents" + DirSeparator);
+        public enum TypeUpload { image , document };
 
-        public static string UploadFile(HttpPostedFileBase file)
+        public static string UploadFile(HttpPostedFileBase file, TypeUpload Type)
         {
             // Check if we have a file
             if (null == file) return "";
@@ -25,23 +27,39 @@ namespace TutorOnline.Web.Controllers
 
             // Make sure we were able to determine a proper extension
             if (null == fileExt) return "";
-
-            // Check if the directory we are saving to exists
-            if (!Directory.Exists(FilesPath))
+            string path;
+            if (Type == TypeUpload.image)
             {
-                // If it doesn't exist, create the directory
-                Directory.CreateDirectory(FilesPath);
+                // Check if the directory we are saving to exists
+                if (!Directory.Exists(ImagePath))
+                {
+                    // If it doesn't exist, create the directory
+                    Directory.CreateDirectory(ImagePath);                    
+                }
+                // Set our full path for saving
+                path = ImagePath + DirSeparator + fileName;
             }
-
-            // Set our full path for saving
-            string path = FilesPath + DirSeparator + fileName;
+            else
+            {
+                // Check if the directory we are saving to exists
+                if (!Directory.Exists(DocPath))
+                {
+                    // If it doesn't exist, create the directory
+                    Directory.CreateDirectory(DocPath);
+                }
+                // Set our full path for saving
+                path = DocPath + DirSeparator + fileName;
+            }                     
 
             // Save our file
             file.SaveAs(Path.GetFullPath(path));
 
-            // Save our thumbnail as well
-            ResizeImage(file, 70, 70);
-
+            if(Type == TypeUpload.image)
+            {
+                // Save our thumbnail as well
+                ResizeImage(file, 70, 70);
+            }
+           
             // Return the filename
             return fileName;
         }
@@ -52,8 +70,8 @@ namespace TutorOnline.Web.Controllers
             if (fileName.Length == 0) return;
 
             // Set our full path for deleting
-            string path = FilesPath + DirSeparator + fileName;
-            string thumbPath = FilesPath + DirSeparator + "Thumbnails" + DirSeparator + fileName;
+            string path = ImagePath + DirSeparator + fileName;
+            string thumbPath = ImagePath + DirSeparator + "Thumbnails" + DirSeparator + fileName;
 
             RemoveFile(path);
             RemoveFile(thumbPath);
@@ -71,7 +89,7 @@ namespace TutorOnline.Web.Controllers
 
         public static void ResizeImage(HttpPostedFileBase file, int width, int height)
         {
-            string thumbnailDirectory = String.Format(@"{0}{1}{2}", FilesPath, DirSeparator, "Thumbnails");
+            string thumbnailDirectory = String.Format(@"{0}{1}{2}", ImagePath, DirSeparator, "Thumbnails");
 
             // Check if the directory we are saving to exists
             if (!Directory.Exists(thumbnailDirectory))
