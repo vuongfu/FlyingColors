@@ -1,13 +1,15 @@
 ﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransUserViewModel>
 @using PagedList.Mvc;
+@using TutorOnline.Common;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Search";
+    TranStringCommon TranString = new TranStringCommon();
+    ViewBag.Title = TranString.SearchTitle;
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
     ViewBag.Count = 1;
 }
 
-<h2>Tìm kiếm người dùng</h2>
+<h2>@TranString.SearchTitle</h2>
 <div>
 
     @using (Html.BeginForm("Search", "Accountant", FormMethod.Get))
@@ -15,11 +17,11 @@
         <p>
             <table cellspacing="2">
                 <tr>
-                    <th class="col-lg-5">Tim kiếm</th>
-                    <th class="col-lg-2"></th>
-                    <th class="col-lg-2">Chức vụ</th>
+                    <th class="col-lg-5">@TranString.Search</th>
                     <th class="col-lg-1"></th>
-                    <th class="col-lg-2">Giới tính</th>
+                    <th class="col-lg-2">@TranString.UserType</th>
+                    <th class="col-lg-1"></th>
+                    <th class="col-lg-2">@TranString.Gender</th>
                 </tr>
                 <tr>
                     <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
@@ -29,31 +31,32 @@
                     <td>@Html.DropDownList("genderString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
                 </tr>
             </table>
-
-            <input type="submit" value="Tìm" class="btn" />
+            <p></p>
+            <input type="submit" value="@TranString.Search" class="btn" />
         </p>
     }
 
 </div>
-    Có @ViewBag.totalRecord kết quả tìm kiếm
+@if (Model.FirstOrDefault() != null)
+{
+    <h4>@TranString.Have @ViewBag.totalRecord @TranString.Result</h4>
     <table class="table table-striped">
         <tr>
             <th>
-                STT
+                @TranString.Number
             </th>
             <th>
-                Tài khoản
+                @TranString.Account
             </th>
             <th>
-                Tên
+                @TranString.Name
             </th>
             <th>
-                Số dư
+                @TranString.Balance
             </th>
             <th>
-                Chức vụ
+                @TranString.UserType
             </th>
-            <th></th>
         </tr>
         @foreach (var item in Model)
         {
@@ -77,6 +80,7 @@
         }
     </table>
     <br />
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @TranString.Page  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)  @TranString.Of  @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Search",
     new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
+}
