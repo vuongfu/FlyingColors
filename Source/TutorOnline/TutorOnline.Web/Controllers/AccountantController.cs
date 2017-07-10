@@ -11,15 +11,16 @@ using TutorOnline.Business.Repository;
 using TutorOnline.DataAccess;
 using PagedList;
 using TutorOnline.Web.Models;
-using Microsoft.Office.Interop.Excel;
 using System.Xml;
 using OfficeOpenXml;
+using TutorOnline.Common;
 
 namespace TutorOnline.Web.Controllers
 {
     [Authorize]
     public class AccountantController : Controller
     {
+        TranStringCommon TranString = new TranStringCommon();
         private AccountantRepository AccRes = new AccountantRepository();
         private UsersRepository URes = new UsersRepository();
 
@@ -121,7 +122,7 @@ namespace TutorOnline.Web.Controllers
                     temp = ListUsers.Where(s => s.Id == item.UserID && s.RoleName == "Tutor").FirstOrDefault();
                 }
                 item.UserName = temp.Username;
-                item.Name = temp.FirstName + " " + temp.LastName;
+                item.Name = temp.LastName + " " + temp.FirstName;
             }
 
             if (!String.IsNullOrEmpty(roleString))
@@ -176,13 +177,13 @@ namespace TutorOnline.Web.Controllers
                 {
                     var worksheet = package.Workbook.Worksheets.Add("New Sheet");
 
-                    worksheet.Cells[1, 1].Value = "Số giao dịch";
-                    worksheet.Cells[1, 2].Value = "Nội dung giao dịch";
-                    worksheet.Cells[1, 3].Value = "Số tiền";
-                    worksheet.Cells[1, 4].Value = "Ngày thực hiện";
-                    worksheet.Cells[1, 5].Value = "Tên tài khoản";
-                    worksheet.Cells[1, 6].Value = "Loại người dùng";
-                    worksheet.Cells[1, 7].Value = "Họ và tên";
+                    worksheet.Cells[1, 1].Value = TranString.TransId;
+                    worksheet.Cells[1, 2].Value = TranString.Content;
+                    worksheet.Cells[1, 3].Value = TranString.Amount;
+                    worksheet.Cells[1, 4].Value = TranString.TransDate;
+                    worksheet.Cells[1, 5].Value = TranString.Account;
+                    worksheet.Cells[1, 6].Value = TranString.UserType;
+                    worksheet.Cells[1, 7].Value = TranString.Name;
                     for (int i = 0; i < ListTrans.Count(); i++)
                     {
                         worksheet.Cells[i + 2, 1].Value = ListTrans[i].TransactionId.ToString();
@@ -213,7 +214,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.RoleStr = roleString;
             ViewBag.GenderStr = genderString;
 
-            ViewBag.roleString = new SelectList(URes.GetAllRole().Where(s => s.RoleName == "Tutor" || s.RoleName == "Student" || s.RoleName == "Parent"), "RoleName", "RoleName");
+            ViewBag.roleString = new SelectList(URes.GetAllRole().Where(s => s.RoleName == "Tutor" || s.RoleName == "Student"), "RoleName", "RoleName");
             ViewBag.genderString = new SelectList(new List<SelectListItem>
             {
                 new SelectListItem {  Text = "Male", Value = "1"},
@@ -243,6 +244,7 @@ namespace TutorOnline.Web.Controllers
                 temp.Username = record.UserName;
                 temp.Gender = record.Gender;
                 temp.PhoneNumber = record.PhoneNumber;
+                temp.Balance = record.Balance;
 
                 ListUsers.Add(temp);
             }
@@ -259,6 +261,7 @@ namespace TutorOnline.Web.Controllers
                 temp.Username = record.UserName;
                 temp.Gender = record.Gender;
                 temp.PhoneNumber = record.PhoneNumber;
+                temp.Balance = record.Balance;
 
                 ListUsers.Add(temp);
             }
@@ -276,7 +279,7 @@ namespace TutorOnline.Web.Controllers
 
             if (roleString == "")
             {
-                ListUsers = ListUsers.Where(s => s.RoleName == "Tutor" || s.RoleName == "Student" || s.RoleName == "Parent").ToList();
+                ListUsers = ListUsers.Where(s => s.RoleName == "Tutor" || s.RoleName == "Student").ToList();
             }
 
             if (genderString != null)
@@ -382,9 +385,9 @@ namespace TutorOnline.Web.Controllers
             }
             if (TransactionViewModel.Balance + TransactionViewModel.Amount < 0)
             {
-                ViewBag.message = "Chỉnh sửa không hợp lý, yêu cầu nhập lại";
+                ViewBag.message = TranString.WrongAmount;
             }
-            else { ViewBag.message = "Cập nhật thất bại"; }
+            else { ViewBag.message = TranString.UpdateFailed; }
             return View(TransactionViewModel);
         }
 
@@ -401,159 +404,146 @@ namespace TutorOnline.Web.Controllers
             //temp.User = model.User;
             return temp;
         }
-        public ActionResult ImportExcel(int? page)
+        public ActionResult ImportExcel()
         {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            List<TransactionViewModels> ListTrans = new List<TransactionViewModels>();
-            //return View(ListTrans.ToPagedList(pageNumber, pageSize));
-            return View(ListTrans);
+            return View();
         }
         [HttpPost]
-        public ActionResult ImportExcel(HttpPostedFileBase file, int? page, IList<TransactionViewModels>List)
+        public ActionResult ImportExcel(HttpPostedFileBase file)
         {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
 
-            if (List == null)
-            {
-                List<TransactionViewModels> ListTrans = new List<TransactionViewModels>();
+            List<TransactionViewModels> ListTrans = new List<TransactionViewModels>();
 
-                DataSet ds = new DataSet();
-                //if (Request.Files["file"].ContentLength > 0)
-                //{
-                    string fileExtension = System.IO.Path.GetExtension(Request.Files["file"].FileName);
+            DataSet ds = new DataSet();
+            //if (Request.Files["file"].ContentLength > 0)
+            //{
+                string fileExtension = System.IO.Path.GetExtension(Request.Files["file"].FileName);
 
-                    if (fileExtension == ".xls" || fileExtension == ".xlsx")
-                    {
-                        string fileLocation = Server.MapPath("~/Content/") + Request.Files["file"].FileName;
-                        if (System.IO.File.Exists(fileLocation))
-                        {
-
-                            System.IO.File.Delete(fileLocation);
-                        }
-                        Request.Files["file"].SaveAs(fileLocation);
-                        string excelConnectionString = string.Empty;
-                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                        //connection String for xls file format.
-                        if (fileExtension == ".xls")
-                        {
-                            excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-                        }
-                        //connection String for xlsx file format.
-                        else if (fileExtension == ".xlsx")
-                        {
-
-                            excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                        }
-                        //Create Connection to Excel work book and add oledb namespace
-                        OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
-                        excelConnection.Open();
-                        System.Data.DataTable dt = new System.Data.DataTable();
-
-                        dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                        if (dt == null)
-                        {
-                            return null;
-                        }
-
-                        String[] excelSheets = new String[dt.Rows.Count];
-                        int t = 0;
-                        //excel data saves in temp file here.
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            excelSheets[t] = row["TABLE_NAME"].ToString();
-                            t++;
-                        }
-                        OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
-
-
-                        string query = string.Format("Select * from [{0}]", excelSheets[0]);
-                        using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
-                        {
-                            dataAdapter.Fill(ds);
-                        }
-                        excelConnection.Close();
-                    }
-                    if (fileExtension.ToString().ToLower().Equals(".xml"))
-                    {
-                        string fileLocation = Server.MapPath("~/Content/") + Request.Files["FileUpload"].FileName;
-                        if (System.IO.File.Exists(fileLocation))
-                        {
-                            System.IO.File.Delete(fileLocation);
-                        }
-
-                        Request.Files["FileUpload"].SaveAs(fileLocation);
-                        XmlTextReader xmlreader = new XmlTextReader(fileLocation);
-                        // DataSet ds = new DataSet();
-                        ds.ReadXml(xmlreader);
-                        xmlreader.Close();
-                    }
-
-                var Tutor = URes.GetAllTutorUser();
-                var Student = URes.GetAllStudentUser();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                    {
-                        TransactionViewModels trans = new TransactionViewModels();
-                        try
-                        {
-                            trans.UserName = ds.Tables[0].Rows[i][0].ToString();
-                            trans.UserTypeName = ds.Tables[0].Rows[i][1].ToString();
-                            trans.Amount = decimal.Parse(ds.Tables[0].Rows[i][2].ToString());
-                            trans.Content = ds.Tables[0].Rows[i][3].ToString();
-                            if (trans.UserTypeName == "Student") { trans.UserType = 1; }
-                            else { trans.UserType = 2; }
-
-                            if (trans.UserType == 1)
-                            {
-                                Student User = Student.Where(s => s.UserName == trans.UserName).FirstOrDefault();
-                                if (User.Balance + trans.Amount < 0) { 
-                                ViewBag.Message = "Chỉnh sửa số dư không hợp lý với người dùng" + trans.UserName;
-                                return View();
-                                }
-                                trans.UserID = User.StudentId;
-                            }
-                            if (trans.UserType == 2)
-                            {
-                                Tutor User = Tutor.Where(s => s.UserName == trans.UserName).FirstOrDefault();
-                                if (User.Balance + trans.Amount < 0) {
-                                ViewBag.Message = "Chỉnh sửa số dư không hợp lý với người dùng" + trans.UserName;
-                                return View();
-                                }
-                                trans.UserID = User.TutorId;
-                        }
-                        } catch(Exception e) {
-                            ViewBag.Message = "Thông tin không hợp lệ, xin vui lòng kiểm tra lại file Excel";
-                            return View();
-                        }
-                     
-                    ListTrans.Add(trans);
-                    }
-                foreach(var item in ListTrans)
+                if (fileExtension == ".xls" || fileExtension == ".xlsx")
                 {
-                    if (item.UserType == 1)
+                    string fileLocation = Server.MapPath("~/Content/") + Request.Files["file"].FileName;
+                    if (System.IO.File.Exists(fileLocation))
                     {
-                        Student User = URes.FindStudentUser(item.UserID);
-                        User.Balance = User.Balance + item.Amount;
-                        URes.EditStudentUser(User);
+
+                        System.IO.File.Delete(fileLocation);
                     }
-                    else if (item.UserType == 2)
+                    Request.Files["file"].SaveAs(fileLocation);
+                    string excelConnectionString = string.Empty;
+                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //connection String for xls file format.
+                    if (fileExtension == ".xls")
                     {
-                        Tutor User = URes.FindTutorUser(item.UserID);
-                        User.Balance = User.Balance + item.Amount;
-                        URes.EditTutorUser(User);
+                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
                     }
-                    item.TranDate = DateTime.Now;
-                    Transaction tran = MapCreateViewToTrans(item);
-                    AccRes.Add(tran);
+                    //connection String for xlsx file format.
+                    else if (fileExtension == ".xlsx")
+                    {
+
+                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //Create Connection to Excel work book and add oledb namespace
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                    excelConnection.Open();
+                    System.Data.DataTable dt = new System.Data.DataTable();
+
+                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    if (dt == null)
+                    {
+                        return null;
+                    }
+
+                    String[] excelSheets = new String[dt.Rows.Count];
+                    int t = 0;
+                    //excel data saves in temp file here.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        excelSheets[t] = row["TABLE_NAME"].ToString();
+                        t++;
+                    }
+                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
+
+
+                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                    {
+                        dataAdapter.Fill(ds);
+                    }
+                    excelConnection.Close();
                 }
+                if (fileExtension.ToString().ToLower().Equals(".xml"))
+                {
+                    string fileLocation = Server.MapPath("~/Content/") + Request.Files["FileUpload"].FileName;
+                    if (System.IO.File.Exists(fileLocation))
+                    {
+                        System.IO.File.Delete(fileLocation);
+                    }
+
+                    Request.Files["FileUpload"].SaveAs(fileLocation);
+                    XmlTextReader xmlreader = new XmlTextReader(fileLocation);
+                    // DataSet ds = new DataSet();
+                    ds.ReadXml(xmlreader);
+                    xmlreader.Close();
+                }
+
+            var Tutor = URes.GetAllTutorUser();
+            var Student = URes.GetAllStudentUser();
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    TransactionViewModels trans = new TransactionViewModels();
+                    try
+                    {
+                        trans.UserName = ds.Tables[0].Rows[i][0].ToString();
+                        trans.UserTypeName = ds.Tables[0].Rows[i][1].ToString();
+                        trans.Amount = decimal.Parse(ds.Tables[0].Rows[i][2].ToString());
+                        trans.Content = ds.Tables[0].Rows[i][3].ToString();
+                        if (trans.UserTypeName == "Student") { trans.UserType = 1; }
+                        else { trans.UserType = 2; }
+
+                        if (trans.UserType == 1)
+                        {
+                            Student User = Student.Where(s => s.UserName == trans.UserName).FirstOrDefault();
+                            if (User.Balance + trans.Amount < 0) { 
+                            ViewBag.Message = TranString.WrongAmountWith + trans.UserName;
+                            return View();
+                            }
+                            trans.UserID = User.StudentId;
+                        }
+                        if (trans.UserType == 2)
+                        {
+                            Tutor User = Tutor.Where(s => s.UserName == trans.UserName).FirstOrDefault();
+                            if (User.Balance + trans.Amount < 0) {
+                            ViewBag.Message = TranString.WrongAmountWith + trans.UserName;
+                            return View();
+                            }
+                            trans.UserID = User.TutorId;
+                    }
+                    } catch(Exception e) {
+                        ViewBag.Message = TranString.WrongInfo;
+                        return View();
+                    }
+                     
+                ListTrans.Add(trans);
+                }
+            foreach(var item in ListTrans)
+            {
+                if (item.UserType == 1)
+                {
+                    Student User = URes.FindStudentUser(item.UserID);
+                    User.Balance = User.Balance + item.Amount;
+                    URes.EditStudentUser(User);
+                }
+                else if (item.UserType == 2)
+                {
+                    Tutor User = URes.FindTutorUser(item.UserID);
+                    User.Balance = User.Balance + item.Amount;
+                    URes.EditTutorUser(User);
+                }
+                item.TranDate = DateTime.Now;
+                Transaction tran = MapCreateViewToTrans(item);
+                AccRes.Add(tran);
             }
-            ViewBag.Message = "Cập nhật giao dịch từ file excel thành công";
-                //return View(ListTrans.ToPagedList(pageNumber, pageSize));
-                return View();
-            //}
-            //return View(List.ToPagedList(pageNumber, pageSize));
-            //return View(List);
+            ViewBag.Message = TranString.SucceedImport;
+            return View();
         }
     }
 }

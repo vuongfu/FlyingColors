@@ -1,79 +1,85 @@
 ﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransactionListViewModels>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using TutorOnline.Common;
 @{
-    ViewBag.Title = "AccountantIndex";
+    TranStringCommon TranString = new TranStringCommon();
+    ViewBag.Title = TranString.IndexTitle;
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
     ViewBag.Count = 1;
 }
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap-datepicker.standalone.css" rel="stylesheet" />
 
-<h2>Transaction Management</h2>
+
+<h2>@TranString.IndexTitle</h2>
 <p>
+    <h4>@Html.ActionLink(TranString.CreateTransaction, "Search", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+        @Html.ActionLink(TranString.ImportExcel, "ImportExcel", new { area = "" }, new { @class = "btn btn-success navbar-btn" })</h4>
     @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
     {
     <p>
         <table cellspacing="1">
             <tr>
-                <th class="col-lg-3">Tìm kiếm</th>
+                <th class="col-lg-2">@TranString.UserType</th>
                 <th class="col-lg-1"></th>
-                <th class="col-lg-2">Vai trò</th>
+                <th class="col-lg-3">@TranString.Account</th>
                 <th class="col-lg-1"></th>
-                <th class="col-lg-2">Từ ngày</th>
+                <th class="col-lg-2">@TranString.StartDate</th>
                 <th class="col-lg-1"></th>
-                <th class="col-lg-2">Đến ngày</th>
+                <th class="col-lg-2">@TranString.EndDate</th>
             </tr>
             <tr>
-                <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
-                <td></td>
                 <td>@Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
                 <td></td>
-                <td>@Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control" })</td>
+                <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
                 <td></td>
-                <td>@Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control" })</td>
+                <td>@Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" })</td>
+                <td></td>
+                <td>@Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" })</td>
             </tr>
         </table>
-
-        <input type="submit" name="Search" value="Tìm kiếm" class="btn" />
+        <p></p>
+        <input type="submit" name="Search" value="@TranString.Search" class="btn" />
     </p>
 
- 
+
 if (Model.FirstOrDefault() != null)
 {
-<h4>Có @ViewBag.totalRecord kết quả tìm kiếm </h4>
+<h4>@TranString.Have @ViewBag.totalRecord @TranString.Result </h4>
     <table class="table table-striped">
         <tr>
             <th>
-                Stt
+                @TranString.Number
             </th>
             <th>
-                Số giao dịch
+                @TranString.TransId
             </th>
             <th>
-                Nội dung giao dịch
+                @TranString.Content
             </th>
             <th>
-                Số tiền
+                @TranString.Amount
             </th>
             <th>
-                Ngày thực hiện
+                @TranString.TransDate
             </th>
             <th>
-                Tên tài khoản
+                @TranString.Account
             </th>
             <th>
-                Loại người dùng
-            </th> 
-            <th>
-                Họ và tên
+                @TranString.UserType
             </th>
-            <th></th>
+            <th>
+                @TranString.Name
+            </th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @(ViewBag.Count++)  
+                    @(ViewBag.Count++)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TransactionId)
@@ -92,7 +98,7 @@ if (Model.FirstOrDefault() != null)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserTypeName)
-                </td>  
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -101,11 +107,21 @@ if (Model.FirstOrDefault() != null)
 
     </table>
 <br />
-    <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+    <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount</div>
     @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
-    <input type="submit" name="Export" value="Export Excel" class="btn" /> @ViewBag.Message
+    <input type="submit" name="Export" value="@TranString.Export" class="btn" />
         }
     }
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+
+<script>
+$('.datepicker').datepicker({
+    format: 'dd/mm/yyyy',
+});
+</script>
+
 
 
