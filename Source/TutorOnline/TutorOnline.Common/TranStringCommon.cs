@@ -13,6 +13,7 @@ namespace TutorOnline.Common
         public string Of = " trên ";
         public string Have = "Có ";
         public string Result = " kết quả tìm kiếm";
+        public string Back = "Trở về";
 
         //Index common string
         public string Number = "STT";
@@ -32,7 +33,7 @@ namespace TutorOnline.Common
         public string CreateTransaction = "Thực hiện giao dịch mới";
 
         //Search common String
-        public string SearchTitle = "Tìm kiếm người dùng";
+        public string SearchTitle = "Tìm kiếm người dùng để thực hiện giao dịch";
         public string Gender = "Giới tính";
         public string Balance = "Số dư";
 

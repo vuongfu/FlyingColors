@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -304,6 +306,81 @@ namespace TutorOnline.Web.Controllers
         public ActionResult AccessDenied()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ForgotPassword(ForgotViewModel model)
+        {
+            UserLoginInfo data = URes.checkEmailLogin(model.Email);
+            if(data != null)
+            {
+                string newpass = GeneratePassword();
+                string strFrom = UserCommonString.EmailFrom;
+                string strPass = UserCommonString.EmailPass;
+                string strTo = model.Email;
+                string strSubject = UserCommonString.EmailSubject;
+                string strBody = string.Format(UserCommonString.EmailBaseBodyPass, newpass);
+
+                ccMailClass.sendMail_UseGmail(strFrom, strPass, strTo, strSubject, strBody);
+                if (data.RoleName == UserCommonString.Tutor || data.RoleName == UserCommonString.PreTutor)
+                {
+                    var user = URes.FindTutorUser(data.UserId);
+                    user.Password = newpass;
+                    URes.EditTutorUser(user);
+                    
+                }else if (data.RoleName == UserCommonString.Student)
+                {
+                    var user = URes.FindStudentUser(data.UserId);
+                    user.Password = newpass;
+                    URes.EditStudentUser(user);
+                }
+                else if (data.RoleName == UserCommonString.Parent)
+                {
+                    var user = URes.FindParentUser(data.UserId);
+                    user.Password = newpass;
+                    URes.EditParentUser(user);
+                }
+                else
+                {
+                    var user = URes.FindBackEndUser(data.UserId);
+                    user.Password = newpass;
+                    URes.EditBackEndUser(user);
+                }
+                TempData["message"] = UserCommonString.SendEmailSuccess;
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                TempData["messageWarning"] = UserCommonString.EmailNotExist;
+                return View(model);
+            }
+        }
+
+        protected string GeneratePassword()
+        {
+            const string consonnants = "bcdfghjklmnpqrstvwxz";
+            const string vowels = "aeiouy";
+
+            string password = "";
+            byte[] bytes = new byte[4];
+            var rnd = new RNGCryptoServiceProvider();
+            for (int i = 0; i < 3; i++)
+            {
+                rnd.GetNonZeroBytes(bytes);
+                password += consonnants[bytes[0] * bytes[1] % consonnants.Length];
+                password += vowels[bytes[2] * bytes[3] % vowels.Length];
+            }
+
+            rnd.GetBytes(bytes);
+            password += (bytes[0] % 10).ToString() + (bytes[1] % 10).ToString();
+            return password;
         }
     }
 }
