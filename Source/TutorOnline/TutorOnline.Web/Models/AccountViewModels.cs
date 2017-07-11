@@ -42,6 +42,7 @@ namespace TutorOnline.Web.Models
     public class ForgotViewModel
     {
         [Required]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
@@ -103,6 +104,10 @@ namespace TutorOnline.Web.Models
 
     public class ForgotPasswordViewModel
     {
+        [Required]
+        [Display(Name = "Tên đăng nhập")]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
