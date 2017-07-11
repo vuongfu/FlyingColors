@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class TutorManagementController : Controller
     {
-        [Authorize(Roles = "Manager")]
         // GET: TutorManagement
         public ActionResult Index()
         {

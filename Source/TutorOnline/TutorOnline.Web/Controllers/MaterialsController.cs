@@ -13,7 +13,7 @@ using System.IO;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class MaterialsController : Controller
     {
         // GET: Materials
@@ -22,77 +22,75 @@ namespace TutorOnline.Web.Controllers
         private LessonRepository LRes = new LessonRepository();
         //GET: Subjects
         private SubjectsRepository SRes = new SubjectsRepository();
+        
+        //public ActionResult Index(string btnSearch, string subString, string searchString, string lesString, int? page)
+        //{
+        //    int pageSize = 3;
+        //    int pageNumber = (page ?? 1);
 
-        [Authorize(Roles = "Manager")]
-        public ActionResult Index(string btnSearch, string subString, string searchString, string lesString, int? page)
-        {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
+        //    ViewBag.searchString = searchString;
+        //    ViewBag.lesString = new SelectList(LRes.GetAllLessons(), "LessonName", "LessonName");
+        //    ViewBag.lesStr = lesString;
+        //    ViewBag.subString = new SelectList(SRes.GetAllSubject(), "SubjectName", "SubjectName");
+        //    ViewBag.subStr = subString;
+        //    ViewBag.btnSearch = btnSearch;
 
-            ViewBag.searchString = searchString;
-            ViewBag.lesString = new SelectList(LRes.GetAllLessons(), "LessonName", "LessonName");
-            ViewBag.lesStr = lesString;
-            ViewBag.subString = new SelectList(SRes.GetAllSubject(), "SubjectName", "SubjectName");
-            ViewBag.subStr = subString;
-            ViewBag.btnSearch = btnSearch;
+        //    var material = LMRes.GetAllMaterial();
+        //    List<MaterialViewModels> result = new List<MaterialViewModels>();
 
-            var material = LMRes.GetAllMaterial();
-            List<MaterialViewModels> result = new List<MaterialViewModels>();
+        //    //Mapping Entity to ViewModel
+        //    if (material.Count() > 0)
+        //    {
+        //        foreach (var item in material)
+        //        {
+        //            MaterialViewModels model = new MaterialViewModels();
+        //            model.MaterialId = item.MaterialId;
+        //            if (item.MaterialUrl != null && item.MaterialUrl.ToString().Length >= 30)
+        //                model.MaterialUrl = item.MaterialUrl.ToString().Substring(0, 30) + "...";
+        //            else
+        //                model.MaterialUrl = item.MaterialUrl;
+        //            model.LessonId = item.LessonId;
+        //            if (item.Lesson.LessonName != null && item.Lesson.LessonName.ToString().Length >= 30)
+        //                model.LessonName = item.Lesson.LessonName.ToString().Substring(0, 30) + "...";
+        //            else
+        //                model.LessonName = item.Lesson.LessonName;
+        //            model.SubjectId = item.Lesson.Subject.SubjectId;
+        //            if (item.Lesson.Subject.SubjectName != null && item.Lesson.Subject.SubjectName.ToString().Length >= 30)
+        //                model.SubjectName = item.Lesson.Subject.SubjectName.ToString().Substring(0, 30) + "...";
+        //            else
+        //                model.SubjectName = item.Lesson.Subject.SubjectName;
+        //            model.MaterialTypeId = item.MaterialTypeId;
+        //            model.MaterialTypeName = item.MaterialType.MaterialTypeName;
 
-            //Mapping Entity to ViewModel
-            if (material.Count() > 0)
-            {
-                foreach (var item in material)
-                {
-                    MaterialViewModels model = new MaterialViewModels();
-                    model.MaterialId = item.MaterialId;
-                    if (item.MaterialUrl != null && item.MaterialUrl.ToString().Length >= 30)
-                        model.MaterialUrl = item.MaterialUrl.ToString().Substring(0, 30) + "...";
-                    else
-                        model.MaterialUrl = item.MaterialUrl;
-                    model.LessonId = item.LessonId;
-                    if (item.Lesson.LessonName != null && item.Lesson.LessonName.ToString().Length >= 30)
-                        model.LessonName = item.Lesson.LessonName.ToString().Substring(0, 30) + "...";
-                    else
-                        model.LessonName = item.Lesson.LessonName;
-                    model.SubjectId = item.Lesson.Subject.SubjectId;
-                    if (item.Lesson.Subject.SubjectName != null && item.Lesson.Subject.SubjectName.ToString().Length >= 30)
-                        model.SubjectName = item.Lesson.Subject.SubjectName.ToString().Substring(0, 30) + "...";
-                    else
-                        model.SubjectName = item.Lesson.Subject.SubjectName;
-                    model.MaterialTypeId = item.MaterialTypeId;
-                    model.MaterialTypeName = item.MaterialType.MaterialTypeName;
+        //            result.Add(model);
+        //        }
+        //    }
 
-                    result.Add(model);
-                }
-            }
+        //    if ((searchString == null || lesString == null || subString == null) && page == null)
+        //    {
+        //        result = result.Where(x => x.MaterialId == 0).ToList();
+        //        ViewBag.totalRecord = result.Count();
+        //        return View(result.ToList().ToPagedList(pageNumber, pageSize));
+        //    }
 
-            if ((searchString == null || lesString == null || subString == null) && page == null)
-            {
-                result = result.Where(x => x.MaterialId == 0).ToList();
-                ViewBag.totalRecord = result.Count();
-                return View(result.ToList().ToPagedList(pageNumber, pageSize));
-            }
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        result = result.Where(x => LMRes.SearchForString(x.MaterialUrl, searchString)).ToList();
+        //    }
+        //    if (!String.IsNullOrEmpty(subString))
+        //    {
+        //        result = result.Where(x => x.SubjectName == subString).ToList();
+        //    }
+        //    if (!String.IsNullOrEmpty(lesString))
+        //    {
+        //        result = result.Where(x => x.LessonName == lesString).ToList();
+        //    }
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                result = result.Where(x => LMRes.SearchForString(x.MaterialUrl, searchString)).ToList();
-            }
-            if (!String.IsNullOrEmpty(subString))
-            {
-                result = result.Where(x => x.SubjectName == subString).ToList();
-            }
-            if (!String.IsNullOrEmpty(lesString))
-            {
-                result = result.Where(x => x.LessonName == lesString).ToList();
-            }
+        //    ViewBag.totalRecord = result.Count();
+        //    return View(result.OrderBy(x => x.MaterialUrl).ToList().ToPagedList(pageNumber, pageSize));
 
-            ViewBag.totalRecord = result.Count();
-            return View(result.OrderBy(x => x.MaterialUrl).ToList().ToPagedList(pageNumber, pageSize));
-
-        }
-
-        [Authorize(Roles = "Manager")]
+        //}
+        
         public ActionResult Create()
         {
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
@@ -133,8 +131,7 @@ namespace TutorOnline.Web.Controllers
             //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
             return View(model);
         }
-
-        [Authorize(Roles = "Manager")]
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -163,8 +160,7 @@ namespace TutorOnline.Web.Controllers
 
             return View(model);
         }
-
-        [Authorize(Roles = "Manager")]
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -231,7 +227,7 @@ namespace TutorOnline.Web.Controllers
             //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
             return View(model);
         }
-        [Authorize(Roles = "Manager")]
+
         public ActionResult Delete(int? id)
         {
             if (id == null)

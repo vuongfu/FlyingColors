@@ -12,13 +12,12 @@ using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class CategoriesController : Controller
     {
         // GET: Categories
         private CategoriesRepository CRes = new CategoriesRepository();
-
-        [Authorize(Roles = "Manager")]
+        
         public ActionResult Index(string btnSearch, string searchString, int? page)
         {
             int pageSize = 3;
@@ -61,8 +60,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.totalRecord = result.Count();
             return View(result.OrderBy(x => x.CategoryName).ToList().ToPagedList(pageNumber, pageSize));
         }
-
-        [Authorize(Roles = "Manager")]
+        
         public ActionResult Create()
         {
             return View();
@@ -92,8 +90,7 @@ namespace TutorOnline.Web.Controllers
 
             return View(model);
         }
-
-        [Authorize(Roles = "Manager")]
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -115,8 +112,7 @@ namespace TutorOnline.Web.Controllers
 
             return View(model);
         }
-
-        [Authorize(Roles = "Manager")]
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -160,7 +156,7 @@ namespace TutorOnline.Web.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "Manager")]
+
         public ActionResult Delete(int? id)
         {
             if (id == null)

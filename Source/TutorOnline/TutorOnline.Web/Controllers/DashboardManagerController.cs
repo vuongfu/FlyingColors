@@ -8,7 +8,7 @@ using TutorOnline.Common;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class DashboardManagerController : Controller
     {
         CategoriesRepository CRes = new CategoriesRepository();
@@ -19,7 +19,6 @@ namespace TutorOnline.Web.Controllers
         TutorRepository TRes = new TutorRepository();
         StudentRepository StuRes = new StudentRepository();
         // GET: DashboardManager
-        [Authorize(Roles = "Manager")]
         public ActionResult Index()
         {
             //Categories statistic

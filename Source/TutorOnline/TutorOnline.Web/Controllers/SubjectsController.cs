@@ -12,15 +12,16 @@ using System.Net;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize]
+    [Authorize (Roles = "Manager")]
     public class SubjectsController : Controller
     {
         // GET: Subjects
         private SubjectsRepository SRes = new SubjectsRepository();
         private CategoriesRepository CRes = new CategoriesRepository();
         private LessonRepository LRes = new LessonRepository();
+        private LearningMaterialRepository LMRes = new LearningMaterialRepository();
+        private QuestionRepository QRes = new QuestionRepository();
 
-        [Authorize(Roles = "Manager")]
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
             int pageSize = 3;
@@ -86,7 +87,6 @@ namespace TutorOnline.Web.Controllers
 
         }
 
-        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
@@ -123,21 +123,21 @@ namespace TutorOnline.Web.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            //Get subject
             Subject subject = SRes.FindSubject(id);
+
             if (subject == null)
             {
                 return HttpNotFound();
             }
-
             SubjectsViewModels model = new SubjectsViewModels();
-
             //Mapping Entity to ViewModel
             model.SubjectId = subject.SubjectId;
             model.CategoryId = subject.CategoryId;
@@ -147,10 +147,11 @@ namespace TutorOnline.Web.Controllers
             model.Requirement = subject.Requirement;
             model.Description = subject.Description;
             model.Photo = subject.Photo;
+
+            //return
             return View(model);
         }
 
-        [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -212,7 +213,6 @@ namespace TutorOnline.Web.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -258,7 +258,6 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Manager")]
         public ActionResult LessonsInSubject(int? id, int? page)
         {
             int pageSize = 3;
@@ -300,6 +299,89 @@ namespace TutorOnline.Web.Controllers
             }
 
             return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult MaterialInSubject(int? id, int? page)
+        {
+            //int pageSize = 3;
+            //int pageNumber = (page ?? 1);
+
+            //ViewBag.subjectId = id;
+
+            //var material = LMRes.GetAllMaterial();
+            //List<MaterialViewModels> result = new List<MaterialViewModels>();
+
+            ////Mapping Entity to ViewModel
+            //if (material.Count() > 0)
+            //{
+            //    foreach (var item in material)
+            //    {
+            //        MaterialViewModels model = new MaterialViewModels();
+            //        model.LessonId = item.LessonId;
+            //        model.LessonName = item.LessonName;
+            //        model.SubjectId = item.SubjectId;
+            //        model.SubjectName = item.Subject.SubjectName;
+            //        if (item.Content != null && item.Content.ToString().Length >= 30)
+            //            model.Content = item.Content.ToString().Substring(0, 30) + "...";
+            //        else
+            //            model.Content = item.Content;
+
+            //        result.Add(model);
+            //    }
+            //}
+
+            //if (id == null && page == null)
+            //{
+            //    result = result.Where(x => x.LessonId == 0).ToList();
+            //    return View(result.ToList().ToPagedList(pageNumber, pageSize));
+            //}
+
+            //if (id != null)
+            //{
+            //    result = result.Where(x => x.SubjectId == id).ToList();
+            //}
+
+            //return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
+
+            return View();
+        }
+
+        public ActionResult QuestionInSubject(int? id)
+        {
+            var question = QRes.GetAllSubQuestion(id);
+            List<QuestionViewModels> result = new List<QuestionViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (question.Count() > 0)
+            {
+                foreach (var item in question)
+                {
+                    QuestionViewModels model = new QuestionViewModels();
+                    model.QuestionId = item.QuestionId;
+                    model.LessonId = item.Lesson.LessonId;
+                    model.SubjectId = item.Subject.SubjectId;
+                    model.Photo = item.Photo;
+                    if (item.Content != null && item.Content.ToString().Length >= 30)
+                        model.Content = item.Content.ToString().Substring(0, 30) + "...";
+                    else
+                        model.Content = item.Content;
+
+                    result.Add(model);
+                }
+            }
+
+            if (id == null)
+            {
+                result = result.Where(x => x.QuestionId == 0).ToList();
+                return View(result.ToList());
+            }
+
+            if (id != null)
+            {
+                result = result.ToList();
+            }
+
+            return View(result.OrderBy(x => x.QuestionId).ToList());
         }
 
         protected override void Dispose(bool disposing)

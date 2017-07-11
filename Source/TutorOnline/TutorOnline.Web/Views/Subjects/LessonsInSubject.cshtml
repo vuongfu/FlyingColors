@@ -4,6 +4,8 @@
 
 @{
     Layout = null;
+    ViewBag.SubjectId = ViewBag.SubjectId;
+    ViewBag.Count = 0;
 }
 
 <!DOCTYPE html>
@@ -13,6 +15,12 @@
     <title>Danh sách bài học trong khóa học</title>
 </head>
 <body>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Bài Học", "Create", "Lessons", new { id = ViewBag.SubjectId })
+        </div>
+    </div>
+    <br />
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
