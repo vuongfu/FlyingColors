@@ -18,10 +18,12 @@ namespace TutorOnline.DataAccess
         public string MaterialUrl { get; set; }
         public int MaterialTypeId { get; set; }
         public string Description { get; set; }
-        public int LessonId { get; set; }
+        public Nullable<int> LessonId { get; set; }
+        public Nullable<int> SubjectId { get; set; }
         public bool isActived { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual MaterialType MaterialType { get; set; }
+        public virtual Subject Subject { get; set; }
     }
 }

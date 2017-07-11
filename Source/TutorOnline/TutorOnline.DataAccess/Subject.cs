@@ -17,6 +17,7 @@ namespace TutorOnline.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Subject()
         {
+            this.LearningMaterials = new HashSet<LearningMaterial>();
             this.Lessons = new HashSet<Lesson>();
             this.Questions = new HashSet<Question>();
             this.StudentSubjects = new HashSet<StudentSubject>();
@@ -33,6 +34,8 @@ namespace TutorOnline.DataAccess
         public bool isActived { get; set; }
     
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LearningMaterial> LearningMaterials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

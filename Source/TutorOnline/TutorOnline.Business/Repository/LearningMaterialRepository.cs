@@ -53,7 +53,7 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
-        public bool isExistsMaterialName(string name, int id)
+        public bool isExistsMaterialName(string name, int? id)
         {
             var material = _dbContext.LearningMaterials.Where(x => x.LessonId == id).FirstOrDefault(x => x.MaterialUrl == name);
             if (material == null)
