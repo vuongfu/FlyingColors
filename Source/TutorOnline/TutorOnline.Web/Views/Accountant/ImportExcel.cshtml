@@ -26,6 +26,8 @@
         </th>
        </tr>
     </table>
+    <p></p>
+    @Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })
     @ViewBag.Message
 
     @*if (Model.FirstOrDefault() != null)

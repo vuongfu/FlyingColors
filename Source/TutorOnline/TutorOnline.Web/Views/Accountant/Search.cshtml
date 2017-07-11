@@ -9,7 +9,8 @@
     ViewBag.Count = 1;
 }
 
-<h2>@TranString.SearchTitle</h2>
+  <h2>@TranString.SearchTitle</h2>
+
 <div>
 
     @using (Html.BeginForm("Search", "Accountant", FormMethod.Get))
@@ -83,4 +84,9 @@
     @TranString.Page  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)  @TranString.Of  @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Search",
     new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
+}
+@Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
