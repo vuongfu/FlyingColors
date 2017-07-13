@@ -258,11 +258,8 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult LessonsInSubject(int? id, int? page)
+        public ActionResult LessonsInSubject(int? id)
         {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
             ViewBag.subjectId = id;
 
             var lessons = LRes.GetAllLessons();
@@ -278,8 +275,8 @@ namespace TutorOnline.Web.Controllers
                     model.LessonName = item.LessonName;
                     model.SubjectId = item.SubjectId;
                     model.SubjectName = item.Subject.SubjectName;
-                    if (item.Content != null && item.Content.ToString().Length >= 30)
-                        model.Content = item.Content.ToString().Substring(0, 30) + "...";
+                    if (item.Content != null && item.Content.ToString().Length >= 80)
+                        model.Content = item.Content.ToString().Substring(0, 80) + "...";
                     else
                         model.Content = item.Content;
 
@@ -287,10 +284,10 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
-            if (id == null && page == null)
+            if (id == null)
             {
                 result = result.Where(x => x.LessonId == 0).ToList();
-                return View(result.ToList().ToPagedList(pageNumber, pageSize));
+                return View(result.ToList());
             }
 
             if (id != null)
@@ -298,7 +295,7 @@ namespace TutorOnline.Web.Controllers
                 result = result.Where(x => x.SubjectId == id).ToList();
             }
 
-            return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
+            return View(result.OrderBy(x => x.LessonName).ToList());
         }
 
         public ActionResult MaterialInSubject(int? id, int? page)

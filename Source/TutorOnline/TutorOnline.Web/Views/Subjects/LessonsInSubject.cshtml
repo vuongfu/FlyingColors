@@ -1,6 +1,4 @@
-﻿@model PagedList.IPagedList<TutorOnline.Web.Models.LessonViewModels>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿@model List<TutorOnline.Web.Models.LessonViewModels>
 
 @{
     Layout = null;
@@ -17,7 +15,7 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            @Html.ActionLink("Thêm Bài Học", "Create", "Lessons", new { id = ViewBag.SubjectId })
+            @Html.ActionLink("Thêm Bài Học", "Create", "Lessons", new { id = ViewBag.SubjectId }, new { @class = "btn btn-success" })
         </div>
     </div>
     <br />
@@ -27,22 +25,19 @@
                 <tr>
                     <th>STT</th>
                     <th>Tên bài học</th>
-                    <th>Thuộc khóa học</th>
+                    @*<th>Thuộc khóa học</th>*@
                     <th>Nội dung</th>
                 </tr>
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>@(ViewBag.Count++ + 1)</td>
-                        <td>@Html.ActionLink(item.LessonName, "Details", new { id = item.LessonId })</td>
-                        <td>@Html.DisplayFor(modelItem => item.SubjectName)</td>
+                        <td>@Html.ActionLink(item.LessonName, "Details", "Lessons", new { id = item.LessonId }, null)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.SubjectName)</td>*@
                         <td>@Html.DisplayFor(modelItem => item.Content)</td>
                     </tr>
                 }
             </table>
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("Index",
-                                 new { page, searchString = ViewBag.searchStr }))
         </div>
     </div>
 
