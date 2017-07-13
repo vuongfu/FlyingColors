@@ -83,7 +83,8 @@ namespace TutorOnline.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", ViewBag.SubjectId);
+            ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", id);
+            ViewBag.subId = id;
 
             return View();
         }
@@ -99,6 +100,7 @@ namespace TutorOnline.Web.Controllers
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
                     ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                    ViewBag.subId = model.SubjectId;
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
@@ -109,9 +111,11 @@ namespace TutorOnline.Web.Controllers
 
                 LRes.AddLesson(lesson);
                 TempData["message"] = new ManagerStringCommon().addLessonSuccess.ToString();
-                return RedirectToAction("Index");
+                ViewBag.subId = model.SubjectId;
+                return RedirectToAction("Details", "Subjects", new { id = model.SubjectId});
             }
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", model.SubjectId);
+            ViewBag.subId = model.SubjectId;
 
             return View(model);
         }

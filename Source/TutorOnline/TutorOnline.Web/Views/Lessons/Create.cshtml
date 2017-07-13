@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Thêm bài học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+    ViewBag.subId = ViewBag.subId;
 }
 
 @using (Html.BeginForm("Create", "Lessons", FormMethod.Post))
@@ -25,7 +26,7 @@
         <div class="form-group">
             <p class="control-label col-md-2">Thuộc khóa học: </p>
             <div class="col-md-10">
-                @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px;" })
+                @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px;", @disabled = "disabled" })
                 @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +42,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Thêm bài học" class="btn btn-success" />
-                @Html.ActionLink("Trở lại", "Index", "Lessons", new { @class = "btn btn-default" })
+                @Html.ActionLink("Trở lại", "Details", "Subjects", new { id = ViewBag.subId }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
