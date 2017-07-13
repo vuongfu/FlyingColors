@@ -22,10 +22,10 @@
         else
         {
             <dd>
-                <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;"/>
+                <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;" />
             </dd>
         }
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Username)
         </dt>
@@ -127,7 +127,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>       
+        </dd>
 
         @if (ViewBag.RName == "Parent" || ViewBag.RName == "Student" || ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
         {
@@ -202,24 +202,35 @@
 
         }
 
-        
+        @if (ViewBag.InfoClick == true)
+        {
+            <dt>
+                @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
+            </dt>
+            <dd>
 
+            </dd>
+
+        }
+        else
+        {
+            <dd>
+
+            </dd>
+            <dt>
+
+            </dt>
+            if (ViewBag.RName == "Parent" || ViewBag.RName == "Student" || ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
+            {
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }) @(" | ")
+            }
+            if (User.Identity.Name != Model.Username)
+            {
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.Id }) @(" | ")
+            }
+            @Html.ActionLink("Quay về", "Index")
+
+        }
     </dl>
 </div>
-@if (ViewBag.InfoClick == true)
-{
-    <p>
-        @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
-    </p>
-}
-else
-{
-    <p>
-        @if (ViewBag.Rid < 5)
-        {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @("|")
-        }      
-        @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+

@@ -1,7 +1,7 @@
 ﻿@model TutorOnline.Web.Models.ChangePasswordViewModel
 
 @{
-    ViewBag.Title = "ChagePwd";
+    ViewBag.Title = "ChagnePwd";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
@@ -15,45 +15,44 @@
         @Html.HiddenFor(model => model.UserRole)
         @Html.HiddenFor(model => model.Name)
         @Html.HiddenFor(model => model.Rolename)
+        @Html.HiddenFor(model => model.Name)
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-            <h5 class="col-md-10">@Html.DisplayFor(model => model.Name)</h5>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.NewPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.NewPassword, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Thay đổi" class="btn btn-default" />
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="Thay đổi" class="btn btn-success" />
             </div>
         </div>
 
         <p>
-            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            @Html.ActionLink("Quên mật khẩu?", "ForgotPassword", "Account")
         </p>
 
     </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

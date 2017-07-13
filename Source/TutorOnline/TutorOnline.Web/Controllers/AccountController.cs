@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -165,7 +166,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
             || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
             ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
-
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
             ViewBag.Gender = new SelectList(new List<SelectListItem>
             {
                 new SelectListItem {  Text = "Male", Value = "1"},
@@ -196,7 +197,7 @@ namespace TutorOnline.Web.Controllers
                     ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
                     || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
                     ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
-
+                    ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
                         new SelectListItem {  Text = "Male", Value = "1"},
@@ -292,7 +293,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
             || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
             ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
-
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
                         new SelectListItem {  Text = "Male", Value = "1"},
@@ -301,6 +302,23 @@ namespace TutorOnline.Web.Controllers
 
             return View(model);
 
+        }
+
+        public KeyValuePair<string, string>[] GetAllCountries()
+        {
+            var objDict = new Dictionary<string, string>();
+            foreach (var cultureInfo in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                var regionInfo = new RegionInfo(cultureInfo.Name);
+                if (!objDict.ContainsKey(regionInfo.EnglishName))
+                {
+                    objDict.Add(regionInfo.EnglishName, regionInfo.TwoLetterISORegionName.ToLower());
+                }
+            }
+            var obj = objDict.OrderBy(p => p.Key).ToArray();
+
+
+            return obj;
         }
 
         public ActionResult AccessDenied()

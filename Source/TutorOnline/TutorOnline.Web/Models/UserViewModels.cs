@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using TutorOnline.DataAccess;
+using TutorOnline.Common;
 
 namespace TutorOnline.Web.Models
 {
@@ -555,15 +556,15 @@ namespace TutorOnline.Web.Models
 
     public class CreateUserViewModels
     {
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Chức vụ:")]
         public int RoleId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -577,7 +578,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Địa chỉ:")]
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
@@ -590,7 +591,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Quốc gia:")]
         public string Country { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
 
@@ -601,11 +602,11 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Miêu tả:")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên đăng nhập:")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
@@ -619,19 +620,19 @@ namespace TutorOnline.Web.Models
 
     public class CreateFrontEndUserViewModels
     {
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Chức vụ:")]
         public int? RoleId { get; set; }
 
         public string RoleName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
         public int? ParentId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -645,7 +646,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Địa chỉ:")]
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
@@ -658,11 +659,11 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Quốc gia:")]
         public string Country { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name ="Skype")]
         public string SkypeId { get; set; }
 
@@ -672,11 +673,11 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Miêu tả:")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên đăng nhập:")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
@@ -704,12 +705,12 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Họ và tên:")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu cũ:")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [StringLength(100, ErrorMessage = "{0} phải dài ít nhất {2} ký tự.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu mới:")]

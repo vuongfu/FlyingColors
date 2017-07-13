@@ -82,16 +82,18 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "7" } })
-                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Quốc gia", tabindex = "8" } })
+                                @Html.DropDownList("Country", null, "--Quốc gia", htmlAttributes: new { @class = "form-control input-lg", tabindex = "7" })
                                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Thành phố", tabindex = "8" } })
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row">
@@ -112,15 +114,15 @@
 
                     <div class="row">
                         @*@if (ViewBag.SelectedRoleName == "Student")
-                        {
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    @Html.DropDownList("ParentId", null, "--Phụ huynh--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "3" })
-                                    @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+                            {
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        @Html.DropDownList("ParentId", null, "--Phụ huynh--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "3" })
+                                        @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                            </div>
-                        }*@
-                        
+                            }*@
+
 
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -181,12 +183,12 @@
                                     @Html.ValidationMessageFor(model => model.BMemName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            
+
                         </div>
                     }
 
                     <div class="row">
-                        
+
                         <div class="form-group col-xs-6 col-sm-6 col-md-6">
                             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -196,21 +198,21 @@
                     </div>
 
                     @*<hr class="colorgraph">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <span class="button-checkbox">
-                                <button type="button" class="btn" data-color="info" tabindex="7">I Agree</button>
-                                <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
-                            </span>
-                        </div>
-                        <div class="col-md-10">
-                            By clicking <strong class="label label-primary">Create My Account</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
-                        </div>
-                    </div>*@
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="button-checkbox">
+                                    <button type="button" class="btn" data-color="info" tabindex="7">I Agree</button>
+                                    <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+                                </span>
+                            </div>
+                            <div class="col-md-10">
+                                By clicking <strong class="label label-primary">Create My Account</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
+                            </div>
+                        </div>*@
 
                     <hr class="colorgraph">
-                    <div class="row">                        
-                        <div class="col-md-6"><input type="submit" value="Create My Account" class="btn btn-primary btn-block btn-lg"></div>              
+                    <div class="row">
+                        <div class="col-md-6"><input type="submit" value="Create My Account" class="btn btn-primary btn-block btn-lg"></div>
                         <div class="col-md-6"><a href="~/Account/Login" class="btn btn-success btn-block btn-lg">Sign Me In</a></div>
                     </div>
                 }
@@ -273,14 +275,16 @@
 </style>
 
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 <script>
-$('.datepicker').datepicker({
-    format: 'dd/mm/yyyy',
-});
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+    });
 </script>

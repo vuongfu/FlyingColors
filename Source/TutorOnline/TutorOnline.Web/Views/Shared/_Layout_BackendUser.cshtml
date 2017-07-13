@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="~/Content/Footer-with-map.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" style="background: #333333;">
@@ -24,7 +23,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>                       
+                    <li>
                         <a href="@Url.Action("Logout", "Account")">
                             Xin chào @HttpContext.Current.User.Identity.Name ! Đăng Xuất <span class="glyphicon glyphicon-log-in"> </span>
                         </a>
@@ -48,12 +47,11 @@
                 @TempData["messageWarning"]
             </div>
         }
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12"><h2>Tutor Online</h2></div>
             </div>
-            @{ 
+            @{
                 string Rid = "";
                 string Rname = "";
                 string Uid = "";
@@ -100,18 +98,25 @@
         </footer>
     </div>
 
-    
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)   
-    
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('li.active').removeClass('active');
-            $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
-        });
-    </script>
+    @RenderSection("scripts", required: false)
 
+    <script>
+        $(function () {
+            var current_page_URL = location.href;
+            $("a").each(function () {
+                if ($(this).attr("href") !== "#") {
+                    var target_URL = $(this).prop("href");
+                    if (target_URL == current_page_URL) {
+                        $('nav a').parents('li, ul').removeClass('active');
+                        $(this).parent('li').addClass('active');
+                        return false;
+                    }
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ namespace TutorOnline.Web.Controllers
         [Authorize(Roles = UserCommonString.SysAdmin)]
         public ActionResult Index(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
-            int pageSize = 3;
+            int pageSize = 7;
             int pageNumber = (page ?? 1);
             ViewBag.Count = pageSize*(pageNumber-1) + 1;
 
@@ -46,6 +46,7 @@ namespace TutorOnline.Web.Controllers
             {
                 //ListUsers = URes.GetAllBackEndUser().Where(s => s.Username == "-1");
                 ViewBag.totalRecord = ListUsers.Count();
+                ViewBag.searchClick = false;
                 return View(ListUsers.ToPagedList(pageNumber, pageSize));
             }
 
@@ -64,6 +65,7 @@ namespace TutorOnline.Web.Controllers
                 temp.RoleName = record.Role.RoleName;
                 temp.Username = record.UserName;
                 temp.PhoneNumber = record.PhoneNumber;
+                temp.Gender = record.Gender;
 
                 ListUsers.Add(temp);
             }
@@ -129,7 +131,7 @@ namespace TutorOnline.Web.Controllers
             if(genderString != null)
                 ListUsers = ListUsers.Where(s => s.Gender == genderString).ToList();
 
-
+            ViewBag.searchClick = true;
             ViewBag.totalRecord = ListUsers.Count();
             return View(ListUsers.OrderBy(x => x.Username).ToPagedList(pageNumber, pageSize));
         }
@@ -436,7 +438,7 @@ namespace TutorOnline.Web.Controllers
                 var checkPass = URes.checkPassword(model.Id, model.Password, model.UserRole);
                 if (!checkPass)
                 {
-                    TempData["message"] = "Mật khẩu cũ không chính xác";
+                    TempData["messageWarning"] = "Mật khẩu cũ không chính xác";
                     return View(model);
                 }
 
@@ -463,7 +465,7 @@ namespace TutorOnline.Web.Controllers
                 }
 
                 TempData["message"] = "Đã thay đổi mật khẩu thành công.";
-                return RedirectToAction("Index");
+                return RedirectToAction("ChangePwd","Users",new {id = model.Id, role = model.Rolename });
             }
 
             TempData["messageWarning"] = "Đã có lỗi xảy ra trong quá trình cập nhật mật khẩu mới.";
@@ -486,6 +488,23 @@ namespace TutorOnline.Web.Controllers
 
             return obj;
         }
+
+        //[HttpPost]
+        //public ActionResult GetAllCityByCountry(string country)
+        //{
+        //    var objDict = new Dictionary<string, string>();
+            
+        //    foreach (var cultureInfo in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+        //    {
+        //        var regionInfo = new RegionInfo(cultureInfo.Name);
+        //        if (!objDict.ContainsKey(regionInfo.EnglishName))
+        //        {
+        //            objDict.Add(regionInfo.EnglishName, regionInfo.TwoLetterISORegionName.ToLower());
+        //        }
+        //    }
+        //    var obj = objDict.OrderBy(p => p.Key).ToArray();
+
+        //}
 
         protected override void Dispose(bool disposing)
         {
