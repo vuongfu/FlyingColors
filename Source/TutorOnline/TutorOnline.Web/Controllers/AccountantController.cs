@@ -367,8 +367,12 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(TransactionViewModels TransactionViewModel)
         {
-
-            if (ModelState.IsValid && TransactionViewModel.Balance + TransactionViewModel.Amount >= 0)
+            if(TransactionViewModel.Content == null)
+            {
+                ViewBag.message = TranString.ContentNotNull;
+                return View(TransactionViewModel);
+            }
+            if (ModelState.IsValid && TransactionViewModel.Balance + TransactionViewModel.Amount >= 0 && TransactionViewModel.Amount !=0)
             {
                 if (TransactionViewModel.UserTypeName == "Student")
                 {
@@ -387,7 +391,7 @@ namespace TutorOnline.Web.Controllers
 
                 return RedirectToAction("Search");
             }
-            if (TransactionViewModel.Balance + TransactionViewModel.Amount < 0)
+            if (TransactionViewModel.Balance + TransactionViewModel.Amount < 0 || TransactionViewModel.Amount == 0)
             {
                 ViewBag.message = TranString.WrongAmount;
             }

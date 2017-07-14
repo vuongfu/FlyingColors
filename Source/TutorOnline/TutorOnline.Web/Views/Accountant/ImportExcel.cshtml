@@ -16,7 +16,7 @@
     <h4>@TranString.Guide</h4>
     <img src="~/Image/ExcelFormat.png" alt="ExcelFormat">
     <hr>
-    <table>
+    @*<table>
        <tr>
         <th>
             <input type="file" name="file" />
@@ -25,9 +25,15 @@
             <input type="submit" value="@TranString.ImportButton" />
         </th>
        </tr>
-    </table>
+    </table>*@
+    <div class="row">
+        <div class="col-lg-4"><input type="file" name="file" /></div>
+        <div class="col-lg-1"><input type="submit" value="@TranString.ImportButton" /></div>
+    </div>
     <p></p>
-    @Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })
+    <div class="row">
+        <div class="col-lg-4">@Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })</div>
+    </div>
     @ViewBag.Message
 
     @*if (Model.FirstOrDefault() != null)

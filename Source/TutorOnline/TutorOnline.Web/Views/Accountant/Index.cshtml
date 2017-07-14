@@ -19,26 +19,36 @@
     @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
     {
     <p>
-        <table cellspacing="1">
-            <tr>
-                <th class="col-lg-2">@TranString.UserType</th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-3">@TranString.Account</th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-2">@TranString.StartDate</th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-2">@TranString.EndDate</th>
-            </tr>
-            <tr>
-                <td>@Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })</td>
-                <td></td>
-                <td>@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" }) </td>
-                <td></td>
-                <td>@Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" })</td>
-                <td></td>
-                <td>@Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" })</td>
-            </tr>
-        </table>
+        
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="row col-lg-10" style="font-weight: bold;">@TranString.UserType</div>
+                
+            </div>
+            <div class="col-lg-3" style="font-weight: bold;">
+                @TranString.Account
+            </div>
+            <div class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
+                @TranString.StartDate
+            </div>
+            <div class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
+                @TranString.EndDate
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                @Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-lg-offset-1 col-lg-3">
+                @Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-lg-offset-1 col-lg-2">
+                @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" })
+            </div>
+            <div class="col-lg-offset-1 col-lg-2">
+                @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" })
+            </div>
+        </div>
         <p></p>
         <input type="submit" name="Search" value="@TranString.Search" class="btn" />
     </p>
