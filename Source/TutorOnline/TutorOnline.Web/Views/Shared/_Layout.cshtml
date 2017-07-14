@@ -88,12 +88,18 @@
         </div>
     </div>
     @if (TempData["message"] != null)
-            {
-        <div class="alert alert-success">@TempData["message"]</div>
+    {
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @TempData["message"]
+        </div>
     }
     @if (TempData["messageWarning"] != null)
-            {
-        <div class="alert alert-warning">@TempData["messageWarning"]</div>
+    {
+        <div class="alert alert-warning alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @TempData["messageWarning"]
+        </div>
     }
     @RenderBody()
     <footer id="myFooter">
