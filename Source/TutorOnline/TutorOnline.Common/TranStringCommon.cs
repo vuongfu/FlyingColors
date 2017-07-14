@@ -45,6 +45,7 @@ namespace TutorOnline.Common
         public string TransAmount = "Số tiền giao dịch";
         public string Note = "Sử dụng dấu (-) cho giao dịch rút tiền khỏi tài khoản";
         public string UpdateButton = "Cập nhật";
+        public string ContentNotNull = "Xin hãy điền nội dung giao dịch";
 
         //Import Excel common string
         public string Guide = "Thực hiện file Excel theo mẫu sau";
