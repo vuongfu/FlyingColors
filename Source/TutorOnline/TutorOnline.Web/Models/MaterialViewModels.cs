@@ -18,10 +18,8 @@ namespace TutorOnline.Web.Models
 
         [Required]
         public int? LessonId { get; set; }
-        public string LessonName { get; set; }
 
         [Required]
         public int? SubjectId { get; set; }
-        public string SubjectName { get; set; }
     }
 }

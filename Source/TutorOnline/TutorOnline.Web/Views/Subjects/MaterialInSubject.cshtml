@@ -1,7 +1,9 @@
-﻿@model IEnumerable<TutorOnline.Web.Models.MaterialViewModels>
+﻿@model List<TutorOnline.Web.Models.MaterialViewModels>
 
 @{
     Layout = null;
+    ViewBag.SubjectId = ViewBag.SubjectId;
+    ViewBag.Count = 0;
 }
 
 <!DOCTYPE html>
@@ -12,6 +14,39 @@
     <title>Tài liệu học tập của khóa học</title>
 </head>
 <body>
-    <h4>Thêm SubjectId vào LearningMaterial table NHANH. :))</h4>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Tài Liệu", "Create", "Materials", new { id = ViewBag.SubjectId }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tr>
+                    <th>STT</th>
+                    <th>Link tải tài liệu</th>
+                    <th>Kiểu tệp</th>
+                    <th>Mô tả</th>
+                    <th></th>
+                    <th><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(ViewBag.Count++ + 1)</td>
+                        <td>@Html.ActionLink(item.MaterialUrl, "DownloadFile", "Subjects", new { file = (item.MaterialUrl + "." + item.MaterialTypeName) }, null)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MaterialTypeName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        @using (Html.BeginForm("Delete", "Material", FormMethod.Post))
+                        {
+                            <td><input type="hidden" value="@item.MaterialId" name="id" /></td>
+                            <td><input type="submit" value="Xóa" class="btn btn-warning" /></td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 </body>
 </html>

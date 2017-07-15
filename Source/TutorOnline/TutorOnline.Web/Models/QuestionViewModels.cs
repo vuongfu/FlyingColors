@@ -13,7 +13,7 @@ namespace TutorOnline.Web.Models
 
         [Required(ErrorMessage ="Hãy nhập nội dung câu hỏi.")]
         public string Content { get; set; }
-        public int LessonId { get; set; }
-        public int SubjectId { get; set; }
+        public Nullable<int> LessonId { get; set; }
+        public Nullable<int> SubjectId { get; set; }
     }
 }
