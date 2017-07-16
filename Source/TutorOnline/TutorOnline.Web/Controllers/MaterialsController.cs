@@ -23,112 +23,80 @@ namespace TutorOnline.Web.Controllers
         //GET: Subjects
         private SubjectsRepository SRes = new SubjectsRepository();
         
-        //public ActionResult Index(string btnSearch, string subString, string searchString, string lesString, int? page)
-        //{
-        //    int pageSize = 3;
-        //    int pageNumber = (page ?? 1);
-
-        //    ViewBag.searchString = searchString;
-        //    ViewBag.lesString = new SelectList(LRes.GetAllLessons(), "LessonName", "LessonName");
-        //    ViewBag.lesStr = lesString;
-        //    ViewBag.subString = new SelectList(SRes.GetAllSubject(), "SubjectName", "SubjectName");
-        //    ViewBag.subStr = subString;
-        //    ViewBag.btnSearch = btnSearch;
-
-        //    var material = LMRes.GetAllMaterial();
-        //    List<MaterialViewModels> result = new List<MaterialViewModels>();
-
-        //    //Mapping Entity to ViewModel
-        //    if (material.Count() > 0)
-        //    {
-        //        foreach (var item in material)
-        //        {
-        //            MaterialViewModels model = new MaterialViewModels();
-        //            model.MaterialId = item.MaterialId;
-        //            if (item.MaterialUrl != null && item.MaterialUrl.ToString().Length >= 30)
-        //                model.MaterialUrl = item.MaterialUrl.ToString().Substring(0, 30) + "...";
-        //            else
-        //                model.MaterialUrl = item.MaterialUrl;
-        //            model.LessonId = item.LessonId;
-        //            if (item.Lesson.LessonName != null && item.Lesson.LessonName.ToString().Length >= 30)
-        //                model.LessonName = item.Lesson.LessonName.ToString().Substring(0, 30) + "...";
-        //            else
-        //                model.LessonName = item.Lesson.LessonName;
-        //            model.SubjectId = item.Lesson.Subject.SubjectId;
-        //            if (item.Lesson.Subject.SubjectName != null && item.Lesson.Subject.SubjectName.ToString().Length >= 30)
-        //                model.SubjectName = item.Lesson.Subject.SubjectName.ToString().Substring(0, 30) + "...";
-        //            else
-        //                model.SubjectName = item.Lesson.Subject.SubjectName;
-        //            model.MaterialTypeId = item.MaterialTypeId;
-        //            model.MaterialTypeName = item.MaterialType.MaterialTypeName;
-
-        //            result.Add(model);
-        //        }
-        //    }
-
-        //    if ((searchString == null || lesString == null || subString == null) && page == null)
-        //    {
-        //        result = result.Where(x => x.MaterialId == 0).ToList();
-        //        ViewBag.totalRecord = result.Count();
-        //        return View(result.ToList().ToPagedList(pageNumber, pageSize));
-        //    }
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        result = result.Where(x => LMRes.SearchForString(x.MaterialUrl, searchString)).ToList();
-        //    }
-        //    if (!String.IsNullOrEmpty(subString))
-        //    {
-        //        result = result.Where(x => x.SubjectName == subString).ToList();
-        //    }
-        //    if (!String.IsNullOrEmpty(lesString))
-        //    {
-        //        result = result.Where(x => x.LessonName == lesString).ToList();
-        //    }
-
-        //    ViewBag.totalRecord = result.Count();
-        //    return View(result.OrderBy(x => x.MaterialUrl).ToList().ToPagedList(pageNumber, pageSize));
-
-        //}
-        
-        public ActionResult Create()
+        public ActionResult Create(int? subId, int? lesId)
         {
-            ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-            ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-            //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+            if (subId != null && lesId == null)
+            {
+                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                ViewBag.subId = subId;
+                
+            }
+            else
+            {
+                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
+                ViewBag.lesId = lesId;
+            }
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MaterialViewModels model, HttpPostedFileBase file)
+        public ActionResult Create(HttpPostedFileBase file, int? subId, int? lesId)
         {
+            string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
+
+            MaterialViewModels model = new MaterialViewModels();
+            model.MaterialUrl = docUrl;
+            model.MaterialTypeId = FileUpload.GetFileTypeId(file);
+            model.LessonId = lesId;
+            model.SubjectId = subId;
+            model.Description = "";
+
             if (ModelState.IsValid)
             {
-                string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
                 LearningMaterial material = new LearningMaterial();
-                if (LMRes.isExistsMaterialName(model.MaterialUrl, model.LessonId))
+                if (LMRes.isExistsMaterialNameInSub(model.MaterialUrl, model.SubjectId))
                 {
-                    TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialName.ToString();
-                    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-                    ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-                    //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+                    TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialNameSub.ToString();
+                    if (subId != null && lesId == null)
+                    {
+                        ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                        ViewBag.subId = subId;
+
+                    }
+                    else
+                    {
+                        ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
+                        ViewBag.lesId = lesId;
+                    }
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
-                material.MaterialId = model.MaterialId;
-                material.MaterialUrl = (string.IsNullOrEmpty(docUrl) ? model.MaterialUrl : docUrl);
+                material.MaterialUrl = model.MaterialUrl;
                 material.LessonId = model.LessonId;
+                material.SubjectId = model.SubjectId;
                 material.MaterialTypeId = model.MaterialTypeId;
 
                 LMRes.AddMaterial(material);
                 TempData["message"] = new ManagerStringCommon().addMaterialSuccess.ToString();
-                return RedirectToAction("Index");
+
+                if (subId != null && lesId == null)
+                    return RedirectToAction("Details", "Subjects", new { id = subId });
+                else
+                    return RedirectToAction("Details", "Lessons", new { id = lesId });
             }
 
-            ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-            ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-            //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+            if (subId != null && lesId == null)
+            {
+                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                ViewBag.subId = subId;
+
+            }
+            else
+            {
+                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
+                ViewBag.lesId = lesId;
+            }
             return View(model);
         }
         
@@ -151,7 +119,7 @@ namespace TutorOnline.Web.Controllers
             //Mapping Entity to ViewModel
             model.MaterialId = material.MaterialId;
             model.MaterialUrl = material.MaterialUrl;
-            model.SubjectId = material.Lesson.Subject.SubjectId;
+            model.SubjectId = material.SubjectId;
             model.LessonId = material.LessonId;
             model.MaterialTypeId = material.MaterialTypeId;
             model.MaterialTypeName = material.MaterialType.MaterialTypeName;
@@ -195,9 +163,9 @@ namespace TutorOnline.Web.Controllers
         {
             string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
 
-            if (LMRes.isExistsMaterialName(model.MaterialUrl, model.LessonId))
+            if (LMRes.isExistsMaterialNameInLes(model.MaterialUrl, model.LessonId))
             {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialName.ToString();
+                TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialNameLes.ToString();
                 ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
                 ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
                 //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
@@ -241,21 +209,27 @@ namespace TutorOnline.Web.Controllers
                 //Mapping Entity to ViewModel
                 model.MaterialId = material.MaterialId;
                 model.MaterialUrl = material.MaterialUrl;
-                model.SubjectId = material.Lesson.Subject.SubjectId;
+                model.SubjectId = material.SubjectId;
                 model.LessonId = material.LessonId;
                 model.MaterialTypeId = material.MaterialTypeId;
                 model.MaterialTypeName = material.MaterialType.MaterialTypeName;
+
+                ViewBag.subId = material.SubjectId;
+                ViewBag.lesId = material.LessonId;
             }
             return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int? subId, int? lesId)
         {
             LMRes.DeleteMaterial(id);
             TempData["message"] = new ManagerStringCommon().deleteMaterialSuccess.ToString();
-            return RedirectToAction("Index");
+            if (subId != null && lesId == null)
+                return RedirectToAction("Details", "Subjects", new { id = subId});
+            else
+                return RedirectToAction("Details", "Lessons", new { id = lesId});
         }
 
         protected override void Dispose(bool disposing)

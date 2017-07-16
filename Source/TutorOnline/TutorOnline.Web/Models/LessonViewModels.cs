@@ -9,9 +9,11 @@ namespace TutorOnline.Web.Models
     public class LessonViewModels
     {
         public int LessonId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Hãy nhập tên bài học.")]
         public string LessonName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Hãy chọn khóa học cho bài học.")]
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
         public string Content { get; set; }

@@ -20,6 +20,12 @@ namespace TutorOnline.Business.Repository
             var lessons = _dbContext.Lessons.Include(x => x.Subject).Where(x => x.Subject.CategoryId == id);
             return lessons;
         }
+
+        public IEnumerable<Lesson> GetLesInSub(int? id)
+        {
+            var lessons = _dbContext.Lessons.Include(x => x.Subject).Where(x => x.SubjectId == id);
+            return lessons;
+        }
         public Lesson FindLesson(int? id)
         {
             Lesson lesson = _dbContext.Lessons.Find(id);

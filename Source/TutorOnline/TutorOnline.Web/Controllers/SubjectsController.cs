@@ -247,12 +247,12 @@ namespace TutorOnline.Web.Controllers
             if (SRes.isExistedStudentIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistStudentIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
             if (SRes.isExistedLessonIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistLessonIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
             SRes.DeleteSubject(id);
             TempData["message"] = new ManagerStringCommon().deleteSubjectsSuccess.ToString();
@@ -291,12 +291,14 @@ namespace TutorOnline.Web.Controllers
             if (id == null)
             {
                 result = result.Where(x => x.LessonId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
                 return View(result.ToList());
             }
 
             if (id != null)
             {
                 result = result.Where(x => x.SubjectId == id).ToList();
+                ViewBag.totalRecord = result.Count();
             }
 
             return View(result.OrderBy(x => x.LessonName).ToList());
@@ -314,31 +316,36 @@ namespace TutorOnline.Web.Controllers
             {
                 foreach (var item in material)
                 {
-                    MaterialViewModels model = new MaterialViewModels();
-                    model.MaterialId = item.MaterialId;
-                    model.MaterialUrl = item.MaterialUrl;
-                    model.MaterialTypeId = item.MaterialTypeId;
-                    model.MaterialTypeName = item.MaterialType.MaterialTypeName;
-                    model.LessonId = item.LessonId;
-                    model.SubjectId = item.SubjectId;
-                    if (item.Description != null && item.Description.ToString().Length >= 80)
-                        model.Description = item.Description.ToString().Substring(0, 80) + "...";
-                    else
-                        model.Description = item.Description;
+                    if (item.isActived == true)
+                    {
+                        MaterialViewModels model = new MaterialViewModels();
+                        model.MaterialId = item.MaterialId;
+                        model.MaterialUrl = item.MaterialUrl;
+                        model.MaterialTypeId = item.MaterialTypeId;
+                        model.MaterialTypeName = item.MaterialType.MaterialTypeName;
+                        model.LessonId = item.LessonId;
+                        model.SubjectId = item.SubjectId;
+                        if (item.Description != null && item.Description.ToString().Length >= 80)
+                            model.Description = item.Description.ToString().Substring(0, 80) + "...";
+                        else
+                            model.Description = item.Description;
 
-                    result.Add(model);
+                        result.Add(model);
+                    }
                 }
             }
 
             if (id == null)
             {
                 result = result.Where(x => x.MaterialId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
                 return View(result.ToList());
             }
 
             if (id != null)
             {
                 result = result.Where(x => x.SubjectId == id).ToList();
+                ViewBag.totalRecord = result.Count();
             }
 
             return View(result.OrderBy(x => x.MaterialId).ToList());
@@ -373,12 +380,14 @@ namespace TutorOnline.Web.Controllers
             if (id == null)
             {
                 result = result.Where(x => x.QuestionId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
                 return View(result.ToList());
             }
 
             if (id != null)
             {
                 result = result.ToList();
+                ViewBag.totalRecord = result.Count();
             }
 
             return View(result.OrderBy(x => x.QuestionId).ToList());

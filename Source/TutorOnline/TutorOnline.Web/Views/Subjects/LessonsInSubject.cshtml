@@ -19,26 +19,37 @@
         </div>
     </div>
     <br />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <tr>
-                    <th>STT</th>
-                    <th>Tên bài học</th>
-                    @*<th>Thuộc khóa học</th>*@
-                    <th>Nội dung</th>
-                </tr>
-                @foreach (var item in Model)
-                {
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
                     <tr>
-                        <td>@(ViewBag.Count++ + 1)</td>
-                        <td>@Html.ActionLink(item.LessonName, "Details", "Lessons", new { id = item.LessonId }, null)</td>
-                        @*<td>@Html.DisplayFor(modelItem => item.SubjectName)</td>*@
-                        <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                        <th>STT</th>
+                        <th>Tên bài học</th>
+                        @*<th>Thuộc khóa học</th>*@
+                        <th>Nội dung</th>
                     </tr>
-                }
-            </table>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.LessonName, "Details", "Lessons", new { id = item.LessonId }, null)</td>
+                            @*<td>@Html.DisplayFor(modelItem => item.SubjectName)</td>*@
+                            <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Khóa học hiện chưa có bài học nào. Hãy thêm bài học cho khóa học.</h4>
+            </div>
+        </div>
+    }
 </body>
 </html>

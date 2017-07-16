@@ -5,11 +5,14 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Web;
+using TutorOnline.Business.Repository;
 
 namespace TutorOnline.Web.Controllers
 {
     public static class FileUpload
     {
+        private static LearningMaterialRepository LMRes = new LearningMaterialRepository();
+
         public static char DirSeparator = System.IO.Path.DirectorySeparatorChar;
         public static string ImagePath = HttpContext.Current.Server.MapPath("~\\Content" + DirSeparator + "Uploads" + DirSeparator + "Images" + DirSeparator);
         public static string DocPath = HttpContext.Current.Server.MapPath("~\\Content" + DirSeparator + "Uploads" + DirSeparator + "Documents" + DirSeparator);
@@ -64,14 +67,42 @@ namespace TutorOnline.Web.Controllers
             return fileName;
         }
 
+        //public static string GetFileName(HttpPostedFileBase file)
+        //{
+        //    if (null == file) return null;
+        //    string filename = file.FileName;
+        //    int count = filename.Length;
+        //    while ((filename[count - 1] != '.') && count > 0)
+        //        count--;
+        //    //resultStr
+        //    string resultStr = filename.Substring(0, filename.Length - (count + 1)).ToLower();
+        //    return resultStr;
+        //}
+
         public static string GetFileType(HttpPostedFileBase file)
         {
             if (null == file) return null;
             string filename = file.FileName;
             int count = filename.Length;
-            while (filename[count] != '.' && count >= 0)
+            while ((filename[count-1] != '.') && count > 0)
                 count--;
-            return filename.Substring(count+1).ToLower();
+            //resultStr
+            string resultStr = filename.Substring(count).ToLower();
+            return resultStr;
+        }
+
+        public static int GetFileTypeId(HttpPostedFileBase file)
+        {
+            string typeStr = GetFileType(file);
+            var lstType = LMRes.GetAllMaType().ToList();
+            //Check file type
+            for (int i = 0; i < LMRes.GetAllMaType().Count(); i ++)
+            {
+                if (typeStr == lstType[i].MaterialTypeName)
+                    return lstType[i].MaterialTypeId;
+            }
+
+            return 0;
         }
 
         public static void DeleteFile(string fileName)
