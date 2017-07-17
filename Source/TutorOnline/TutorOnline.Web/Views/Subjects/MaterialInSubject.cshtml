@@ -36,7 +36,7 @@
                 {
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.MaterialUrl, "DownloadFile", "Subjects", new { @file = (item.MaterialUrl + "." + item.MaterialTypeName), @subId = ViewBag.SubjectId }, null)</td>
+                            <td>@Html.ActionLink(item.MaterialUrl, "DownloadFile", "Subjects", new { @file = item.MaterialUrl, @subId = ViewBag.SubjectId }, null)</td>
                             <td>@Html.DisplayFor(modelItem => item.MaterialTypeName)</td>
                             <td>@Html.DisplayFor(modelItem => item.Description)</td>
                             <td>@Html.ActionLink("Xóa", "Delete", "Materials", new { @id = item.MaterialId, @subId = item.SubjectId, @lesId = item.LessonId }, new { @class = "btn btn-danger" })</td>

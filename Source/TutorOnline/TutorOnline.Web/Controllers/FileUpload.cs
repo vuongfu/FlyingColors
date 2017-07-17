@@ -98,8 +98,11 @@ namespace TutorOnline.Web.Controllers
             //Check file type
             for (int i = 0; i < LMRes.GetAllMaType().Count(); i ++)
             {
-                if (typeStr == lstType[i].MaterialTypeName)
-                    return lstType[i].MaterialTypeId;
+                if (typeStr == lstType[i].MaterialTypeName.ToLower())
+                {
+                    int typeId = lstType[i].MaterialTypeId;
+                    return typeId;
+                }
             }
 
             return 0;

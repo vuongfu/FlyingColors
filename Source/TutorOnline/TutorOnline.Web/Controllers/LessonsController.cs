@@ -22,61 +22,6 @@ namespace TutorOnline.Web.Controllers
         private AnswersRepository ARes = new AnswersRepository();
         private SubjectsRepository SRes = new SubjectsRepository();
         
-        //public ActionResult Index(string btnSearch, string searchString, string subString, int? page)
-        //{
-        //    int pageSize = 3;
-        //    int pageNumber = (page ?? 1);
-
-        //    ViewBag.searchString = searchString;
-        //    ViewBag.subStr = subString;
-        //    ViewBag.subString = new SelectList(SRes.GetAllSubject(), "SubjectName", "SubjectName");
-        //    ViewBag.btnSearch = btnSearch;
-
-        //    var lessons = LRes.GetAllLessons();
-        //    List<LessonViewModels> result = new List<LessonViewModels>();
-
-        //    //Mapping Entity to ViewModel
-        //    if (lessons.Count() > 0)
-        //    {
-        //        foreach (var item in lessons)
-        //        {
-        //            LessonViewModels model = new LessonViewModels();
-        //            model.LessonId = item.LessonId;
-        //            model.LessonName = item.LessonName;
-        //            model.SubjectId = item.SubjectId;
-        //            model.SubjectName = item.Subject.SubjectName;
-        //            if (item.Content != null && item.Content.ToString().Length >= 30)
-        //                model.Content = item.Content.ToString().Substring(0, 30) + "...";
-        //            else
-        //                model.Content = item.Content;
-                    
-        //            result.Add(model);
-        //        }
-        //    }
-
-        //    if ((searchString == null || subString == null) && page == null)
-        //    {
-        //        result = result.Where(x => x.LessonId == 0).ToList();
-        //        ViewBag.totalRecord = result.Count();
-        //        return View(result.ToList().ToPagedList(pageNumber, pageSize));
-        //    }
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        result = result.Where(x => LRes.SearchForString(x.LessonName, searchString) ||
-        //                                   LRes.SearchForString(x.Content, searchString)).ToList();
-        //    }
-
-        //    if (!String.IsNullOrEmpty(subString))
-        //    {
-        //        result = result.Where(x => x.SubjectName == subString).ToList();
-        //    }
-
-        //    ViewBag.totalRecord = result.Count();
-        //    return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
-
-        //}
-        
         public ActionResult Create(int? id)
         {
             if (id == null)

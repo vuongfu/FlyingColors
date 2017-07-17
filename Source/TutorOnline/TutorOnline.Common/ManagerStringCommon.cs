@@ -32,13 +32,15 @@ namespace TutorOnline.Common
         public string isExistQuestionIn = "Có tồn tại bài tập của bài học này. Hãy xóa bài tập trước!";
 
         public string addMaterialSuccess = "Đã thêm tài liệu cho môn học thành công.";
-        public string deleteMaterialSuccess = "Đã xóa tài liệu của môn học thành công.";
+        public string deleteMaterialSuccessInSub = "Đã xóa tài liệu của khóa học thành công.";
+        public string deleteMaterialSuccessInLes = "Đã xóa tài liệu của môn học thành công.";
         public string isExistMaterialNameLes = "Tên tài liệu này đã tồn tại trong bài học này. Hãy nhập tên khác!";
         public string isExistMaterialNameSub = "Tên tài liệu này đã tồn tại trong khóa học này. Hãy nhập tên khác!";
         public string updateMaterialSuccess = "Đã thay đổi thông tin của tài liệu thành công.";
         public string isExistAnswerIn = "Có tồn tại câu trả lời của câu hỏi này. Hãy xóa câu trả lời trước!";
+        public string requireUploadFile = "Hãy tải tệp tài liệu học tập lên!";
 
-        public string vn = "việt nam";
+        public string vn = "Vietnam";
         public string foreign = "foreign";
     }
 }
