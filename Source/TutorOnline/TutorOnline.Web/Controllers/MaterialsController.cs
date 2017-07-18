@@ -73,12 +73,17 @@ namespace TutorOnline.Web.Controllers
             material.Description = model.Description;
 
             LMRes.AddMaterial(material);
-            TempData["message"] = new ManagerStringCommon().addMaterialSuccess.ToString();
 
             if (model.SubjectId != null && model.LessonId == null)
+            {
+                TempData["message"] = new ManagerStringCommon().addMaterialInSubSuccess.ToString();
                 return RedirectToAction("Details", "Subjects", new { id = model.SubjectId });
+            }
             else
+            {
+                TempData["message"] = new ManagerStringCommon().addMaterialInLesSuccess.ToString();
                 return RedirectToAction("Details", "Lessons", new { id = model.LessonId });
+            }
         }
 
         public ActionResult Details(int? id)
