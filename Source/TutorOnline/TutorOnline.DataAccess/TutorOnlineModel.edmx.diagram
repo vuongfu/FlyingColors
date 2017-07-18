@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9c4325c4fac64203b91e99014ff92d4e" Name="Diagram1">
+      <Diagram DiagramId="9c4325c4fac64203b91e99014ff92d4e" Name="Diagram1" ZoomLevel="96">
         <EntityTypeShape EntityType="TutorOnlineModel.Answer" Width="1.5" PointX="12.75" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TutorOnlineModel.AuditLog" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="TutorOnlineModel.BackendUser" Width="1.5" PointX="3" PointY="28.125" IsExpanded="true" />

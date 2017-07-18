@@ -26,6 +26,7 @@ namespace TutorOnline.DataAccess
         public Nullable<int> LessonId { get; set; }
         public System.DateTime FeedbackDate { get; set; }
         public string Comment { get; set; }
+        public Nullable<int> TestResult { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual Student Student { get; set; }
