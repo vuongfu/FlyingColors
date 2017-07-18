@@ -105,7 +105,7 @@ namespace TutorOnline.Web.Controllers
                 if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
@@ -120,7 +120,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().addSubjectsSuccess.ToString();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
             return View(model);
         }
 
@@ -353,7 +353,7 @@ namespace TutorOnline.Web.Controllers
         public FileResult DownloadFile(string file)
         {
 
-            var FileVirtualPath = "~/Content/Uploads/Document/" + file;
+            var FileVirtualPath = "~/Content/Uploads/Documents/" + file;
             return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
         }
 

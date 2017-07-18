@@ -27,13 +27,13 @@ namespace TutorOnline.Web.Controllers
         {
             if (subId != null && lesId == null)
             {
-                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", subId);
                 ViewBag.subId = subId;
                 
             }
             else
             {
-                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
+                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", lesId);
                 ViewBag.lesId = lesId;
             }
             return View();
@@ -41,65 +41,46 @@ namespace TutorOnline.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HttpPostedFileBase file, int? subId, int? lesId)
+        public ActionResult Create(MaterialViewModels model, HttpPostedFileBase file)
         {
-            string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
+            if (file == null)
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().requireUploadFile.ToString();
+                if (model.SubjectId != null && model.LessonId == null)
+                {
+                    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                    ViewBag.subId = model.SubjectId;
 
-            MaterialViewModels model = new MaterialViewModels();
+                }
+                else
+                {
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(model.SubjectId), "LessonId", "LessonName");
+                    ViewBag.lesId = model.LessonId;
+                }
+                return View();
+            }
+            string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
             model.MaterialUrl = docUrl;
             model.MaterialTypeId = FileUpload.GetFileTypeId(file);
-            model.LessonId = lesId;
-            model.SubjectId = subId;
-            model.Description = "";
+            model.MaterialTypeName = FileUpload.GetFileType(file);
 
-            if (ModelState.IsValid)
-            {
-                LearningMaterial material = new LearningMaterial();
-                if (LMRes.isExistsMaterialNameInSub(model.MaterialUrl, model.SubjectId))
-                {
-                    TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialNameSub.ToString();
-                    if (subId != null && lesId == null)
-                    {
-                        ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-                        ViewBag.subId = subId;
+            LearningMaterial material = new LearningMaterial();
+            //Mapping Entity to ViewModel
+            material.MaterialUrl = model.MaterialUrl;
+            material.LessonId = model.LessonId;
+            material.SubjectId = model.SubjectId;
+            material.MaterialTypeId = model.MaterialTypeId;
+            material.Description = model.Description;
 
-                    }
-                    else
-                    {
-                        ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
-                        ViewBag.lesId = lesId;
-                    }
-                    return View(model);
-                }
-                //Mapping Entity to ViewModel
-                material.MaterialUrl = model.MaterialUrl;
-                material.LessonId = model.LessonId;
-                material.SubjectId = model.SubjectId;
-                material.MaterialTypeId = model.MaterialTypeId;
+            LMRes.AddMaterial(material);
+            TempData["message"] = new ManagerStringCommon().addMaterialSuccess.ToString();
 
-                LMRes.AddMaterial(material);
-                TempData["message"] = new ManagerStringCommon().addMaterialSuccess.ToString();
-
-                if (subId != null && lesId == null)
-                    return RedirectToAction("Details", "Subjects", new { id = subId });
-                else
-                    return RedirectToAction("Details", "Lessons", new { id = lesId });
-            }
-
-            if (subId != null && lesId == null)
-            {
-                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-                ViewBag.subId = subId;
-
-            }
+            if (model.SubjectId != null && model.LessonId == null)
+                return RedirectToAction("Details", "Subjects", new { id = model.SubjectId });
             else
-            {
-                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
-                ViewBag.lesId = lesId;
-            }
-            return View(model);
+                return RedirectToAction("Details", "Lessons", new { id = model.LessonId });
         }
-        
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -225,11 +206,17 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Delete(int id, int? subId, int? lesId)
         {
             LMRes.DeleteMaterial(id);
-            TempData["message"] = new ManagerStringCommon().deleteMaterialSuccess.ToString();
+            
             if (subId != null && lesId == null)
-                return RedirectToAction("Details", "Subjects", new { id = subId});
-            else
-                return RedirectToAction("Details", "Lessons", new { id = lesId});
+            {
+                TempData["message"] = new ManagerStringCommon().deleteMaterialSuccessInSub.ToString();
+                return RedirectToAction("Details", "Subjects", new { id = subId });
+            }
+            else 
+            {
+                TempData["message"] = new ManagerStringCommon().deleteMaterialSuccessInLes.ToString();
+                return RedirectToAction("Details", "Lessons", new { id = lesId });
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -190,7 +190,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().deleteCategoriesSuccess.ToString();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { id = id });
         }
 
         protected override void Dispose(bool disposing)
