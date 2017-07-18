@@ -9,6 +9,7 @@ using TutorOnline.Common;
 using PagedList;
 using TutorOnline.Web.Models;
 using System.Net;
+using System.IO;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -165,30 +166,93 @@ namespace TutorOnline.Web.Controllers
                 model.SubjectId = lesson.SubjectId;
                 model.SubjectName = lesson.Subject.SubjectName;
                 model.Content = lesson.Content;
+
+                ViewBag.subId = lesson.SubjectId;
             }
             return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int? subId)
         {
             if (LRes.isExistedMaterialIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
             if (LRes.isExistedQuestionIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
 
             LRes.DeleteLesson(id);
             TempData["message"] = new ManagerStringCommon().deleteLessonSuccess.ToString();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Subjects", new { id = subId});
         }
 
+        public ActionResult MaterialInLesson (int? lesId, int? subId)
+        {
+            ViewBag.LessonId = lesId;
+            ViewBag.SubjectId = subId;
+
+            var material = LMRes.GetAllMaterial();
+            List<MaterialViewModels> result = new List<MaterialViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (material.Count() > 0)
+            {
+                foreach (var item in material)
+                {
+                    if (item.isActived == true)
+                    {
+                        MaterialViewModels model = new MaterialViewModels();
+                        model.MaterialId = item.MaterialId;
+                        model.MaterialUrl = item.MaterialUrl;
+                        model.MaterialTypeId = item.MaterialTypeId;
+                        model.MaterialTypeName = item.MaterialType.MaterialTypeName;
+                        model.LessonId = item.LessonId;
+                        model.SubjectId = item.SubjectId;
+                        if (item.Description != null && item.Description.ToString().Length >= 80)
+                            model.Description = item.Description.ToString().Substring(0, 80) + "...";
+                        else
+                            model.Description = item.Description;
+
+                        result.Add(model);
+                    }
+                }
+            }
+
+            if (lesId == null)
+            {
+                result = result.Where(x => x.MaterialId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                return View(result.ToList());
+            }
+
+            if (lesId != null)
+            {
+                result = result.Where(x => x.LessonId == lesId).ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+
+            return View(result.OrderBy(x => x.MaterialId).ToList());
+        }
+        public FileResult DownloadFile(string file)
+        {
+
+            var FileVirtualPath = "~/Content/Uploads/Documents/" + file;
+            return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
+        }
+        public ActionResult QuestionInLesson (int? id)
+        {
+            return View();
+        }
+        public ActionResult FeedbackInLesson (int? id)
+        {
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
