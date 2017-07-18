@@ -77,30 +77,31 @@ namespace TutorOnline.Web.Controllers
 
         }
         [HttpPost]
-        public ActionResult RegisterSubject([FromBody] SubjectDetailViewModels Subject)
-        {
-            if(Subject != null)
-            {
-                StudentSubject StuSub;
-                StuSub = StuSubRes.GetSubById(Subject.SubjectId, int.Parse(Request.Cookies["UserInfo"]["UserId"])).FirstOrDefault();
-                if (StuSub != null)
-                {
-                    //Thêm check tiến độ.
-                    StuSub.Status = 8;
-                    StuSubRes.EditSubject(StuSub);
-                } else
-                {
-                    StuSub = new StudentSubject();
-                    StuSub.StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
-                    StuSub.SubjectId = Subject.SubjectId;
-                    StuSub.Status = 8;
-                    StuSubRes.AddSubject(StuSub);
-                }
-                return Json(new { registeredSubject = "Đã đăng ký" });
-            }
+        //public ActionResult RegisterSubject([FromBody] SubjectDetailViewModels Subject)
+        //{
+        //    if (Subject != null)
+        //    {
+        //        StudentSubject StuSub;
+        //        StuSub = StuSubRes.GetSubById(Subject.SubjectId, int.Parse(Request.Cookies["UserInfo"]["UserId"])).FirstOrDefault();
+        //        if (StuSub != null)
+        //        {
+        //            Thêm check tiến độ.
+        //            StuSub.Status = 8;
+        //            StuSubRes.EditSubject(StuSub);
+        //        }
+        //        else
+        //        {
+        //            StuSub = new StudentSubject();
+        //            StuSub.StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+        //            StuSub.SubjectId = Subject.SubjectId;
+        //            StuSub.Status = 8;
+        //            StuSubRes.AddSubject(StuSub);
+        //        }
+        //        return Json(new { registeredSubject = "Đã đăng ký" });
+        //    }
 
-            return Json(new { registeredSubject = "Đăng ký môn học thất bại" });
-        }
+        //    return Json(new { registeredSubject = "Đăng ký môn học thất bại" });
+        //}
 
         public ActionResult Test(int? LessonId)
         {
