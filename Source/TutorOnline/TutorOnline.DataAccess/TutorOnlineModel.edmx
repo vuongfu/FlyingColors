@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="AnswerId" />
@@ -87,6 +87,7 @@
           <Property Name="SubjectId" Type="int" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="1000" />
           <Property Name="isActived" Type="bit" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MaterialType">
           <Key>
@@ -206,6 +207,7 @@
           <Property Name="SubjectId" Type="int" Nullable="false" />
           <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="StudiedLesson" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -279,6 +281,7 @@
           <Property Name="LessonId" Type="int" />
           <Property Name="FeedbackDate" Type="datetime" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TestResult" Type="int" />
         </EntityType>
         <EntityType Name="TutorFeedbackDetail">
           <Key>
@@ -300,7 +303,7 @@
           <Property Name="Experience" Type="nvarchar" MaxLength="4000" Nullable="false" />
           <Property Name="isActived" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Answer__Question__7F2BE32F">
+        <Association Name="FK__Answer__Question__00200768">
           <End Role="Question" Type="Self.Question" Multiplicity="1" />
           <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -312,7 +315,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AuditLog__Modifi__778AC167">
+        <Association Name="FK__AuditLog__Modifi__787EE5A0">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -420,7 +423,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Question__Lesson__7A672E12">
+        <Association Name="FK__Question__Lesson__7B5B524B">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
@@ -432,7 +435,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Question__Subjec__7B5B524B">
+        <Association Name="FK__Question__Subjec__7C4F7684">
           <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
@@ -600,7 +603,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TeachSche__Tutor__74AE54BC">
+        <Association Name="FK__TeachSche__Tutor__75A278F5">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TeachSchedule" Type="Self.TeachSchedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -684,7 +687,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Statu__70DDC3D8">
+        <Association Name="FK__TutorSubj__Statu__71D1E811">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -696,7 +699,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Subje__6EF57B66">
+        <Association Name="FK__TutorSubj__Subje__6FE99F9F">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -708,7 +711,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TutorSubj__Tutor__6FE99F9F">
+        <Association Name="FK__TutorSubj__Tutor__70DDC3D8">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -744,11 +747,11 @@
           <EntitySet Name="TutorFeedback" EntityType="Self.TutorFeedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TutorFeedbackDetail" EntityType="Self.TutorFeedbackDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TutorSubject" EntityType="Self.TutorSubject" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Answer__Question__7F2BE32F" Association="Self.FK__Answer__Question__7F2BE32F">
+          <AssociationSet Name="FK__Answer__Question__00200768" Association="Self.FK__Answer__Question__00200768">
             <End Role="Question" EntitySet="Question" />
             <End Role="Answer" EntitySet="Answer" />
           </AssociationSet>
-          <AssociationSet Name="FK__AuditLog__Modifi__778AC167" Association="Self.FK__AuditLog__Modifi__778AC167">
+          <AssociationSet Name="FK__AuditLog__Modifi__787EE5A0" Association="Self.FK__AuditLog__Modifi__787EE5A0">
             <End Role="Role" EntitySet="Role" />
             <End Role="AuditLog" EntitySet="AuditLog" />
           </AssociationSet>
@@ -784,11 +787,11 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Parent" EntitySet="Parent" />
           </AssociationSet>
-          <AssociationSet Name="FK__Question__Lesson__7A672E12" Association="Self.FK__Question__Lesson__7A672E12">
+          <AssociationSet Name="FK__Question__Lesson__7B5B524B" Association="Self.FK__Question__Lesson__7B5B524B">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
-          <AssociationSet Name="FK__Question__Subjec__7B5B524B" Association="Self.FK__Question__Subjec__7B5B524B">
+          <AssociationSet Name="FK__Question__Subjec__7C4F7684" Association="Self.FK__Question__Subjec__7C4F7684">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
@@ -844,7 +847,7 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
-          <AssociationSet Name="FK__TeachSche__Tutor__74AE54BC" Association="Self.FK__TeachSche__Tutor__74AE54BC">
+          <AssociationSet Name="FK__TeachSche__Tutor__75A278F5" Association="Self.FK__TeachSche__Tutor__75A278F5">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="TeachSchedule" EntitySet="TeachSchedule" />
           </AssociationSet>
@@ -872,21 +875,20 @@
             <End Role="TutorFeedback" EntitySet="TutorFeedback" />
             <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Statu__70DDC3D8" Association="Self.FK__TutorSubj__Statu__70DDC3D8">
+          <AssociationSet Name="FK__TutorSubj__Statu__71D1E811" Association="Self.FK__TutorSubj__Statu__71D1E811">
             <End Role="Status" EntitySet="Status" />
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Subje__6EF57B66" Association="Self.FK__TutorSubj__Subje__6EF57B66">
+          <AssociationSet Name="FK__TutorSubj__Subje__6FE99F9F" Association="Self.FK__TutorSubj__Subje__6FE99F9F">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
-          <AssociationSet Name="FK__TutorSubj__Tutor__6FE99F9F" Association="Self.FK__TutorSubj__Tutor__6FE99F9F">
+          <AssociationSet Name="FK__TutorSubj__Tutor__70DDC3D8" Association="Self.FK__TutorSubj__Tutor__70DDC3D8">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TutorOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -989,6 +991,7 @@
           <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Lesson__534D60F1" FromRole="Lesson" ToRole="Schedule" />
           <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Lesso__5CD6CB2B" FromRole="Lesson" ToRole="StudentFeedback" />
           <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Lesso__619B8048" FromRole="Lesson" ToRole="TutorFeedback" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="MaterialType">
           <Key>
@@ -1139,6 +1142,7 @@
           <NavigationProperty Name="Status1" Relationship="Self.FK__StudentSu__Statu__6B24EA82" FromRole="StudentSubject" ToRole="Status" />
           <NavigationProperty Name="Student" Relationship="Self.FK__StudentSu__Stude__6A30C649" FromRole="StudentSubject" ToRole="Student" />
           <NavigationProperty Name="Subject" Relationship="Self.FK__StudentSu__Subje__693CA210" FromRole="StudentSubject" ToRole="Subject" />
+          <Property Name="StudiedLesson" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -1229,6 +1233,7 @@
           <NavigationProperty Name="Student" Relationship="Self.FK__TutorFeed__Stude__60A75C0F" FromRole="TutorFeedback" ToRole="Student" />
           <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorFeed__Tutor__5FB337D6" FromRole="TutorFeedback" ToRole="Tutor" />
           <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Tutor__6477ECF3" FromRole="TutorFeedback" ToRole="TutorFeedbackDetail" />
+          <Property Name="TestResult" Type="Int32" />
         </EntityType>
         <EntityType Name="TutorFeedbackDetail">
           <Key>
@@ -1928,6 +1933,7 @@
           <EntitySetMapping Name="Lessons">
             <EntityTypeMapping TypeName="TutorOnlineModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="LessonId" ColumnName="LessonId" />
                 <ScalarProperty Name="LessonName" ColumnName="LessonName" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
@@ -2057,6 +2063,7 @@
           <EntitySetMapping Name="StudentSubjects">
             <EntityTypeMapping TypeName="TutorOnlineModel.StudentSubject">
               <MappingFragment StoreEntitySet="StudentSubject">
+                <ScalarProperty Name="StudiedLesson" ColumnName="StudiedLesson" />
                 <ScalarProperty Name="StudentSubjectId" ColumnName="StudentSubjectId" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -2133,6 +2140,7 @@
           <EntitySetMapping Name="TutorFeedbacks">
             <EntityTypeMapping TypeName="TutorOnlineModel.TutorFeedback">
               <MappingFragment StoreEntitySet="TutorFeedback">
+                <ScalarProperty Name="TestResult" ColumnName="TestResult" />
                 <ScalarProperty Name="TutorFeedbackId" ColumnName="TutorFeedbackId" />
                 <ScalarProperty Name="TutorId" ColumnName="TutorId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />

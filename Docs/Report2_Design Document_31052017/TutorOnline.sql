@@ -143,7 +143,8 @@ CREATE TABLE [Lesson] (
 	[LessonName] [nvarchar](500) NOT NULL,
 	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId) NOT NULL,
 	[Content] [nvarchar](1000) NULL,
-	[isActived] bit not null default 1
+	[isActived] bit not null default 1,
+	[Order] int not null
 );
 
 CREATE TABLE [LearningMaterial] (
@@ -192,7 +193,8 @@ CREATE TABLE [TutorFeedback] (
 	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NOT NULL,
 	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId),
 	[FeedbackDate] datetime NOT NULL,
-	[Comment] nvarchar(1000) NULL
+	[Comment] nvarchar(1000) NULL,
+	[TestResult] int NULL 
 );
 
 CREATE TABLE [TutorFeedbackDetail] (
@@ -207,7 +209,8 @@ CREATE TABLE [StudentSubject] (
 	[SubjectId] [int] FOREIGN KEY REFERENCES [Subject](SubjectId) NOT NULL,
 	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NOT NULL,
 	CONSTRAINT UC_StudentSub UNIQUE (SubjectId, StudentId),
-	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL
+	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
+	[StudiedLesson] int NOT NULL default 0
 );
 
 CREATE TABLE [TutorSubject] (
@@ -328,21 +331,21 @@ INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('Materialx');
 INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('Audio file');
 
 --Insert data to Lesson table
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 1', 1, 'Giới thiệu khái quát về chương trình,học Hiragana: 10 chữ cái đầu tiên, chào hỏi cơ bản 1')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 2', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 1, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 2')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 3', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 2, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 3')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 4', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 3, Học Hiragana: 8 chữ tiếp theo, chào hỏi cơ bản 4')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 5', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 4, Học Hiragana: 8 chữ tiếp theo')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 6', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm đục + Âm bán đục ')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 7', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm ghép')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 8', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm dài + Âm ngắt')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 1', 2, 'Giới thiệu khái quát về chương trình,học Katakana: Âm dài + âm ngắt + 10 chữ cái đầu tiên')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 2', 2, 'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 3', 2, 'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 4', 2, 'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 5', 2, 'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
-INSERT INTO [Lesson] (LessonName,SubjectId,Content) VALUES ('Bài 6', 2, 'Luyện tập: Katakana, Học Katakana: Âm ghép')
-
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,'Bài 1', 1, 'Giới thiệu khái quát về chương trình,học Hiragana: 10 chữ cái đầu tiên, chào hỏi cơ bản 1')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (2,'Bài 2', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 1, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 2')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (3,'Bài 3', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 2, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 3')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (4,'Bài 4', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 3, Học Hiragana: 8 chữ tiếp theo, chào hỏi cơ bản 4')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (5,'Bài 5', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 4, Học Hiragana: 8 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,'Bài 6', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm đục + Âm bán đục ')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (7,'Bài 7', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm ghép')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (8,'Bài 8', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm dài + Âm ngắt')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,'Bài 1', 2, 'Giới thiệu khái quát về chương trình,học Katakana: Âm dài + âm ngắt + 10 chữ cái đầu tiên')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (2,'Bài 2', 2, 'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (3,'Bài 3', 2, 'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (4,'Bài 4', 2, 'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (5,'Bài 5', 2, 'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,'Bài 6', 2, 'Luyện tập: Katakana, Học Katakana: Âm ghép')
+							 
 --Insert data to Material table 
 
 
