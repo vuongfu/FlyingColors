@@ -390,7 +390,7 @@ namespace TutorOnline.Web.Controllers
                 ViewBag.totalRecord = result.Count();
             }
 
-            return View(result.OrderBy(x => x.QuestionId).ToList());
+            return View(result.OrderBy(x => x.QuestionId).ToList()); //.Where(x => x.SubjectId == id).
         }
 
         protected override void Dispose(bool disposing)

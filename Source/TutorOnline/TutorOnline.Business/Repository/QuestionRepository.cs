@@ -50,7 +50,7 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
-        public bool isExistsQuestionName(string name, int id)
+        public bool isExistsQuestionName(string name, int? id)
         {
             var question = _dbContext.Questions.Where(x => x.LessonId == id).FirstOrDefault(x => x.Content == name);
             if (question == null)

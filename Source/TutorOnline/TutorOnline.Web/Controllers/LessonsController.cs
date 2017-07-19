@@ -245,9 +245,47 @@ namespace TutorOnline.Web.Controllers
             var FileVirtualPath = "~/Content/Uploads/Documents/" + file;
             return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
         }
-        public ActionResult QuestionInLesson (int? id)
+        public ActionResult QuestionInLesson (int? lesId, int? subId)
         {
-            return View();
+            var question = QRes.GetAllLesQuestion(lesId);
+            List<QuestionTestViewModels> result = new List<QuestionTestViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (question.Count() > 0)
+            {
+                foreach (var item in question)
+                {
+                    QuestionTestViewModels model = new QuestionTestViewModels();
+                    model.QuestionId = item.QuestionId;
+                    model.LessonId = item.LessonId;
+                    model.SubjectId = item.SubjectId;
+                    model.Photo = item.Photo;
+                    if (item.Content != null && item.Content.ToString().Length >= 50)
+                        model.Content = item.Content.ToString().Substring(0, 50) + "...";
+                    else
+                        model.Content = item.Content;
+                    model.ListAnswer = item.Answers.Where(x => x.QuestionId == item.QuestionId).ToList();
+                    result.Add(model);
+                }
+            }
+
+            if (lesId == null)
+            {
+                result = result.Where(x => x.QuestionId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                ViewBag.lesId = lesId;
+                ViewBag.subId = subId;
+                return View(result.ToList());
+            }
+
+            if (lesId != null)
+            {
+                result = result.ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+            ViewBag.lesId = lesId;
+            ViewBag.subId = subId;
+            return View(result.Where(x => x.LessonId == lesId).OrderBy(x => x.QuestionId).ToList());
         }
         public ActionResult FeedbackInLesson (int? id)
         {

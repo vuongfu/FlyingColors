@@ -1,0 +1,72 @@
+﻿@model TutorOnline.Web.Models.QuestionViewModels
+
+@{
+    ViewBag.Title = "Chi tiết câu hỏi trắc nghiệm";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+@Html.HiddenFor(model => model.QuestionId)
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="margin-bottom: -40px;">Chi tiết câu hỏi trắc nghiệm</h3>
+            @Html.ActionLink("Trở lại", "Details", "Lessons", new { @id = Model.LessonId }, new { @class = "btn btn-info pull-right" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TTCH"> Thông tin câu hỏi trắc nghiệm</a>
+                    </h4>
+                </div>
+                <div id="TTCH" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <dl class="dl-horizontal">
+                                    <dt>Hình ảnh:</dt>
+                                    @if (String.IsNullOrEmpty(Model.Photo))
+                                    {
+                                        <dd>
+                                            @("N/A")
+                                        </dd>
+                                    }
+                                    else
+                                    {
+                                        <dd>
+                                            <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" />
+                                        </dd>
+                                    }
+                                    <dt>Nội dung câu hỏi:</dt>
+                                    <dd>@Html.DisplayFor(modelItem => modelItem.Content)</dd>
+                                </dl>
+                                <br />
+                                <div style="margin-left: 100px;">
+                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.QuestionId }, new { @class = "btn btn-success" })
+                                    @Html.ActionLink("Xóa", "Delete", new { @id = Model.QuestionId }, new { @class = "btn btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#DSDA"> Các câu trả lời của câu hỏi</a>
+                    </h4>
+                </div>
+                <div id="DSDA" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{
+                            Html.RenderAction("AnswerInQuestion", "Question", new { id = Model.QuestionId });
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

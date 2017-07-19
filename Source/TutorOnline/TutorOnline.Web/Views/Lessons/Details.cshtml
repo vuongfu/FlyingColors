@@ -18,7 +18,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="glyphicon glyphicon-education" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TTBH"> Thông tin bài học</a>
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TTBH"> Thông tin bài học</a>
                     </h4>
                 </div>
                 <div id="TTBH" class="panel-collapse collapse in">
@@ -46,7 +46,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TLBH"> Tài liệu học tập của bài học</a>
+                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TLBH"> Tài liệu học tập của bài học</a>
                     </h4>
                 </div>
                 <div id="TLBH" class="panel-collapse collapse">
@@ -60,13 +60,13 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#BTBH"> Bài tập dành cho bài học</a>
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#BTBH"> Bài tập dành cho bài học</a>
                     </h4>
                 </div>
                 <div id="BTBH" class="panel-collapse collapse">
                     <div class="panel-body">
                         @{
-                            Html.RenderAction("QuestionInLesson", "Lessons", new { id = Model.LessonId });
+                            Html.RenderAction("QuestionInLesson", "Lessons", new { lesId = Model.LessonId, subId = Model.SubjectId });
                         }
                     </div>
                 </div>
@@ -74,7 +74,7 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TCDG"> Tiêu chí đánh giá của bài học</a>
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TCDG"> Tiêu chí đánh giá của bài học</a>
                     </h4>
                 </div>
                 <div id="TCDG" class="panel-collapse collapse">

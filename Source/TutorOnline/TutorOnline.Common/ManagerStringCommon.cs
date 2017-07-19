@@ -41,6 +41,11 @@ namespace TutorOnline.Common
         public string isExistAnswerIn = "Có tồn tại câu trả lời của câu hỏi này. Hãy xóa câu trả lời trước!";
         public string requireUploadFile = "Hãy tải tệp tài liệu học tập lên!";
 
+        public string isExistQuestionName = "Nội dung câu hỏi đã tồn tại trong bài học này. Hãy nhập một dung khác!";
+        public string addQuestionSuccess = "Đã thêm câu hỏi trắc nghiệm vào bài học thành công.";
+        public string updateQuestionSuccess = "Đã thay đổi thông tin câu hỏi của bài học thành công.";
+        public string deleteQuestionSuccess = "Đã xóa câu hỏi của bài học thành công.";
+
         public string vn = "Vietnam";
         public string foreign = "foreign";
     }
