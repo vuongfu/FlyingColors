@@ -27,6 +27,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <dl class="dl-horizontal">
+                                    <dt>Thuộc bài học:</dt>
+                                    <dd>@Html.DisplayFor(modelItem => modelItem.lessonName)</dd>
                                     <dt>Hình ảnh:</dt>
                                     @if (String.IsNullOrEmpty(Model.Photo))
                                     {
@@ -45,8 +47,8 @@
                                 </dl>
                                 <br />
                                 <div style="margin-left: 100px;">
-                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.QuestionId }, new { @class = "btn btn-success" })
-                                    @Html.ActionLink("Xóa", "Delete", new { @id = Model.QuestionId }, new { @class = "btn btn-danger" })
+                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.QuestionId, subId = ViewBag.subId }, new { @class = "btn btn-success" })
+                                    @Html.ActionLink("Xóa", "Delete", new { id = Model.QuestionId, lesId = ViewBag.lesId }, new { @class = "btn btn-danger" })
                                 </div>
                             </div>
                         </div>

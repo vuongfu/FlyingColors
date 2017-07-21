@@ -15,6 +15,7 @@ namespace TutorOnline.Web.Models
         [Required(ErrorMessage ="Hãy nhập nội dung câu hỏi.")]
         public string Content { get; set; }
         public Nullable<int> LessonId { get; set; }
+        public string lessonName { get; set; }
         public Nullable<int> SubjectId { get; set; }
     }
     public class QuestionTestViewModels

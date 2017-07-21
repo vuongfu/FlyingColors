@@ -34,6 +34,7 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(QuestionViewModels model, HttpPostedFileBase file)
         {
+            int subId = Convert.ToInt32(TempData["subId"]);
             if (ModelState.IsValid)
             {
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
@@ -41,8 +42,7 @@ namespace TutorOnline.Web.Controllers
                 if (QRes.isExistsQuestionName(model.Content, model.LessonId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
-                    ViewBag.LessonId = new SelectList(QRes.GetAllLesQuestion(model.LessonId), "LessonId", "LessonName");
-                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(model.SubjectId), "LessonId", "LessonName", model.LessonId);
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
                     ViewBag.lesId = model.LessonId;
                     ViewBag.subId = model.SubjectId;
                     return View(model);
@@ -60,14 +60,14 @@ namespace TutorOnline.Web.Controllers
                 ViewBag.subId = model.SubjectId;
                 return RedirectToAction("Details", "Lessons", new { id = model.LessonId });
             }
-            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(model.SubjectId), "LessonId", "LessonName", model.LessonId);
+            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
             ViewBag.lesId = model.LessonId;
             ViewBag.subId = model.SubjectId;
 
             return View(model);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? subId)
         {
             if (id == null)
             {
@@ -85,13 +85,16 @@ namespace TutorOnline.Web.Controllers
             model.QuestionId = question.QuestionId;
             model.Content = question.Content;
             model.LessonId = question.LessonId;
+            model.lessonName = question.Lesson.LessonName;
             model.SubjectId = question.SubjectId;
             model.Photo = question.Photo;
 
+            ViewBag.subId = subId;
+            ViewBag.lesId = model.LessonId;
             return View(model);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? subId)
         {
             if (id == null)
             {
@@ -109,22 +112,30 @@ namespace TutorOnline.Web.Controllers
                 //Mapping Entity to ViewModel
                 model.QuestionId = question.QuestionId;
                 model.Content = question.Content;
+                model.Photo = question.Photo;
+                model.lessonName = question.Lesson.LessonName;
                 model.LessonId = question.LessonId;
                 model.SubjectId = question.SubjectId;
+                ViewBag.subId = subId;
+                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", question.LessonId);
             }
-            ViewBag.LessonId = new SelectList(QRes.GetAllLesQuestion(model.LessonId), "LessonId", "LessonName", model.LessonId);
+            ViewBag.subId = subId;
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(QuestionViewModels model)
+        public ActionResult Edit(QuestionViewModels model, HttpPostedFileBase file)
         {
+            int subId = Convert.ToInt32(TempData["subId"]);
+            string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
             if (QRes.isExistsQuestionName(model.Content, model.LessonId))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
-                ViewBag.LessonId = new SelectList(QRes.GetAllLesQuestion(model.LessonId), "LessonId", "LessonName");
+                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
+                ViewBag.lesId = model.LessonId;
+                ViewBag.subId = subId;
                 return View(model);
             }
 
@@ -133,6 +144,7 @@ namespace TutorOnline.Web.Controllers
             //Mapping Entity to ViewModel
             question.QuestionId = model.QuestionId;
             question.Content = model.Content;
+            question.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
             question.SubjectId = model.SubjectId;
             question.LessonId = model.LessonId;
 
@@ -140,10 +152,13 @@ namespace TutorOnline.Web.Controllers
             {
                 QRes.EditQuestion(question);
                 TempData["message"] = new ManagerStringCommon().updateQuestionSuccess.ToString();
+                ViewBag.lesId = model.LessonId;
+                ViewBag.subId = subId;
                 return RedirectToAction("Details", new { id = model.QuestionId });
             }
-            ViewBag.LessonId = new SelectList(QRes.GetAllLesQuestion(model.LessonId), "LessonId", "LessonName");
-
+            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", question.LessonId);
+            ViewBag.lesId = model.LessonId;
+            ViewBag.subId = subId;
             return View(model);
         }
 
@@ -164,6 +179,8 @@ namespace TutorOnline.Web.Controllers
                 //Mapping Entity to ViewModel
                 model.QuestionId = question.QuestionId;
                 model.Content = question.Content;
+                model.lessonName = question.Lesson.LessonName;
+                model.Photo = question.Photo;
                 model.SubjectId = question.SubjectId;
                 model.LessonId = question.LessonId;
 

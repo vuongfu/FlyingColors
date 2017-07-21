@@ -33,7 +33,7 @@
                     {
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.Content, "Details", "Question", new { @id = item.QuestionId }, null)</td>
+                            <td>@Html.ActionLink(item.Content, "Details", "Question", new { id = item.QuestionId, subId = ViewBag.subId }, null)</td>
                             <td>@Html.DisplayFor(modelItem => item.ListAnswer.Count)</td>
                         </tr>
                     }

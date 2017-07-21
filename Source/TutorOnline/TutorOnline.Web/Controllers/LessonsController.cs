@@ -255,17 +255,20 @@ namespace TutorOnline.Web.Controllers
             {
                 foreach (var item in question)
                 {
-                    QuestionTestViewModels model = new QuestionTestViewModels();
-                    model.QuestionId = item.QuestionId;
-                    model.LessonId = item.LessonId;
-                    model.SubjectId = item.SubjectId;
-                    model.Photo = item.Photo;
-                    if (item.Content != null && item.Content.ToString().Length >= 50)
-                        model.Content = item.Content.ToString().Substring(0, 50) + "...";
-                    else
-                        model.Content = item.Content;
-                    model.ListAnswer = item.Answers.Where(x => x.QuestionId == item.QuestionId).ToList();
-                    result.Add(model);
+                    if (item.isActived == true)
+                    {
+                        QuestionTestViewModels model = new QuestionTestViewModels();
+                        model.QuestionId = item.QuestionId;
+                        model.LessonId = item.LessonId;
+                        model.SubjectId = item.SubjectId;
+                        model.Photo = item.Photo;
+                        if (item.Content != null && item.Content.ToString().Length >= 50)
+                            model.Content = item.Content.ToString().Substring(0, 50) + "...";
+                        else
+                            model.Content = item.Content;
+                        model.ListAnswer = item.Answers.Where(x => x.QuestionId == item.QuestionId).ToList();
+                        result.Add(model);
+                    }
                 }
             }
 
