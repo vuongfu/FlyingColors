@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    ViewBag.Count = 0;
 }
 
 <!DOCTYPE html>
@@ -12,6 +13,41 @@
     <title>Các câu trả lời cho câu hỏi trắc nghiệm</title>
 </head>
 <body>
-    <h4>Các câu trả lời cho câu hỏi trắc nghiệm của bài học</h4>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Câu Trả Lời", "Create", "Answer", new { queId = ViewBag.queId }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Nội dung</th>
+                        <th>Đáp án</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.Content, "Details", "Answer", new { id = item.AnswerId}, null)</td>
+                            <td>@Html.DisplayFor(modelItem => item.isCorrect)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Câu hỏi trắc nghiệm này hiện chưa có câu trả lời nào. Hãy thêm câu trả lời cho câu hỏi.</h4>
+            </div>
+        </div>
+    }
 </body>
 </html>

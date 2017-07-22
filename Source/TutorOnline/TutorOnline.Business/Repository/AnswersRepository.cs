@@ -15,6 +15,11 @@ namespace TutorOnline.Business.Repository
             var answer = _dbContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == id).ToList();
             return answer;
         }
+        public List<Answer> GetQuesAnswer(int? id)
+        {
+            var answer = _dbContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == id).ToList();
+            return answer;
+        }
         public Answer FindAnswer(int? id)
         {
             Answer answer = _dbContext.Answers.Find(id);

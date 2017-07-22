@@ -13,6 +13,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.QuestionId)
+        @Html.HiddenFor(model => model.Photo)
         <h3>Chỉnh sửa câu hỏi trắc nghiệm cho bài học</h3>
         <hr />
         <div class="form-group">
@@ -27,6 +28,14 @@
         <div class="form-group">
             <p class="control-label col-md-2">Hình ảnh: </p>
             <div class="col-md-10">
+                @if (String.IsNullOrEmpty(Model.Photo))
+                {
+                    <p style="margin-top: 7px;">@("N/A")</p>
+                }
+                else
+                {
+                    <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" />
+                }
                 <input type="file" name="file" />
             </div>
         </div>

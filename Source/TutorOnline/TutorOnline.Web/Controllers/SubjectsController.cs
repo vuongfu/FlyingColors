@@ -187,12 +187,12 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Edit(SubjectsViewModels model, HttpPostedFileBase file)
         {
             string photoUrl = FileUpload.UploadFile(file,  FileUpload.TypeUpload.image);
-            if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
-            {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-                ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
-                return View(model);
-            }
+            //if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
+            //{
+            //    TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
+            //    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+            //    return View(model);
+            //}
             Subject subject = new Subject();
 
             //Mapping Entity to ViewModel

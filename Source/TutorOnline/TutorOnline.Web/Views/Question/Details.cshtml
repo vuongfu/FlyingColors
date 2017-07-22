@@ -64,7 +64,7 @@
                 <div id="DSDA" class="panel-collapse collapse">
                     <div class="panel-body">
                         @{
-                            Html.RenderAction("AnswerInQuestion", "Question", new { id = Model.QuestionId });
+                            Html.RenderAction("AnswerInQuestion", "Question", new { queId = Model.QuestionId });
                         }
                     </div>
                 </div>

@@ -1,0 +1,44 @@
+﻿@model TutorOnline.Web.Models.AnswerViewModels
+
+@{
+    ViewBag.Title = "Xóa câu trả lời";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div>
+    <h3>Xóa câu trả lời của câu hỏi trắc nghiệm</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nội dung câu hỏi:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.QuesContent)</dd>
+        <dt>Hình ảnh:</dt>
+        @if (String.IsNullOrEmpty(Model.QuesPhoto))
+        {
+            <dd>
+                @("N/A")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <img src="~/Content/Uploads/Images/Thumbnails/@Model.QuesPhoto.Substring(3)" />
+            </dd>
+        }
+        <dt>Nội dung câu trả lời:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Content)</dd>
+        <dt>Đáp án:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.isCorrectStr)</dd>
+    </dl>
+    <br />
+    <div class="alert alert-danger">
+        Bạn có chắc chắn muốn xóa câu trả lời này?
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa câu hỏi" class="btn btn-danger" />
+            @Html.ActionLink("Trở lại", "Details", "Answer", new { id = Model.AnswerId}, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

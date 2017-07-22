@@ -16,6 +16,7 @@ namespace TutorOnline.Web.Controllers
         // GET: Question
         private QuestionRepository QRes = new QuestionRepository();
         private LessonRepository LRes = new LessonRepository();
+        private AnswersRepository ARes = new AnswersRepository();
 
         public ActionResult Create(int? lesId, int? subId)
         {
@@ -130,14 +131,14 @@ namespace TutorOnline.Web.Controllers
         {
             int subId = Convert.ToInt32(TempData["subId"]);
             string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
-            if (QRes.isExistsQuestionName(model.Content, model.LessonId))
-            {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
-                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
-                ViewBag.lesId = model.LessonId;
-                ViewBag.subId = subId;
-                return View(model);
-            }
+            //if (QRes.isExistsQuestionName(model.Content, model.LessonId))
+            //{
+            //    TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
+            //    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
+            //    ViewBag.lesId = model.LessonId;
+            //    ViewBag.subId = subId;
+            //    return View(model);
+            //}
 
             Question question = new Question();
 
@@ -154,7 +155,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().updateQuestionSuccess.ToString();
                 ViewBag.lesId = model.LessonId;
                 ViewBag.subId = subId;
-                return RedirectToAction("Details", new { id = model.QuestionId });
+                return RedirectToAction("Details", new { id = model.QuestionId, subId = ViewBag.subId });
             }
             ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", question.LessonId);
             ViewBag.lesId = model.LessonId;
@@ -204,9 +205,51 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Details", "Lessons", new { id = lesId });
         }
 
-        public ActionResult AnswerInQuestion(int? id)
+        public ActionResult AnswerInQuestion(int? queId)
         {
-            return View();
+            var answer = ARes.GetQuesAnswer(queId);
+            List<AnswerViewModels> result = new List<AnswerViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (answer.Count() > 0)
+            {
+                foreach (var item in answer)
+                {
+                    if (item.isActived == true)
+                    {
+                        AnswerViewModels model = new AnswerViewModels();
+                        model.AnswerId = item.AnswerId;
+                        model.QuestionId = item.QuestionId;
+                        model.QuesContent = item.Question.Content;
+                        model.isCorrectStr = (item.isCorrect == true) ? "Đúng" : "Sai";
+                        model.isCorrect = item.isCorrect;
+                        if (item.Content != null && item.Content.ToString().Length >= 50)
+                            model.Content = item.Content.ToString().Substring(0, 50) + "...";
+                        else
+                            model.Content = item.Content;
+
+                        result.Add(model);
+                    }
+                }
+            }
+
+            if (queId == null)
+            {
+                result = result.Where(x => x.AnswerId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                ViewBag.queId = queId;
+
+                return View(result.ToList());
+            }
+
+            if (queId != null)
+            {
+                result = result.ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+            ViewBag.queId = queId;
+
+            return View(result.Where(x => x.QuestionId == queId).OrderBy(x => x.AnswerId).ToList());
         }
     }
 }
