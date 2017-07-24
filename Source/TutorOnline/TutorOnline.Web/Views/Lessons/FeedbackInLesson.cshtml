@@ -1,5 +1,8 @@
-﻿@{
+﻿@model IEnumerable<TutorOnline.Web.Models.CriteriaViewModel>
+
+@{
     Layout = null;
+    ViewBag.Count = 0;
 }
 
 <!DOCTYPE html>
@@ -7,11 +10,42 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>FeedbackInLesson</title>
+    <title>Tiêu chí đánh giá học viên của bài học</title>
 </head>
 <body>
-    <div> 
-        <h4>FeedbackInLesson</h4>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Tiêu Chí Đánh Giá", "Create", "Criteria", new { lesId = ViewBag.lesId }, new { @class = "btn btn-success" })
+        </div>
     </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Nội dung tiêu chí</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.CriteriaName, "Details", "Criteria", new { id = item.CriteriaId }, null)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Hiện chưa có tiêu chí đánh giá học viên nào cho bài học. Hãy thêm tiêu chí đánh giá học viên cho bài học.</h4>
+            </div>
+        </div>
+    }
 </body>
 </html>

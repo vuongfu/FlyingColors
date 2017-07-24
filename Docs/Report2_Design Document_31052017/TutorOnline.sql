@@ -174,7 +174,8 @@ CREATE TABLE [Criteria] (
 	[CriteriaId] [int] IdENTITY(1,1) PRIMARY KEY,
 	[CriteriaName] [nvarchar](255) NOT NULL,  
 	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NOT NULL,
-	[RoleId] [int] FOREIGN KEY REFERENCES [Role](RoleId) NOT NULL
+	[RoleId] [int] FOREIGN KEY REFERENCES [Role](RoleId) NOT NULL,
+	[isActived] bit not null default 1
 );
 
 CREATE TABLE [StudentFeedback] (
@@ -397,12 +398,6 @@ INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiế
 INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',14,1);
 INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',14,1);
 INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',14,1);
-
-
-
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Sự đúng giờ',1,2);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Kỹ năng sư phạm ',1,2);
-
 
 --Insert data to StudentFeedback
 

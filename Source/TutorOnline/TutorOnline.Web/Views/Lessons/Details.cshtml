@@ -74,13 +74,13 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TCDG"> Tiêu chí đánh giá của bài học</a>
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TCDG"> Tiêu chí đánh giá học viên của bài học</a>
                     </h4>
                 </div>
                 <div id="TCDG" class="panel-collapse collapse">
                     <div class="panel-body">
                         @{
-                            Html.RenderAction("FeedbackInLesson", "Lessons");
+                            Html.RenderAction("FeedbackInLesson", "Lessons", new { id = Model.LessonId });
                         }
                     </div>
                 </div>

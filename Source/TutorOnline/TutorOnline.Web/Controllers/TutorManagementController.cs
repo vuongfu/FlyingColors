@@ -9,8 +9,7 @@ namespace TutorOnline.Web.Controllers
     [Authorize(Roles = "Manager")]
     public class TutorManagementController : Controller
     {
-        // GET: TutorManagement
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string roleString, int? status, int? page)
         {
             return View();
         }

@@ -22,6 +22,7 @@ namespace TutorOnline.Web.Controllers
         private QuestionRepository QRes = new QuestionRepository();
         private AnswersRepository ARes = new AnswersRepository();
         private SubjectsRepository SRes = new SubjectsRepository();
+        private CriteriaRepository CRes = new CriteriaRepository();
         
         public ActionResult Create(int? id)
         {
@@ -292,7 +293,45 @@ namespace TutorOnline.Web.Controllers
         }
         public ActionResult FeedbackInLesson (int? id)
         {
-            return View();
+            var criteria = CRes.GetAllCriteriaInLes(id);
+            List<CriteriaViewModel> result = new List<CriteriaViewModel>();
+
+            //Mapping Entity to ViewModel
+            if (criteria.Count() > 0)
+            {
+                foreach (var item in criteria)
+                {
+                    if (item.isActived == true)
+                    {
+                        CriteriaViewModel model = new CriteriaViewModel();
+                        model.CriteriaId = item.CriteriaId;
+                        model.LessonId = item.LessonId;
+                        model.LessonName = item.Lesson.LessonName;
+                        if (item.CriteriaName != null && item.CriteriaName.ToString().Length >= 50)
+                            model.CriteriaName = item.CriteriaName.ToString().Substring(0, 50) + "...";
+                        else
+                            model.CriteriaName = item.CriteriaName;
+
+                        result.Add(model);
+                    }
+                }
+            }
+
+            if (id == null)
+            {
+                result = result.Where(x => x.CriteriaId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                ViewBag.lesId = id;
+                return View(result.ToList());
+            }
+
+            if (id != null)
+            {
+                result = result.ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+            ViewBag.lesId = id;
+            return View(result.Where(x => x.LessonId == id).OrderBy(x => x.CriteriaId).ToList());
         }
         protected override void Dispose(bool disposing)
         {

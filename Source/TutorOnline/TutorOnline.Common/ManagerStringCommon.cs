@@ -51,6 +51,12 @@ namespace TutorOnline.Common
         public string updateAnswerSuccess = "Đã thay đổi thông tin câu trả lời thành công.";
         public string deleteAnswerSuccess = "Đã xóa câu trả lời thành công.";
 
+        public string isExistCriteriaName = "Nội dung tiêu chí này đã tồn tại trong bài học này. Hãy nhập nội dung khác!";
+        public string isUsedCriteriaInTuFeDe = "Tiêu chí này đã được sử dụng để đánh giá học viên trong bài học. Không được phép xóa.";
+        public string addCriteriaSuccess = "Đã thêm tiêu chí đánh giá học viên cho bài học thành công.";
+        public string updateCriteriaSuccess = "Đã thay đổi nội dung tiêu chí đánh giá thành công.";
+        public string deleteCriteriaSuccess = "Đã xóa tiêu chí đánh giá học viên của bài học thành công.";
+
         public string vn = "Vietnam";
         public string foreign = "foreign";
     }
