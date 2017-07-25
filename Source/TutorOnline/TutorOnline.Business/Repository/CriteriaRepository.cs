@@ -12,7 +12,7 @@ namespace TutorOnline.Business.Repository
     {
         public List<Criterion> GetAllCriteriaInLes(int? id)
         {
-            var criteria = _dbContext.Criteria.Include(x => x.Lesson).Include(x => x.Role).Where(x => x.LessonId == id).ToList();
+            var criteria = _dbContext.Criteria.Include(x => x.Lesson).Include(x => x.Role).Where(x => x.LessonId == id && x.isActived == true).ToList();
             return criteria;
         }
         public Criterion FindCriteria(int? id)
@@ -34,13 +34,13 @@ namespace TutorOnline.Business.Repository
         }
         public void DeleteCriteria(int id)
         {
-            _dbContext.Criteria.Where(x => x.CriteriaId == id).ToList().ForEach(x => x.isActived = false);
+            _dbContext.Criteria.Where(x => x.CriteriaId == id && x.isActived == true).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 
         public bool isExistsCriteriaName(string name, int lesId)
         {
-            var criteria = _dbContext.Criteria.Where(x => x.LessonId == lesId).FirstOrDefault(x => x.CriteriaName == name);
+            var criteria = _dbContext.Criteria.Where(x => x.LessonId == lesId && x.isActived == true).FirstOrDefault(x => x.CriteriaName == name);
             if (criteria == null)
                 return false;
             else

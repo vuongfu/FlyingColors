@@ -16,6 +16,8 @@ namespace TutorOnline.Web.Models
         [Required(ErrorMessage = "Hãy chọn khóa học cho bài học.")]
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
+        [Required(ErrorMessage = "Hãy nhập nội dung cho bài học.")]
         public string Content { get; set; }
+        public int Order { get; set; }
     }
 }

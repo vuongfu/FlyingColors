@@ -149,14 +149,14 @@ namespace TutorOnline.Web.Controllers
         {
             string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
 
-            if (LMRes.isExistsMaterialNameInLes(model.MaterialUrl, model.LessonId))
-            {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialNameLes.ToString();
-                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-                ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-                //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
-                return View(model);
-            }
+            //if (LMRes.isExistsMaterialNameInLes(model.MaterialUrl, model.LessonId))
+            //{
+            //    TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialNameLes.ToString();
+            //    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+            //    ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
+            //    //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
+            //    return View(model);
+            //}
 
             LearningMaterial material = new LearningMaterial();
 

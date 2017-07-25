@@ -12,12 +12,12 @@ namespace TutorOnline.Business.Repository
     {
         public List<Question> GetAllLesQuestion(int? id)
         {
-            var question = _dbContext.Questions.Include(x => x.Lesson).Where(x => x.LessonId == id).ToList();
+            var question = _dbContext.Questions.Include(x => x.Lesson).Where(x => x.LessonId == id && x.isActived == true).ToList();
             return question;
         }
         public IEnumerable<Question> GetAllSubQuestion(int? id)
         {
-            var question = _dbContext.Questions.Include(x => x.Subject).Where(x => x.SubjectId == id).ToList();
+            var question = _dbContext.Questions.Include(x => x.Subject).Where(x => x.SubjectId == id && x.isActived == true).ToList();
             return question;
         }
         public Question FindQuestion(int? id)
@@ -39,12 +39,12 @@ namespace TutorOnline.Business.Repository
         }
         public void DeleteQuestion(int id)
         {
-            _dbContext.Questions.Where(x => x.QuestionId == id).ToList().ForEach(x => x.isActived = false);
+            _dbContext.Questions.Where(x => x.QuestionId == id && x.isActived == true).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
         public bool isExistedAnswerIn(int id)
         {
-            var answer = _dbContext.Answers.FirstOrDefault(x => x.QuestionId == id);
+            var answer = _dbContext.Answers.FirstOrDefault(x => x.QuestionId == id && x.isActived == true);
             if (answer == null)
                 return false;
             else
@@ -52,7 +52,7 @@ namespace TutorOnline.Business.Repository
         }
         public bool isExistsQuestionName(string name, int? id)
         {
-            var question = _dbContext.Questions.Where(x => x.LessonId == id).FirstOrDefault(x => x.Content == name);
+            var question = _dbContext.Questions.Where(x => x.LessonId == id && x.isActived == true).FirstOrDefault(x => x.Content == name);
             if (question == null)
                 return false;
             else

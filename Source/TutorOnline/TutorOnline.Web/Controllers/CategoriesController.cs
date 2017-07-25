@@ -145,11 +145,11 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                if (CRes.isExistsCategoryName(model.CategoryName))
-                {
-                    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
-                    return View(model);
-                }
+                //if (CRes.isExistsCategoryName(model.CategoryName))
+                //{
+                //    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
+                //    return View(model);
+                //}
                 CRes.EditCategory(category);
                 TempData["message"] = new ManagerStringCommon().updateCategoriesSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.CategoryId });

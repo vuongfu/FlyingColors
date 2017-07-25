@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Thêm bài học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
-    ViewBag.subId = ViewBag.subId;
+    //ViewBag.subId = ViewBag.subId;
 }
+@{TempData["subId"] = ViewBag.subId;}
 
 @using (Html.BeginForm("Create", "Lessons", FormMethod.Post))
 {

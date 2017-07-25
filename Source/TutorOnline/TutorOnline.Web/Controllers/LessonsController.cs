@@ -40,6 +40,8 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LessonViewModels model)
         {
+            int subId = Convert.ToInt32(TempData["subId"]);
+            
             if (ModelState.IsValid)
             {
                 Lesson lesson = new Lesson();
@@ -50,11 +52,15 @@ namespace TutorOnline.Web.Controllers
                     ViewBag.subId = model.SubjectId;
                     return View(model);
                 }
+                //get Max Order
+                int maxOrder = LRes.GetLesInSub(subId).OrderByDescending(x => x.Order).First().Order;
                 //Mapping Entity to ViewModel
                 lesson.LessonId = model.LessonId;
                 lesson.LessonName = model.LessonName;
                 lesson.Content = model.Content;
                 lesson.SubjectId = model.SubjectId;
+                lesson.Order = maxOrder + 1;
+
 
                 LRes.AddLesson(lesson);
                 TempData["message"] = new ManagerStringCommon().addLessonSuccess.ToString();
@@ -87,6 +93,7 @@ namespace TutorOnline.Web.Controllers
             model.Content = lesson.Content;
             model.SubjectId = lesson.SubjectId;
             model.SubjectName = lesson.Subject.SubjectName;
+            model.Order = lesson.Order;
 
             return View(model);
         }
@@ -112,6 +119,7 @@ namespace TutorOnline.Web.Controllers
                 model.SubjectId = lesson.SubjectId;
                 model.SubjectName = lesson.Subject.SubjectName;
                 model.Content = lesson.Content;
+                model.Order = lesson.Order;
             }
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", model.SubjectId);
             return View(model);
@@ -121,12 +129,12 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(LessonViewModels model)
         {
-            if (LRes.isExistsLessonName(model.LessonName, model.SubjectId))
-            {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
-                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-                return View(model);
-            }
+            //if (LRes.isExistsLessonName(model.LessonName, model.SubjectId))
+            //{
+            //    TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
+            //    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+            //    return View(model);
+            //}
 
             Lesson lesson = new Lesson();
 
@@ -135,6 +143,7 @@ namespace TutorOnline.Web.Controllers
             lesson.LessonName = model.LessonName;
             lesson.SubjectId = model.SubjectId;
             lesson.Content = model.Content;
+            lesson.Order = model.Order;
 
             if (ModelState.IsValid)
             {
@@ -167,6 +176,7 @@ namespace TutorOnline.Web.Controllers
                 model.SubjectId = lesson.SubjectId;
                 model.SubjectName = lesson.Subject.SubjectName;
                 model.Content = lesson.Content;
+                model.Order = lesson.Order;
 
                 ViewBag.subId = lesson.SubjectId;
             }

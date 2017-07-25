@@ -15,14 +15,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.LessonId)
         @Html.HiddenFor(model => model.SubjectName)
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Tên bài học: </p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })
-                @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.Order)
 
         <div class="form-group">
             <p class="control-label col-md-2">Thuộc khóa học: </p>
@@ -30,6 +23,21 @@
                 @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px;", @disabled = "disabled" })
                 @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px; display: none;" })
                 @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Thứ tự bài học: </p>
+            <div class="col-md-10" style="margin-top: 9px;">
+                @Html.DisplayFor(model => model.Order)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Tên bài học: </p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })
+                @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
             </div>
         </div>
 

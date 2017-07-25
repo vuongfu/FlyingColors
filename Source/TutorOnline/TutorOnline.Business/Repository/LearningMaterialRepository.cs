@@ -17,12 +17,12 @@ namespace TutorOnline.Business.Repository
         }
         public IEnumerable<LearningMaterial> GetAllMaterial()
         {
-            var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType);
+            var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType).Where(x => x.isActived == true);
             return materials;
         }
         public IEnumerable<LearningMaterial> GetMaCategory(int? id)
         {
-            var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType).Where(x => x.Lesson.Subject.CategoryId == id);
+            var materials = _dbContext.LearningMaterials.Include(x => x.Lesson).Include(x => x.MaterialType).Where(x => x.Lesson.Subject.CategoryId == id && x.isActived == true);
             return materials;
         }
         public LearningMaterial FindMaterial(int? id)
@@ -32,7 +32,7 @@ namespace TutorOnline.Business.Repository
         }
         public List<LearningMaterial> FindMaterials(int? id)
         {
-            List<LearningMaterial> listMaterial = GetAllMaterial().Where(x => x.LessonId == id).ToList();
+            List<LearningMaterial> listMaterial = GetAllMaterial().Where(x => x.LessonId == id && x.isActived == true).ToList();
             return listMaterial;
         }
         public void AddMaterial(LearningMaterial material)
@@ -49,13 +49,13 @@ namespace TutorOnline.Business.Repository
         }
         public void DeleteMaterial(int id)
         {
-            _dbContext.LearningMaterials.Where(x => x.MaterialId == id).ToList().ForEach(x => x.isActived = false);
+            _dbContext.LearningMaterials.Where(x => x.MaterialId == id && x.isActived == true).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 
         public bool isExistsMaterialNameInLes(string name, int? id)
         {
-            var material = _dbContext.LearningMaterials.Where(x => x.LessonId == id).FirstOrDefault(x => x.MaterialUrl == name);
+            var material = _dbContext.LearningMaterials.Where(x => x.LessonId == id && x.isActived == true).FirstOrDefault(x => x.MaterialUrl == name);
             if (material == null)
                 return false;
             else
@@ -63,7 +63,7 @@ namespace TutorOnline.Business.Repository
         }
         public bool isExistsMaterialNameInSub(string name, int? id)
         {
-            var material = _dbContext.LearningMaterials.Where(x => x.SubjectId == id).FirstOrDefault(x => x.MaterialUrl == name);
+            var material = _dbContext.LearningMaterials.Where(x => x.SubjectId == id && x.isActived == true).FirstOrDefault(x => x.MaterialUrl == name);
             if (material == null)
                 return false;
             else

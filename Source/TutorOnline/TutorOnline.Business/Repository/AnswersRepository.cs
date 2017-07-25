@@ -12,12 +12,12 @@ namespace TutorOnline.Business.Repository
     {
         public List<Answer> GetAllAnswers(int? id)
         {
-            var answer = _dbContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == id).ToList();
+            var answer = _dbContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == id && x.isActived == true).ToList();
             return answer;
         }
         public List<Answer> GetQuesAnswer(int? id)
         {
-            var answer = _dbContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == id).ToList();
+            var answer = _dbContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == id && x.isActived == true).ToList();
             return answer;
         }
         public Answer FindAnswer(int? id)
@@ -45,7 +45,7 @@ namespace TutorOnline.Business.Repository
 
         public bool isExistsAnswerName(string name, int id)
         {
-            var answer = _dbContext.Answers.Where(x => x.QuestionId == id).FirstOrDefault(x => x.Content == name);
+            var answer = _dbContext.Answers.Where(x => x.QuestionId == id && x.isActived == true).FirstOrDefault(x => x.Content == name);
             if (answer == null)
                 return false;
             else

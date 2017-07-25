@@ -39,13 +39,12 @@ namespace TutorOnline.Business.Repository
         public void DeleteCategory(int id)
         {
             _dbContext.Categories.Where(x => x.CategoryId == id).ToList().ForEach(x => x.isActived = false);
-            _dbContext.Subjects.Where(x => x.CategoryId == id).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 
         public bool isExistsCategoryName(string name)
         {
-            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryName == name);
+            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryName == name && x.isActived == true);
             if (category == null)
                 return false;
             else
@@ -53,7 +52,7 @@ namespace TutorOnline.Business.Repository
         }
         public bool isExistedSubjectIn(int id)
         {
-            var subject = _dbContext.Subjects.FirstOrDefault(x => x.CategoryId == id);
+            var subject = _dbContext.Subjects.FirstOrDefault(x => x.CategoryId == id && x.isActived == true);
             if (subject == null)
                 return false;
             else
