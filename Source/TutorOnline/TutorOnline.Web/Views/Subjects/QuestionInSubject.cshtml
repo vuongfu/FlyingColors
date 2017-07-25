@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    ViewBag.count = 0;
 }
 
 <!DOCTYPE html>
@@ -13,16 +14,22 @@
 </head>
 <body>
     <div class="container-fluid">
-    @foreach (var item in Model)
+    @if (@ViewBag.totalRecord > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@(ViewBag.Count++ + 1). Link tham khảo bài tập: </h4><a href="@Html.DisplayFor(modelItem => item.Content)">@Html.DisplayFor(modelItem => item.Content)</a>
+                </div>
+            </div>
+        }
+    }
+    else
     {
         <div class="row">
             <div class="col-md-12">
-                <h4>Link tham khảo bài tập: </h4><a href="@Html.DisplayFor(modelItem => item.Content)">@Html.DisplayFor(modelItem => item.Content)</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Link tham khảo bài tập: </h4><a href="@Html.DisplayFor(modelItem => item.Content)">@Html.DisplayFor(modelItem => item.Content)</a>
+                <h4>Khóa học hiện chưa có bài tập tham khảo. Hãy thêm bài tập tham khảo cho khóa học.</h4>
             </div>
         </div>
     }

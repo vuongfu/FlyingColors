@@ -25,7 +25,7 @@ namespace TutorOnline.Business.Repository
             }
             else
             {
-                var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true && x.Country != "Việt nam");
+                var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true && x.Country != "Vietnam");
                 return tutors;
             }
             

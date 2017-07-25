@@ -18,6 +18,7 @@ namespace TutorOnline.DataAccess
         public int SubjectId { get; set; }
         public int StudentId { get; set; }
         public int Status { get; set; }
+        public int StudiedLesson { get; set; }
     
         public virtual Status Status1 { get; set; }
         public virtual Student Student { get; set; }

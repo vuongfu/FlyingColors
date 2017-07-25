@@ -24,6 +24,7 @@ namespace TutorOnline.DataAccess
         public string CriteriaName { get; set; }
         public int LessonId { get; set; }
         public int RoleId { get; set; }
+        public bool isActived { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual Role Role { get; set; }

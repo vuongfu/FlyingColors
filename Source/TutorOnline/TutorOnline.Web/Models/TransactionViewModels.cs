@@ -33,8 +33,10 @@ namespace TutorOnline.Web.Models
     {
         [Display(Name = "Mã giao dịch:")]
         public int TransactionId { get; set; }
+        [Required(ErrorMessage = "Xin hãy điền nội dung giao dịch")]
         [Display(Name = "Nội dung:")]
         public string Content { get; set; }
+        [Required(ErrorMessage = "Xin hãy điền số tiền giao dịch")]
         [Display(Name = "Số tiền:")]
         public decimal Amount { get; set; }
         [Display(Name = "ngày giờ giao dịch:")]

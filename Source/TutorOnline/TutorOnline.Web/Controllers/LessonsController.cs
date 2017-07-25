@@ -9,6 +9,7 @@ using TutorOnline.Common;
 using PagedList;
 using TutorOnline.Web.Models;
 using System.Net;
+using System.IO;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -21,61 +22,7 @@ namespace TutorOnline.Web.Controllers
         private QuestionRepository QRes = new QuestionRepository();
         private AnswersRepository ARes = new AnswersRepository();
         private SubjectsRepository SRes = new SubjectsRepository();
-        
-        //public ActionResult Index(string btnSearch, string searchString, string subString, int? page)
-        //{
-        //    int pageSize = 3;
-        //    int pageNumber = (page ?? 1);
-
-        //    ViewBag.searchString = searchString;
-        //    ViewBag.subStr = subString;
-        //    ViewBag.subString = new SelectList(SRes.GetAllSubject(), "SubjectName", "SubjectName");
-        //    ViewBag.btnSearch = btnSearch;
-
-        //    var lessons = LRes.GetAllLessons();
-        //    List<LessonViewModels> result = new List<LessonViewModels>();
-
-        //    //Mapping Entity to ViewModel
-        //    if (lessons.Count() > 0)
-        //    {
-        //        foreach (var item in lessons)
-        //        {
-        //            LessonViewModels model = new LessonViewModels();
-        //            model.LessonId = item.LessonId;
-        //            model.LessonName = item.LessonName;
-        //            model.SubjectId = item.SubjectId;
-        //            model.SubjectName = item.Subject.SubjectName;
-        //            if (item.Content != null && item.Content.ToString().Length >= 30)
-        //                model.Content = item.Content.ToString().Substring(0, 30) + "...";
-        //            else
-        //                model.Content = item.Content;
-                    
-        //            result.Add(model);
-        //        }
-        //    }
-
-        //    if ((searchString == null || subString == null) && page == null)
-        //    {
-        //        result = result.Where(x => x.LessonId == 0).ToList();
-        //        ViewBag.totalRecord = result.Count();
-        //        return View(result.ToList().ToPagedList(pageNumber, pageSize));
-        //    }
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        result = result.Where(x => LRes.SearchForString(x.LessonName, searchString) ||
-        //                                   LRes.SearchForString(x.Content, searchString)).ToList();
-        //    }
-
-        //    if (!String.IsNullOrEmpty(subString))
-        //    {
-        //        result = result.Where(x => x.SubjectName == subString).ToList();
-        //    }
-
-        //    ViewBag.totalRecord = result.Count();
-        //    return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
-
-        //}
+        private CriteriaRepository CRes = new CriteriaRepository();
         
         public ActionResult Create(int? id)
         {
@@ -93,6 +40,8 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LessonViewModels model)
         {
+            int subId = Convert.ToInt32(TempData["subId"]);
+            
             if (ModelState.IsValid)
             {
                 Lesson lesson = new Lesson();
@@ -103,11 +52,15 @@ namespace TutorOnline.Web.Controllers
                     ViewBag.subId = model.SubjectId;
                     return View(model);
                 }
+                //get Max Order
+                int maxOrder = LRes.GetLesInSub(subId).OrderByDescending(x => x.Order).First().Order;
                 //Mapping Entity to ViewModel
                 lesson.LessonId = model.LessonId;
                 lesson.LessonName = model.LessonName;
                 lesson.Content = model.Content;
                 lesson.SubjectId = model.SubjectId;
+                lesson.Order = maxOrder + 1;
+
 
                 LRes.AddLesson(lesson);
                 TempData["message"] = new ManagerStringCommon().addLessonSuccess.ToString();
@@ -140,6 +93,7 @@ namespace TutorOnline.Web.Controllers
             model.Content = lesson.Content;
             model.SubjectId = lesson.SubjectId;
             model.SubjectName = lesson.Subject.SubjectName;
+            model.Order = lesson.Order;
 
             return View(model);
         }
@@ -165,6 +119,7 @@ namespace TutorOnline.Web.Controllers
                 model.SubjectId = lesson.SubjectId;
                 model.SubjectName = lesson.Subject.SubjectName;
                 model.Content = lesson.Content;
+                model.Order = lesson.Order;
             }
             ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName", model.SubjectId);
             return View(model);
@@ -174,12 +129,12 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(LessonViewModels model)
         {
-            if (LRes.isExistsLessonName(model.LessonName, model.SubjectId))
-            {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
-                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-                return View(model);
-            }
+            //if (LRes.isExistsLessonName(model.LessonName, model.SubjectId))
+            //{
+            //    TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
+            //    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+            //    return View(model);
+            //}
 
             Lesson lesson = new Lesson();
 
@@ -188,6 +143,7 @@ namespace TutorOnline.Web.Controllers
             lesson.LessonName = model.LessonName;
             lesson.SubjectId = model.SubjectId;
             lesson.Content = model.Content;
+            lesson.Order = model.Order;
 
             if (ModelState.IsValid)
             {
@@ -220,30 +176,173 @@ namespace TutorOnline.Web.Controllers
                 model.SubjectId = lesson.SubjectId;
                 model.SubjectName = lesson.Subject.SubjectName;
                 model.Content = lesson.Content;
+                model.Order = lesson.Order;
+
+                ViewBag.subId = lesson.SubjectId;
             }
             return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int? subId)
         {
             if (LRes.isExistedMaterialIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
             if (LRes.isExistedQuestionIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
 
             LRes.DeleteLesson(id);
             TempData["message"] = new ManagerStringCommon().deleteLessonSuccess.ToString();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Subjects", new { id = subId});
         }
 
+        public ActionResult MaterialInLesson (int? lesId, int? subId)
+        {
+            ViewBag.LessonId = lesId;
+            ViewBag.SubjectId = subId;
+
+            var material = LMRes.GetAllMaterial();
+            List<MaterialViewModels> result = new List<MaterialViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (material.Count() > 0)
+            {
+                foreach (var item in material)
+                {
+                    if (item.isActived == true)
+                    {
+                        MaterialViewModels model = new MaterialViewModels();
+                        model.MaterialId = item.MaterialId;
+                        model.MaterialUrl = item.MaterialUrl;
+                        model.MaterialTypeId = item.MaterialTypeId;
+                        model.MaterialTypeName = item.MaterialType.MaterialTypeName;
+                        model.LessonId = item.LessonId;
+                        model.SubjectId = item.SubjectId;
+                        if (item.Description != null && item.Description.ToString().Length >= 80)
+                            model.Description = item.Description.ToString().Substring(0, 80) + "...";
+                        else
+                            model.Description = item.Description;
+
+                        result.Add(model);
+                    }
+                }
+            }
+
+            if (lesId == null)
+            {
+                result = result.Where(x => x.MaterialId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                return View(result.ToList());
+            }
+
+            if (lesId != null)
+            {
+                result = result.Where(x => x.LessonId == lesId).ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+
+            return View(result.OrderBy(x => x.MaterialId).ToList());
+        }
+        public FileResult DownloadFile(string file)
+        {
+
+            var FileVirtualPath = "~/Content/Uploads/Documents/" + file;
+            return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
+        }
+        public ActionResult QuestionInLesson (int? lesId, int? subId)
+        {
+            var question = QRes.GetAllLesQuestion(lesId);
+            List<QuestionTestViewModels> result = new List<QuestionTestViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (question.Count() > 0)
+            {
+                foreach (var item in question)
+                {
+                    if (item.isActived == true)
+                    {
+                        QuestionTestViewModels model = new QuestionTestViewModels();
+                        model.QuestionId = item.QuestionId;
+                        model.LessonId = item.LessonId;
+                        model.SubjectId = item.SubjectId;
+                        model.Photo = item.Photo;
+                        if (item.Content != null && item.Content.ToString().Length >= 50)
+                            model.Content = item.Content.ToString().Substring(0, 50) + "...";
+                        else
+                            model.Content = item.Content;
+                        model.ListAnswer = item.Answers.Where(x => x.QuestionId == item.QuestionId).ToList();
+                        result.Add(model);
+                    }
+                }
+            }
+
+            if (lesId == null)
+            {
+                result = result.Where(x => x.QuestionId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                ViewBag.lesId = lesId;
+                ViewBag.subId = subId;
+                return View(result.ToList());
+            }
+
+            if (lesId != null)
+            {
+                result = result.ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+            ViewBag.lesId = lesId;
+            ViewBag.subId = subId;
+            return View(result.Where(x => x.LessonId == lesId).OrderBy(x => x.QuestionId).ToList());
+        }
+        public ActionResult FeedbackInLesson (int? id)
+        {
+            var criteria = CRes.GetAllCriteriaInLes(id);
+            List<CriteriaViewModel> result = new List<CriteriaViewModel>();
+
+            //Mapping Entity to ViewModel
+            if (criteria.Count() > 0)
+            {
+                foreach (var item in criteria)
+                {
+                    if (item.isActived == true)
+                    {
+                        CriteriaViewModel model = new CriteriaViewModel();
+                        model.CriteriaId = item.CriteriaId;
+                        model.LessonId = item.LessonId;
+                        model.LessonName = item.Lesson.LessonName;
+                        if (item.CriteriaName != null && item.CriteriaName.ToString().Length >= 50)
+                            model.CriteriaName = item.CriteriaName.ToString().Substring(0, 50) + "...";
+                        else
+                            model.CriteriaName = item.CriteriaName;
+
+                        result.Add(model);
+                    }
+                }
+            }
+
+            if (id == null)
+            {
+                result = result.Where(x => x.CriteriaId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                ViewBag.lesId = id;
+                return View(result.ToList());
+            }
+
+            if (id != null)
+            {
+                result = result.ToList();
+                ViewBag.totalRecord = result.Count();
+            }
+            ViewBag.lesId = id;
+            return View(result.Where(x => x.LessonId == id).OrderBy(x => x.CriteriaId).ToList());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

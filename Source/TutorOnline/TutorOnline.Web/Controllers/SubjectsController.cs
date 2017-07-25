@@ -9,6 +9,7 @@ using TutorOnline.Common;
 using PagedList;
 using TutorOnline.Web.Models;
 using System.Net;
+using System.IO;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -104,7 +105,7 @@ namespace TutorOnline.Web.Controllers
                 if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
@@ -119,7 +120,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().addSubjectsSuccess.ToString();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
             return View(model);
         }
 
@@ -186,12 +187,12 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Edit(SubjectsViewModels model, HttpPostedFileBase file)
         {
             string photoUrl = FileUpload.UploadFile(file,  FileUpload.TypeUpload.image);
-            if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
-            {
-                TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-                ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
-                return View(model);
-            }
+            //if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
+            //{
+            //    TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
+            //    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+            //    return View(model);
+            //}
             Subject subject = new Subject();
 
             //Mapping Entity to ViewModel
@@ -246,12 +247,12 @@ namespace TutorOnline.Web.Controllers
             if (SRes.isExistedStudentIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistStudentIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
             if (SRes.isExistedLessonIn(id))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistLessonIn.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
             SRes.DeleteSubject(id);
             TempData["message"] = new ManagerStringCommon().deleteSubjectsSuccess.ToString();
@@ -270,77 +271,90 @@ namespace TutorOnline.Web.Controllers
             {
                 foreach (var item in lessons)
                 {
-                    LessonViewModels model = new LessonViewModels();
-                    model.LessonId = item.LessonId;
-                    model.LessonName = item.LessonName;
-                    model.SubjectId = item.SubjectId;
-                    model.SubjectName = item.Subject.SubjectName;
-                    if (item.Content != null && item.Content.ToString().Length >= 80)
-                        model.Content = item.Content.ToString().Substring(0, 80) + "...";
-                    else
-                        model.Content = item.Content;
+                    if (item.isActived == true)
+                    {
+                        LessonViewModels model = new LessonViewModels();
+                        model.LessonId = item.LessonId;
+                        model.LessonName = item.LessonName;
+                        model.SubjectId = item.SubjectId;
+                        model.SubjectName = item.Subject.SubjectName;
+                        if (item.Content != null && item.Content.ToString().Length >= 80)
+                            model.Content = item.Content.ToString().Substring(0, 80) + "...";
+                        else
+                            model.Content = item.Content;
 
-                    result.Add(model);
+                        result.Add(model);
+                    }
                 }
             }
 
             if (id == null)
             {
                 result = result.Where(x => x.LessonId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
                 return View(result.ToList());
             }
 
             if (id != null)
             {
                 result = result.Where(x => x.SubjectId == id).ToList();
+                ViewBag.totalRecord = result.Count();
             }
 
             return View(result.OrderBy(x => x.LessonName).ToList());
         }
 
-        public ActionResult MaterialInSubject(int? id, int? page)
+        public ActionResult MaterialInSubject(int? id)
         {
-            //int pageSize = 3;
-            //int pageNumber = (page ?? 1);
+            ViewBag.subjectId = id;
 
-            //ViewBag.subjectId = id;
+            var material = LMRes.GetAllMaterial();
+            List<MaterialViewModels> result = new List<MaterialViewModels>();
 
-            //var material = LMRes.GetAllMaterial();
-            //List<MaterialViewModels> result = new List<MaterialViewModels>();
+            //Mapping Entity to ViewModel
+            if (material.Count() > 0)
+            {
+                foreach (var item in material)
+                {
+                    if (item.isActived == true)
+                    {
+                        MaterialViewModels model = new MaterialViewModels();
+                        model.MaterialId = item.MaterialId;
+                        model.MaterialUrl = item.MaterialUrl;
+                        model.MaterialTypeId = item.MaterialTypeId;
+                        model.MaterialTypeName = item.MaterialType.MaterialTypeName;
+                        model.LessonId = item.LessonId;
+                        model.SubjectId = item.SubjectId;
+                        if (item.Description != null && item.Description.ToString().Length >= 80)
+                            model.Description = item.Description.ToString().Substring(0, 80) + "...";
+                        else
+                            model.Description = item.Description;
 
-            ////Mapping Entity to ViewModel
-            //if (material.Count() > 0)
-            //{
-            //    foreach (var item in material)
-            //    {
-            //        MaterialViewModels model = new MaterialViewModels();
-            //        model.LessonId = item.LessonId;
-            //        model.LessonName = item.LessonName;
-            //        model.SubjectId = item.SubjectId;
-            //        model.SubjectName = item.Subject.SubjectName;
-            //        if (item.Content != null && item.Content.ToString().Length >= 30)
-            //            model.Content = item.Content.ToString().Substring(0, 30) + "...";
-            //        else
-            //            model.Content = item.Content;
+                        result.Add(model);
+                    }
+                }
+            }
 
-            //        result.Add(model);
-            //    }
-            //}
+            if (id == null)
+            {
+                result = result.Where(x => x.MaterialId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                return View(result.ToList());
+            }
 
-            //if (id == null && page == null)
-            //{
-            //    result = result.Where(x => x.LessonId == 0).ToList();
-            //    return View(result.ToList().ToPagedList(pageNumber, pageSize));
-            //}
+            if (id != null)
+            {
+                result = result.Where(x => x.SubjectId == id).ToList();
+                ViewBag.totalRecord = result.Count();
+            }
 
-            //if (id != null)
-            //{
-            //    result = result.Where(x => x.SubjectId == id).ToList();
-            //}
+            return View(result.OrderBy(x => x.MaterialId).ToList());
+        }
+        public FileResult DownloadFile(string file)
+        {
 
-            //return View(result.OrderBy(x => x.LessonName).ToList().ToPagedList(pageNumber, pageSize));
-
-            return View();
+            var FileVirtualPath = "~/Content/Uploads/Documents/" + file;
+            return File(FileVirtualPath, "application/pdf", Path.GetFileName(FileVirtualPath));
         }
 
         public ActionResult QuestionInSubject(int? id)
@@ -355,14 +369,10 @@ namespace TutorOnline.Web.Controllers
                 {
                     QuestionViewModels model = new QuestionViewModels();
                     model.QuestionId = item.QuestionId;
-                    model.LessonId = item.Lesson.LessonId;
-                    model.SubjectId = item.Subject.SubjectId;
+                    model.LessonId = item.LessonId;
+                    model.SubjectId = item.SubjectId;
                     model.Photo = item.Photo;
-                    if (item.Content != null && item.Content.ToString().Length >= 30)
-                        model.Content = item.Content.ToString().Substring(0, 30) + "...";
-                    else
-                        model.Content = item.Content;
-
+                    model.Content = item.Content;
                     result.Add(model);
                 }
             }
@@ -370,15 +380,17 @@ namespace TutorOnline.Web.Controllers
             if (id == null)
             {
                 result = result.Where(x => x.QuestionId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
                 return View(result.ToList());
             }
 
             if (id != null)
             {
                 result = result.ToList();
+                ViewBag.totalRecord = result.Count();
             }
 
-            return View(result.OrderBy(x => x.QuestionId).ToList());
+            return View(result.OrderBy(x => x.QuestionId).ToList()); //.Where(x => x.SubjectId == id).
         }
 
         protected override void Dispose(bool disposing)

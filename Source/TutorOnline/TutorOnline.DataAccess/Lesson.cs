@@ -30,6 +30,7 @@ namespace TutorOnline.DataAccess
         public int SubjectId { get; set; }
         public string Content { get; set; }
         public bool isActived { get; set; }
+        public int Order { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Criterion> Criteria { get; set; }

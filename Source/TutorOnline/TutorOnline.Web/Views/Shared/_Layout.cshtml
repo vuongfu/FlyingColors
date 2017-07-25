@@ -69,9 +69,9 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="@Url.Action("Logout", "Account")">
-                                    Xin chào @HttpContext.Current.User.Identity.Name ! Đăng Xuất <span class="glyphicon glyphicon-log-in"> </span>
-                                </a>
+                                <div class="row" style="color:aliceblue; margin-top: 15px;">
+                                    <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng Xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -88,12 +88,18 @@
         </div>
     </div>
     @if (TempData["message"] != null)
-            {
-        <div class="alert alert-success">@TempData["message"]</div>
+    {
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @TempData["message"]
+        </div>
     }
     @if (TempData["messageWarning"] != null)
-            {
-        <div class="alert alert-warning">@TempData["messageWarning"]</div>
+    {
+        <div class="alert alert-warning alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @TempData["messageWarning"]
+        </div>
     }
     @RenderBody()
     <footer id="myFooter">

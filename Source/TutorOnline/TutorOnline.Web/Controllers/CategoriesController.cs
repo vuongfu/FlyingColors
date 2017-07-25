@@ -145,11 +145,11 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                if (CRes.isExistsCategoryName(model.CategoryName))
-                {
-                    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
-                    return View(model);
-                }
+                //if (CRes.isExistsCategoryName(model.CategoryName))
+                //{
+                //    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
+                //    return View(model);
+                //}
                 CRes.EditCategory(category);
                 TempData["message"] = new ManagerStringCommon().updateCategoriesSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.CategoryId });
@@ -190,7 +190,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().deleteCategoriesSuccess.ToString();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { id = id });
         }
 
         protected override void Dispose(bool disposing)

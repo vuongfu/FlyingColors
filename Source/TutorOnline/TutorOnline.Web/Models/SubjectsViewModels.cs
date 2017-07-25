@@ -10,9 +10,9 @@ namespace TutorOnline.Web.Models
     {
         public int SubjectId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Hãy nhập tên khóa học.")]
         public string SubjectName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Hãy chọn môn học cho khóa học.")]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }

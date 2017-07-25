@@ -44,7 +44,7 @@ namespace TutorOnline.Business.Repository
         }
         public bool isExistedLessonIn(int id)
         {
-            var lesson = _dbContext.Lessons.FirstOrDefault(x => x.SubjectId == id);
+            var lesson = _dbContext.Lessons.FirstOrDefault(x => x.SubjectId == id && x.isActived == true);
             if (lesson == null)
                 return false;
             else
@@ -60,13 +60,13 @@ namespace TutorOnline.Business.Repository
         }
         public void DeleteSubject(int id)
         {
-            _dbContext.Subjects.Where(x => x.SubjectId == id).ToList().ForEach(x => x.isActived = false);
+            _dbContext.Subjects.Where(x => x.SubjectId == id && x.isActived == true).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 
         public bool isExistsSubjectName(string name, int id)
         {
-            var subject = _dbContext.Subjects.Where(x => x.CategoryId == id).FirstOrDefault(x => x.SubjectName == name);
+            var subject = _dbContext.Subjects.Where(x => x.CategoryId == id && x.isActived == true).FirstOrDefault(x => x.SubjectName == name);
             if (subject == null)
                 return false;
             else

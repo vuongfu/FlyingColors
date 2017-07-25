@@ -31,13 +31,33 @@ namespace TutorOnline.Common
         public string isExistMaterialIn = "Có tồn tại tài liệu học tập của bài học này. Hãy xóa tài liệu học tập trước!";
         public string isExistQuestionIn = "Có tồn tại bài tập của bài học này. Hãy xóa bài tập trước!";
 
-        public string addMaterialSuccess = "Đã thêm tài liệu cho môn học thành công.";
-        public string deleteMaterialSuccess = "Đã xóa tài liệu của môn học thành công.";
-        public string isExistMaterialName = "Tên tài liệu này đã tồn tại. Hãy nhập tên khác!";
+        public string addMaterialInSubSuccess = "Đã thêm tài liệu cho khóa học thành công.";
+        public string addMaterialInLesSuccess = "Đã thêm tài liệu cho bài học thành công.";
+        public string deleteMaterialSuccessInSub = "Đã xóa tài liệu của khóa học thành công.";
+        public string deleteMaterialSuccessInLes = "Đã xóa tài liệu của bài học thành công.";
+        public string isExistMaterialNameLes = "Tên tài liệu này đã tồn tại trong bài học này. Hãy nhập tên khác!";
+        public string isExistMaterialNameSub = "Tên tài liệu này đã tồn tại trong khóa học này. Hãy nhập tên khác!";
         public string updateMaterialSuccess = "Đã thay đổi thông tin của tài liệu thành công.";
         public string isExistAnswerIn = "Có tồn tại câu trả lời của câu hỏi này. Hãy xóa câu trả lời trước!";
+        public string requireUploadFile = "Hãy tải tệp tài liệu học tập lên!";
 
-        public string vn = "việt nam";
+        public string isExistQuestionName = "Nội dung câu hỏi đã tồn tại trong bài học này. Hãy nhập nội dung khác!";
+        public string addQuestionSuccess = "Đã thêm câu hỏi trắc nghiệm vào bài học thành công.";
+        public string updateQuestionSuccess = "Đã thay đổi thông tin câu hỏi của bài học thành công.";
+        public string deleteQuestionSuccess = "Đã xóa câu hỏi của bài học thành công.";
+
+        public string isExistAnswerContent = "Nội dung câu trả lời đã tồn tại trong câu hỏi này. Hãy nhập nội dung khác!";
+        public string addAnswerSuccess = "Đã thêm câu trả lời cho câu trắc nghiệm thành công.";
+        public string updateAnswerSuccess = "Đã thay đổi thông tin câu trả lời thành công.";
+        public string deleteAnswerSuccess = "Đã xóa câu trả lời thành công.";
+
+        public string isExistCriteriaName = "Nội dung tiêu chí này đã tồn tại trong bài học này. Hãy nhập nội dung khác!";
+        public string isUsedCriteriaInTuFeDe = "Tiêu chí này đã được sử dụng để đánh giá học viên trong bài học. Không được phép xóa.";
+        public string addCriteriaSuccess = "Đã thêm tiêu chí đánh giá học viên cho bài học thành công.";
+        public string updateCriteriaSuccess = "Đã thay đổi nội dung tiêu chí đánh giá thành công.";
+        public string deleteCriteriaSuccess = "Đã xóa tiêu chí đánh giá học viên của bài học thành công.";
+
+        public string vn = "Vietnam";
         public string foreign = "foreign";
     }
 }

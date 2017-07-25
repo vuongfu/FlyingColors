@@ -9,19 +9,15 @@ namespace TutorOnline.Web.Models
     public class MaterialViewModels
     {
         public int MaterialId { get; set; }
-
-        [Required]
         public string MaterialUrl { get; set; }
         public int MaterialTypeId { get; set; }
         public string MaterialTypeName { get; set; }
         public string Description { get; set; }
 
-        [Required]
-        public int? LessonId { get; set; }
-        public string LessonName { get; set; }
+        [Required(ErrorMessage = "Hãy chọn bài học cho tài liệu.")]
+        public Nullable<int> LessonId { get; set; }
 
-        [Required]
-        public int? SubjectId { get; set; }
-        public string SubjectName { get; set; }
+        [Required(ErrorMessage = "Hãy chọn khóa học cho tài liệu.")]
+        public Nullable<int> SubjectId { get; set; }
     }
 }

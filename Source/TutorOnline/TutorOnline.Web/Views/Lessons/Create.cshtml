@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Thêm bài học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
-    ViewBag.subId = ViewBag.subId;
+    //ViewBag.subId = ViewBag.subId;
 }
+@{TempData["subId"] = ViewBag.subId;}
 
 @using (Html.BeginForm("Create", "Lessons", FormMethod.Post))
 {
@@ -16,18 +17,19 @@
         <hr />
 
         <div class="form-group">
-            <p class="control-label col-md-2">Tên bài học: </p>
+            <p class="control-label col-md-2">Thuộc khóa học: </p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })
-                @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
+                @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px;", @disabled = "disabled" })
+                @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px; display: none;"})
+                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <p class="control-label col-md-2">Thuộc khóa học: </p>
+            <p class="control-label col-md-2">Tên bài học: </p>
             <div class="col-md-10">
-                @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", style = "width:200px;", @disabled = "disabled" })
-                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })
+                @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
             </div>
         </div>
 
