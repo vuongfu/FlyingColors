@@ -31,5 +31,6 @@ namespace TutorOnline.Web.Models
         public string Requirement { get; set; }
         public string Photo { get; set; }
         public List<Lesson> ListLesson { get; set; }
+        public int StudiedLesson { get; set; }
     }
 }

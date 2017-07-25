@@ -15,7 +15,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Nội dung:")]
         public string Content { get; set; }
         [Display(Name = "Số tiền:")]
-        public decimal Amount { get; set; }
+        public int Amount { get; set; }
         [Display(Name = "ngày giờ giao dịch:")]
         public System.DateTime TranDate { get; set; }
         [Display(Name = "Số tài khoản:")]
@@ -38,7 +38,7 @@ namespace TutorOnline.Web.Models
         public string Content { get; set; }
         [Required(ErrorMessage = "Xin hãy điền số tiền giao dịch")]
         [Display(Name = "Số tiền:")]
-        public decimal Amount { get; set; }
+        public int Amount { get; set; }
         [Display(Name = "ngày giờ giao dịch:")]
         public System.DateTime TranDate { get; set; }
         [Display(Name = "Số tài khoản:")]
@@ -52,7 +52,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Loại tài khoản:")]
         public String UserTypeName { get; set; }
         public TransUserViewModel User { get; set; }
-        public Nullable<decimal> Balance { get; set; }
+        public int Balance { get; set; }
     }
 
 }

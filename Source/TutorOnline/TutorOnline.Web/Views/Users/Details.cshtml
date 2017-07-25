@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
-
+<h2>Thông tin người dùng</h2>
 
 <div>
-    <h4>Thông tin người dùng</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -205,30 +205,36 @@
         @if (ViewBag.InfoClick == true)
         {
             <dt>
-                @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
+                <br />
             </dt>
-            <dd>
-
-            </dd>
-
-        }
-        else
-        {
             <dd>
 
             </dd>
             <dt>
 
             </dt>
-            if (ViewBag.RName == "Parent" || ViewBag.RName == "Student" || ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
-            {
-                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }) @(" | ")
-            }
-            if (User.Identity.Name != Model.Username)
-            {
-                @Html.ActionLink("Xóa", "Delete", new { id = Model.Id }) @(" | ")
-            }
-            @Html.ActionLink("Quay về", "Index")
+            <dd>
+                @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
+            </dd>
+
+        }
+        else
+        {
+            <dt>
+                <br />
+            </dt>
+            <dd></dd>
+            <dt>
+                @if (User.Identity.Name != Model.Username)
+                {
+                    @Html.ActionLink("Xóa", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) @("  ")
+                }
+            </dt>
+            <dd>
+                @Html.ActionLink("Quay về", "Index", null, new { @class = "btn btn-default" })
+            </dd>
+
+
 
         }
     </dl>

@@ -4,17 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-<div style="background: #289399;">
+<div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <p>
-                @if (ViewBag.RegisterLoginSocial == true)
-                {
-                    <h2>Chào mừng bạn đến với TutorOnline. Đây là lần đầu tiên bạn ghé thăm trang web của chúng tôi</h2>
-                    <h4>Xin hãy hoàn thành việc đăng ký bằng cách điền vào bảng thông tin sau: </h4>
-                }
+
+                <h2>Chào mừng bạn đến với TutorOnline. Đây là lần đầu tiên bạn ghé thăm trang web của chúng tôi</h2>
+                <h4>Xin hãy hoàn thành việc đăng ký bằng cách điền vào bảng thông tin sau: </h4>
+
             </p>
             <h2>Đăng ký <small>Miễn phí và luôn luôn như vậy</small></h2>
             <hr class="colorgraph">
@@ -215,6 +212,8 @@
                         <div class="col-md-6"><input type="submit" value="Create My Account" class="btn btn-primary btn-block btn-lg"></div>
                         <div class="col-md-6"><a href="~/Account/Login" class="btn btn-success btn-block btn-lg">Sign Me In</a></div>
                     </div>
+                    <hr />
+                    <hr />
                 }
             }
             else
@@ -230,7 +229,10 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" value="Continue" class="btn btn-default"/>
+                    <input type="submit" value="Continue" class="btn" />
+                    <hr />
+                    <hr />
+
                 }
             }
 
@@ -285,6 +287,6 @@
 }
 <script>
     $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
+        format: 'mm/dd/yyyy',
     });
 </script>
