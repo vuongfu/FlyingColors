@@ -29,8 +29,9 @@ namespace TutorOnline.Web.Controllers
         // GET: Accountant
         public ActionResult Index(string searchString, string roleString, String StartDate, String EndDate, int? page, String Export)
         {
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
+            ViewBag.Count = pageSize * (pageNumber - 1) + 1;
 
             ViewBag.SearchStr = searchString;
             ViewBag.RoleStr = roleString;
@@ -59,7 +60,7 @@ namespace TutorOnline.Web.Controllers
                 TransactionListViewModels temp = new TransactionListViewModels();
                 temp.TransactionId = record.TransactionId;
                 temp.Content = record.Content;
-                temp.Amount = record.Amount;
+                temp.Amount = (int)record.Amount;
                 temp.TranDate = record.TranDate;
                 temp.UserID = record.UserID;
                 temp.UserType = record.UserType;
@@ -208,8 +209,9 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult Search(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
+            ViewBag.Count = pageSize * (pageNumber - 1) + 1;
 
             ViewBag.SearchStr = searchString;
             ViewBag.RoleStr = roleString;
@@ -245,7 +247,7 @@ namespace TutorOnline.Web.Controllers
                 temp.Username = record.UserName;
                 temp.Gender = record.Gender;
                 temp.PhoneNumber = record.PhoneNumber;
-                temp.Balance = record.Balance;
+                temp.Balance = (int)record.Balance;
 
                 ListUsers.Add(temp);
             }
@@ -262,7 +264,7 @@ namespace TutorOnline.Web.Controllers
                 temp.Username = record.UserName;
                 temp.Gender = record.Gender;
                 temp.PhoneNumber = record.PhoneNumber;
-                temp.Balance = record.Balance;
+                temp.Balance = (int)record.Balance;
 
                 ListUsers.Add(temp);
             }
@@ -318,7 +320,7 @@ namespace TutorOnline.Web.Controllers
                     temp.Username = record.UserName;
                     temp.Gender = record.Gender;
                     temp.PhoneNumber = record.PhoneNumber;
-                    temp.Balance = record.Balance;
+                    temp.Balance = (int)record.Balance;
                     ListUsers.Add(temp);
                 }
             } else
@@ -336,7 +338,7 @@ namespace TutorOnline.Web.Controllers
                     temp.Username = record.UserName;
                     temp.Gender = record.Gender;
                     temp.PhoneNumber = record.PhoneNumber;
-                    temp.Balance = record.Balance;
+                    temp.Balance = (int)record.Balance;
                     ListUsers.Add(temp);
                 }
             }
@@ -353,7 +355,7 @@ namespace TutorOnline.Web.Controllers
             trans.UserID = id;
             trans.UserName = user.Username;
             trans.Name = user.LastName + user.FirstName;
-            trans.Balance = user.Balance;
+            trans.Balance = (int)user.Balance;
             trans.UserTypeName = user.RoleName;
             if(user.RoleName == "Student") { trans.UserType = 1; }
             else { trans.UserType = 2; }
@@ -502,7 +504,7 @@ namespace TutorOnline.Web.Controllers
                     {
                         trans.UserName = ds.Tables[0].Rows[i][0].ToString();
                         trans.UserTypeName = ds.Tables[0].Rows[i][1].ToString();
-                        trans.Amount = decimal.Parse(ds.Tables[0].Rows[i][2].ToString());
+                        trans.Amount = int.Parse(ds.Tables[0].Rows[i][2].ToString());
                         trans.Content = ds.Tables[0].Rows[i][3].ToString();
                         if (trans.UserTypeName == "Student") { trans.UserType = 1; }
                         else { trans.UserType = 2; }

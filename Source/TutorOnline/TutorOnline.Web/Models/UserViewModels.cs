@@ -756,7 +756,6 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Số dư:")]
-        [DisplayFormat(DataFormatString = "{0:0,0.00}")]
-        public Nullable<decimal> Balance { get; set; }
+        public int Balance { get; set; }
     }
 }
