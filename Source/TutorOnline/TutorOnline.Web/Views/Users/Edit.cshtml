@@ -52,7 +52,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                
+                <input class="form-control text-box single-line" data-val="true" data-val-date="Ngày sinh phải là kiểu ngày" id="BirthDate" name="BirthDate" type="date" value=@(Model.BirthDate.Value.ToString("yyyy-MM-dd"))>
                 @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -126,7 +127,7 @@
 @if (ViewBag.InfoClick = true)
 {
     <div>
-        @Html.ActionLink("Hủy bỏ", "Details", new { id = Model.Id, info = true })
+        @Html.ActionLink("Hủy bỏ", "Details", new { id = Model.Id, info = true }, new { @class = "btn btn-default" })
     </div>
 }
 else

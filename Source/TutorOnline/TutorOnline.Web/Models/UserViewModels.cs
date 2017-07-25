@@ -225,6 +225,7 @@ namespace TutorOnline.Web.Models
 
         [Display(Name = "Ngày sinh:")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public Nullable<System.DateTime> BirthDate { get; set; }
 
         [Display(Name = "Giới tính:")]
@@ -579,6 +580,7 @@ namespace TutorOnline.Web.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [EmailAddress]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 

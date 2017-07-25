@@ -5,13 +5,29 @@
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
-<h2>Xóa</h2>
+<h2>Xóa người dùng</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Tên đăng nhập
+            Ảnh:
+        </dt>
+        @if (String.IsNullOrEmpty(Model.Photo))
+        {
+            <dd>
+                @("N/A")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;" />
+            </dd>
+        }
+
+        <dt>
+            Tên đăng nhập:
         </dt>
 
         <dd>
@@ -19,7 +35,15 @@
         </dd>
 
         <dt>
-            Họ
+            Chức vụ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.RoleName)
+        </dd>
+
+        <dt>
+            Họ:
         </dt>
 
         <dd>
@@ -27,7 +51,7 @@
         </dd>
 
         <dt>
-            Tên
+            Tên:
         </dt>
 
         <dd>
@@ -35,15 +59,15 @@
         </dd>
 
         <dt>
-            Ngày sinh
+            Ngày sinh:
         </dt>
 
         <dd>
-            @Model.BirthDate.Value.ToShortDateString()
+            @Html.DisplayFor(model => model.BirthDate)
         </dd>
 
         <dt>
-            Giới tính
+            Giới tính:
         </dt>
 
         <dd>
@@ -58,6 +82,14 @@
         </dd>
 
         <dt>
+            Địa chỉ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
 
@@ -66,19 +98,7 @@
         </dd>
 
         <dt>
-            Skype
-        </dt>
-
-        <dt>
-            Địa chỉ
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            Thành phố
+            Thành phố:
         </dt>
 
         <dd>
@@ -86,7 +106,7 @@
         </dd>
 
         <dt>
-            Quốc gia
+            Quốc gia:
         </dt>
 
         <dd>
@@ -102,27 +122,11 @@
         </dd>
 
         <dt>
-            Ảnh
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-        <dt>
-            Miêu tả
+            Mô tả:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.RoleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Role.RoleName)
         </dd>
 
     </dl>
@@ -130,10 +134,12 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Xóa" class="btn btn-default" /> |
-            @Html.ActionLink("Quay lại", "Index")
+        <div class="container">
+            <div class="form-actions no-color col-md-offset-1">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-default" })
+            </div>
         </div>
+        
     }
 </div>

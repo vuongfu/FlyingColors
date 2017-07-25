@@ -36,8 +36,8 @@ namespace TutorOnline.Web.Controllers
             ViewBag.roleString = new SelectList(URes.GetAllRole(), "RoleName", "RoleName");
             ViewBag.genderString = new SelectList(new List<SelectListItem>
             {
-                new SelectListItem {  Text = "Male", Value = "1"},
-                new SelectListItem {  Text = "Female", Value = "2"},
+                new SelectListItem {  Text = "Nam", Value = "1"},
+                new SelectListItem {  Text = "Nữ", Value = "2"},
             },"Value","Text");
 
             List<IndexUserViewModel> ListUsers = new List<IndexUserViewModel>();
@@ -214,8 +214,8 @@ namespace TutorOnline.Web.Controllers
             ViewBag.RoleId = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName");
             ViewBag.Gender = new SelectList(new List<SelectListItem>
             {
-                new SelectListItem {  Text = "Male", Value = "1"},
-                new SelectListItem {  Text = "Female", Value = "2"},
+                new SelectListItem {  Text = "Nam", Value = "1"},
+                new SelectListItem {  Text = "Nữ", Value = "2"},
             }, "Value", "Text");
             ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key"); 
             return View();
@@ -234,8 +234,8 @@ namespace TutorOnline.Web.Controllers
                 {
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
                     TempData["message"] = "Username is exists";
                     ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
@@ -264,8 +264,8 @@ namespace TutorOnline.Web.Controllers
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
             TempData["messageWarning"] = "Đã có lỗi xảy ra khi thêm người dùng " + userViewModel.Username;
@@ -292,8 +292,8 @@ namespace TutorOnline.Web.Controllers
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", user.RoleId);
             DetailBackEndUserViewModels model = new DetailBackEndUserViewModels(user);
@@ -331,8 +331,8 @@ namespace TutorOnline.Web.Controllers
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole(), "RoleId", "RoleName", model.RoleID);
             TempData["messageWarning"] = "Đã có lỗi xảy ra khi cập nhật thông tin của người dùng " + model.Username;
