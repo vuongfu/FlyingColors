@@ -1,0 +1,173 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "HomePage";
+}
+
+<!-- Container (TrangChu Section) -->
+<div id="TrangChu">
+    <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#bs-carousel" data-slide-to="1"></li>
+            <li data-target="#bs-carousel" data-slide-to="2"></li>
+            <li data-target="#bs-carousel" data-slide-to="3"></li>
+            <li data-target="#bs-carousel" data-slide-to="4"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item slides active">
+                <!-- Overlay -->
+                <div class="overlay"></div>
+                <div class="slide-1"></div>
+                <div class="hero">
+                    <hgroup>
+                        <h1>We are creative</h1>
+                        <h3>Thành công không phải là đích đến mà là cả một hành trình.</h3>
+                    </hgroup>
+                    @Html.ActionLink("Đăng ký ngay", "Register", "Account", new { area = "" }, new { @class = "btn btn-hero btn-lg" })
+                    @*<button class="btn btn-hero btn-lg" role="button">Đăng ký ngay</button>*@
+                </div>
+            </div>
+            <div class="item slides">
+                <!-- Overlay -->
+                <div class="overlay"></div>
+                <div class="slide-2"></div>
+                <div class="hero">
+                    <hgroup>
+                        <h1>We are smart</h1>
+                        <h3>Thành công không phải là đích đến mà là cả một hành trình.</h3>
+                    </hgroup>
+                    @Html.ActionLink("Đăng ký ngay", "Register", "Account", new { area = "" }, new { @class = "btn btn-hero btn-lg" })
+                </div>
+            </div>
+            <div class="item slides">
+                <!-- Overlay -->
+                <div class="overlay"></div>
+                <div class="slide-3"></div>
+                <div class="hero">
+                    <hgroup>
+                        <h1>We are amazing</h1>
+                        <h3>Thành công không phải là đích đến mà là cả một hành trình.</h3>
+                    </hgroup>
+                    @Html.ActionLink("Đăng ký ngay", "Register", "Account", new { area = "" }, new { @class = "btn btn-hero btn-lg" })
+                </div>
+            </div>
+            <div class="item slides">
+                <!-- Overlay -->
+                <div class="overlay"></div>
+                <div class="slide-4"></div>
+                <div class="hero">
+                    <hgroup>
+                        <h1>We are convenient</h1>
+                        <h3>Thành công không phải là đích đến mà là cả một hành trình.</h3>
+                    </hgroup>
+                    @Html.ActionLink("Đăng ký ngay", "Register", "Account", new { area = "" }, new { @class = "btn btn-hero btn-lg" })
+                </div>
+            </div>
+            <div class="item slides">
+                <!-- Overlay -->
+                <div class="overlay"></div>
+                <div class="slide-5"></div>
+                <div class="hero">
+                    <hgroup>
+                        <h1>We are flexible</h1>
+                        <h3>Thành công không phải là đích đến mà là cả một hành trình.</h3>
+                    </hgroup>
+                    @Html.ActionLink("Đăng ký ngay", "Register", "Account", new { area = "" }, new { @class = "btn btn-hero btn-lg" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container (GioiThieu Section) -->
+<div id="GioiThieu" class="container-fluid" style="background-color: #ffffff;">
+    <div class="row">
+        <h3 class="text-center text-muted">Giới thiệu</h3>
+        <br/>
+        
+    </div>
+    <div class="row">
+        <h3 class="text-center text-muted">Phương châm giảng dạy</h3>
+        <br />
+    </div>
+    <div class="row">
+        <h3 class="text-center text-muted">Tại sao nên chọn TutorOnline</h3>
+        <br />
+    </div>
+</div>
+
+<!-- Container (KhoaHoc Section) -->
+<div id="KhoaHoc" class="container">
+    <div class="row">
+        <h3 class="text-center text-muted">Khóa học</h3>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/Image/jp1.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/Image/jp1.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/Image/jp1.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/Image/jp1.png" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Container (GiaSu Section) -->
+<div id="GiaSu" class="container-fluid">
+    <div class="row">
+    </div>
+</div>
+
+<!-- Container (HuongDan Section) -->
+<div id="HuongDan" class="container-fluid">
+    <div class="row">
+    </div>
+</div>
+
+<!-- Container (CongGiaSu Section) -->
+<div id="CongGiaSu">
+    <div class="row">
+        <h3 class="text-center text-muted">Cổng gia sư</h3>
+        <br />
+
+    </div>
+    <div class="row jumbotron center-block" style="background: #efd1d1;">
+    </div>
+</div>

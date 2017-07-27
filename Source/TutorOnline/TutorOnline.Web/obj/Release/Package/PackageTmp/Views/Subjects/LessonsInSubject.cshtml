@@ -1,0 +1,55 @@
+﻿@model List<TutorOnline.Web.Models.LessonViewModels>
+
+@{
+    Layout = null;
+    ViewBag.SubjectId = ViewBag.SubjectId;
+    ViewBag.Count = 0;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách bài học trong khóa học</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Bài Học", "Create", "Lessons", new { id = ViewBag.SubjectId }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên bài học</th>
+                        @*<th>Thuộc khóa học</th>*@
+                        <th>Nội dung</th>
+                    </tr>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.LessonName, "Details", "Lessons", new { id = item.LessonId }, null)</td>
+                            @*<td>@Html.DisplayFor(modelItem => item.SubjectName)</td>*@
+                            <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Khóa học hiện chưa có bài học nào. Hãy thêm bài học cho khóa học.</h4>
+            </div>
+        </div>
+    }
+</body>
+</html>

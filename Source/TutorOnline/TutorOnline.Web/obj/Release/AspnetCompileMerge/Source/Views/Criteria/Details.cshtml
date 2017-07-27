@@ -1,0 +1,30 @@
+﻿@model TutorOnline.Web.Models.CriteriaViewModel
+
+@{
+    ViewBag.Title = "Chi tiết tiêu chí đánh giá";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <h3>Chi tiết tiêu chí đánh giá</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Thuộc bài học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.LessonName)</dd>
+        <dt>Nội dung tiêu chí:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.CriteriaName)</dd>
+    </dl>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.CriteriaId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Xóa", "Delete", new { @id = Model.CriteriaId }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Trở lại", "Details", "Lessons", new { id = Model.LessonId }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

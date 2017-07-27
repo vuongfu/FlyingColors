@@ -48,6 +48,10 @@
     <Reference Include="ASPSnippets.GoogleAPI">
       <HintPath>C:\Users\PC\Downloads\Google_Login\Bin\ASPSnippets.GoogleAPI.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -64,12 +68,20 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -146,20 +158,38 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\CVController.cs" />
+    <Compile Include="Controllers\ccMailClass.cs" />
+    <Compile Include="Controllers\CriteriaController.cs" />
+    <Compile Include="Controllers\DashboardManagerController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FileUpload.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LearningResourcesController.cs" />
+    <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Controllers\LoginSocialController.cs" />
+    <Compile Include="Controllers\MaterialsController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Controllers\TutorController.cs" />
+    <Compile Include="Controllers\TutorManagementController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="CustomProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnswerViewModels.cs" />
     <Compile Include="Models\CategoriesViewModels.cs" />
-    <Compile Include="Models\CVViewModels.cs" />
+    <Compile Include="Models\CriteriaViewModel.cs" />
     <Compile Include="Models\GoogleAPIViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LessonViewModels.cs" />
+    <Compile Include="Models\MaterialViewModels.cs" />
+    <Compile Include="Models\QuestionViewModels.cs" />
+    <Compile Include="Models\StudentSubjectViewModels.cs" />
     <Compile Include="Models\SubjectsViewModels.cs" />
     <Compile Include="Models\TransactionViewModels.cs" />
     <Compile Include="Models\UserViewModels.cs" />
@@ -218,8 +248,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\banner.jpg" />
+    <Content Include="Image\Course.jpg" />
+    <Content Include="Image\ExcelFormat.PNG" />
     <Content Include="Image\fb_icon.png" />
     <Content Include="Image\gg_icon.png" />
+    <Content Include="Image\jp1.png" />
+    <Content Include="Image\slide1.jpg" />
+    <Content Include="Image\slide2.jpg" />
+    <Content Include="Image\slide3.jpg" />
+    <Content Include="Image\slide4.jpg" />
+    <Content Include="Image\slide5.jpg" />
     <Content Include="Image\TutorOnline_Icon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -229,15 +268,29 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\analytics.js" />
+    <Content Include="Scripts\bootstrap-datepicker.css" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.standalone.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="CVFiles\CV1.pdf" />
-    <Content Include="CVFiles\CV2.pdf" />
-    <Content Include="CVFiles\CV3.pdf" />
-    <Content Include="CVFiles\CV4.pdf" />
-    <Content Include="CVFiles\CV5.pdf" />
-    <Content Include="CVFiles\CV6.pdf" />
+    <Content Include="Content\Uploads\Documents\Doc1KH1.pdf" />
+    <Content Include="Content\Uploads\Documents\Doc1KH2.pdf" />
+    <Content Include="Content\Uploads\Documents\Doc2KH1.pdf" />
+    <Content Include="Content\Uploads\Documents\Doc2KH2.pdf" />
+    <None Include="Properties\PublishProfiles\TutorOnline - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - FTP %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - FTP %285%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - Web Deploy %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\TutorOnline - Web Deploy %285%29.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\channel-dashboard.js" />
+    <Content Include="Scripts\discover.css" />
+    <Content Include="Scripts\entry-main.css" />
+    <Content Include="Scripts\entry-main.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -254,6 +307,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\style.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -265,7 +319,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -273,7 +326,6 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Shared\_Layout_BackendUser.cshtml" />
-    <Content Include="Views\Manager\UpdatePerInfo.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Users\ChangePwd.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
@@ -281,7 +333,6 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Users\DetailsBackEnd.cshtml" />
     <Content Include="Views\Accountant\Create.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
     <Content Include="Views\Accountant\Search.cshtml" />
@@ -289,15 +340,56 @@
     <Content Include="Views\Account\DangKy.cshtml" />
     <Content Include="Views\Account\DangNhap.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\CV\Index.cshtml" />
     <Content Include="Views\Subjects\Create.cshtml" />
     <Content Include="Views\Subjects\Delete.cshtml" />
     <Content Include="Views\Subjects\Details.cshtml" />
     <Content Include="Views\Subjects\Edit.cshtml" />
     <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\Error\notfound.cshtml" />
+    <Content Include="Views\DashboardManager\Index.cshtml" />
+    <Content Include="Views\Lessons\Create.cshtml" />
+    <Content Include="Views\Lessons\Delete.cshtml" />
+    <Content Include="Views\Lessons\Details.cshtml" />
+    <Content Include="Views\Lessons\Edit.cshtml" />
+    <Content Include="Views\TutorManagement\Index.cshtml" />
+    <Content Include="Views\Materials\Create.cshtml" />
+    <Content Include="Views\Materials\Details.cshtml" />
+    <Content Include="Views\Materials\Edit.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\LearningResources\Index.cshtml" />
+    <Content Include="Views\Student\Subject.cshtml" />
+    <Content Include="Views\Student\SubjectDetail.cshtml" />
+    <Content Include="Views\Student\ViewCategory.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Subjects\LessonsInSubject.cshtml" />
+    <Content Include="Views\Subjects\MaterialInSubject.cshtml" />
+    <Content Include="Views\Subjects\QuestionInSubject.cshtml" />
+    <Content Include="Views\Materials\Delete.cshtml" />
+    <Content Include="Views\Account\AccessDenied.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Lessons\QuestionInLesson.cshtml" />
+    <Content Include="Views\Lessons\MaterialInLesson.cshtml" />
+    <Content Include="Views\Question\Create.cshtml" />
+    <Content Include="Views\Question\Details.cshtml" />
+    <Content Include="Views\Question\AnswerInQuestion.cshtml" />
+    <Content Include="Views\Question\Edit.cshtml" />
+    <Content Include="Views\Question\Delete.cshtml" />
+    <Content Include="Views\Answer\Create.cshtml" />
+    <Content Include="Views\Answer\Details.cshtml" />
+    <Content Include="Views\Answer\Edit.cshtml" />
+    <Content Include="Views\Answer\Delete.cshtml" />
+    <Content Include="Views\Lessons\FeedbackInLesson.cshtml" />
+    <Content Include="Views\Criteria\Create.cshtml" />
+    <Content Include="Views\Criteria\Details.cshtml" />
+    <Content Include="Views\Criteria\Edit.cshtml" />
+    <Content Include="Views\Criteria\Delete.cshtml" />
+    <Content Include="Views\Tutor\Index.cshtml" />
+    <Content Include="Views\Student\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Uploads\Images\Thumbnails\" />
+    <Folder Include="Content\Uploads\Thumbnails\" />
     <Folder Include="Views\LoginSocial\" />
   </ItemGroup>
   <ItemGroup>

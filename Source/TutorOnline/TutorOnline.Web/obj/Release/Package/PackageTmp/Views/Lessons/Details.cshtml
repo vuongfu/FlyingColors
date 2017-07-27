@@ -1,0 +1,92 @@
+﻿@model TutorOnline.Web.Models.LessonViewModels
+
+@{
+    ViewBag.Title = "Chi tiết bài học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="margin-bottom: -40px;">Chi tiết bài học</h3>
+            @Html.ActionLink("Trở lại", "Details","subjects", new { @id = Model.SubjectId}, new { @class = "btn btn-info pull-right" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TTBH"> Thông tin bài học</a>
+                    </h4>
+                </div>
+                <div id="TTBH" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <dl class="dl-horizontal">
+                                    <dt>Tên bài học:</dt>
+                                    <dd>@Html.DisplayFor(modelItem => modelItem.LessonName)</dd>
+                                    <dt>Thuộc khóa học:</dt>
+                                    <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+                                    <dt>Thứ tự bài học:</dt>
+                                    <dd>@Html.DisplayFor(modelItem => modelItem.Order)</dd>
+                                    <dt>Nội dung:</dt>
+                                    <dd>@Html.DisplayFor(modelItem => modelItem.Content)</dd>
+                                </dl>
+                                <br />
+                                <div style="margin-left: 100px;">
+                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.LessonId }, new { @class = "btn btn-success" })
+                                    @Html.ActionLink("Xóa", "Delete", new { @id = Model.LessonId, @subId = Model.SubjectId }, new { @class = "btn btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TLBH"> Tài liệu học tập của bài học</a>
+                    </h4>
+                </div>
+                <div id="TLBH" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{
+                            Html.RenderAction("MaterialInLesson", "Lessons", new { lesId = Model.LessonId, subId = Model.SubjectId });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#BTBH"> Bài tập dành cho bài học</a>
+                    </h4>
+                </div>
+                <div id="BTBH" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{
+                            Html.RenderAction("QuestionInLesson", "Lessons", new { lesId = Model.LessonId, subId = Model.SubjectId });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#TCDG"> Tiêu chí đánh giá học viên của bài học</a>
+                    </h4>
+                </div>
+                <div id="TCDG" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{
+                            Html.RenderAction("FeedbackInLesson", "Lessons", new { id = Model.LessonId });
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

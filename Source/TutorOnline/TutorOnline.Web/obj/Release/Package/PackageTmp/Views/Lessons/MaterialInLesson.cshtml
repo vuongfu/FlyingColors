@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TutorOnline.Web.Models.MaterialViewModels>
+
+@{
+    Layout = null;
+    ViewBag.LessonId = ViewBag.LessonId;
+    ViewBag.SubjectId = ViewBag.SubjectId;
+    ViewBag.Count = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Tài liệu học tập của bài học</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Tài Liệu", "Create", "Materials", new { @lesId = ViewBag.LessonId, @subId = ViewBag.SubjectId }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Link tải tài liệu</th>
+                        <th>Kiểu tệp</th>
+                        <th>Mô tả</th>
+                        <th><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.MaterialUrl, "DownloadFile", "Lessons", new { @file = item.MaterialUrl, @lesId = ViewBag.lessonId }, null)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MaterialTypeName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.ActionLink("Xóa", "Delete", "Materials", new { @id = item.MaterialId, @subId = item.SubjectId, @lesId = item.LessonId }, new { @class = "btn btn-danger" })</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Khóa học hiện chưa có tài liệu học tập nào. Hãy thêm tài liệu học tập cho khóa học.</h4>
+            </div>
+        </div>
+    }
+</body>
+</html>

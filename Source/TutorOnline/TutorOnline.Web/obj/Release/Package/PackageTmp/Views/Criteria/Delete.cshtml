@@ -1,0 +1,29 @@
+﻿@model TutorOnline.Web.Models.CriteriaViewModel
+
+@{
+    ViewBag.Title = "Xóa tiêu chí đánh giá học viên của bài học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div>
+    <h3>Xóa tiêu chí đánh giá học viên của bài học</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Thuộc bài học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.LessonName)</dd>
+        <dt>Nội dung tiêu chí:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.CriteriaName)</dd>
+    </dl>
+    <br />
+    <div class="alert alert-danger">
+        Bạn có chắc chắn muốn xóa tiêu chí này?
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa tiêu chí" class="btn btn-danger" />
+            @Html.ActionLink("Trở lại", "Details", "Criteria", new { id = ViewBag.criteriaId }, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

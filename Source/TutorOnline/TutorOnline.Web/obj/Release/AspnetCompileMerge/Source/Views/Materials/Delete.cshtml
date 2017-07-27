@@ -1,0 +1,38 @@
+﻿@model TutorOnline.Web.Models.MaterialViewModels
+
+@{
+    ViewBag.Title = "Xóa tài liệu học tập";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div>
+    <h3>Xóa tài liệu học tập</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên tài liệu:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.MaterialUrl)</dd>
+        <dt>Kiểu tệp:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.MaterialTypeName)</dd>
+        <dt>Mô tả:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Description)</dd>
+    </dl>
+    <br />
+    <div class="alert alert-danger">
+        Bạn có chắc chắn muốn xóa tài liệu học tập này?
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa tài liệu" class="btn btn-danger" />
+            @if (ViewBag.subId != null && ViewBag.lesId == null)
+            {
+                @Html.ActionLink("Trở lại", "Details", "Subjects", new { @id = ViewBag.subId }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("Trở lại", "Details", "Lessons", new { @id = ViewBag.lesId }, new { @class = "btn btn-default" })
+            }
+    </div>
+    }
+</div>

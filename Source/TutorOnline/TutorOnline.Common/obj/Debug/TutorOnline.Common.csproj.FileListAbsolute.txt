@@ -1,5 +1,4 @@
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Debug\TutorOnline.Common.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Debug\TutorOnline.Common.pdb
-D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.csprojResolveAssemblyReference.cache
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.pdb

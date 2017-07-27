@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "Thống kê hệ thống";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+<h2>Thống kê hệ thống</h2>
+<hr />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Môn học <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-success">Số lượng môn học khả dụng <span class="badge">@ViewBag.numCategories</span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Khóa học <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-success">Số lượng khóa học khả dụng <span class="badge">@ViewBag.numSubjects</span></h4>
+                    Số lượng khóa học tiếng nhật <span class="pull-right">@ViewBag.numSubJanpanese</span>
+                    <div class="progress">
+                        @{
+                            double SubJpPercent = Math.Round(((double)ViewBag.numSubJanpanese / (double)ViewBag.numSubjects) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numSubJanpanese" aria-valuemin="0" aria-valuemax="@ViewBag.numSubjects" style="width:@SubJpPercent%;">
+                            @SubJpPercent%
+                        </div>
+                    </div>
+                    Số lượng khóa học tiếng anh <span class="pull-right">@ViewBag.numSubEnglish</span>
+                    <div class="progress">
+                        @{
+                            double SubEnPercent = Math.Round(((double)ViewBag.numSubEnglish / (double)ViewBag.numSubjects) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numSubEnglish" aria-valuemin="0" aria-valuemax="@ViewBag.numSubjects" style="width: @SubEnPercent%;">
+                            @SubEnPercent%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Bài học <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-success">Số lượng bài học khả dụng <span class="badge">@ViewBag.numLessons</span></h4>
+                    Số lượng bài học môn tiếng nhật <span class="pull-right">@ViewBag.numLesJapanese</span>
+                    <div class="progress">
+                        @{
+                            double LesJpPercent = Math.Round(((double)ViewBag.numLesJapanese / (double)ViewBag.numLessons) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numLesJapanese" aria-valuemin="0" aria-valuemax="@ViewBag.numLessons" style="width: @LesJpPercent%;">
+                            @LesJpPercent%
+                        </div>
+                    </div>
+                    Số lượng bài học môn tiếng anh <span class="pull-right">@ViewBag.numLesEnglish</span>
+                    <div class="progress">
+                        @{
+                            double LesEnPercent = Math.Round(((double)ViewBag.numLesEnglish / (double)ViewBag.numLessons) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numLesEnglish" aria-valuemin="0" aria-valuemax="@ViewBag.numLessons" style="width: @LesEnPercent%;">
+                            @LesEnPercent%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    Tài liệu học tập <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-success">Số lượng tài liệu khả dụng <span class="badge">@ViewBag.numMaterial</span></h4>
+                    Số lượng tài liệu môn tiếng nhật <span class="pull-right">@ViewBag.numMaJapanese</span>
+                    <div class="progress">
+                        @{
+                            double MaJpPercent = Math.Round(((double)ViewBag.numMaJapanese / (double)ViewBag.numMaterial) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numMaJapanese" aria-valuemin="0" aria-valuemax="@ViewBag.numMaterial" style="width: @MaJpPercent%;">
+                            @MaJpPercent%
+                        </div>
+                    </div>
+                    Số lượng tài liệu môn tiếng anh <span class="pull-right">@ViewBag.numMaEnglish</span>
+                    <div class="progress">
+                        @{
+                            double MaEnPercent = Math.Round(((double)ViewBag.numMaEnglish / (double)ViewBag.numMaterial) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numMaEnglish" aria-valuemin="0" aria-valuemax="@ViewBag.numMaterial" style="width: @MaEnPercent%;">
+                            @MaEnPercent%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    Gia sư <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-success">Số lượng gia sư khả dụng <span class="badge">@ViewBag.numTutor</span></h4>
+                    Số lượng gia sư việt nam <span class="pull-right">@ViewBag.numTuVN</span>
+                    <div class="progress">
+                        @{
+                            double TuVnPercent = Math.Round(((double)ViewBag.numTuVN / (double)ViewBag.numTutor) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numTuVN" aria-valuemin="0" aria-valuemax="@ViewBag.numTutor" style="width: @TuVnPercent%;">
+                            @TuVnPercent%
+                        </div>
+                    </div>
+                    Số lượng gia sư nước ngoài <span class="pull-right">@ViewBag.numTuForeign</span>
+                    <div class="progress">
+                        @{
+                            double TuForeignPercent = Math.Round(((double)ViewBag.numTuForeign / (double)ViewBag.numTutor) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numTuForeign" aria-valuemin="0" aria-valuemax="@ViewBag.numTutor" style="width: @TuForeignPercent%;">
+                            @TuForeignPercent%
+                        </div>
+                    </div>
+                    <h4 class="text-danger">Số lượng gia sư được chưa được phê duyệt <span class="badge">@ViewBag.numTuNotApproved</span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Học viên <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-success">Tổng số học viên hiện có <span class="badge">@ViewBag.numStudent</span></h4>
+                    Số lượng học viên việt nam <span class="pull-right">@ViewBag.numStuVN</span>
+                    <div class="progress">
+                        @{
+                            double StuVnPercent = Math.Round(((double)ViewBag.numStuVN / (double)ViewBag.numStudent) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numStuVN" aria-valuemin="0" aria-valuemax="@ViewBag.numStudent" style="width: @StuVnPercent%;">
+                            @StuVnPercent%
+                        </div>
+                    </div>
+                    Số lượng học viên nước ngoài <span class="pull-right">@ViewBag.numStuForeign</span>
+                    <div class="progress">
+                        @{
+                            double StuForeignPercent = Math.Round(((double)ViewBag.numStuForeign / (double)ViewBag.numStudent) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numStuForeign" aria-valuemin="0" aria-valuemax="@ViewBag.numStudent" style="width: @StuForeignPercent%;">
+                            @StuForeignPercent%
+                        </div>
+                    </div>
+                    Số lượng học viên đăng ký trong tháng <span class="pull-right">@ViewBag.numStuInMonth</span>
+                    <div class="progress">
+                        @{
+                            double StuInMonthPercent = Math.Round(((double)ViewBag.numStuInMonth / (double)ViewBag.numStudent) * 100, 2);
+
+                        }
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@ViewBag.numStuInMonth" aria-valuemin="0" aria-valuemax="@ViewBag.numStudent" style="width: @StuInMonthPercent%;">
+                            @StuInMonthPercent%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

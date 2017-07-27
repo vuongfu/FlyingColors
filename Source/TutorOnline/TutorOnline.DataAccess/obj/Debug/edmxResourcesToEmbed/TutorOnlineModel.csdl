@@ -1,0 +1,957 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TutorOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
+    <Property Name="isCorrect" Type="Boolean" Nullable="false" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__Answer__Question__01142BA1" FromRole="Answer" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="AuditLog">
+    <Key>
+      <PropertyRef Name="AuditId" />
+    </Key>
+    <Property Name="AuditId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifierId" Type="Int32" Nullable="false" />
+    <Property Name="ModifierRole" Type="Int32" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__AuditLog__Modifi__797309D9" FromRole="AuditLog" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="BackendUser">
+    <Key>
+      <PropertyRef Name="BackendUserId" />
+    </Key>
+    <Property Name="BackendUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__BackendUs__RoleI__34C8D9D1" FromRole="BackendUser" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Subjects" Relationship="Self.FK__Subject__Categor__4222D4EF" FromRole="Category" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Criterion">
+    <Key>
+      <PropertyRef Name="CriteriaId" />
+    </Key>
+    <Property Name="CriteriaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CriteriaName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK__Criteria__Lesson__571DF1D5" FromRole="Criteria" ToRole="Lesson" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Criteria__RoleId__5812160E" FromRole="Criteria" ToRole="Role" />
+    <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Crite__66603565" FromRole="Criteria" ToRole="TutorFeedbackDetail" />
+  </EntityType>
+  <EntityType Name="LearningMaterial">
+    <Key>
+      <PropertyRef Name="MaterialId" />
+    </Key>
+    <Property Name="MaterialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaterialUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaterialTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LessonId" Type="Int32" />
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK__LearningM__Lesso__4CA06362" FromRole="LearningMaterial" ToRole="Lesson" />
+    <NavigationProperty Name="MaterialType" Relationship="Self.FK__LearningM__Mater__4BAC3F29" FromRole="LearningMaterial" ToRole="MaterialType" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK__LearningM__Subje__4D94879B" FromRole="LearningMaterial" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Lesson">
+    <Key>
+      <PropertyRef Name="LessonId" />
+    </Key>
+    <Property Name="LessonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LessonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <Property Name="Order" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Criteria" Relationship="Self.FK__Criteria__Lesson__571DF1D5" FromRole="Lesson" ToRole="Criteria" />
+    <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Lesso__4CA06362" FromRole="Lesson" ToRole="LearningMaterial" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK__Lesson__SubjectI__47DBAE45" FromRole="Lesson" ToRole="Subject" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Lesson__7C4F7684" FromRole="Lesson" ToRole="Question" />
+    <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Lesson__534D60F1" FromRole="Lesson" ToRole="Schedule" />
+    <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Lesso__5DCAEF64" FromRole="Lesson" ToRole="StudentFeedback" />
+    <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Lesso__628FA481" FromRole="Lesson" ToRole="TutorFeedback" />
+  </EntityType>
+  <EntityType Name="MaterialType">
+    <Key>
+      <PropertyRef Name="MaterialTypeId" />
+    </Key>
+    <Property Name="MaterialTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaterialTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Mater__4BAC3F29" FromRole="MaterialType" ToRole="LearningMaterial" />
+  </EntityType>
+  <EntityType Name="Parent">
+    <Key>
+      <PropertyRef Name="ParentId" />
+    </Key>
+    <Property Name="ParentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Parent__RoleId__286302EC" FromRole="Parent" ToRole="Role" />
+    <NavigationProperty Name="Students" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Parent" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" />
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Answers" Relationship="Self.FK__Answer__Question__01142BA1" FromRole="Question" ToRole="Answer" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK__Question__Lesson__7C4F7684" FromRole="Question" ToRole="Lesson" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK__Question__Subjec__7D439ABD" FromRole="Question" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AuditLogs" Relationship="Self.FK__AuditLog__Modifi__797309D9" FromRole="Role" ToRole="AuditLog" />
+    <NavigationProperty Name="BackendUsers" Relationship="Self.FK__BackendUs__RoleI__34C8D9D1" FromRole="Role" ToRole="BackendUser" />
+    <NavigationProperty Name="Criteria" Relationship="Self.FK__Criteria__RoleId__5812160E" FromRole="Role" ToRole="Criteria" />
+    <NavigationProperty Name="Parents" Relationship="Self.FK__Parent__RoleId__286302EC" FromRole="Role" ToRole="Parent" />
+    <NavigationProperty Name="Students" Relationship="Self.FK__Student__RoleId__2E1BDC42" FromRole="Role" ToRole="Student" />
+    <NavigationProperty Name="Tutors" Relationship="Self.FK__Tutor__RoleId__3A81B327" FromRole="Role" ToRole="Tutor" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleId" />
+    </Key>
+    <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="TutorId" Type="Int32" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" Nullable="false" />
+    <Property Name="SlotOrder" Type="Int32" Nullable="false" />
+    <Property Name="SlotDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="CanReason" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK__Schedule__Lesson__534D60F1" FromRole="Schedule" ToRole="Lesson" />
+    <NavigationProperty Name="Status1" Relationship="Self.FK__Schedule__Status__5441852A" FromRole="Schedule" ToRole="Status" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__Schedule__Studen__5165187F" FromRole="Schedule" ToRole="Student" />
+    <NavigationProperty Name="Tutor" Relationship="Self.FK__Schedule__TutorI__52593CB8" FromRole="Schedule" ToRole="Tutor" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Status__5441852A" FromRole="Status" ToRole="Schedule" />
+    <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Statu__6C190EBB" FromRole="Status" ToRole="StudentSubject" />
+    <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Statu__72C60C4A" FromRole="Status" ToRole="TutorSubject" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Parent" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Student" ToRole="Parent" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Student__RoleId__2E1BDC42" FromRole="Student" ToRole="Role" />
+    <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Studen__5165187F" FromRole="Student" ToRole="Schedule" />
+    <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Stude__5CD6CB2B" FromRole="Student" ToRole="StudentFeedback" />
+    <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Stude__6B24EA82" FromRole="Student" ToRole="StudentSubject" />
+    <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Stude__619B8048" FromRole="Student" ToRole="TutorFeedback" />
+  </EntityType>
+  <EntityType Name="StudentFeedback">
+    <Key>
+      <PropertyRef Name="StudentFeedbackId" />
+    </Key>
+    <Property Name="StudentFeedbackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TutorId" Type="Int32" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" />
+    <Property Name="FeedbackDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK__StudentFe__Lesso__5DCAEF64" FromRole="StudentFeedback" ToRole="Lesson" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__StudentFe__Stude__5CD6CB2B" FromRole="StudentFeedback" ToRole="Student" />
+    <NavigationProperty Name="Tutor" Relationship="Self.FK__StudentFe__Tutor__5BE2A6F2" FromRole="StudentFeedback" ToRole="Tutor" />
+  </EntityType>
+  <EntityType Name="StudentSubject">
+    <Key>
+      <PropertyRef Name="StudentSubjectId" />
+    </Key>
+    <Property Name="StudentSubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="StudiedLesson" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Status1" Relationship="Self.FK__StudentSu__Statu__6C190EBB" FromRole="StudentSubject" ToRole="Status" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__StudentSu__Stude__6B24EA82" FromRole="StudentSubject" ToRole="Student" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK__StudentSu__Subje__6A30C649" FromRole="StudentSubject" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectId" />
+    </Key>
+    <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Purpose" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Requirement" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Subject__Categor__4222D4EF" FromRole="Subject" ToRole="Category" />
+    <NavigationProperty Name="LearningMaterials" Relationship="Self.FK__LearningM__Subje__4D94879B" FromRole="Subject" ToRole="LearningMaterial" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK__Lesson__SubjectI__47DBAE45" FromRole="Subject" ToRole="Lesson" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Subjec__7D439ABD" FromRole="Subject" ToRole="Question" />
+    <NavigationProperty Name="StudentSubjects" Relationship="Self.FK__StudentSu__Subje__6A30C649" FromRole="Subject" ToRole="StudentSubject" />
+    <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Subje__70DDC3D8" FromRole="Subject" ToRole="TutorSubject" />
+  </EntityType>
+  <EntityType Name="TeachSchedule">
+    <Key>
+      <PropertyRef Name="TeachScheduleId" />
+    </Key>
+    <Property Name="TeachScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TutorId" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OrderSlot" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tutor" Relationship="Self.FK__TeachSche__Tutor__76969D2E" FromRole="TeachSchedule" ToRole="Tutor" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="TranDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="UserType" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tutor">
+    <Key>
+      <PropertyRef Name="TutorId" />
+    </Key>
+    <Property Name="TutorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BankId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BMemName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Tutor__RoleId__3A81B327" FromRole="Tutor" ToRole="Role" />
+    <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__TutorI__52593CB8" FromRole="Tutor" ToRole="Schedule" />
+    <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Tutor__5BE2A6F2" FromRole="Tutor" ToRole="StudentFeedback" />
+    <NavigationProperty Name="TeachSchedules" Relationship="Self.FK__TeachSche__Tutor__76969D2E" FromRole="Tutor" ToRole="TeachSchedule" />
+    <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Tutor__60A75C0F" FromRole="Tutor" ToRole="TutorFeedback" />
+    <NavigationProperty Name="TutorSubjects" Relationship="Self.FK__TutorSubj__Tutor__71D1E811" FromRole="Tutor" ToRole="TutorSubject" />
+  </EntityType>
+  <EntityType Name="TutorFeedback">
+    <Key>
+      <PropertyRef Name="TutorFeedbackId" />
+    </Key>
+    <Property Name="TutorFeedbackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TutorId" Type="Int32" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" />
+    <Property Name="FeedbackDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="TestResult" Type="Int32" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK__TutorFeed__Lesso__628FA481" FromRole="TutorFeedback" ToRole="Lesson" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__TutorFeed__Stude__619B8048" FromRole="TutorFeedback" ToRole="Student" />
+    <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorFeed__Tutor__60A75C0F" FromRole="TutorFeedback" ToRole="Tutor" />
+    <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Tutor__656C112C" FromRole="TutorFeedback" ToRole="TutorFeedbackDetail" />
+  </EntityType>
+  <EntityType Name="TutorFeedbackDetail">
+    <Key>
+      <PropertyRef Name="TutorFeedbackId" />
+      <PropertyRef Name="CriteriaId" />
+    </Key>
+    <Property Name="TutorFeedbackId" Type="Int32" Nullable="false" />
+    <Property Name="CriteriaId" Type="Int32" Nullable="false" />
+    <Property Name="CriteriaValue" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Criterion" Relationship="Self.FK__TutorFeed__Crite__66603565" FromRole="TutorFeedbackDetail" ToRole="Criteria" />
+    <NavigationProperty Name="TutorFeedback" Relationship="Self.FK__TutorFeed__Tutor__656C112C" FromRole="TutorFeedbackDetail" ToRole="TutorFeedback" />
+  </EntityType>
+  <EntityType Name="TutorSubject">
+    <Key>
+      <PropertyRef Name="TutorSubjectId" />
+    </Key>
+    <Property Name="TutorSubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="TutorId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Experience" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isActived" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Status1" Relationship="Self.FK__TutorSubj__Statu__72C60C4A" FromRole="TutorSubject" ToRole="Status" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK__TutorSubj__Subje__70DDC3D8" FromRole="TutorSubject" ToRole="Subject" />
+    <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorSubj__Tutor__71D1E811" FromRole="TutorSubject" ToRole="Tutor" />
+  </EntityType>
+  <Association Name="FK__Answer__Question__01142BA1">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AuditLog__Modifi__797309D9">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="AuditLog">
+        <PropertyRef Name="ModifierRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackendUs__RoleI__34C8D9D1">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="BackendUser" Type="Self.BackendUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="BackendUser">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Subject__Categor__4222D4EF">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Subject">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Criteria__Lesson__571DF1D5">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+    <End Role="Criteria" Type="Self.Criterion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonId" />
+      </Principal>
+      <Dependent Role="Criteria">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Criteria__RoleId__5812160E">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Criteria" Type="Self.Criterion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Criteria">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorFeed__Crite__66603565">
+    <End Role="Criteria" Type="Self.Criterion" Multiplicity="1" />
+    <End Role="TutorFeedbackDetail" Type="Self.TutorFeedbackDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Criteria">
+        <PropertyRef Name="CriteriaId" />
+      </Principal>
+      <Dependent Role="TutorFeedbackDetail">
+        <PropertyRef Name="CriteriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LearningM__Lesso__4CA06362">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
+    <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonId" />
+      </Principal>
+      <Dependent Role="LearningMaterial">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LearningM__Mater__4BAC3F29">
+    <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="1" />
+    <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MaterialType">
+        <PropertyRef Name="MaterialTypeId" />
+      </Principal>
+      <Dependent Role="LearningMaterial">
+        <PropertyRef Name="MaterialTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LearningM__Subje__4D94879B">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="LearningMaterial" Type="Self.LearningMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="LearningMaterial">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lesson__SubjectI__47DBAE45">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="Lesson">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question__Lesson__7C4F7684">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schedule__Lesson__534D60F1">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonId" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentFe__Lesso__5DCAEF64">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
+    <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonId" />
+      </Principal>
+      <Dependent Role="StudentFeedback">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorFeed__Lesso__628FA481">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
+    <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="LessonId" />
+      </Principal>
+      <Dependent Role="TutorFeedback">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Parent__RoleId__286302EC">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Parent">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__ParentI__2F10007B">
+    <End Role="Parent" Type="Self.Parent" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parent">
+        <PropertyRef Name="ParentId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question__Subjec__7D439ABD">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__RoleId__2E1BDC42">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tutor__RoleId__3A81B327">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Tutor">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schedule__Status__5441852A">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schedule__Studen__5165187F">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schedule__TutorI__52593CB8">
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutor">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentSu__Statu__6C190EBB">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="StudentSubject">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorSubj__Statu__72C60C4A">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="TutorSubject">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentFe__Stude__5CD6CB2B">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="StudentFeedback">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentSu__Stude__6B24EA82">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="StudentSubject">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorFeed__Stude__619B8048">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="TutorFeedback">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentFe__Tutor__5BE2A6F2">
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
+    <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutor">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="StudentFeedback">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentSu__Subje__6A30C649">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+    <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="StudentSubject">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorSubj__Subje__70DDC3D8">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+    <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="TutorSubject">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TeachSche__Tutor__76969D2E">
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
+    <End Role="TeachSchedule" Type="Self.TeachSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutor">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="TeachSchedule">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorFeed__Tutor__60A75C0F">
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
+    <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutor">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="TutorFeedback">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorSubj__Tutor__71D1E811">
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
+    <End Role="TutorSubject" Type="Self.TutorSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutor">
+        <PropertyRef Name="TutorId" />
+      </Principal>
+      <Dependent Role="TutorSubject">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TutorFeed__Tutor__656C112C">
+    <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="1" />
+    <End Role="TutorFeedbackDetail" Type="Self.TutorFeedbackDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TutorFeedback">
+        <PropertyRef Name="TutorFeedbackId" />
+      </Principal>
+      <Dependent Role="TutorFeedbackDetail">
+        <PropertyRef Name="TutorFeedbackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TutorOnlineContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="Self.Answer" />
+    <EntitySet Name="AuditLogs" EntityType="Self.AuditLog" />
+    <EntitySet Name="BackendUsers" EntityType="Self.BackendUser" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Criteria" EntityType="Self.Criterion" />
+    <EntitySet Name="LearningMaterials" EntityType="Self.LearningMaterial" />
+    <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+    <EntitySet Name="MaterialTypes" EntityType="Self.MaterialType" />
+    <EntitySet Name="Parents" EntityType="Self.Parent" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="StudentFeedbacks" EntityType="Self.StudentFeedback" />
+    <EntitySet Name="StudentSubjects" EntityType="Self.StudentSubject" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="TeachSchedules" EntityType="Self.TeachSchedule" />
+    <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+    <EntitySet Name="Tutors" EntityType="Self.Tutor" />
+    <EntitySet Name="TutorFeedbacks" EntityType="Self.TutorFeedback" />
+    <EntitySet Name="TutorFeedbackDetails" EntityType="Self.TutorFeedbackDetail" />
+    <EntitySet Name="TutorSubjects" EntityType="Self.TutorSubject" />
+    <AssociationSet Name="FK__Answer__Question__01142BA1" Association="Self.FK__Answer__Question__01142BA1">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AuditLog__Modifi__797309D9" Association="Self.FK__AuditLog__Modifi__797309D9">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="AuditLog" EntitySet="AuditLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackendUs__RoleI__34C8D9D1" Association="Self.FK__BackendUs__RoleI__34C8D9D1">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="BackendUser" EntitySet="BackendUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Subject__Categor__4222D4EF" Association="Self.FK__Subject__Categor__4222D4EF">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Subject" EntitySet="Subjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Criteria__Lesson__571DF1D5" Association="Self.FK__Criteria__Lesson__571DF1D5">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="Criteria" EntitySet="Criteria" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Criteria__RoleId__5812160E" Association="Self.FK__Criteria__RoleId__5812160E">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Criteria" EntitySet="Criteria" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorFeed__Crite__66603565" Association="Self.FK__TutorFeed__Crite__66603565">
+      <End Role="Criteria" EntitySet="Criteria" />
+      <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LearningM__Lesso__4CA06362" Association="Self.FK__LearningM__Lesso__4CA06362">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="LearningMaterial" EntitySet="LearningMaterials" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LearningM__Mater__4BAC3F29" Association="Self.FK__LearningM__Mater__4BAC3F29">
+      <End Role="MaterialType" EntitySet="MaterialTypes" />
+      <End Role="LearningMaterial" EntitySet="LearningMaterials" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LearningM__Subje__4D94879B" Association="Self.FK__LearningM__Subje__4D94879B">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="LearningMaterial" EntitySet="LearningMaterials" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lesson__SubjectI__47DBAE45" Association="Self.FK__Lesson__SubjectI__47DBAE45">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Lesson" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question__Lesson__7C4F7684" Association="Self.FK__Question__Lesson__7C4F7684">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schedule__Lesson__534D60F1" Association="Self.FK__Schedule__Lesson__534D60F1">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentFe__Lesso__5DCAEF64" Association="Self.FK__StudentFe__Lesso__5DCAEF64">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorFeed__Lesso__628FA481" Association="Self.FK__TutorFeed__Lesso__628FA481">
+      <End Role="Lesson" EntitySet="Lessons" />
+      <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Parent__RoleId__286302EC" Association="Self.FK__Parent__RoleId__286302EC">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Parent" EntitySet="Parents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__ParentI__2F10007B" Association="Self.FK__Student__ParentI__2F10007B">
+      <End Role="Parent" EntitySet="Parents" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question__Subjec__7D439ABD" Association="Self.FK__Question__Subjec__7D439ABD">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__RoleId__2E1BDC42" Association="Self.FK__Student__RoleId__2E1BDC42">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tutor__RoleId__3A81B327" Association="Self.FK__Tutor__RoleId__3A81B327">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Tutor" EntitySet="Tutors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schedule__Status__5441852A" Association="Self.FK__Schedule__Status__5441852A">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schedule__Studen__5165187F" Association="Self.FK__Schedule__Studen__5165187F">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schedule__TutorI__52593CB8" Association="Self.FK__Schedule__TutorI__52593CB8">
+      <End Role="Tutor" EntitySet="Tutors" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentSu__Statu__6C190EBB" Association="Self.FK__StudentSu__Statu__6C190EBB">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="StudentSubject" EntitySet="StudentSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorSubj__Statu__72C60C4A" Association="Self.FK__TutorSubj__Statu__72C60C4A">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="TutorSubject" EntitySet="TutorSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentFe__Stude__5CD6CB2B" Association="Self.FK__StudentFe__Stude__5CD6CB2B">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentSu__Stude__6B24EA82" Association="Self.FK__StudentSu__Stude__6B24EA82">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentSubject" EntitySet="StudentSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorFeed__Stude__619B8048" Association="Self.FK__TutorFeed__Stude__619B8048">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentFe__Tutor__5BE2A6F2" Association="Self.FK__StudentFe__Tutor__5BE2A6F2">
+      <End Role="Tutor" EntitySet="Tutors" />
+      <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentSu__Subje__6A30C649" Association="Self.FK__StudentSu__Subje__6A30C649">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="StudentSubject" EntitySet="StudentSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorSubj__Subje__70DDC3D8" Association="Self.FK__TutorSubj__Subje__70DDC3D8">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="TutorSubject" EntitySet="TutorSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TeachSche__Tutor__76969D2E" Association="Self.FK__TeachSche__Tutor__76969D2E">
+      <End Role="Tutor" EntitySet="Tutors" />
+      <End Role="TeachSchedule" EntitySet="TeachSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorFeed__Tutor__60A75C0F" Association="Self.FK__TutorFeed__Tutor__60A75C0F">
+      <End Role="Tutor" EntitySet="Tutors" />
+      <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorSubj__Tutor__71D1E811" Association="Self.FK__TutorSubj__Tutor__71D1E811">
+      <End Role="Tutor" EntitySet="Tutors" />
+      <End Role="TutorSubject" EntitySet="TutorSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TutorFeed__Tutor__656C112C" Association="Self.FK__TutorFeed__Tutor__656C112C">
+      <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
+      <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,37 @@
+﻿@model TutorOnline.Web.Models.MaterialViewModels
+
+@{
+    ViewBag.Title = "Chi tiết tài liệu";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <h3>Chi tiết tài liệu</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>File tài liệu:</dt>
+        @*<dd>
+            <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" />
+        </dd>*@
+        <dt>Thuộc khóa học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+        <dt>Thuộc bài học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.LessonName)</dd>
+        <dt>Loại tài liệu:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.MaterialTypeName)</dd>
+    </dl>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { @id = Model.MaterialId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Tải tài liệu", "Edit", new { @id = Model.MaterialId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Xóa", "Delete", new { @id = Model.MaterialId }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink("Trở lại", "Index", new { @id = Model.MaterialId }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

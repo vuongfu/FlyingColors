@@ -1,0 +1,47 @@
+﻿@model TutorOnline.Web.Models.SubjectsViewModels
+
+@{
+    ViewBag.Title = "Xóa khóa học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div>
+    <h3>Xóa khóa học</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Hình ảnh:</dt>
+        @if (String.IsNullOrEmpty(Model.Photo))
+        {
+            <dd>
+                @("N/A")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)"/>
+            </dd>
+        }
+        <dt>Tên khóa học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
+        <dt>Thuộc môn học:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.CategoryName)</dd>
+        <dt>Mục tiêu:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Purpose)</dd>
+        <dt>Yêu cầu:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Requirement)</dd>
+        <dt>Mô tả:</dt>
+        <dd>@Html.DisplayFor(modelItem => modelItem.Description)</dd>
+    </dl>
+    <br />
+    <div class="alert alert-danger">
+        Bạn có chắc chắn muốn xóa khóa học này?
+    </div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa khóa học" class="btn btn-danger" />
+            @Html.ActionLink("Trở lại", "Details", new { @id = Model.SubjectId }, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

@@ -1,0 +1,66 @@
+﻿@model TutorOnline.Web.Models.AnswerViewModels
+
+@{
+    ViewBag.Title = "Chỉnh sửa câu trả lời";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Answer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AnswerId)
+        @Html.HiddenFor(model => model.QuestionId)
+        @Html.HiddenFor(model => model.QuesContent)
+        @Html.HiddenFor(model => model.QuesPhoto)
+
+        <h3>Chỉnh sửa câu trả lời</h3>
+        <hr />
+
+        <div class="form-group">
+            <p class="control-label col-md-3">Nôi dung câu hỏi: </p>
+            <div class="col-md-9" style="margin-top: 7px;">
+                @Html.DisplayFor(model => model.QuesContent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-3">Hình ảnh câu hỏi: </p>
+            <div class="col-md-9" style="margin-top: 7px;">
+                @if (String.IsNullOrEmpty(Model.QuesPhoto))
+                {
+                    <p>@("N/A")</p>
+                }
+                else
+                {
+                    <img src="~/Content/Uploads/Images/Thumbnails/@Model.QuesPhoto.Substring(3)" />
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-3">Nôi dung câu trả lời: </p>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-3">Đáp án: </p>
+            <div class="col-md-9">
+                @Html.DropDownList("isCorrect", null, htmlAttributes: new { @class = "form-control", style = "width:90px" })
+                @Html.ValidationMessageFor(model => model.isCorrect, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btn btn-success" />
+                @Html.ActionLink("Trở lại", "Details", "Answer", new { id = Model.AnswerId }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
