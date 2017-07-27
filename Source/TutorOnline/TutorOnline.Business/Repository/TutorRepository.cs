@@ -40,5 +40,24 @@ namespace TutorOnline.Business.Repository
         {
             _dbContext.Dispose();
         }
+
+        public void DeleteSlotBooked(int id)
+        {
+            TeachSchedule temp = _dbContext.TeachSchedules.Find(id);
+            _dbContext.TeachSchedules.Remove(temp);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddSlotBooked(TeachSchedule slot)
+        {
+            _dbContext.TeachSchedules.Add(slot);
+            _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<TeachSchedule> GetAllSlotInTwoDates(DateTime StartDay, DateTime EndDay, int TutorId)
+        {
+            var slot = _dbContext.TeachSchedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId);
+            return slot;
+        }
     }
 }

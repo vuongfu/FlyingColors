@@ -34,11 +34,7 @@ namespace TutorOnline.Web.Controllers
                 {
                     string url = (Url.Action("Index", "Accountant"));
                     return Redirect(url);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                }                
             }
             return View();
         }

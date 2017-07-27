@@ -1,0 +1,333 @@
+﻿
+@{
+    ViewBag.Title = "TutorBookSlot";
+    Layout = "";
+}
+
+<p>
+    <a id="pre-arrow" class="disableArrow disabled" onclick="preClick()">
+        <img src="~/Image/prev.png" />
+    </a>
+    <b id="WeekSelect"> @ViewBag.FirstWeek </b>
+    <a id="next-arrow" onclick="nextClick()">
+        <img src="~/Image/next.png" />
+    </a>
+</p>
+
+<table border="1" cellspacing="0" class="slotpick">
+    <tr>
+        <th></th>
+        <th scope="col" style="width:75px;">Chủ nhật</th>
+        <th scope="col" style="width:75px;">Thứ hai</th>
+        <th scope="col" style="width:75px;">Thứ ba</th>
+        <th scope="col" style="width:75px;">Thứ tư</th>
+        <th scope="col" style="width:75px;">Thứ năm</th>
+        <th scope="col" style="width:75px;">Thứ sáu</th>
+        <th scope="col" style="width:75px;">Thứ bảy</th>
+    </tr>
+
+    <tr>
+        <th scope="row">Slot 1<br />08:00 - 08:30</th>
+        <td class="tableSlot" id="Sun01" onclick="addOrRemoveDate('Sun01')"></td>
+        <td class="tableSlot" id="Mon01" onclick="addOrRemoveDate('Mon01')"></td>
+        <td class="tableSlot" id="Tue01" onclick="addOrRemoveDate('Tue01')"></td>
+        <td class="tableSlot" id="Wed01" onclick="addOrRemoveDate('Wed01')"></td>
+        <td class="tableSlot" id="Thu01" onclick="addOrRemoveDate('Thu01')"></td>
+        <td class="tableSlot" id="Fri01" onclick="addOrRemoveDate('Fri01')"></td>
+        <td class="tableSlot" id="Sat01" onclick="addOrRemoveDate('Sat01')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 2<br />08:40 - 09:10</th>
+        <td class="tableSlot" id="Sun02" onclick="addOrRemoveDate('Sun02')"></td>
+        <td class="tableSlot" id="Mon02" onclick="addOrRemoveDate('Mon02')"></td>
+        <td class="tableSlot" id="Tue02" onclick="addOrRemoveDate('Tue02')"></td>
+        <td class="tableSlot" id="Wed02" onclick="addOrRemoveDate('Wed02')"></td>
+        <td class="tableSlot" id="Thu02" onclick="addOrRemoveDate('Thu02')"></td>
+        <td class="tableSlot" id="Fri02" onclick="addOrRemoveDate('Fri02')"></td>
+        <td class="tableSlot" id="Sat02" onclick="addOrRemoveDate('Sat02')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 3<br />09:20 - 09:50</th>
+        <td class="tableSlot" id="Sun03" onclick="addOrRemoveDate('Sun03')"></td>
+        <td class="tableSlot" id="Mon03" onclick="addOrRemoveDate('Mon03')"></td>
+        <td class="tableSlot" id="Tue03" onclick="addOrRemoveDate('Tue03')"></td>
+        <td class="tableSlot" id="Wed03" onclick="addOrRemoveDate('Wed03')"></td>
+        <td class="tableSlot" id="Thu03" onclick="addOrRemoveDate('Thu03')"></td>
+        <td class="tableSlot" id="Fri03" onclick="addOrRemoveDate('Fri03')"></td>
+        <td class="tableSlot" id="Sat03" onclick="addOrRemoveDate('Sat03')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 4<br />10:00 - 10:30</th>
+        <td class="tableSlot" id="Sun04" onclick="addOrRemoveDate('Sun04')"></td>
+        <td class="tableSlot" id="Mon04" onclick="addOrRemoveDate('Mon04')"></td>
+        <td class="tableSlot" id="Tue04" onclick="addOrRemoveDate('Tue04')"></td>
+        <td class="tableSlot" id="Wed04" onclick="addOrRemoveDate('Wed04')"></td>
+        <td class="tableSlot" id="Thu04" onclick="addOrRemoveDate('Thu04')"></td>
+        <td class="tableSlot" id="Fri04" onclick="addOrRemoveDate('Fri04')"></td>
+        <td class="tableSlot" id="Sat04" onclick="addOrRemoveDate('Sat04')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 5<br />10:40 - 11:10</th>
+        <td class="tableSlot" id="Sun05" onclick="addOrRemoveDate('Sun05')"></td>
+        <td class="tableSlot" id="Mon05" onclick="addOrRemoveDate('Mon05')"></td>
+        <td class="tableSlot" id="Tue05" onclick="addOrRemoveDate('Tue05')"></td>
+        <td class="tableSlot" id="Wed05" onclick="addOrRemoveDate('Wed05')"></td>
+        <td class="tableSlot" id="Thu05" onclick="addOrRemoveDate('Thu05')"></td>
+        <td class="tableSlot" id="Fri05" onclick="addOrRemoveDate('Fri05')"></td>
+        <td class="tableSlot" id="Sat05" onclick="addOrRemoveDate('Sat05')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 6<br />11:20 - 11:50</th>
+        <td class="tableSlot" id="Sun06" onclick="addOrRemoveDate('Sun06')"></td>
+        <td class="tableSlot" id="Mon06" onclick="addOrRemoveDate('Mon06')"></td>
+        <td class="tableSlot" id="Tue06" onclick="addOrRemoveDate('Tue06')"></td>
+        <td class="tableSlot" id="Wed06" onclick="addOrRemoveDate('Wed06')"></td>
+        <td class="tableSlot" id="Thu06" onclick="addOrRemoveDate('Thu06')"></td>
+        <td class="tableSlot" id="Fri06" onclick="addOrRemoveDate('Fri06')"></td>
+        <td class="tableSlot" id="Sat06" onclick="addOrRemoveDate('Sat06')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 7<br />13:00 - 13:30</th>
+        <td class="tableSlot" id="Sun07" onclick="addOrRemoveDate('Sun07')"></td>
+        <td class="tableSlot" id="Mon07" onclick="addOrRemoveDate('Mon07')"></td>
+        <td class="tableSlot" id="Tue07" onclick="addOrRemoveDate('Tue07')"></td>
+        <td class="tableSlot" id="Wed07" onclick="addOrRemoveDate('Wed07')"></td>
+        <td class="tableSlot" id="Thu07" onclick="addOrRemoveDate('Thu07')"></td>
+        <td class="tableSlot" id="Fri07" onclick="addOrRemoveDate('Fri07')"></td>
+        <td class="tableSlot" id="Sat07" onclick="addOrRemoveDate('Sat07')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 8<br />13:40 - 14:10</th>
+        <td class="tableSlot" id="Sun08" onclick="addOrRemoveDate('Sun08')"></td>
+        <td class="tableSlot" id="Mon08" onclick="addOrRemoveDate('Mon08')"></td>
+        <td class="tableSlot" id="Tue08" onclick="addOrRemoveDate('Tue08')"></td>
+        <td class="tableSlot" id="Wed08" onclick="addOrRemoveDate('Wed08')"></td>
+        <td class="tableSlot" id="Thu08" onclick="addOrRemoveDate('Thu08')"></td>
+        <td class="tableSlot" id="Fri08" onclick="addOrRemoveDate('Fri08')"></td>
+        <td class="tableSlot" id="Sat08" onclick="addOrRemoveDate('Sat08')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 9<br />14:20 - 14:50</th>
+        <td class="tableSlot" id="Sun09" onclick="addOrRemoveDate('Sun09')"></td>
+        <td class="tableSlot" id="Mon09" onclick="addOrRemoveDate('Mon09')"></td>
+        <td class="tableSlot" id="Tue09" onclick="addOrRemoveDate('Tue09')"></td>
+        <td class="tableSlot" id="Wed09" onclick="addOrRemoveDate('Wed09')"></td>
+        <td class="tableSlot" id="Thu09" onclick="addOrRemoveDate('Thu09')"></td>
+        <td class="tableSlot" id="Fri09" onclick="addOrRemoveDate('Fri09')"></td>
+        <td class="tableSlot" id="Sat09" onclick="addOrRemoveDate('Sat09')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 10<br />15:00 - 15:30</th>
+        <td class="tableSlot" id="Sun10" onclick="addOrRemoveDate('Sun10')"></td>
+        <td class="tableSlot" id="Mon10" onclick="addOrRemoveDate('Mon10')"></td>
+        <td class="tableSlot" id="Tue10" onclick="addOrRemoveDate('Tue10')"></td>
+        <td class="tableSlot" id="Wed10" onclick="addOrRemoveDate('Wed10')"></td>
+        <td class="tableSlot" id="Thu10" onclick="addOrRemoveDate('Thu10')"></td>
+        <td class="tableSlot" id="Fri10" onclick="addOrRemoveDate('Fri10')"></td>
+        <td class="tableSlot" id="Sat10" onclick="addOrRemoveDate('Sat10')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 11<br />15:40 - 16:10</th>
+        <td class="tableSlot" id="Sun11" onclick="addOrRemoveDate('Sun11')"></td>
+        <td class="tableSlot" id="Mon11" onclick="addOrRemoveDate('Mon11')"></td>
+        <td class="tableSlot" id="Tue11" onclick="addOrRemoveDate('Tue11')"></td>
+        <td class="tableSlot" id="Wed11" onclick="addOrRemoveDate('Wed11')"></td>
+        <td class="tableSlot" id="Thu11" onclick="addOrRemoveDate('Thu11')"></td>
+        <td class="tableSlot" id="Fri11" onclick="addOrRemoveDate('Fri11')"></td>
+        <td class="tableSlot" id="Sat11" onclick="addOrRemoveDate('Sat11')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 12<br />16:20 - 16:50</th>
+        <td class="tableSlot" id="Sun12" onclick="addOrRemoveDate('Sun12')"></td>
+        <td class="tableSlot" id="Mon12" onclick="addOrRemoveDate('Mon12')"></td>
+        <td class="tableSlot" id="Tue12" onclick="addOrRemoveDate('Tue12')"></td>
+        <td class="tableSlot" id="Wed12" onclick="addOrRemoveDate('Wed12')"></td>
+        <td class="tableSlot" id="Thu12" onclick="addOrRemoveDate('Thu12')"></td>
+        <td class="tableSlot" id="Fri12" onclick="addOrRemoveDate('Fri12')"></td>
+        <td class="tableSlot" id="Sat12" onclick="addOrRemoveDate('Sat12')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 13<br />17:00 - 17:30</th>
+        <td class="tableSlot" id="Sun13" onclick="addOrRemoveDate('Sun13')"></td>
+        <td class="tableSlot" id="Mon13" onclick="addOrRemoveDate('Mon13')"></td>
+        <td class="tableSlot" id="Tue13" onclick="addOrRemoveDate('Tue13')"></td>
+        <td class="tableSlot" id="Wed13" onclick="addOrRemoveDate('Wed13')"></td>
+        <td class="tableSlot" id="Thu13" onclick="addOrRemoveDate('Thu13')"></td>
+        <td class="tableSlot" id="Fri13" onclick="addOrRemoveDate('Fri13')"></td>
+        <td class="tableSlot" id="Sat13" onclick="addOrRemoveDate('Sat13')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 14<br />19:00 - 19:30</th>
+        <td class="tableSlot" id="Sun14" onclick="addOrRemoveDate('Sun14')"></td>
+        <td class="tableSlot" id="Mon14" onclick="addOrRemoveDate('Mon14')"></td>
+        <td class="tableSlot" id="Tue14" onclick="addOrRemoveDate('Tue14')"></td>
+        <td class="tableSlot" id="Wed14" onclick="addOrRemoveDate('Wed14')"></td>
+        <td class="tableSlot" id="Thu14" onclick="addOrRemoveDate('Thu14')"></td>
+        <td class="tableSlot" id="Fri14" onclick="addOrRemoveDate('Fri14')"></td>
+        <td class="tableSlot" id="Sat14" onclick="addOrRemoveDate('Sat14')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 15<br />19:40 - 20:10</th>
+        <td class="tableSlot" id="Sun15" onclick="addOrRemoveDate('Sun15')"></td>
+        <td class="tableSlot" id="Mon15" onclick="addOrRemoveDate('Mon15')"></td>
+        <td class="tableSlot" id="Tue15" onclick="addOrRemoveDate('Tue15')"></td>
+        <td class="tableSlot" id="Wed15" onclick="addOrRemoveDate('Wed15')"></td>
+        <td class="tableSlot" id="Thu15" onclick="addOrRemoveDate('Thu15')"></td>
+        <td class="tableSlot" id="Fri15" onclick="addOrRemoveDate('Fri15')"></td>
+        <td class="tableSlot" id="Sat15" onclick="addOrRemoveDate('Sat15')"></td>
+    </tr>
+    <tr>
+        <th scope="row">Slot 16<br />20:20 - 20:50</th>
+        <td class="tableSlot" id="Sun16" onclick="addOrRemoveDate('Sun16')"></td>
+        <td class="tableSlot" id="Mon16" onclick="addOrRemoveDate('Mon16')"></td>
+        <td class="tableSlot" id="Tue16" onclick="addOrRemoveDate('Tue16')"></td>
+        <td class="tableSlot" id="Wed16" onclick="addOrRemoveDate('Wed16')"></td>
+        <td class="tableSlot" id="Thu16" onclick="addOrRemoveDate('Thu16')"></td>
+        <td class="tableSlot" id="Fri16" onclick="addOrRemoveDate('Fri16')"></td>
+        <td class="tableSlot" id="Sat16" onclick="addOrRemoveDate('Sat16')"></td>
+    </tr>
+</table>
+
+<input type="button" class="btn btn-success" name="btnSubmit" value="Lưu lại" onclick="SubmitSlot()" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+
+
+<script type="text/javascript">
+    var selectedSlotWeek1 = new Array();
+    var selectedSlotWeek2 = new Array();
+    var selectedWeek = 1;
+
+    $(document).ready(function () {
+        @foreach(string item in ViewBag.SlotBooked1)
+        {     
+            @Html.Raw("selectedSlotWeek1.push('" + item + "');")
+        }
+
+        @foreach(string item in ViewBag.SlotBooked2)
+        {     
+            @Html.Raw("selectedSlotWeek2.push('" + item + "');")
+
+        }
+
+        $('.slotpick tr td').removeClass('selectedSlot');
+        for (i = 0; i < selectedSlotWeek1.length; i++) {
+            jQuery('#' + selectedSlotWeek1[i]).addClass('selectedSlot');
+        }
+    });
+
+    function SubmitSlot() {
+        $.ajax({
+            url: '@Url.Action("SaveSlot", "Tutor")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'Week1': selectedSlotWeek1, 'Week2': selectedSlotWeek2 }),
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr) {
+                alert("Error");
+            }
+        });
+    }
+
+    function addSlot(slot) {
+        if (selectedWeek == 1) {
+            if (jQuery.inArray(slot, selectedSlotWeek1) < 0)
+                selectedSlotWeek1.push(slot);
+        } else {
+            if (jQuery.inArray(slot, selectedSlotWeek2) < 0)
+                selectedSlotWeek2.push(slot);
+        }
+
+    }
+
+    function removeSlot(index) {
+        if (selectedWeek == 1)
+            selectedSlotWeek1.splice(index, 1);
+        else
+            selectedSlotWeek2.splice(index, 1);
+    }
+
+    // Adds a date if we don't have it yet, else remove it
+    function addOrRemoveDate(slot) {
+        if (selectedWeek == 1)
+            var index = jQuery.inArray(slot, selectedSlotWeek1);
+        else
+            var index = jQuery.inArray(slot, selectedSlotWeek2);
+        if (index >= 0)
+            removeSlot(index);
+        else
+            addSlot(slot);
+    }
+
+    var lockPre = true;
+    var lockNext = false;
+
+    function preClick() {
+        if (!lockPre) {
+            jQuery('#pre-arrow').addClass('disableArrow');
+            jQuery('#next-arrow').removeClass('disableArrow');
+            document.getElementById("WeekSelect").innerHTML = "@ViewBag.FirstWeek";
+            changeWeek();
+            lockPre = true;
+            lockNext = false;
+        }
+    }
+
+    function nextClick() {
+        if (!lockNext) {
+            jQuery('#next-arrow').addClass('disableArrow');
+            jQuery('#pre-arrow').removeClass('disableArrow');
+            document.getElementById("WeekSelect").innerHTML = "@ViewBag.SecondWeek";
+            changeWeek();
+            lockPre = false;
+            lockNext = true;
+        }
+    }
+
+    function changeWeek() {
+        if (selectedWeek == 1) {
+            selectedWeek = 2;
+            $('.slotpick tr td').removeClass('selectedSlot')
+            for (i = 0; i < selectedSlotWeek2.length; i++) {
+                jQuery('#' + selectedSlotWeek2[i]).addClass('selectedSlot');
+            }
+        }
+        else {
+            selectedWeek = 1;
+            $('.slotpick tr td').removeClass('selectedSlot');
+            for (i = 0; i < selectedSlotWeek1.length; i++) {
+                jQuery('#' + selectedSlotWeek1[i]).addClass('selectedSlot');
+            }
+        }
+
+
+    }
+
+    $('.tableSlot').click(function () {
+        $(this).toggleClass('selectedSlot');
+    });
+
+
+    $('.slotpick tr td').live('mousemove', function () { $(this).addClass('onmouse'); })
+    $('.slotpick tr td').live('mouseleave', function () { $(this).removeClass('onmouse'); })
+</script>
+<style>
+    .onmouse {
+        background-color: gray;
+    }
+
+    .selectedSlot {
+        background-color: forestgreen;
+    }
+
+    .disableArrow {
+        opacity: 0.4;
+        cursor: no-drop;
+    }
+</style>
