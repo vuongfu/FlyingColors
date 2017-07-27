@@ -19,4 +19,15 @@ namespace TutorOnline.Web.Models
         public string isCorrectStr { get; set; }
         public bool isCorrect { get; set; }
     }
+
+    public partial class StudentTestAnswerViewModels
+    {
+        //public int Answer1  { get; set; }
+        //public int Answer2  { get; set; }
+        //public int Answer3  { get; set; }
+        //public int Answer4  { get; set; }
+        //public int Answer5 { get; set; }
+        public List<int> ListAnswer { get; set; }
+        public int LessonId { get; set; }
+    }
 }

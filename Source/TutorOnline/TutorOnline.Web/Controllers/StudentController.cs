@@ -145,5 +145,35 @@ namespace TutorOnline.Web.Controllers
             }
             return View(listQuest);
         }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult CheckScore([FromBody]StudentTestAnswerViewModels Result)
+        {
+            int score = 0;
+            List<QuestionTestViewModels> listQuest = new List<QuestionTestViewModels>();
+
+            var list = QuesRes.GetAllLesQuestion(Result.LessonId).ToList();
+            foreach (var item in list)
+            {
+                QuestionTestViewModels temp = new QuestionTestViewModels();
+                temp.Content = item.Content;
+                temp.LessonId = item.LessonId;
+                temp.Photo = item.Photo;
+                temp.QuestionId = item.QuestionId;
+                temp.ListAnswer = AnsRes.GetAllAnswers(item.QuestionId).ToList();
+                listQuest.Add(temp);
+            }
+
+            for (int i = 0; i < Result.ListAnswer.Count(); i++)
+            {
+                if (listQuest[i].ListAnswer[Result.ListAnswer[i]].isCorrect == true)
+                {
+                    score++;
+                }
+            }
+
+            return Json(new { registeredSubject = "Bạn đã trả lời đúng "+score+" trên " + Result.ListAnswer.Count + " câu."});
+
+        }
     }
 }
