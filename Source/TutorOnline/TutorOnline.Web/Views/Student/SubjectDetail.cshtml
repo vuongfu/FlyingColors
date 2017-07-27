@@ -283,14 +283,18 @@ $(document).ready(function () {
             success: function (response) {
                 $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng kí môn học</h4></button>' );
                 $("#clicked").text(response.registeredSubject);
-                $("#clicked").css({'color':'#d10202'});
+                $("#clicked").css({'color':'#68f442'});
             }
         });
     });
 });
 $(document).ready(function () {
     $(document).on('click','#unregister',function (e) {
-        var model = new model;
+        var model = {   StudentSubjectId : null ,
+            SubjectId : @Model.SubjectId,
+            StudentId : null,
+            Status : null
+        };
         var url = "@Url.Action("UnRegisterSubject", "Student")";
         $.ajax({
             type: "POST",
@@ -301,7 +305,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí môn học</h4></button>' );
                 $("#clicked").text(response.registeredSubject);
-                $("#clicked").css({'color':'#68f442'});
+                $("#clicked").css({'color':'#d10202'});
             }
         });
     });
