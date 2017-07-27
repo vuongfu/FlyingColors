@@ -39,7 +39,7 @@ namespace TutorOnline.Common
 
         //Create common string
         public string CreateTitle = "Thực hiện giao dịch";
-        public string WrongAmount = "Số tiền giao dịch không hợp lý, xin mời nhập lại";
+        public string WrongAmount = "Số tiền giao dịch không hợp lý, xin mời nhập lại!";
         public string UpdateFailed = "Cập nhật thất bại";
         public string BackToList = "Trờ về trang tìm kiếm";
         public string TransAmount = "Số tiền giao dịch";

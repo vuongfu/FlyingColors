@@ -162,7 +162,7 @@
                 @TranString.TransAmount
             </dt>
             <dd>
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @id = "change" , @Value=""} }) 
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @id = "change" , @Value="", onDrag = "return false", onDrop = "return false", onPaste = "return false", autocomplete = "off" } }) 
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </dd>
             <dt>
@@ -182,23 +182,48 @@
                 @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </dd>
+            <dt>
+            </dt>
+            <dd>
+                <div style="font-weight: bold;">@ViewBag.message</div>
+            </dd>
+            <dt>
+            </dt>
+            <dd>
+                <br />
+            </dd>
+            <dt>
+            </dt>
+            <dd>
+                <input type="submit" value="@TranString.UpdateButton" class="btn" />
+            </dd>
+            <dt>
+            </dt>
+            <dd>
+                <br />
+            </dd>
+            <dt>
+            </dt>
+            <dd>
+                @Html.ActionLink(TranString.Back, "Search", new { area = "" }, new { @class = "btn btn-info" })
+            </dd>
         </dl>
     </div>
-    <div class="col-md-offset-3" style="font-weight: bold;">@ViewBag.message</div>
     
-    <div class="form-group">
+    
+    @*<div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="@TranString.UpdateButton" class="btn" />
             
         </div>
-    </div>
+    </div>*@
 }
-<div><br /></div>
-<div class="col-lg-5">
+
+@*<div class="col-lg-5">
     <div class="col-lg-offset-4">
         @Html.ActionLink(TranString.BackToList, "Search", new { area = "" }, new { @class = "btn btn-info" })
     </div>
-</div>
+</div>*@
 
 
 

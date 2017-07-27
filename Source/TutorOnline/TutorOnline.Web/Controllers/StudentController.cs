@@ -7,9 +7,11 @@ using System.Web.Mvc;
 using TutorOnline.Business.Repository;
 using TutorOnline.Web.Models;
 using TutorOnline.DataAccess;
+using System.Web.Http;
 
 namespace TutorOnline.Web.Controllers
 {
+    [System.Web.Mvc.Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
         SubjectsRepository SubRes = new SubjectsRepository();
@@ -60,7 +62,10 @@ namespace TutorOnline.Web.Controllers
                 SubjectDetail.Photo = Subject.Photo;
                 SubjectDetail.Purpose = Subject.Purpose;
                 SubjectDetail.Requirement = Subject.Requirement;
-                //SubjectDetail.Student = Subject;
+
+                if (StuSubject != null) { SubjectDetail.StudiedLesson = StuSubject.StudiedLesson; }
+                else { SubjectDetail.StudiedLesson = 0; }
+                
                 SubjectDetail.SubjectId = Subject.SubjectId;
                 SubjectDetail.SubjectName = Subject.SubjectName;
                 SubjectDetail.Description = Subject.Description;
@@ -70,38 +75,56 @@ namespace TutorOnline.Web.Controllers
             return View(SubjectDetail);
         }
 
-        public ActionResult RegisterSubject()
+        //install Microsoft.AspNet.WebApi.Core
+        [System.Web.Mvc.HttpPost]
+        public ActionResult RegisterSubject([FromBody]StudentSubject Subject)
         {
-            ViewBag.Sucess = "Fail";
-            return Json(new { registeredSubject = "ok" });
+            int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+            if (Subject != null)
+            {
+                StudentSubject StuSub;
+                StuSub = StuSubRes.GetSubById(Subject.SubjectId, StudentId).FirstOrDefault();
+                if (StuSub != null)
+                {
+                    //Thêm check tiến độ.
+                    if(StuSub.StudiedLesson >= LesRes.GetAllLessons().Where(s => s.SubjectId == Subject.SubjectId).Count())
+                    {
+                        StuSub.Status = 9;
+                    } else { StuSub.Status = 8; }
+                    StuSubRes.EditSubject(StuSub);
+                }
+                else
+                {
+                    StuSub = new StudentSubject();
+                    StuSub.StudentId = StudentId;
+                    StuSub.SubjectId = Subject.SubjectId;
+                    StuSub.Status = 8;
+                    StuSubRes.AddSubject(StuSub);
+                }
+                return Json(new { registeredSubject = "Đăng ký môn học thành công" });
+            }
 
+            return Json(new { registeredSubject = "Đăng ký môn học thất bại" });
         }
-        [HttpPost]
-        //public ActionResult RegisterSubject([FromBody] SubjectDetailViewModels Subject)
-        //{
-        //    if (Subject != null)
-        //    {
-        //        StudentSubject StuSub;
-        //        StuSub = StuSubRes.GetSubById(Subject.SubjectId, int.Parse(Request.Cookies["UserInfo"]["UserId"])).FirstOrDefault();
-        //        if (StuSub != null)
-        //        {
-        //            Thêm check tiến độ.
-        //            StuSub.Status = 8;
-        //            StuSubRes.EditSubject(StuSub);
-        //        }
-        //        else
-        //        {
-        //            StuSub = new StudentSubject();
-        //            StuSub.StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
-        //            StuSub.SubjectId = Subject.SubjectId;
-        //            StuSub.Status = 8;
-        //            StuSubRes.AddSubject(StuSub);
-        //        }
-        //        return Json(new { registeredSubject = "Đã đăng ký" });
-        //    }
 
-        //    return Json(new { registeredSubject = "Đăng ký môn học thất bại" });
-        //}
+        [System.Web.Mvc.HttpPost]
+        public ActionResult UnRegisterSubject([FromBody]StudentSubject Subject)
+        {
+
+            if (Subject != null)
+            {
+                StudentSubject StuSub;
+                StuSub = StuSubRes.GetSubById(Subject.SubjectId, int.Parse(Request.Cookies["UserInfo"]["UserId"])).FirstOrDefault();
+                if (StuSub != null)
+                {
+                    StuSub.Status = 7;
+                    StuSubRes.EditSubject(StuSub);
+                }
+                return Json(new { registeredSubject = "Hủy đăng ký môn học thành công" });
+            }
+
+            return Json(new { registeredSubject = " Hủy đăng ký môn học thất bại" });
+        }
 
         public ActionResult Test(int? LessonId)
         {
@@ -111,10 +134,46 @@ namespace TutorOnline.Web.Controllers
                 var list = QuesRes.GetAllLesQuestion(LessonId).ToList();
                 foreach (var item in list)
                 {
-
+                    QuestionTestViewModels temp = new QuestionTestViewModels();
+                    temp.Content = item.Content;
+                    temp.LessonId = item.LessonId;
+                    temp.Photo = item.Photo;
+                    temp.QuestionId = item.QuestionId;
+                    temp.ListAnswer = AnsRes.GetAllAnswers(item.QuestionId).ToList();
+                    listQuest.Add(temp);
                 }
             }
-            return View();
+            return View(listQuest);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult CheckScore([FromBody]StudentTestAnswerViewModels Result)
+        {
+            int score = 0;
+            List<QuestionTestViewModels> listQuest = new List<QuestionTestViewModels>();
+
+            var list = QuesRes.GetAllLesQuestion(Result.LessonId).ToList();
+            foreach (var item in list)
+            {
+                QuestionTestViewModels temp = new QuestionTestViewModels();
+                temp.Content = item.Content;
+                temp.LessonId = item.LessonId;
+                temp.Photo = item.Photo;
+                temp.QuestionId = item.QuestionId;
+                temp.ListAnswer = AnsRes.GetAllAnswers(item.QuestionId).ToList();
+                listQuest.Add(temp);
+            }
+
+            for (int i = 0; i < Result.ListAnswer.Count(); i++)
+            {
+                if (listQuest[i].ListAnswer[Result.ListAnswer[i]].isCorrect == true)
+                {
+                    score++;
+                }
+            }
+
+            return Json(new { registeredSubject = "Bạn đã trả lời đúng "+score+" trên " + Result.ListAnswer.Count + " câu."});
+
         }
     }
 }

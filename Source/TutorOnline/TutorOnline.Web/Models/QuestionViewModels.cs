@@ -22,8 +22,6 @@ namespace TutorOnline.Web.Models
     {
         public int QuestionId { get; set; }
         public string Photo { get; set; }
-
-        [Required(ErrorMessage = "Hãy nhập nội dung câu hỏi.")]
         public string Content { get; set; }
         public Nullable<int> LessonId { get; set; }
         public Nullable<int> SubjectId { get; set; }
