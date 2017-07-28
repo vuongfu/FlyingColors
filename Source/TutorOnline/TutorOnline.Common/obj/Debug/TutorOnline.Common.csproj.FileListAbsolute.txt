@@ -2,4 +2,8 @@ D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Debug\TutorOnline.Comm
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Debug\TutorOnline.Common.pdb
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.pdb
-D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.csprojResolveAssemblyReference.cache
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Debug\TutorOnline.Common.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Debug\TutorOnline.Common.pdb
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.csprojResolveAssemblyReference.cache
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.dll
+D:\Study\CPJ\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Debug\TutorOnline.Common.pdb
