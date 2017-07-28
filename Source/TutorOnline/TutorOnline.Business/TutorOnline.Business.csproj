@@ -54,7 +54,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AccountantRepository.cs" />
     <Compile Include="Repository\AccountRepository.cs" />
+    <Compile Include="Repository\AnswersRepository.cs" />
     <Compile Include="Repository\CategoriesRepository.cs" />
+    <Compile Include="Repository\CriteriaRepository.cs" />
+    <Compile Include="Repository\LearningMaterialRepository.cs" />
+    <Compile Include="Repository\LessonRepository.cs" />
+    <Compile Include="Repository\QuestionRepository.cs" />
+    <Compile Include="Repository\StudentRepository.cs" />
+    <Compile Include="Repository\StudentSubjectRepository.cs" />
+    <Compile Include="Repository\SubjectsRepository.cs" />
+    <Compile Include="Repository\TutorRepository.cs" />
     <Compile Include="Repository\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
