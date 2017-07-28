@@ -19,7 +19,6 @@ namespace TutorOnline.DataAccess
         public int TutorId { get; set; }
         public int Status { get; set; }
         public string Experience { get; set; }
-        public bool isActived { get; set; }
     
         public virtual Status Status1 { get; set; }
         public virtual Subject Subject { get; set; }
