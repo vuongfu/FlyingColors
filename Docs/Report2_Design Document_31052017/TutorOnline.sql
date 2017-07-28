@@ -220,8 +220,7 @@ CREATE TABLE [TutorSubject] (
 	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
 	CONSTRAINT UC_TutorSub UNIQUE (SubjectId, TutorId),
 	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
-	[Experience] [nvarchar](4000) not null,
-	[isActived] bit not null default 0
+	[Experience] [nvarchar](4000) not null
 );
 
 CREATE TABLE [TeachSchedule] (
@@ -412,8 +411,9 @@ INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiế
 
 
 --Insert data to TutorSubject table
-
-
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,1,6,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,2,6,'2 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,1,6,'1 năm');
 --Insert data to TeachSchedule table
 
 
