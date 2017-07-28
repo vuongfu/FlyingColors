@@ -163,6 +163,7 @@
     <Compile Include="Controllers\ccMailClass.cs" />
     <Compile Include="Controllers\CriteriaController.cs" />
     <Compile Include="Controllers\DashboardManagerController.cs" />
+    <Compile Include="Controllers\DateAndWeekSelection.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileUpload.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Models\StudentSubjectViewModels.cs" />
     <Compile Include="Models\SubjectsViewModels.cs" />
     <Compile Include="Models\TransactionViewModels.cs" />
+    <Compile Include="Models\TutorViewModels.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -254,6 +256,10 @@
     <Content Include="Image\fb_icon.png" />
     <Content Include="Image\gg_icon.png" />
     <Content Include="Image\jp1.png" />
+    <Content Include="Image\next.png" />
+    <Content Include="Image\nextn.png" />
+    <Content Include="Image\prev.png" />
+    <Content Include="Image\prevn.png" />
     <Content Include="Image\slide1.jpg" />
     <Content Include="Image\slide2.jpg" />
     <Content Include="Image\slide3.jpg" />
@@ -363,7 +369,6 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Subjects\LessonsInSubject.cshtml" />
     <Content Include="Views\Subjects\MaterialInSubject.cshtml" />
-    <Content Include="Views\Subjects\QuestionInSubject.cshtml" />
     <Content Include="Views\Materials\Delete.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
@@ -383,8 +388,11 @@
     <Content Include="Views\Criteria\Details.cshtml" />
     <Content Include="Views\Criteria\Edit.cshtml" />
     <Content Include="Views\Criteria\Delete.cshtml" />
-    <Content Include="Views\Tutor\Index.cshtml" />
     <Content Include="Views\Student\Test.cshtml" />
+    <Content Include="Views\Tutor\TutorBookSlot.cshtml" />
+    <Content Include="Views\Subjects\QuestionInSubject.cshtml" />
+    <Content Include="Views\Question\CreateLinkQuestion.cshtml" />
+    <Content Include="Views\Question\DeleleQuestionLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
