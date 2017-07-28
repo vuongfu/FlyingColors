@@ -1,0 +1,4 @@
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Release\TutorOnline.Common.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\bin\Release\TutorOnline.Common.pdb
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Release\TutorOnline.Common.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Common\obj\Release\TutorOnline.Common.pdb

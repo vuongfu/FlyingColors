@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="TutorOnlineContext-Web.config Connection String" description="TutorOnlineContext Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/TutorOnlineModel.csdl|res://*/TutorOnlineModel.ssdl|res://*/TutorOnlineModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=DESKTOP-70ON92S;initial catalog=TutorOnline;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\FlyingColors\\Source\\TutorOnline\\TutorOnline\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TutorOnlineContext']/@connectionString" />
+  </parameter>
+  <parameter name="TutorOnline-Web.config Connection String" description="TutorOnline Connection String used in web.config by the application to access the database." defaultValue="Data Source=tutoronline.database.windows.net;Initial Catalog=TutorOnlineDB;Integrated Security=False;User ID=vuongtv;Password=Nguyenkhanhvan123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\FlyingColors\\Source\\TutorOnline\\TutorOnline\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TutorOnline']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="DefaultConnection_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\FlyingColors\\Source\\TutorOnline\\TutorOnline\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

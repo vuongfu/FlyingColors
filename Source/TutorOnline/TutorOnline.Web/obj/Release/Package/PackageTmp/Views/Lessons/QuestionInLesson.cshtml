@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TutorOnline.Web.Models.QuestionTestViewModels>
+
+@{
+    Layout = null;
+    ViewBag.Count = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bài tập của bài học</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Câu Hỏi Trắc Nghiệm", "Create", "Question", new { lesId = ViewBag.lesId, subId = ViewBag.subId }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Nội dung</th>
+                        <th>Số lượng đáp án</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.Content, "Details", "Question", new { id = item.QuestionId, subId = ViewBag.subId }, null)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ListAnswer.Count)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Bài học hiện chưa có câu hỏi trắc nghiệm nào. Hãy thêm câu hỏi trắc nghiệm cho bài học.</h4>
+            </div>
+        </div>
+    }
+</body>
+</html>

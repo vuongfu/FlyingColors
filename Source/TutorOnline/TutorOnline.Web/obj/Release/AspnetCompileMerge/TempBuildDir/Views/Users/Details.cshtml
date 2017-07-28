@@ -1,0 +1,236 @@
+﻿@model TutorOnline.Web.Models.DetailUserViewModels
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+
+<div>
+    <h4>Thông tin người dùng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+        @if (String.IsNullOrEmpty(Model.Photo))
+        {
+            <dd>
+                @("N/A")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;" />
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @if (Model.Gender == 1)
+            {
+                @("Nam")
+            }
+            else
+            {
+                @("Nữ")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        @if (ViewBag.RName == "Parent" || ViewBag.RName == "Student" || ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.SkypeID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SkypeID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostalCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Balance)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Balance)
+            </dd>
+
+            if (ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.BankID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BankID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Salary)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BankName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BankName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BMemName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BMemName)
+                </dd>
+            }
+
+            if (ViewBag.RName == "Student")
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ParentName)
+                </dd>
+            }
+
+        }
+
+        @if (ViewBag.InfoClick == true)
+        {
+            <dt>
+                @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
+            </dt>
+            <dd>
+
+            </dd>
+
+        }
+        else
+        {
+            <dd>
+
+            </dd>
+            <dt>
+
+            </dt>
+            if (ViewBag.RName == "Parent" || ViewBag.RName == "Student" || ViewBag.RName == "Tutor" || ViewBag.RName == "PreTutor")
+            {
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }) @(" | ")
+            }
+            if (User.Identity.Name != Model.Username)
+            {
+                @Html.ActionLink("Xóa", "Delete", new { id = Model.Id }) @(" | ")
+            }
+            @Html.ActionLink("Quay về", "Index")
+
+        }
+    </dl>
+</div>
+

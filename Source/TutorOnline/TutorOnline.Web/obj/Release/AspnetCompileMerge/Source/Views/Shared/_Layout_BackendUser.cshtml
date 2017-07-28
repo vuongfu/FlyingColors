@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title TutorOnline</title>
+    <link rel="shortcut icon" href="~/Image/TutorOnline_Icon.png" />
+    <link rel="stylesheet" href="~/Content/Style.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Footer-with-map.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background: #333333;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("TUTOR ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="row" style="color:aliceblue; margin-top: 15px;">
+                            <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng Xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                @TempData["message"]
+            </div>
+        }
+        @if (TempData["messageWarning"] != null)
+        {
+            <div class="alert alert-warning alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                @TempData["messageWarning"]
+            </div>
+        }
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12"><h2>Tutor Online</h2></div>
+            </div>
+            @{
+                string Rid = "";
+                string Rname = "";
+                string Uid = "";
+                if (Request.Cookies["Role"] != null)
+                {
+                    if (Request.Cookies["Role"]["RoleId"] != null)
+                    {
+                        Rid = Request.Cookies["Role"]["RoleId"];
+                    }
+                    if (Request.Cookies["Role"]["RoleId"] != null)
+                    {
+                        Rname = Request.Cookies["Role"]["RoleName"];
+                    }
+
+                }
+                if (Request.Cookies["UserInfo"] != null)
+                {
+                    if (Request.Cookies["UserInfo"]["UserId"] != null)
+                    {
+                        Uid = Request.Cookies["UserInfo"]["UserId"];
+                    }
+                }
+            }
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "DashboardManager")">Thống kê hệ thống</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "LearningResources")">Quản lý tài nguyên học tập</a></li>
+                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "TutorManagement")">Quản lý danh sách gia sư</a></li>
+                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý giao dịch</a></li>
+                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Tutor Online</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(function () {
+            var current_page_URL = location.href;
+            $("a").each(function () {
+                if ($(this).attr("href") !== "#") {
+                    var target_URL = $(this).prop("href");
+                    if (target_URL == current_page_URL) {
+                        $('nav a').parents('li, ul').removeClass('active');
+                        $(this).parent('li').addClass('active');
+                        return false;
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

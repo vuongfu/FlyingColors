@@ -25,7 +25,9 @@ D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\Microsoft.Web.Infrastruct
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\Newtonsoft.Json.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\PagedList.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\PagedList.Mvc.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Net.Http.Formatting.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Helpers.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Http.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Mvc.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Optimization.dll
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Razor.dll
@@ -43,6 +45,8 @@ D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\EPPlus.xml
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\PagedList.xml
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\PagedList.Mvc.xml
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Net.Http.Formatting.xml
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Http.xml
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Helpers.xml
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Mvc.xml
 D:\FlyingColors\Source\TutorOnline\TutorOnline.Web\bin\System.Web.Optimization.xml

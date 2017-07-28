@@ -1,0 +1,91 @@
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.SubjectsViewModels>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Quản lý khóa học";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+    ViewBag.Count = 0;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="margin-bottom: -20px;">Quản lý khóa học</h3>
+            @Html.ActionLink("Trở lại", "Index", "LearningResources", null, new { @class = "btn btn-info pull-right" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        @using (Html.BeginForm("Index", "Subjects", FormMethod.Get))
+        {
+            <dl>
+                <dt style="margin-left: 20px; margin-bottom: 10px;">Loại môn học</dt>
+                <dd>
+                    <div class="col-md-3">
+                        @Html.DropDownList("cateString", null, "--Tất cả môn học--", htmlAttributes: new { @class = "form-control", style = "width: 160px;" })
+                    </div>
+                    <div class="col-md-7">
+                        <div class="input-group">
+                            @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm theo tên khóa học..." })
+                            <span class="input-group-btn">
+                                <input type="submit" value="Tìm Kiếm" class="btn btn-default" name="btnSearch" />
+                            </span>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        }
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm Khóa Học", "Create", "Subjects", new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <br />
+    @if (@ViewBag.totalRecord > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Tìm thấy @ViewBag.totalRecord kết quả.</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên khóa học</th>
+                        <th>Thuộc môn học</th>
+                        <th>Mục tiêu</th>
+                        <th>Yêu cầu</th>
+                        <th>Mô tả</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@Html.ActionLink(item.SubjectName, "Details", new { id = item.SubjectId })</td>
+                            <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Requirement)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        </tr>
+                    }
+                </table>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                                 new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr, btnSearch = ViewBag.btnSearch }))
+            </div>
+        </div>
+    }
+    else if (@ViewBag.btnSearch != null && ViewBag.totalRecord == 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Tìm thấy @ViewBag.totalRecord kết quả</h4>
+            </div>
+        </div>
+    }
+</div>

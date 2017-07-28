@@ -1,0 +1,14 @@
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.Business.dll.config
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.Business.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.Business.pdb
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\EntityFramework.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\EntityFramework.SqlServer.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.Common.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.DataAccess.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.Common.pdb
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\TutorOnline.DataAccess.pdb
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\EntityFramework.xml
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\bin\Release\EntityFramework.SqlServer.xml
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\obj\Release\TutorOnline.Business.csprojResolveAssemblyReference.cache
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\obj\Release\TutorOnline.Business.dll
+D:\FlyingColors\Source\TutorOnline\TutorOnline.Business\obj\Release\TutorOnline.Business.pdb

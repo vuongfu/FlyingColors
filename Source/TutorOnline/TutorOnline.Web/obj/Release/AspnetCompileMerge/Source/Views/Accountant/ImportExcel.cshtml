@@ -1,0 +1,120 @@
+﻿@*@model IList<TutorOnline.Web.Models.TransactionViewModels>*@
+@*@using PagedList.Mvc;*@
+@*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
+@using TutorOnline.Common;
+@{
+    TranStringCommon TranString = new TranStringCommon();
+    ViewBag.Title = TranString.ImportExcel;
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+    //ViewBag.Count = 0;
+}
+
+
+<h2>@TranString.ImportExcel</h2>
+@using (Html.BeginForm("ImportExcel", "Accountant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h4>@TranString.Guide</h4>
+    <img src="~/Image/ExcelFormat.png" alt="ExcelFormat">
+    <hr>
+    @*<table>
+       <tr>
+        <th>
+            <input type="file" name="file" />
+        </th>
+        <th>
+            <input type="submit" value="@TranString.ImportButton" />
+        </th>
+       </tr>
+    </table>*@
+    <div class="row">
+        <div class="col-lg-4"><input type="file" name="file" /></div>
+        <div class="col-lg-1"><input type="submit" value="@TranString.ImportButton" /></div>
+    </div>
+    <p></p>
+    <div class="row">
+        <div class="col-lg-4">@Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })</div>
+    </div>
+    @ViewBag.Message
+
+    @*if (Model.FirstOrDefault() != null)
+        {
+
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        Stt
+                    </th>
+                    <th>
+                        Tên tài khoản
+                    </th>
+                    <th>
+                        Số tiền
+                    </th>
+                    <th>
+                        Loại người dùng
+                    </th>
+                    <th>
+                        Nội dung giao dịch
+                    </th>
+                    <th></th>
+                </tr>*@
+
+                @*@foreach (var item in Model)
+                {
+                    @Html.HiddenFor(model => item)
+                    
+                    <tr>
+                        <td>
+                            @(ViewBag.Count++)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                    </tr>
+                }*@
+                @*@for (int i = 0; i<Model.Count;i++)
+                {
+                    @Html.HiddenFor(model => Model[i])
+
+                    <tr>
+                        <td>
+                            @(ViewBag.Count++)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].UserTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].Content)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Thêm giao dịch"/>
+                    @ViewBag.message
+                </div>
+            </div>
+    }*@
+}
+@*<div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>}
+@Html.PagedListPager(Model, page => Url.Action("ImportExcel", new { }))*@
+
