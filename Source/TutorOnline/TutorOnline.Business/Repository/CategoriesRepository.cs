@@ -18,7 +18,7 @@ namespace TutorOnline.Business.Repository
 
         public Category FindCategory(int? id)
         {
-            Category category = _dbContext.Categories.Find(id);
+            Category category = _dbContext.Categories.Where(x => x.isActived == true && x.CategoryId == id).FirstOrDefault();
             return category;
         }
 
@@ -49,6 +49,26 @@ namespace TutorOnline.Business.Repository
                 return false;
             else
                 return true;
+        }
+
+        public bool isExistsCateNameEdit(string name, int id)
+        {
+
+            //Get anotherCategory
+            var category = _dbContext.Categories.Where(x => x.CategoryId != id && x.isActived == true);
+            //Check isExistCategoryName
+            foreach(var item in category)
+            {
+                if(name != null)
+                {
+                    if (name.Trim() == item.CategoryName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
         public bool isExistedSubjectIn(int id)
         {

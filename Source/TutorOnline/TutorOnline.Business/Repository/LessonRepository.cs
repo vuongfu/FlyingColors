@@ -28,7 +28,7 @@ namespace TutorOnline.Business.Repository
         }
         public Lesson FindLesson(int? id)
         {
-            Lesson lesson = _dbContext.Lessons.Find(id);
+            Lesson lesson = _dbContext.Lessons.Where(x => x.isActived == true && x.LessonId == id).FirstOrDefault();
             return lesson;
         }
         public List<Lesson> FindLessons(int? id)
@@ -77,6 +77,24 @@ namespace TutorOnline.Business.Repository
                 return false;
             else
                 return true;
+        }
+
+        public bool isExistsLessonNameEdit(string name, int id)
+        {
+            //Get anotherCategory
+            var lesson = _dbContext.Lessons.Where(x => x.LessonId != id && x.isActived == true);
+            //Check isExistCategoryName
+            foreach (var item in lesson)
+            {
+                if (name != null)
+                {
+                    if (name.Trim() == item.LessonName)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         public void Dispose()
         {

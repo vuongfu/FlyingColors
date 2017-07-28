@@ -20,7 +20,7 @@ namespace TutorOnline.Web.Controllers
         
         public ActionResult Index(string btnSearch, string searchString, int? page)
         {
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
 
             ViewBag.searchStr = searchString;
@@ -80,7 +80,7 @@ namespace TutorOnline.Web.Controllers
                 Category category = new Category();
                 //Mapping Entity to ViewModel
                 category.CategoryId = model.CategoryId;
-                category.CategoryName = model.CategoryName;
+                category.CategoryName = model.CategoryName.Trim();
                 category.Description = model.Description;
 
                 CRes.AddCategory(category);
@@ -138,18 +138,20 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CategoriesViewModels model)
         {
-            Category category = new Category();
-            category.CategoryId = model.CategoryId;
-            category.CategoryName = model.CategoryName;
-            category.Description = model.Description;
+            if (CRes.isExistsCateNameEdit(model.CategoryName, model.CategoryId))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
+                return View(model);
+            }
 
+            //Edit category
             if (ModelState.IsValid)
             {
-                //if (CRes.isExistsCategoryName(model.CategoryName))
-                //{
-                //    TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
-                //    return View(model);
-                //}
+                Category category = new Category();
+                category.CategoryId = model.CategoryId;
+                category.CategoryName = model.CategoryName.Trim();
+                category.Description = model.Description;
+
                 CRes.EditCategory(category);
                 TempData["message"] = new ManagerStringCommon().updateCategoriesSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.CategoryId });
@@ -190,7 +192,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().deleteCategoriesSuccess.ToString();
             }
 
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

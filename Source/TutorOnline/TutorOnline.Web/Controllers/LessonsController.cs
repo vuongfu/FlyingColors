@@ -53,10 +53,15 @@ namespace TutorOnline.Web.Controllers
                     return View(model);
                 }
                 //get Max Order
-                int maxOrder = LRes.GetLesInSub(subId).OrderByDescending(x => x.Order).First().Order;
+                int maxOrder;
+                if (LRes.GetLesInSub(subId).ToList().Count != 0)
+                    maxOrder = LRes.GetLesInSub(subId).OrderByDescending(x => x.Order).First().Order;
+                else
+                    maxOrder = 0;
+
                 //Mapping Entity to ViewModel
                 lesson.LessonId = model.LessonId;
-                lesson.LessonName = model.LessonName;
+                lesson.LessonName = model.LessonName.Trim();
                 lesson.Content = model.Content;
                 lesson.SubjectId = model.SubjectId;
                 lesson.Order = maxOrder + 1;
@@ -129,24 +134,24 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(LessonViewModels model)
         {
-            //if (LRes.isExistsLessonName(model.LessonName, model.SubjectId))
-            //{
-            //    TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
-            //    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-            //    return View(model);
-            //}
-
-            Lesson lesson = new Lesson();
-
-            //Mapping Entity to ViewModel
-            lesson.LessonId = model.LessonId;
-            lesson.LessonName = model.LessonName;
-            lesson.SubjectId = model.SubjectId;
-            lesson.Content = model.Content;
-            lesson.Order = model.Order;
+            if (LRes.isExistsLessonNameEdit(model.LessonName, model.LessonId))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistLessonName.ToString();
+                ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                return View(model);
+            }
 
             if (ModelState.IsValid)
             {
+                Lesson lesson = new Lesson();
+
+                //Mapping Entity to ViewModel
+                lesson.LessonId = model.LessonId;
+                lesson.LessonName = model.LessonName.Trim();
+                lesson.SubjectId = model.SubjectId;
+                lesson.Content = model.Content;
+                lesson.Order = model.Order;
+
                 LRes.EditLesson(lesson);
                 TempData["message"] = new ManagerStringCommon().updateLessonSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.LessonId });

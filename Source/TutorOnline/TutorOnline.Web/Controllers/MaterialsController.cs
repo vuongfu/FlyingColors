@@ -45,7 +45,29 @@ namespace TutorOnline.Web.Controllers
         {
             if (file == null)
             {
-                TempData["messageWarning"] = new ManagerStringCommon().requireUploadFile.ToString();
+                if (model.SubjectId != null && model.LessonId == null)
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().requireUploadFileInSub.ToString();
+                    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                    ViewBag.subId = model.SubjectId;
+
+                }
+                else
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().requireUploadFileInLes.ToString();
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(model.SubjectId), "LessonId", "LessonName");
+                    ViewBag.lesId = model.LessonId;
+                }
+                return View();
+            }
+            string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
+            model.MaterialUrl = docUrl;
+            model.MaterialTypeId = FileUpload.GetFileTypeId(file);
+            model.MaterialTypeName = FileUpload.GetFileType(file);
+
+            if (LMRes.isNotSupportMaterialType(model.MaterialTypeName))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isNotSupportMaterialType.ToString();
                 if (model.SubjectId != null && model.LessonId == null)
                 {
                     ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
@@ -59,10 +81,6 @@ namespace TutorOnline.Web.Controllers
                 }
                 return View();
             }
-            string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
-            model.MaterialUrl = docUrl;
-            model.MaterialTypeId = FileUpload.GetFileTypeId(file);
-            model.MaterialTypeName = FileUpload.GetFileType(file);
 
             LearningMaterial material = new LearningMaterial();
             //Mapping Entity to ViewModel
@@ -149,15 +167,6 @@ namespace TutorOnline.Web.Controllers
         {
             string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
 
-            //if (LMRes.isExistsMaterialNameInLes(model.MaterialUrl, model.LessonId))
-            //{
-            //    TempData["messageWarning"] = new ManagerStringCommon().isExistMaterialNameLes.ToString();
-            //    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
-            //    ViewBag.LessonId = new SelectList(LRes.GetAllLessons(), "LessonId", "LessonName");
-            //    //ViewBag.MaterialTypeId = new SelectList(LMRes.GetAllMaType(), "MaterialTypeId", "MaterialTypeName");
-            //    return View(model);
-            //}
-
             LearningMaterial material = new LearningMaterial();
 
             //Mapping Entity to ViewModel
@@ -165,6 +174,7 @@ namespace TutorOnline.Web.Controllers
             material.MaterialUrl = (string.IsNullOrEmpty(docUrl) ? model.MaterialUrl : docUrl);
             material.LessonId = model.LessonId;
             material.MaterialTypeId = model.MaterialTypeId;
+            material.Description = model.Description;
 
             if (ModelState.IsValid)
             {

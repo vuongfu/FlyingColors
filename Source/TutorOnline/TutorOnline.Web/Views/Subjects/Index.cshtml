@@ -40,7 +40,7 @@
     <br />
     <div class="row">
         <div class="col-md-4">
-            @Html.ActionLink("Thêm Khóa Học", "Create", "Subjects", new { @class = "btn btn-success" })
+            @Html.ActionLink("Thêm khóa học", "Create", "Subjects", new { @class = "btn btn-success" })
         </div>
     </div>
     <br />
@@ -74,7 +74,7 @@
                         </tr>
                     }
                 </table>
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
                 @Html.PagedListPager(Model, page => Url.Action("Index",
                                  new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr, btnSearch = ViewBag.btnSearch }))
             </div>

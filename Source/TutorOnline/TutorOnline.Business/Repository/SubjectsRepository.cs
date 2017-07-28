@@ -22,7 +22,7 @@ namespace TutorOnline.Business.Repository
         }
         public Subject FindSubject(int? id)
         {
-            Subject subject = _dbContext.Subjects.Find(id);
+            Subject subject = _dbContext.Subjects.Where(x => x.isActived == true && x.SubjectId == id).FirstOrDefault();
             return subject;
         }
         public List<Subject> FindSubjects(int? id)
@@ -71,6 +71,24 @@ namespace TutorOnline.Business.Repository
                 return false;
             else
                 return true;
+        }
+
+        public bool isExistsSubjectNameEdit(string name, int id)
+        {
+            //Get anotherCategory
+            var subject = _dbContext.Subjects.Where(x => x.SubjectId != id && x.isActived == true);
+            //Check isExistCategoryName
+            foreach (var item in subject)
+            {
+                if (name != null)
+                {
+                    if (name.Trim() == item.SubjectName)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         public void Dispose()
         {

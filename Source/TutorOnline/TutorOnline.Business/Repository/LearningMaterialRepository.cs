@@ -27,7 +27,7 @@ namespace TutorOnline.Business.Repository
         }
         public LearningMaterial FindMaterial(int? id)
         {
-            LearningMaterial material = _dbContext.LearningMaterials.Find(id);
+            LearningMaterial material = _dbContext.LearningMaterials.Where(x => x.isActived == true && x.MaterialId == id).FirstOrDefault();
             return material;
         }
         public List<LearningMaterial> FindMaterials(int? id)
@@ -65,6 +65,15 @@ namespace TutorOnline.Business.Repository
         {
             var material = _dbContext.LearningMaterials.Where(x => x.SubjectId == id && x.isActived == true).FirstOrDefault(x => x.MaterialUrl == name);
             if (material == null)
+                return false;
+            else
+                return true;
+        }
+
+        public bool isNotSupportMaterialType(string type)
+        {
+            var materialType = _dbContext.MaterialTypes.FirstOrDefault(x => x.MaterialTypeName == type);
+            if (materialType != null)
                 return false;
             else
                 return true;

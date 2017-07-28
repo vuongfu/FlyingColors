@@ -22,7 +22,7 @@ namespace TutorOnline.Business.Repository
         }
         public Question FindQuestion(int? id)
         {
-            Question question = _dbContext.Questions.Find(id);
+            Question question = _dbContext.Questions.Where(x => x.isActived == true && x.QuestionId == id).FirstOrDefault();
             return question;
         }
         public void AddQuestion(Question question)
@@ -53,6 +53,33 @@ namespace TutorOnline.Business.Repository
         public bool isExistsQuestionName(string name, int? id)
         {
             var question = _dbContext.Questions.Where(x => x.LessonId == id && x.isActived == true).FirstOrDefault(x => x.Content == name);
+            if (question == null)
+                return false;
+            else
+                return true;
+        }
+
+        public bool isExistsQuestionNameEdit(string name, int id)
+        {
+            //Get anotherCategory
+            var question = _dbContext.Questions.Where(x => x.QuestionId != id && x.isActived == true);
+            //Check isExistCategoryName
+            foreach (var item in question)
+            {
+                if (name != null)
+                {
+                    if (name.Trim() == item.Content)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool isExistsQuestionLink(string link, int? id)
+        {
+            var question = _dbContext.Questions.Where(x => x.SubjectId == id && x.isActived == true).FirstOrDefault(x => x.Content == link);
             if (question == null)
                 return false;
             else

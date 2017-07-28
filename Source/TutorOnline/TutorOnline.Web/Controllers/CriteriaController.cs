@@ -46,7 +46,7 @@ namespace TutorOnline.Web.Controllers
                 criteria.CriteriaId = model.CriteriaId;
                 criteria.LessonId = lesId;
                 criteria.RoleId = 6;
-                criteria.CriteriaName = model.CriteriaName;
+                criteria.CriteriaName = model.CriteriaName.Trim();
 
                 CTRes.AddCriteria(criteria);
 
@@ -113,15 +113,15 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CriteriaViewModel model)
         {
-            Criterion criteria = new Criterion();
-            criteria.CriteriaId = model.CriteriaId;
-            criteria.LessonId = model.LessonId;
-            criteria.RoleId = model.RoleId;
-            criteria.CriteriaName = model.CriteriaName;
-
             if (ModelState.IsValid)
             {
-                if (CTRes.isExistsCriteriaName(model.CriteriaName, model.LessonId))
+                Criterion criteria = new Criterion();
+                criteria.CriteriaId = model.CriteriaId;
+                criteria.LessonId = model.LessonId;
+                criteria.RoleId = model.RoleId;
+                criteria.CriteriaName = model.CriteriaName.Trim();
+
+                if (CTRes.isExistsCriteriaNameEdit(model.CriteriaName, model.CriteriaId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistCriteriaName.ToString();
                     return View(model);

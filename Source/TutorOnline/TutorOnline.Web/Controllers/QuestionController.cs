@@ -17,7 +17,52 @@ namespace TutorOnline.Web.Controllers
         private QuestionRepository QRes = new QuestionRepository();
         private LessonRepository LRes = new LessonRepository();
         private AnswersRepository ARes = new AnswersRepository();
+        private SubjectsRepository SRes = new SubjectsRepository();
 
+        public ActionResult CreateLinkQuestion(int? subId)
+        {
+            if (subId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.subName = SRes.FindSubject(subId).SubjectName;
+            ViewBag.subId = subId;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateLinkQuestion(QuestionLinkViewModels model)
+        {
+            int subId = Convert.ToInt32(TempData["subId"]);
+            string subName = Convert.ToString(TempData["subName"]);
+
+            if (ModelState.IsValid)
+            {
+                Question question = new Question();
+                if (QRes.isExistsQuestionLink(model.Link, subId))
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionLink.ToString();
+                    ViewBag.subId = subId;
+                    ViewBag.subName = subName;
+                    return View(model);
+                }
+                //Mapping Entity to ViewModel
+                question.Content = model.Link.Trim();
+                question.SubjectId = subId;
+
+                QRes.AddQuestion(question);
+                TempData["message"] = new ManagerStringCommon().addLinkQuestionSuccess.ToString();
+                ViewBag.subId = subId;
+                ViewBag.subName = subName;
+                return RedirectToAction("Details", "Subjects", new { id = subId });
+            }
+            ViewBag.subId = subId;
+            ViewBag.subName = subName;
+
+            return View(model);
+        }
         public ActionResult Create(int? lesId, int? subId)
         {
             if (lesId == null)
@@ -50,7 +95,7 @@ namespace TutorOnline.Web.Controllers
                 }
                 //Mapping Entity to ViewModel
                 question.QuestionId = model.QuestionId;
-                question.Content = model.Content;
+                question.Content = model.Content.Trim();
                 question.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
                 question.LessonId = model.LessonId;
                 question.SubjectId = model.SubjectId;
@@ -131,33 +176,34 @@ namespace TutorOnline.Web.Controllers
         {
             int subId = Convert.ToInt32(TempData["subId"]);
             string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
-            //if (QRes.isExistsQuestionName(model.Content, model.LessonId))
-            //{
-            //    TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
-            //    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName");
-            //    ViewBag.lesId = model.LessonId;
-            //    ViewBag.subId = subId;
-            //    return View(model);
-            //}
 
-            Question question = new Question();
-
-            //Mapping Entity to ViewModel
-            question.QuestionId = model.QuestionId;
-            question.Content = model.Content;
-            question.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
-            question.SubjectId = model.SubjectId;
-            question.LessonId = model.LessonId;
+            if (QRes.isExistsQuestionNameEdit(model.Content, model.QuestionId))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
+                ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
+                ViewBag.lesId = model.LessonId;
+                ViewBag.subId = subId;
+                return View(model);
+            }
 
             if (ModelState.IsValid)
             {
+                Question question = new Question();
+
+                //Mapping Entity to ViewModel
+                question.QuestionId = model.QuestionId;
+                question.Content = model.Content.Trim();
+                question.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
+                question.SubjectId = model.SubjectId;
+                question.LessonId = model.LessonId;
+
                 QRes.EditQuestion(question);
                 TempData["message"] = new ManagerStringCommon().updateQuestionSuccess.ToString();
                 ViewBag.lesId = model.LessonId;
                 ViewBag.subId = subId;
                 return RedirectToAction("Details", new { id = model.QuestionId, subId = ViewBag.subId });
             }
-            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", question.LessonId);
+            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
             ViewBag.lesId = model.LessonId;
             ViewBag.subId = subId;
             return View(model);
@@ -205,6 +251,38 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("Details", "Lessons", new { id = lesId });
         }
 
+        public ActionResult DeleleQuestionLink (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Question question = QRes.FindQuestion(id);
+            QuestionLinkViewModels model = new QuestionLinkViewModels();
+            if (question == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                //Mapping Entity to ViewModel
+                model.QuestionId = question.QuestionId;
+                model.Link = question.Content;
+                model.subjectName = question.Subject.SubjectName;
+
+                ViewBag.subId = question.SubjectId;
+            }
+            return View(model);
+        }
+
+        [HttpPost, ActionName("DeleleQuestionLink")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleleQuestionLink(int id, int? subId)
+        {
+            QRes.DeleteQuestion(id);
+            TempData["message"] = new ManagerStringCommon().deleteQuestionLinkSuccess.ToString();
+            return RedirectToAction("Details", "Subjects", new { id = subId });
+        }
         public ActionResult AnswerInQuestion(int? queId)
         {
             var answer = ARes.GetQuesAnswer(queId);
