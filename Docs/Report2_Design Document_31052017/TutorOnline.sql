@@ -212,7 +212,7 @@ CREATE TABLE [TutorSubject] (
 );
 
 CREATE TABLE [Schedule] (
-	[TeachScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
+	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
 	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
 	[OrderDate] [datetime] NOT NULL,
 	[OrderSlot] int NOT NULL,

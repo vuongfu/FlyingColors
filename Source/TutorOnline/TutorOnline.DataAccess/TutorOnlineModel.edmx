@@ -142,9 +142,9 @@
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
-            <PropertyRef Name="TeachScheduleId" />
+            <PropertyRef Name="ScheduleId" />
           </Key>
-          <Property Name="TeachScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TutorId" Type="int" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
           <Property Name="OrderSlot" Type="int" Nullable="false" />
@@ -1033,9 +1033,9 @@
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
-            <PropertyRef Name="TeachScheduleId" />
+            <PropertyRef Name="ScheduleId" />
           </Key>
-          <Property Name="TeachScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TutorId" Type="Int32" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderSlot" Type="Int32" Nullable="false" />
@@ -1947,7 +1947,7 @@
           <EntitySetMapping Name="Schedules">
             <EntityTypeMapping TypeName="TutorOnlineModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="TeachScheduleId" ColumnName="TeachScheduleId" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
                 <ScalarProperty Name="TutorId" ColumnName="TutorId" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="OrderSlot" ColumnName="OrderSlot" />
