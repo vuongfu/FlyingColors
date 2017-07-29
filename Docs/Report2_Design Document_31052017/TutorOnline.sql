@@ -157,18 +157,6 @@ CREATE TABLE [LearningMaterial] (
 	[isActived] bit not null default 1
 );
 
-CREATE TABLE [Schedule] (
-	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
-	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NOT NULL,
-	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
-	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NOT NULL,
-	[SlotOrder] [int] NOT NULL,
-	[SlotDate] [datetime] NOT NULL,
-	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
-	[Type] [int] NOT NULL,
-	[CanReason] [nvarchar](1000) NULL,
-	[Price] [money] NOT NULL
-);
 
 CREATE TABLE [Criteria] (
 	[CriteriaId] [int] IdENTITY(1,1) PRIMARY KEY,
@@ -223,11 +211,19 @@ CREATE TABLE [TutorSubject] (
 	[Experience] [nvarchar](4000) not null
 );
 
-CREATE TABLE [TeachSchedule] (
+CREATE TABLE [Schedule] (
 	[TeachScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
 	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
 	[OrderDate] [datetime] NOT NULL,
-	[OrderSlot] [nvarchar](300) NULL
+	[OrderSlot] int NOT NULL,
+	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NULL,
+	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NULL,
+	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
+	[Type] [int] NULL,
+	[CanReason] [nvarchar](1000) NULL,
+	[Price] [money] NOT NULL,
+	CONSTRAINT UC_DateSlot UNIQUE (TutorId,OrderDate,OrderSlot)
+
 );
 
 CREATE TABLE [AuditLog] (
@@ -298,6 +294,7 @@ INSERT INTO [Status] (Status) VALUES ('tusubject_inactive');
 INSERT INTO [Status] (Status) VALUES ('stusubject_processing');
 INSERT INTO [Status] (Status) VALUES ('stusubject_cancel');
 INSERT INTO [Status] (Status) VALUES ('stusubject_finish');
+INSERT INTO [Status] (Status) VALUES ('schedule_available');
 
 --Insert data to Parent table
 INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,'Nguyen','parent1',29-4-1975,1,'020, đường Kim Đồng','parent1@gmail.com','parent1','parent1','parent1','Hà Nội',null,'Việt Nam','0123456789',0,null,null);

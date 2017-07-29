@@ -19,7 +19,6 @@ namespace TutorOnline.DataAccess
         {
             this.Schedules = new HashSet<Schedule>();
             this.StudentFeedbacks = new HashSet<StudentFeedback>();
-            this.TeachSchedules = new HashSet<TeachSchedule>();
             this.TutorFeedbacks = new HashSet<TutorFeedback>();
             this.TutorSubjects = new HashSet<TutorSubject>();
         }
@@ -54,8 +53,6 @@ namespace TutorOnline.DataAccess
         public virtual ICollection<Schedule> Schedules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentFeedback> StudentFeedbacks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TeachSchedule> TeachSchedules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TutorFeedback> TutorFeedbacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
