@@ -30,6 +30,13 @@ namespace TutorOnline.Business.Repository
             }
             
         }
+
+        public Tutor FindTutor(int? id)
+        {
+            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id).FirstOrDefault();
+            return tutor;
+        }
+
         public IEnumerable<Tutor> GetAllPretutor()
         {
             var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.RoleId == 8);
