@@ -18,6 +18,15 @@ namespace TutorOnline.Web.Models
         public string lessonName { get; set; }
         public Nullable<int> SubjectId { get; set; }
     }
+    public class QuestionLinkViewModels
+    {
+        public int QuestionId { get; set; }
+
+        [Required(ErrorMessage = "Hãy nhập link bài tập tham khảo.")]
+        public string Link { get; set; }
+        public Nullable<int> subjectId { get; set; }
+        public string subjectName { get; set; }
+    }
     public class QuestionTestViewModels
     {
         public int QuestionId { get; set; }

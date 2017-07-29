@@ -39,12 +39,18 @@ namespace TutorOnline.Common
         public string isExistMaterialNameSub = "Tên tài liệu này đã tồn tại trong khóa học này. Hãy nhập tên khác!";
         public string updateMaterialSuccess = "Đã thay đổi thông tin của tài liệu thành công.";
         public string isExistAnswerIn = "Có tồn tại câu trả lời của câu hỏi này. Hãy xóa câu trả lời trước!";
-        public string requireUploadFile = "Hãy tải tệp tài liệu học tập lên!";
+        public string requireUploadFileInSub = "Hãy tải tệp tài liệu học tập lên cho khóa học!";
+        public string requireUploadFileInLes = "Hãy tải tệp tài liệu học tập lên cho bài học";
+        public string isNotSupportMaterialType = "Hiện tại hệ thống chỉ cho phép tải lên những loại tệp tin có đuôi .PDF, .DOCX, .MP3 . Vui lòng chuyển tệp tin của bạn sang định dạng cho phép hoặc tải lên tệp tin khác.";
 
         public string isExistQuestionName = "Nội dung câu hỏi đã tồn tại trong bài học này. Hãy nhập nội dung khác!";
+        public string isExistQuestionLink = "Link bài tập tham khảo đã tồn tại trong khóa học này. Hãy nhập đường link khác!";
         public string addQuestionSuccess = "Đã thêm câu hỏi trắc nghiệm vào bài học thành công.";
+        public string requireQuestionLink = "Hãy thêm link bài tập tham khảo cho khóa học!";
+        public string addLinkQuestionSuccess = "Đã thêm link bài tập tham khảo vào khóa học thành công.";
         public string updateQuestionSuccess = "Đã thay đổi thông tin câu hỏi của bài học thành công.";
         public string deleteQuestionSuccess = "Đã xóa câu hỏi của bài học thành công.";
+        public string deleteQuestionLinkSuccess = "Đã xóa bài tập tham khảo của khóa học thành công.";
 
         public string isExistAnswerContent = "Nội dung câu trả lời đã tồn tại trong câu hỏi này. Hãy nhập nội dung khác!";
         public string addAnswerSuccess = "Đã thêm câu trả lời cho câu trắc nghiệm thành công.";

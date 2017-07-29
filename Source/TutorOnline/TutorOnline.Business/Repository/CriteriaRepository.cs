@@ -17,7 +17,7 @@ namespace TutorOnline.Business.Repository
         }
         public Criterion FindCriteria(int? id)
         {
-            Criterion criteria = _dbContext.Criteria.Find(id);
+            Criterion criteria = _dbContext.Criteria.Where(x => x.isActived == true && x.CriteriaId == id).FirstOrDefault();
             return criteria;
         }
         public void AddCriteria(Criterion criteria)
@@ -45,6 +45,24 @@ namespace TutorOnline.Business.Repository
                 return false;
             else
                 return true;
+        }
+
+        public bool isExistsCriteriaNameEdit(string name, int id)
+        {
+            //Get anotherCategory
+            var criteria = _dbContext.Criteria.Where(x => x.CriteriaId != id && x.isActived == true);
+            //Check isExistCategoryName
+            foreach (var item in criteria)
+            {
+                if (name != null)
+                {
+                    if (name.Trim() == item.CriteriaName)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public bool isUsedCriteriaInTuFeDetail(int criId, int lesId)

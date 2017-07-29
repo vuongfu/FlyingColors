@@ -22,7 +22,7 @@ namespace TutorOnline.Business.Repository
         }
         public Answer FindAnswer(int? id)
         {
-            Answer answer = _dbContext.Answers.Find(id);
+            Answer answer = _dbContext.Answers.Where(x => x.isActived == true && x.AnswerId == id).FirstOrDefault();
             return answer;
         }
         public void AddAnswer(Answer answer)
@@ -51,6 +51,27 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
+
+        public bool isExistsAnswerNameEdit(string name, int id)
+        {
+
+            //Get anotherCategory
+            var answer = _dbContext.Answers.Where(x => x.AnswerId != id && x.isActived == true);
+            //Check isExistCategoryName
+            foreach (var item in answer)
+            {
+                if (name != null)
+                {
+                    if (name.Trim() == item.Content)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();

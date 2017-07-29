@@ -323,9 +323,9 @@ INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],
 INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,'Phạm','manager2',22-4-1981,1,null,'manager2@gmail.com','manager2','manager2','Hải Phòng','Viet Nam','01989123566',null,null);	
 	
 --Insert data to MaterialumentType table
-INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('PDF');
-INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('Materialx');
-INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('Audio file');
+INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('pdf');
+INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('docx');
+INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('mp3');
 
 --Insert data to Lesson table
 INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,'Bài 1', 1, 'Giới thiệu khái quát về chương trình,học Hiragana: 10 chữ cái đầu tiên, chào hỏi cơ bản 1')

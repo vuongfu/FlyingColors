@@ -25,12 +25,12 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
 
             ViewBag.searchStr = searchString;
             ViewBag.cateStr = cateString;
-            ViewBag.cateString = new SelectList(CRes.GetAllCategories(), "CategoryName", "CategoryName");
+            ViewBag.cateString = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryName", "CategoryName");
             ViewBag.btnSearch = btnSearch;
 
             var subjects = SRes.GetAllSubject();
@@ -90,7 +90,7 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
             return View();
         }
 
@@ -110,7 +110,7 @@ namespace TutorOnline.Web.Controllers
                 }
                 //Mapping Entity to ViewModel
                 subject.CategoryId = model.CategoryId;
-                subject.SubjectName = model.SubjectName;
+                subject.SubjectName = model.SubjectName.Trim();
                 subject.Purpose = model.Purpose;
                 subject.Requirement = model.Requirement;
                 subject.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
@@ -178,7 +178,7 @@ namespace TutorOnline.Web.Controllers
                 model.Description = subject.Description;
                 model.Photo = subject.Photo;
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName", model.CategoryId);
             return View(model);
         }
 
@@ -187,25 +187,27 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Edit(SubjectsViewModels model, HttpPostedFileBase file)
         {
             string photoUrl = FileUpload.UploadFile(file,  FileUpload.TypeUpload.image);
-            //if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
-            //{
-            //    TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-            //    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
-            //    return View(model);
-            //}
-            Subject subject = new Subject();
 
-            //Mapping Entity to ViewModel
-            subject.SubjectId = model.SubjectId;
-            subject.CategoryId = model.CategoryId;
-            subject.SubjectName = model.SubjectName;
-            subject.Purpose = model.Purpose;
-            subject.Requirement = model.Requirement;
-            subject.Description = model.Description;
-            subject.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
+            if (SRes.isExistsSubjectNameEdit(model.SubjectName, model.SubjectId))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
+                ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+                return View(model);
+            }
 
             if (ModelState.IsValid)
             {
+                Subject subject = new Subject();
+
+                //Mapping Entity to ViewModel
+                subject.SubjectId = model.SubjectId;
+                subject.CategoryId = model.CategoryId;
+                subject.SubjectName = model.SubjectName.Trim();
+                subject.Purpose = model.Purpose;
+                subject.Requirement = model.Requirement;
+                subject.Description = model.Description;
+                subject.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
+
                 SRes.EditSubject(subject);
                 TempData["message"] = new ManagerStringCommon().updateSubjectSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.SubjectId });
@@ -359,20 +361,19 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult QuestionInSubject(int? id)
         {
+            ViewBag.subId = id;
             var question = QRes.GetAllSubQuestion(id);
-            List<QuestionViewModels> result = new List<QuestionViewModels>();
+            List<QuestionLinkViewModels> result = new List<QuestionLinkViewModels>();
 
             //Mapping Entity to ViewModel
             if (question.Count() > 0)
             {
                 foreach (var item in question)
                 {
-                    QuestionViewModels model = new QuestionViewModels();
+                    QuestionLinkViewModels model = new QuestionLinkViewModels();
                     model.QuestionId = item.QuestionId;
-                    model.LessonId = item.LessonId;
-                    model.SubjectId = item.SubjectId;
-                    model.Photo = item.Photo;
-                    model.Content = item.Content;
+                    model.subjectId = item.SubjectId;
+                    model.Link = item.Content;
                     result.Add(model);
                 }
             }

@@ -92,13 +92,13 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#BTKH"> Bài tập khóa học</a>
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span><a data-toggle="collapse" data-parent="#accordion" href="#BTKH"> Bài tập tham khảo</a>
                     </h4>
                 </div>
                 <div id="BTKH" class="panel-collapse collapse">
                     <div class="panel-body">
                         @{
-                        Html.RenderAction("QuestionInSubject", "Subjects");
+                        Html.RenderAction("QuestionInSubject", "Subjects", new { id = Model.SubjectId });
                         }
                     </div>
                 </div>

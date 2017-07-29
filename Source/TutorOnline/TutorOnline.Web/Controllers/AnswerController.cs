@@ -60,7 +60,7 @@ namespace TutorOnline.Web.Controllers
                 //Mapping Entity to ViewModel
                 answer.QuestionId = queId;
                 answer.AnswerId = model.AnswerId;
-                answer.Content = model.Content;
+                answer.Content = model.Content.Trim();
                 answer.isCorrect = model.isCorrect;
 
                 ARes.AddAnswer(answer);
@@ -147,22 +147,22 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (ARes.isExistsAnswerName(model.Content, model.QuestionId))
-                //{
-                //    TempData["messageWarning"] = new ManagerStringCommon().isExistAnswerContent.ToString();
-                //    ViewBag.isCorrect = new SelectList(new List<SelectListItem>
-                //    {
-                //        new SelectListItem {  Text = "Đúng", Value = "true"},
-                //        new SelectListItem {  Text = "Sai", Value = "false"},
-                //    }, "Value", "Text", model.isCorrect);
-                //    ViewBag.subId = QRes.FindQuestion(model.QuestionId).Lesson.SubjectId;
-                //    return View(model);
-                //}
+                if (ARes.isExistsAnswerNameEdit(model.Content, model.AnswerId))
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().isExistAnswerContent.ToString();
+                    ViewBag.isCorrect = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Đúng", Value = "true"},
+                        new SelectListItem {  Text = "Sai", Value = "false"},
+                    }, "Value", "Text", model.isCorrect);
+                    ViewBag.subId = QRes.FindQuestion(model.QuestionId).Lesson.SubjectId;
+                    return View(model);
+                }
 
                 Answer answer = new Answer();
                 answer.AnswerId = model.AnswerId;
                 answer.QuestionId = model.QuestionId;
-                answer.Content = model.Content;
+                answer.Content = model.Content.Trim();
                 answer.isCorrect = model.isCorrect;
 
 
