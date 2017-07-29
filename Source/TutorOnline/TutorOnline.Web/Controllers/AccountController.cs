@@ -150,27 +150,29 @@ namespace TutorOnline.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register(CreateFrontEndUserViewModels model)
+        public ActionResult Register(int? RoleId, string Email)
         {
-            if (model.RoleId != null)
+            if(RoleId != null)
             {
-                ViewBag.isSelectedRole = model.RoleId;
-                ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == model.RoleId).RoleName;
-            }
-            if (!String.IsNullOrEmpty(model.Email))
-            {
-                ViewBag.RegisterLoginSocial = true;
-                ViewBag.Email = model.Email;
+                ViewBag.isSelectedRole = RoleId;
+                ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == RoleId).RoleName;
             }
 
+            if (Email != null)
+            {
+                ViewBag.RegisterLoginSocial = true;
+                ViewBag.Email = Email;
+            }
+
+
             ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
-            || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
+            || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName");
             ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
             ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
             ViewBag.Gender = new SelectList(new List<SelectListItem>
             {
-                new SelectListItem {  Text = "Male", Value = "1"},
-                new SelectListItem {  Text = "Female", Value = "2"},
+                new SelectListItem {  Text = "Nam", Value = "1"},
+                new SelectListItem {  Text = "Nữ", Value = "2"},
             }, "Value", "Text");
 
             return View();
@@ -251,7 +253,7 @@ namespace TutorOnline.Web.Controllers
 
                     URes.AddParent(temp);
                     
-                } else if (roleName == UserCommonString.Tutor)
+                } else if (roleName == UserCommonString.PreTutor)
                 {
                     Tutor temp = new Tutor();
                     temp.RoleId = (int)model.RoleId;

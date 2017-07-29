@@ -649,6 +649,7 @@ namespace TutorOnline.Web.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [EmailAddress]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 

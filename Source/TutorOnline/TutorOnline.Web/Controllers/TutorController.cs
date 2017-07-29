@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TutorOnline.Business.Repository;
+using TutorOnline.Common;
 using TutorOnline.DataAccess;
 using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
+    [Authorize(Roles = UserCommonString.Tutor)]
     public class TutorController : Controller
     {
         private TutorRepository TuRes = new TutorRepository();
@@ -107,6 +109,8 @@ namespace TutorOnline.Web.Controllers
                     data.TutorId = item.TutorId;
                     data.OrderSlot = orderslot;
                     data.OrderDate = item.OrderDate;
+                    data.Price = TuRes.GetPriceOfSlot(item.TutorId);
+                    data.Status = TuRes.GetDefaultStatusIdForSlot();
                     TuRes.AddSlotBooked(data);
                 }
             }
