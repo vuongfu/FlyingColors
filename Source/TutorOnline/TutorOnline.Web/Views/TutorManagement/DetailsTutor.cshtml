@@ -13,26 +13,97 @@
         </div>
     </div>
     <hr />
-    <div class="row">
-        <div class="col-md-2">
-            @if (String.IsNullOrEmpty(Model.Photo))
-            {
-                @("N/A")
-            }
-            else
-            {
-                <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" class="img-circle" width="100" height="100"/>
-            }
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"> @Html.DisplayFor(model => model.FullName)</span> 
         </div>
-        <div class="col-md-10">
+        <div class="panel-body">
             <div class="row">
-                <h4>Thông tin gia sư</h4>
-                <hr/>
-            </div>
-            <div class="row">
-                <h4>Đăng ký thêm khóa dạy cho gia sư</h4>
-                <hr/>
-                @Html.ActionLink("Đăng ký khóa dạy", "Create", "TutorSubject", new { @class = "btn btn-success" })
+                <div class="col-md-2">
+                    @if (String.IsNullOrEmpty(Model.Photo))
+                    {
+                        @("N/A")
+                    }
+                    else
+                    {
+                        <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" class="img-circle" width="90" height="90" />
+                    }
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <h4 style="color:orangered">Thông tin gia sư</h4>
+                        <table class="table">
+                            <tr>
+                                <td><strong>Họ và tên: </strong>@Html.DisplayFor(model => model.FullName)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Giới tính: </strong>@Html.DisplayFor(model => model.Gender)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ngày sinh: </strong>@Html.DisplayFor(model => model.BirthDate)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Địa chỉ: </strong>@Html.DisplayFor(model => model.Address)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thành phố: </strong>@Html.DisplayFor(model => model.City)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quốc gia: </strong>@Html.DisplayFor(model => model.Country)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mã bưu chính: </strong>@Html.DisplayFor(model => model.PostalCode)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email: </strong>@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Skype: </strong>@Html.DisplayFor(model => model.SkypeId)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Số điện thoại: </strong>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Số tài khoản: </strong>@Html.DisplayFor(model => model.BankId)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tên chủ thẻ: </strong>@Html.DisplayFor(model => model.BMemName)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tên ngân hàng: </strong>@Html.DisplayFor(model => model.BankName)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mã bưu chính: </strong>@Html.DisplayFor(model => model.PostalCode)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lương/1 buổi dạy</strong>@Html.DisplayFor(model => model.Salary)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mô tả: </strong>@Html.DisplayFor(model => model.Description)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ngày được phê duyệt: </strong>@Html.DisplayFor(model => model.RegisterDate)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trạng thái: </strong>@Html.DisplayFor(model => model.isActived)</td>
+                            </tr>
+                        </table>
+                        <hr />
+                        <h4 style="color:orangered">Kinh nghiệm gia sư</h4>
+                        @foreach (var item in Model.tutorSub)
+                        {
+                            <table class="table">
+                                <tr>
+                                    <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
+                                </tr>
+                            </table>
+                            <hr/>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>

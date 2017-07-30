@@ -11,7 +11,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background: #333333;">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background: #3B5998;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,13 +19,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("TUTOR ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TUTOR ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: #ffffff" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div class="row" style="color:aliceblue; margin-top: 15px;">
-                            <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng Xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
+                            <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
                         </div>
                     </li>
                 </ul>

@@ -16,6 +16,26 @@ namespace TutorOnline.Business.Repository
             var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true);
             return tutors;
         }
+        public List<string> GetCateNameOfTutor(int tutorId)
+        {
+            List<string> lstCate = new List<string>();
+            var objs = (from ts in _dbContext.TutorSubjects
+                           join s in _dbContext.Subjects on ts.SubjectId equals s.SubjectId
+                           join c in _dbContext.Categories on s.CategoryId equals c.CategoryId
+                           where ts.TutorId == tutorId
+                           select c.CategoryName).Distinct().ToList();
+            if(objs != null)
+            {
+                foreach (var item in objs)
+                    lstCate.Add(item.ToString());
+            }
+            return lstCate;
+        }
+        public IEnumerable<TutorSubject> GetTutorSubjects(int tutorId)
+        {
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId);
+            return tutorSub;
+        }
         public IEnumerable<Tutor> GetTuByCountry(string country)
         {
             if (country == new ManagerStringCommon().vn.ToString())
@@ -39,7 +59,7 @@ namespace TutorOnline.Business.Repository
 
         public IEnumerable<Tutor> GetAllPretutor()
         {
-            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.RoleId == 8);
+            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor);
             return tutors;
         }
 

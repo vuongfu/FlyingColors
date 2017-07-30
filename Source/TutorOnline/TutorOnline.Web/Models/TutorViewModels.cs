@@ -11,7 +11,12 @@ namespace TutorOnline.Web.Models
         public DateTime OrderDate { get; set; }
         public string OrderSlot { get; set; }
     }
-
+    public class TutorSubjectViewModels
+    {
+        public int TutorSubjectId { get; set; }
+        public string subjectName { get; set; }
+        public string experiences { get; set; }
+    }
     public class TutorInfoViewModels
     {
         public int TutorId { get; set; }
@@ -33,5 +38,7 @@ namespace TutorOnline.Web.Models
         public string BMemName { get; set; }
         public string isActived { get; set; }
         public System.DateTime RegisterDate { get; set; }
+        public List<string> cateTeaching { get; set; }
+        public List<TutorSubjectViewModels> tutorSub { get; set; }
     }
 }
