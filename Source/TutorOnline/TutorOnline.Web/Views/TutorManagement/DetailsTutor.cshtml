@@ -1,0 +1,39 @@
+﻿@model TutorOnline.Web.Models.TutorInfoViewModels
+
+@{
+    ViewBag.Title = "Chi tiết gia sư";
+    Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="margin-bottom: -40px;">Chi tiết gia sư</h3>
+            @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            @if (String.IsNullOrEmpty(Model.Photo))
+            {
+                @("N/A")
+            }
+            else
+            {
+                <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" class="img-circle" width="100" height="100"/>
+            }
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <h4>Thông tin gia sư</h4>
+                <hr/>
+            </div>
+            <div class="row">
+                <h4>Đăng ký thêm khóa dạy cho gia sư</h4>
+                <hr/>
+                @Html.ActionLink("Đăng ký khóa dạy", "Create", "TutorSubject", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+</div>
