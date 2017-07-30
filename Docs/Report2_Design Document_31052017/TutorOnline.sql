@@ -298,6 +298,7 @@ INSERT INTO [Status] (Status) VALUES ('tusubject_inactive');
 INSERT INTO [Status] (Status) VALUES ('stusubject_processing');
 INSERT INTO [Status] (Status) VALUES ('stusubject_cancel');
 INSERT INTO [Status] (Status) VALUES ('stusubject_finish');
+INSERT INTO [Status] (Status) VALUES ('schedule_available');
 
 --Insert data to Parent table
 INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,'Nguyen','parent1',29-4-1975,1,'020, đường Kim Đồng','parent1@gmail.com','parent1','parent1','parent1','Hà Nội',null,'Việt Nam','0123456789',0,null,null);
