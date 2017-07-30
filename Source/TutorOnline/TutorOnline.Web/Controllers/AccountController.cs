@@ -124,8 +124,8 @@ namespace TutorOnline.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Incorrect username or password");
-                    TempData["messageWarning"] = "Tài khoản hoặc mật khẩu không chính xác";
+
+                    ViewBag.ErrorPassOrName = "Tên đăng nhập hoặc Mật khẩu không chính xác.";
                     return View();
                 }
             }
@@ -378,7 +378,7 @@ namespace TutorOnline.Web.Controllers
             }
             else
             {
-                TempData["messageWarning"] = UserCommonString.EmailNotExist;
+                ViewBag.ErrorMess = UserCommonString.EmailNotExist;
                 return View(model);
             }
         }

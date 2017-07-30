@@ -9,18 +9,13 @@
         <div id="output"></div>
         <div class="avatar" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
         <div class="form-box">
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             @using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new {id = "login-form-custom"  }))
             {
-                @*@Html.AntiForgeryToken()
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                
                 @Html.TextBoxFor(m => m.Username, new { @placeholder = "Tên đăng nhập" })
-                @*@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })*@
 
                 @Html.PasswordFor(m => m.Password, new{ @placeholder = "Mật khẩu" })
-                @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
 
                 
 
@@ -50,7 +45,7 @@
         $('#login-form-custom').submit(function (e) {
             e.preventDefault();// to stop the form from submitting
             if (textfield.val() != "" && textfield1.val() != "") {
-                this.submit();               
+                this.submit();
             } else {
                 //remove success mesage replaced with error message
                 $("#output").removeClass(' alert alert-success');
@@ -58,5 +53,13 @@
             }
 
         });
+    });
+
+    $(document).ready(function () {
+        var mess = "@ViewBag.ErrorPassOrName";
+        if (mess != null && mess != "") {
+            $("#output").removeClass(' alert alert-success');
+            $("#output").addClass("alert alert-danger animated fadeInUp").html(mess);
+        }
     });
 </script>
