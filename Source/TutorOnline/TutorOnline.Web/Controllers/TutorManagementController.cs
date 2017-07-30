@@ -19,6 +19,8 @@ namespace TutorOnline.Web.Controllers
         private CategoriesRepository CRes = new CategoriesRepository();
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
+            ViewBag.comeFrom = "Index";
+
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
@@ -28,7 +30,7 @@ namespace TutorOnline.Web.Controllers
             int allPretutor = Tres.GetAllPretutor().Count();
             ViewBag.allPretutor = allPretutor;
 
-            int tutorSignNewSub = 1;
+            int tutorSignNewSub = Tres.GetTutorIdWhoSignMoreSub().Count();
             ViewBag.tutorSignNewSub = tutorSignNewSub;
 
             ViewBag.searchStr = searchString;
@@ -112,8 +114,10 @@ namespace TutorOnline.Web.Controllers
             ViewBag.totalRecord = result.Count();
             return View(result.OrderBy(x => x.FullName).ToList().ToPagedList(pageNumber, pageSize));
         }
-        public ActionResult DetailsTutor(int? id)
+        public ActionResult DetailsTutor(int? id, string comeFrom)
         {
+            ViewBag.comeFrom = comeFrom;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -166,8 +170,314 @@ namespace TutorOnline.Web.Controllers
                     tutorSubModel.Add(t);
                 }
             }
+            model.tutorSub = tutorSubModel;
+
+            //NewTutorSubject
+            List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
+            List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
+            for (int i = 0; i < newTutorSubEntity.Count(); i++)
+            {
+                TutorSubject entity = new TutorSubject();
+                entity = newTutorSubEntity[i];
+                if (entity != null)
+                {
+                    TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                    t.TutorSubjectId = entity.TutorSubjectId;
+                    t.subjectName = entity.Subject.SubjectName;
+                    t.experiences = entity.Experience;
+
+                    newTutorSubModel.Add(t);
+                }
+            }
+
+            model.newTutorSub = newTutorSubModel;
+
+            return View(model);
+        }
+        public ActionResult PretutorIndex(string btnSearch, string searchString, string cateString, int? page)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.searchStr = searchString;
+            ViewBag.btnSearch = btnSearch;
+            ViewBag.cateStr = cateString;
+            ViewBag.cateString = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryName", "CategoryName");
+
+            var tutors = Tres.GetAllPretutor();
+
+            List<TutorInfoViewModels> result = new List<TutorInfoViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (tutors.Count() > 0)
+            {
+                foreach (var item in tutors)
+                {
+                    TutorInfoViewModels model = new TutorInfoViewModels();
+                    //Mapping model with entity
+                    model.TutorId = item.TutorId;
+                    model.FullName = item.FirstName + " " + item.LastName;
+                    model.Photo = item.Photo;
+                    model.Gender = (item.Gender == 1) ? "Nam" : "Nữ";
+                    model.BirthDate = item.BirthDate;
+                    model.Address = item.Address;
+                    model.City = item.City;
+                    model.PostalCode = item.PostalCode;
+                    model.Country = item.Country;
+                    model.Email = item.Email;
+                    model.SkypeId = item.SkypeId;
+                    model.PhoneNumber = item.PhoneNumber;
+                    model.Salary = item.Salary;
+                    model.BankId = item.BankId;
+                    model.BankName = item.BankName;
+                    model.BMemName = item.BMemName;
+                    model.Description = item.Description;
+                    model.isActived = (item.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
+                    model.RegisterDate = item.RegisterDate;
+                    model.cateTeaching = Tres.GetCateNameOfTutor(item.TutorId);
+                    //TutorSubject
+                    List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(item.TutorId).ToList();
+                    List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
+                    for (int i = 0; i < tutorSubEntity.Count(); i++)
+                    {
+                        TutorSubject entity = new TutorSubject();
+                        entity = tutorSubEntity[i];
+                        if (entity != null)
+                        {
+                            TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                            t.TutorSubjectId = entity.TutorSubjectId;
+                            t.subjectName = entity.Subject.SubjectName;
+                            t.experiences = entity.Experience;
+
+                            tutorSubModel.Add(t);
+                        }
+                    }
+
+                    model.tutorSub = tutorSubModel;
+
+                    result.Add(model);
+                }
+            }
+
+            if (searchString == null && page == null)
+            {
+                result = result.Where(x => x.TutorId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                return View(result.ToPagedList(pageNumber, pageSize));
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(x => Tres.SearchForString(x.FullName, searchString)).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(cateString))
+            {
+                result = result.Where(x => x.cateTeaching.Contains(cateString)).ToList();
+            }
+
+            ViewBag.totalRecord = result.Count();
+            return View(result.OrderBy(x => x.FullName).ToList().ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult TutorSignMoreSubIndex(string btnSearch, string searchString, string cateString, int? page)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.searchStr = searchString;
+            ViewBag.btnSearch = btnSearch;
+            ViewBag.cateStr = cateString;
+            ViewBag.cateString = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryName", "CategoryName");
+
+            List<int> tutorId = Tres.GetTutorIdWhoSignMoreSub();
+
+            List<Tutor> lstTutor = new List<Tutor>();
+
+            for(int i = 0; i < tutorId.Count; i ++)
+            {
+                if (tutorId[i] != 0)
+                {
+                    Tutor entity = new Tutor();
+                    entity = Tres.FindTutor(tutorId[i]);
+                    if (entity != null)
+                        lstTutor.Add(entity);
+                }
+            }
+
+            List<TutorInfoViewModels> result = new List<TutorInfoViewModels>();
+
+            //Mapping Entity to ViewModel
+            if (lstTutor.Count() > 0)
+            {
+                foreach (var item in lstTutor)
+                {
+                    TutorInfoViewModels model = new TutorInfoViewModels();
+                    //Mapping model with entity
+                    model.TutorId = item.TutorId;
+                    model.FullName = item.FirstName + " " + item.LastName;
+                    model.Photo = item.Photo;
+                    model.Gender = (item.Gender == 1) ? "Nam" : "Nữ";
+                    model.BirthDate = item.BirthDate;
+                    model.Address = item.Address;
+                    model.City = item.City;
+                    model.PostalCode = item.PostalCode;
+                    model.Country = item.Country;
+                    model.Email = item.Email;
+                    model.SkypeId = item.SkypeId;
+                    model.PhoneNumber = item.PhoneNumber;
+                    model.Salary = item.Salary;
+                    model.BankId = item.BankId;
+                    model.BankName = item.BankName;
+                    model.BMemName = item.BMemName;
+                    model.Description = item.Description;
+                    model.isActived = (item.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
+                    model.RegisterDate = item.RegisterDate;
+                    model.cateTeaching = Tres.GetNewCateNameOfTutor(item.TutorId);
+                    //TutorSubject
+                    List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(item.TutorId).ToList();
+                    List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
+                    for (int i = 0; i < tutorSubEntity.Count(); i++)
+                    {
+                        TutorSubject entity = new TutorSubject();
+                        entity = tutorSubEntity[i];
+                        if (entity != null)
+                        {
+                            TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                            t.TutorSubjectId = entity.TutorSubjectId;
+                            t.subjectName = entity.Subject.SubjectName;
+                            t.experiences = entity.Experience;
+
+                            tutorSubModel.Add(t);
+                        }
+                    }
+
+                    model.tutorSub = tutorSubModel;
+
+                    //NewTutorSubject
+                    List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(item.TutorId).ToList();
+                    List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
+                    for (int i = 0; i < newTutorSubEntity.Count(); i++)
+                    {
+                        TutorSubject entity = new TutorSubject();
+                        entity = newTutorSubEntity[i];
+                        if (entity != null)
+                        {
+                            TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                            t.TutorSubjectId = entity.TutorSubjectId;
+                            t.subjectName = entity.Subject.SubjectName;
+                            t.experiences = entity.Experience;
+
+                            newTutorSubModel.Add(t);
+                        }
+                    }
+
+                    model.newTutorSub = newTutorSubModel;
+
+                    result.Add(model);
+                }
+            }
+
+            if (searchString == null && page == null)
+            {
+                result = result.Where(x => x.TutorId == 0).ToList();
+                ViewBag.totalRecord = result.Count();
+                return View(result.ToPagedList(pageNumber, pageSize));
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(x => Tres.SearchForString(x.FullName, searchString)).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(cateString))
+            {
+                result = result.Where(x => x.cateTeaching.Contains(cateString)).ToList();
+            }
+
+            ViewBag.totalRecord = result.Count();
+            return View(result.OrderBy(x => x.FullName).ToList().ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult DetailsPretutor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Tutor tutor = Tres.FindPreTutor(id);
+
+            if (tutor == null)
+            {
+                return HttpNotFound();
+            }
+
+            TutorInfoViewModels model = new TutorInfoViewModels();
+
+            //Mapping model with entity
+            model.TutorId = tutor.TutorId;
+            model.FullName = tutor.FirstName + " " + tutor.LastName;
+            model.Photo = tutor.Photo;
+            model.Gender = (tutor.Gender == 1) ? "Nam" : "Nữ";
+            model.BirthDate = tutor.BirthDate;
+            model.Address = tutor.Address;
+            model.City = tutor.City;
+            model.PostalCode = tutor.PostalCode;
+            model.Country = tutor.Country;
+            model.Email = tutor.Email;
+            model.SkypeId = tutor.SkypeId;
+            model.PhoneNumber = tutor.PhoneNumber;
+            model.Salary = tutor.Salary;
+            model.BankId = tutor.BankId;
+            model.BankName = tutor.BankName;
+            model.BMemName = tutor.BMemName;
+            model.Description = tutor.Description;
+            model.isActived = (tutor.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
+            model.RegisterDate = tutor.RegisterDate;
+            //TutorSubject
+            List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(tutor.TutorId).ToList();
+            List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
+            for (int i = 0; i < tutorSubEntity.Count(); i++)
+            {
+                TutorSubject entity = new TutorSubject();
+                entity = tutorSubEntity[i];
+                if (entity != null)
+                {
+                    TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                    t.TutorSubjectId = entity.TutorSubjectId;
+                    t.subjectName = entity.Subject.SubjectName;
+                    t.experiences = entity.Experience;
+
+                    tutorSubModel.Add(t);
+                }
+            }
 
             model.tutorSub = tutorSubModel;
+
+            //NewTutorSubject
+            List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
+            List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
+            for (int i = 0; i < newTutorSubEntity.Count(); i++)
+            {
+                TutorSubject entity = new TutorSubject();
+                entity = newTutorSubEntity[i];
+                if (entity != null)
+                {
+                    TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                    t.TutorSubjectId = entity.TutorSubjectId;
+                    t.subjectName = entity.Subject.SubjectName;
+                    t.experiences = entity.Experience;
+
+                    newTutorSubModel.Add(t);
+                }
+            }
+
+            model.newTutorSub = newTutorSubModel;
 
             return View(model);
         }

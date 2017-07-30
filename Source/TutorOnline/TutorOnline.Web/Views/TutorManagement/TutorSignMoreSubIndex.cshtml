@@ -3,36 +3,21 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Quản lý danh sách gia sư";
+    ViewBag.Title = "Danh sách gia sư đăng ký thêm khóa dạy";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
     ViewBag.Count = 0;
-    ViewBag.comeFrom = ViewBag.comeFrom;
 }
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3 style="margin-bottom: -10px;">Quản lý gia sư</h3>
+            <h3 style="margin-bottom: -40px;">Danh sách gia sư đăng ký thêm khóa dạy</h3>
+            @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
         </div>
     </div>
     <hr />
     <div class="row">
-        <div class="col-md-12">
-            <h4 class="text-primary">Hiện tại hệ thống đang có <strong>@ViewBag.tutorIsActived</strong> gia sư đang hoạt động.</h4>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            <a href="@Url.Action("PretutorIndex", "TutorManagement")" class="btn btn-info"><span class="glyphicon glyphicon-user"></span> Gia sư ứng tuyển <span class="badge">@ViewBag.allPretutor</span></a>
-        </div>
-        <div class="col-md-4">
-            <a href="@Url.Action("TutorSignMoreSubIndex", "TutorManagement")" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> Gia sư đăng ký thêm khóa dạy <span class="badge">@ViewBag.tutorSignNewSub</span></a>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        @using (Html.BeginForm("Index", "TutorManagement", FormMethod.Get))
+        @using (Html.BeginForm("TutorSignMoreSubIndex", "TutorManagement", FormMethod.Get))
         {
             <dl>
                 <dt style="margin-left: 20px; margin-bottom: 10px;">Môn học</dt>
@@ -42,7 +27,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm tên gia sư..."})
+                            @Html.TextBox("searchString", null, htmlAttributes: new { @class = "form-control", @placeholder = "Tìm kiếm tên gia sư..." })
                             <span class="input-group-btn">
                                 <input type="submit" value="Tìm Kiếm" class="btn btn-default" name="btnSearch" />
                             </span>
@@ -76,7 +61,7 @@
                     {
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.FullName, "DetailsTutor", new { id = item.TutorId, comeFrom = ViewBag.comeFrom })</td>
+                            <td>@Html.ActionLink(item.FullName, "DetailsTutor", new { id = item.TutorId, comeFrome = "" })</td>
                             <td>@Html.DisplayFor(modelItem => item.Gender)</td>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>
                             <td>@Html.DisplayFor(modelItem => item.City)</td>
@@ -86,7 +71,7 @@
                     }
                 </table>
                 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
-                @Html.PagedListPager(Model, page => Url.Action("Index",
+                @Html.PagedListPager(Model, page => Url.Action("PretutorIndex",
                                  new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr }))
             </div>
         </div>

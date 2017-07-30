@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -22,6 +23,9 @@ namespace TutorOnline.Web.Models
         public int TutorId { get; set; }
         public string FullName { get; set; }
         public string Photo { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> BirthDate { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
@@ -37,8 +41,12 @@ namespace TutorOnline.Web.Models
         public string BankName { get; set; }
         public string BMemName { get; set; }
         public string isActived { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime RegisterDate { get; set; }
         public List<string> cateTeaching { get; set; }
         public List<TutorSubjectViewModels> tutorSub { get; set; }
+        public List<TutorSubjectViewModels> newTutorSub { get; set; }
     }
 }

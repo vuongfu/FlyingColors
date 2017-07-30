@@ -31,9 +31,46 @@ namespace TutorOnline.Business.Repository
             }
             return lstCate;
         }
+        public List<string> GetNewCateNameOfTutor(int tutorId)
+        {
+            List<string> lstCate = new List<string>();
+            var objs = (from ts in _dbContext.TutorSubjects
+                        join s in _dbContext.Subjects on ts.SubjectId equals s.SubjectId
+                        join c in _dbContext.Categories on s.CategoryId equals c.CategoryId
+                        where ts.TutorId == tutorId && ts.Status == 7
+                        select c.CategoryName).Distinct().ToList();
+            if (objs != null)
+            {
+                foreach (var item in objs)
+                    lstCate.Add(item.ToString());
+            }
+            return lstCate;
+        }
+
+        public List<int> GetTutorIdWhoSignMoreSub()
+        {
+            List<int> lstTuId = new List<int>();
+            var obj = (from ts in _dbContext.TutorSubjects
+                       join t in _dbContext.Tutors on ts.TutorId equals t.TutorId
+                       where t.isActived == true && ts.Status == 7
+                       group ts by ts.TutorId into g
+                       select g.Key).ToList();
+            if (obj != null)
+            {
+                foreach (var item in obj)
+                    lstTuId.Add(item);
+            }
+
+            return lstTuId;
+        }
         public IEnumerable<TutorSubject> GetTutorSubjects(int tutorId)
         {
-            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId);
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 6);
+            return tutorSub;
+        }
+        public IEnumerable<TutorSubject> GetTutorNewSubjects(int tutorId)
+        {
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 7);
             return tutorSub;
         }
         public IEnumerable<Tutor> GetTuByCountry(string country)
@@ -56,10 +93,15 @@ namespace TutorOnline.Business.Repository
             Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id).FirstOrDefault();
             return tutor;
         }
+        public Tutor FindPreTutor(int? id)
+        {
+            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == false && x.TutorId == id).FirstOrDefault();
+            return tutor;
+        }
 
         public IEnumerable<Tutor> GetAllPretutor()
         {
-            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor);
+            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor && x.isActived == false);
             return tutors;
         }
 

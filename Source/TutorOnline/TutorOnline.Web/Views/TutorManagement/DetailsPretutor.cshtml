@@ -1,28 +1,21 @@
 ﻿@model TutorOnline.Web.Models.TutorInfoViewModels
 
 @{
-    ViewBag.Title = "Chi tiết gia sư";
+    ViewBag.Title = "Chi tiết ứng viên gia sư";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3 style="margin-bottom: -40px;">Chi tiết gia sư</h3>
-            @if (ViewBag.comeFrom == "Index")
-            {
-                @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
-            }
-            else
-            {
-                @Html.ActionLink("Trở lại", "TutorSignMoreSubIndex", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
-            }
+            <h3 style="margin-bottom: -40px;">Chi tiết ứng viên gia sư</h3>
+            @Html.ActionLink("Trở lại", "PretutorIndex", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
         </div>
     </div>
     <hr />
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"> @Html.DisplayFor(model => model.FullName)</span> 
+            <span class="glyphicon glyphicon-user" aria-hidden="true"> @Html.DisplayFor(model => model.FullName)</span>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -96,20 +89,7 @@
                             </tr>
                         </table>
                         <hr />
-                        <h4 style="color:deepskyblue">Những khóa học đang dạy</h4>
-                        @foreach (var item in Model.tutorSub)
-                        {
-                            <table class="table">
-                                <tr>
-                                    <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
-                                </tr>
-                            </table>
-                            <hr/>
-                        }
-                        <h4 style="color: deepskyblue">Những khóa học đăng ký dạy nhưng chưa được phê duyệt</h4>
+                        <h4 style="color:deepskyblue">Khóa học đăng ký dạy</h4>
                         @if (Model.newTutorSub != null)
                         {
                             foreach (var item in Model.newTutorSub)
@@ -121,19 +101,11 @@
                                     <tr>
                                         <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <button type="button" class="btn-success">Phê duyệt</button>
-                                        </td>
-                                    </tr>
                                 </table>
                                 <hr />
                             }
                         }
-                        else
-                        {
-                            <h5 style="color: black;">Không có khóa dạy nào đăng ký mới.</h5>
-                        }
+                        <button type="button" class="btn btn-success pull-left">Phê duyệt trở thành gia sư</button>
                     </div>
                 </div>
             </div>
