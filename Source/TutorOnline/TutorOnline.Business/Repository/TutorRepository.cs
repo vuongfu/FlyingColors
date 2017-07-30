@@ -48,17 +48,23 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
-        public Decimal? GetMoneyOfSlot(int tutorId)
+        public Decimal GetPriceOfSlot(int tutorId)
         {
             var temp = _dbContext.Tutors.FirstOrDefault(x => x.TutorId == tutorId);
             if(temp != null)
             {
-                return temp.Salary;
+                return ((Decimal)temp.Salary * 2);
             }
             return 0;
         }
 
-        
+        public int GetDefaultStatusIdForSlot()
+        {
+            var temp = _dbContext.Status.FirstOrDefault(x => x.Status1 == "schedule_available");
+            if (temp != null)
+                return temp.StatusId;
+            return 0;
+        }
 
         public void AddSlotBooked(Schedule slot)
         {
