@@ -30,6 +30,13 @@ namespace TutorOnline.Business.Repository
             }
             
         }
+
+        public Tutor FindTutor(int? id)
+        {
+            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id).FirstOrDefault();
+            return tutor;
+        }
+
         public IEnumerable<Tutor> GetAllPretutor()
         {
             var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.RoleId == 8);
@@ -43,20 +50,38 @@ namespace TutorOnline.Business.Repository
 
         public void DeleteSlotBooked(int id)
         {
-            TeachSchedule temp = _dbContext.TeachSchedules.Find(id);
-            _dbContext.TeachSchedules.Remove(temp);
+            Schedule temp = _dbContext.Schedules.Find(id);
+            _dbContext.Schedules.Remove(temp);
             _dbContext.SaveChanges();
         }
 
-        public void AddSlotBooked(TeachSchedule slot)
+        public Decimal GetPriceOfSlot(int tutorId)
         {
-            _dbContext.TeachSchedules.Add(slot);
+            var temp = _dbContext.Tutors.FirstOrDefault(x => x.TutorId == tutorId);
+            if(temp != null)
+            {
+                return ((Decimal)temp.Salary * 2);
+            }
+            return 0;
+        }
+
+        public int GetDefaultStatusIdForSlot()
+        {
+            var temp = _dbContext.Status.FirstOrDefault(x => x.Status1 == "schedule_available");
+            if (temp != null)
+                return temp.StatusId;
+            return 0;
+        }
+
+        public void AddSlotBooked(Schedule slot)
+        {
+            _dbContext.Schedules.Add(slot);
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TeachSchedule> GetAllSlotInTwoDates(DateTime StartDay, DateTime EndDay, int TutorId)
+        public IEnumerable<Schedule> GetAllSlotInTwoDates(DateTime StartDay, DateTime EndDay, int TutorId)
         {
-            var slot = _dbContext.TeachSchedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId);
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId);
             return slot;
         }
     }

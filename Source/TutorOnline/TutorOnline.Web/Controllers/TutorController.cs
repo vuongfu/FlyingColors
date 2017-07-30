@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TutorOnline.Business.Repository;
+using TutorOnline.Common;
 using TutorOnline.DataAccess;
 using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
+    [Authorize(Roles = UserCommonString.Tutor)]
     public class TutorController : Controller
     {
         private TutorRepository TuRes = new TutorRepository();
@@ -25,6 +27,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.FirstWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
             firstDayWeek1 = firstDayWeek1.AddDays(7);
             ViewBag.SecondWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+            ViewBag.FirstDayOfWeek = firstDayOfWeek.AddDays(7);
 
             string Uid = "";
             if (Request.Cookies["UserInfo"] != null)
@@ -48,7 +51,7 @@ namespace TutorOnline.Web.Controllers
             return View();
         }
 
-        private List<string> MapEntityToModel(IEnumerable<TeachSchedule> ListData, DateTime StartDate)
+        private List<string> MapEntityToModel(IEnumerable<Schedule> ListData, DateTime StartDate)
         {
             List<string> returnList = new List<string>();
             string[] namesDays = DateTimeFormatInfo.CurrentInfo.AbbreviatedDayNames;
@@ -56,7 +59,7 @@ namespace TutorOnline.Web.Controllers
             foreach (var item in ListData)
             {
                 string day = namesDays[(item.OrderDate - StartDate).Days];
-                string temp = day + item.OrderSlot;
+                string temp = day + String.Format("{0:00}", item.OrderSlot);
                 returnList.Add(temp);
             }
             return returnList; 
@@ -66,17 +69,24 @@ namespace TutorOnline.Web.Controllers
         public ActionResult SaveSlot(List<string> Week1, List<string> Week2)
         {
             List<TutorBookSlotViewModel> SlotBooked = new List<TutorBookSlotViewModel>();
-            foreach(string item in Week1)
+            if(Week1 != null)
             {
-                TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek.AddDays(7));
-                SlotBooked.Add(tempData);
+                foreach (string item in Week1)
+                {
+                    TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek.AddDays(7));
+                    SlotBooked.Add(tempData);
+                }
             }
 
-            foreach (string item in Week2)
+            if (Week2 != null)
             {
-                TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek.AddDays(14));
-                SlotBooked.Add(tempData);
+                foreach (string item in Week2)
+                {
+                    TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek.AddDays(14));
+                    SlotBooked.Add(tempData);
+                }
             }
+                
 
             string Uid = "";
             if (Request.Cookies["UserInfo"] != null)
@@ -91,13 +101,16 @@ namespace TutorOnline.Web.Controllers
 
             foreach(var item in SlotBooked)
             {
-                var Slot = SlotBookedGetFromDB.FirstOrDefault(x => x.OrderDate == item.OrderDate && x.OrderSlot == item.OrderSlot && x.TutorId == item.TutorId);
+                var orderslot = int.Parse(item.OrderSlot);
+                var Slot = SlotBookedGetFromDB.FirstOrDefault(x => x.OrderDate == item.OrderDate && x.OrderSlot == orderslot && x.TutorId == item.TutorId);
                 if (Slot == null)
                 {
-                    TeachSchedule data = new TeachSchedule();
+                    Schedule data = new Schedule();
                     data.TutorId = item.TutorId;
-                    data.OrderSlot = item.OrderSlot;
+                    data.OrderSlot = orderslot;
                     data.OrderDate = item.OrderDate;
+                    data.Price = TuRes.GetPriceOfSlot(item.TutorId);
+                    data.Status = TuRes.GetDefaultStatusIdForSlot();
                     TuRes.AddSlotBooked(data);
                 }
             }
@@ -105,11 +118,11 @@ namespace TutorOnline.Web.Controllers
             List<int> DeleteList = new List<int>();
             foreach(var item in SlotBookedGetFromDB)
             {
-
-                var check = SlotBooked.FirstOrDefault(x => x.OrderDate == item.OrderDate && x.OrderSlot == item.OrderSlot && x.TutorId == item.TutorId);
+                var orderslot = String.Format("{0:00}", item.OrderSlot);
+                var check = SlotBooked.FirstOrDefault(x => x.OrderDate == item.OrderDate && x.OrderSlot == orderslot && x.TutorId == item.TutorId);
                 if (check == null)
                 {
-                    DeleteList.Add(item.TeachScheduleId);
+                    DeleteList.Add(item.ScheduleId);
                 }
             }
 

@@ -15,13 +15,13 @@ namespace TutorOnline.DataAccess
     public partial class Schedule
     {
         public int ScheduleId { get; set; }
-        public int StudentId { get; set; }
         public int TutorId { get; set; }
-        public int LessonId { get; set; }
-        public int SlotOrder { get; set; }
-        public System.DateTime SlotDate { get; set; }
+        public System.DateTime OrderDate { get; set; }
+        public int OrderSlot { get; set; }
+        public Nullable<int> StudentId { get; set; }
+        public Nullable<int> LessonId { get; set; }
         public int Status { get; set; }
-        public int Type { get; set; }
+        public Nullable<int> Type { get; set; }
         public string CanReason { get; set; }
         public decimal Price { get; set; }
     

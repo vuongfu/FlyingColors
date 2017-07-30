@@ -9,27 +9,22 @@
         <div id="output"></div>
         <div class="avatar" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
         <div class="form-box">
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             @using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new {id = "login-form-custom"  }))
             {
-                @*@Html.AntiForgeryToken()
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                
                 @Html.TextBoxFor(m => m.Username, new { @placeholder = "Tên đăng nhập" })
-                @*@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })*@
 
                 @Html.PasswordFor(m => m.Password, new{ @placeholder = "Mật khẩu" })
-                @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
 
                 
 
-                <button class="btn btn-info btn-block login" type="submit">Login</button>                            
+                <button class="btn btn-info btn-block login" type="submit">Đăng nhập</button>                            
             }
             
             <form action="@Url.Action("LoginWithGooglePlus", "LoginSocial")" method="post">
                 @Html.AntiForgeryToken()
-                <button class="btn btn-danger btn-block login" type="submit"><i class="fa fa-google-plus"></i> Login with Google +</button>
+                <button class="btn btn-danger btn-block login" type="submit"><i class="fa fa-google-plus"></i> Đăng nhập với Google +</button>
             </form>
             <br/>
             <a href="~/Account/ForgotPassword">Quên mật khẩu?</a>
@@ -50,7 +45,7 @@
         $('#login-form-custom').submit(function (e) {
             e.preventDefault();// to stop the form from submitting
             if (textfield.val() != "" && textfield1.val() != "") {
-                this.submit();               
+                this.submit();
             } else {
                 //remove success mesage replaced with error message
                 $("#output").removeClass(' alert alert-success');
@@ -58,5 +53,13 @@
             }
 
         });
+    });
+
+    $(document).ready(function () {
+        var mess = "@ViewBag.ErrorPassOrName";
+        if (mess != null && mess != "") {
+            $("#output").removeClass(' alert alert-success');
+            $("#output").addClass("alert alert-danger animated fadeInUp").html(mess);
+        }
     });
 </script>

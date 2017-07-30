@@ -29,17 +29,17 @@
                                 <dl class="dl-horizontal">
                                     <dt>Hình ảnh:</dt>
                                     @if (String.IsNullOrEmpty(Model.Photo))
-                                {
+                                    {
                                         <dd>
                                             @("N/A")
                                         </dd>
-                                }
-                                else
-                                {
+                                    }
+                                    else
+                                    {
                                         <dd>
                                             <img src="~/Content/Uploads/Images/Thumbnails/@Model.Photo.Substring(3)" />
                                         </dd>
-                                }
+                                    }
                                     <dt>Tên khóa học:</dt>
                                     <dd>@Html.DisplayFor(modelItem => modelItem.SubjectName)</dd>
                                     <dt>Thuộc môn học:</dt>

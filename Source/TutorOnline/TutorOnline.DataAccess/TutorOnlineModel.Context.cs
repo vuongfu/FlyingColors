@@ -42,7 +42,6 @@ namespace TutorOnline.DataAccess
         public virtual DbSet<StudentFeedback> StudentFeedbacks { get; set; }
         public virtual DbSet<StudentSubject> StudentSubjects { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<TeachSchedule> TeachSchedules { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<Tutor> Tutors { get; set; }
         public virtual DbSet<TutorFeedback> TutorFeedbacks { get; set; }
