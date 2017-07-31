@@ -13,7 +13,7 @@ namespace TutorOnline.Business.Repository
     {
         public IEnumerable<Tutor> GetAllTutor()
         {
-            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true);
+            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true).ToList();
             return tutors;
         }
         public List<string> GetCateNameOfTutor(int tutorId)
@@ -65,12 +65,12 @@ namespace TutorOnline.Business.Repository
         }
         public IEnumerable<TutorSubject> GetTutorSubjects(int tutorId)
         {
-            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 6);
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 6).ToList();
             return tutorSub;
         }
         public IEnumerable<TutorSubject> GetTutorNewSubjects(int tutorId)
         {
-            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 7);
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 7).ToList();
             return tutorSub;
         }
         public IEnumerable<Tutor> GetTuByCountry(string country)
@@ -101,7 +101,7 @@ namespace TutorOnline.Business.Repository
 
         public IEnumerable<Tutor> GetAllPretutor()
         {
-            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor && x.isActived == false);
+            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor && x.isActived == false).ToList();
             return tutors;
         }
 
