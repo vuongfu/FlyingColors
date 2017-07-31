@@ -22,7 +22,7 @@
     <hr />
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"> @Html.DisplayFor(model => model.FullName)</span> 
+            <strong>Gia sư: </strong>@Html.DisplayFor(model => model.FullName)
         </div>
         <div class="panel-body">
             <div class="row">
@@ -109,8 +109,8 @@
                             </table>
                             <hr/>
                         }
-                        <h4 style="color: deepskyblue">Những khóa học đăng ký dạy nhưng chưa được phê duyệt</h4>
-                        @if (Model.newTutorSub != null)
+                        <h4 style="color: deepskyblue">Những khóa dạy chưa được phê duyệt</h4>
+                        @if (Model.newTutorSub.Count != 0)
                         {
                             foreach (var item in Model.newTutorSub)
                             {
@@ -123,7 +123,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn-success">Phê duyệt</button>
+                                            <a href="@Url.Action("ApprovedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -132,7 +132,7 @@
                         }
                         else
                         {
-                            <h5 style="color: black;">Không có khóa dạy nào đăng ký mới.</h5>
+                            <h5 style="color: black;"><strong>Không có khóa dạy nào đăng ký mới.</strong></h5>
                         }
                     </div>
                 </div>

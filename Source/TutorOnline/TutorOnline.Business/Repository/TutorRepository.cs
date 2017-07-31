@@ -105,6 +105,20 @@ namespace TutorOnline.Business.Repository
             return tutors;
         }
 
+        public void ApprovedTutorSubject(int? id)
+        {
+            _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == id).ToList().ForEach(x => x.Status = 6);
+            _dbContext.SaveChanges();
+        }
+
+        public void ApprovedPreTutor(int? tusubId, int? tuId)
+        {
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = true);
+            _dbContext.SaveChanges();
+            _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == tusubId).ToList().ForEach(x => x.Status = 6);
+            _dbContext.SaveChanges();
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();

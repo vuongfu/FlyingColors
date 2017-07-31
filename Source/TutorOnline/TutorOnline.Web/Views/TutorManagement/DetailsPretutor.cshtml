@@ -15,7 +15,7 @@
     <hr />
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"> @Html.DisplayFor(model => model.FullName)</span>
+            <strong>Ứng viên: </strong>@Html.DisplayFor(model => model.FullName)
         </div>
         <div class="panel-body">
             <div class="row">
@@ -90,10 +90,15 @@
                         </table>
                         <hr />
                         <h4 style="color:deepskyblue">Khóa học đăng ký dạy</h4>
+
+                        @{int tusubId = 0;}
+
                         @if (Model.newTutorSub != null)
                         {
                             foreach (var item in Model.newTutorSub)
                             {
+                                tusubId = item.TutorSubjectId;
+
                                 <table class="table">
                                     <tr>
                                         <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
@@ -105,7 +110,7 @@
                                 <hr />
                             }
                         }
-                        <button type="button" class="btn btn-success pull-left">Phê duyệt trở thành gia sư</button>
+                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a>
                     </div>
                 </div>
             </div>

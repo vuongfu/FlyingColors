@@ -170,7 +170,7 @@ namespace TutorOnline.Web.Controllers
                     tutorSubModel.Add(t);
                 }
             }
-            model.tutorSub = tutorSubModel;
+            model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             //NewTutorSubject
             List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
@@ -191,7 +191,7 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
-            model.newTutorSub = newTutorSubModel;
+            model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             return View(model);
         }
@@ -456,7 +456,7 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
-            model.tutorSub = tutorSubModel;
+            model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             //NewTutorSubject
             List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
@@ -477,9 +477,27 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
-            model.newTutorSub = newTutorSubModel;
+            model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             return View(model);
+        }
+        public ActionResult ApprovedSubject(int? subId, int? tuId)
+        {
+            if(subId != null)
+            {
+                Tres.ApprovedTutorSubject(subId);
+                TempData["message"] = new ManagerStringCommon().approvedTutorSubjectSuccess.ToString();
+            }
+            return RedirectToAction("DetailsTutor", "TutorManagement", new { id = tuId, comeFrom = "" }); 
+        }
+        public ActionResult ApprovedPreTutor(int? tusubId, int? tuId)
+        {
+            if (tusubId != null && tuId != null)
+            {
+                Tres.ApprovedPreTutor(tusubId, tuId);
+                TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
+            }
+            return RedirectToAction("PretutorIndex", "TutorManagement");
         }
     }
 }
