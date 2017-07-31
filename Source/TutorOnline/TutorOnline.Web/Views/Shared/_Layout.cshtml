@@ -44,7 +44,7 @@
     </style>
 </head>
 <body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
-    <div class="navbar-default navbar-fixed-top" role="navigation" style="background: #EBFAF9;">
+    <div class="navbar-default navbar-fixed-top" role="navigation" style="background: #3B5998;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -52,17 +52,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("TUTOR ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TUTOR ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: #ffffff" })
             </div>
             <div class="navbar-collapse collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-left">
-                    <li>@Html.ActionLink("Trang Chủ", "Index", "Home", null, null)</li>
-                    <li><a href="#GioiThieu">Giới Thiệu</a></li>
-                    <li><a href="#KhoaHoc">Khóa Học</a></li>
-                    <li><a href="#GiaSu">Gia Sư</a></li>
-                    <li><a href="#HuongDan">Hướng Dẫn Học</a></li>
-                    <li><a href="#CongGiaSu">Cổng Gia Sư</a></li>
-                    <li><a href="#myFooter">Chúng Tôi</a></li>
+                    @*<li>@Html.ActionLink("TRANG CHỦ", "Index", "Home", null, new { @style = "color: #ffffff"})</li>*@
+                    <li><a href="#GioiThieu" style="color: #ffffff">GIỚI THIỆU</a></li>
+                    <li><a href="#KhoaHoc" style="color: #ffffff">KHÓA HỌC</a></li>
+                    <li><a href="#GiaSu" style="color: #ffffff">GIA SƯ</a></li>
+                    <li><a href="#HuongDan" style="color: #ffffff">HƯỚNG DẪN HỌC</a></li>
+                    <li><a href="#CongGiaSu" style="color: #ffffff">CỔNG GIA SƯ</a></li>
+                    <li><a href="#myFooter" style="color: #ffffff">LIÊN HỆ</a></li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -70,7 +70,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <div class="row" style="color:aliceblue; margin-top: 15px;">
-                                    <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng Xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
+                                    <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
                                 </div>
                             </li>
                         </ul>

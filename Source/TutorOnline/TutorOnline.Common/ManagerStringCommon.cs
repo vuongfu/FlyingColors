@@ -63,6 +63,9 @@ namespace TutorOnline.Common
         public string updateCriteriaSuccess = "Đã thay đổi nội dung tiêu chí đánh giá thành công.";
         public string deleteCriteriaSuccess = "Đã xóa tiêu chí đánh giá học viên của bài học thành công.";
 
+        public string approvedTutorSubjectSuccess = "Đã phê duyệt khóa dạy cho gia sư thành công.";
+        public string approvedPreTutorSuccess = "Đã phê duyệt cho ứng viên trở thành gia sư thành công.";
+
         public string vn = "Vietnam";
         public string foreign = "foreign";
     }
