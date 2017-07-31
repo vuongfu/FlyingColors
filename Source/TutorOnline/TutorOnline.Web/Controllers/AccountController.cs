@@ -156,6 +156,9 @@ namespace TutorOnline.Web.Controllers
             {
                 ViewBag.isSelectedRole = RoleId;
                 ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == RoleId).RoleName;
+            }else
+            {
+                TempData["message"] = "Bạn phải chọn chức vụ trước.";
             }
 
             if (Email != null)
