@@ -74,6 +74,12 @@ namespace TutorOnline.Business.Repository
             return users;
         }
 
+        public IEnumerable<Subject> GetAllTutorSubject()
+        {
+            var subject = _dbContext.Subjects;
+            return subject;
+        }
+
         public IEnumerable<Student> GetAllStudentUser()
         {
             var users = _dbContext.Students.Include(x => x.Role);

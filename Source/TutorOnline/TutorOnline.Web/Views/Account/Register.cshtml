@@ -159,6 +159,7 @@
 
                     if (ViewBag.SelectedRoleName == "Tutor" || ViewBag.SelectedRoleName == "PreTutor")
                     {
+                        
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -180,19 +181,35 @@
                                     @Html.ValidationMessageFor(model => model.BMemName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-                        </div>
-                    }
-
-                    <div class="row">
-
-                        <div class="form-group col-xs-6 col-sm-6 col-md-6">
-                            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <input type="file" name="file" />
+                            <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="file" name="file" />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    @Html.DropDownList("TutorSubjectId", null, "--Khóa học sẽ dạy--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "19" })
+                                    @Html.ValidationMessageFor(model => model.TutorSubjectId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control input-lg" style="width:100%;" placeholder="Mô tả" tabindex="20" id="Experience" name="Experience" rows="5"></textarea>
+                                    @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    }else
+                    {
+                        <input id="Experience" name="Experience" value="hidden" class="hidden" />
+                        <input id="TutorSubjectId" name="TutorSubjectId" value="-1" class="hidden" />
+                    }
+
 
                     @*<hr class="colorgraph">
                         <div class="row">

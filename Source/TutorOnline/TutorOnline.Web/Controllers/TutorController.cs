@@ -23,11 +23,16 @@ namespace TutorOnline.Web.Controllers
         public ActionResult TutorBookSlot()
         {
             DateTime firstDayWeek1 = firstDayOfWeek;
+            ViewBag.CurrentWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
             firstDayWeek1 = firstDayWeek1.AddDays(7);
             ViewBag.FirstWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
             firstDayWeek1 = firstDayWeek1.AddDays(7);
             ViewBag.SecondWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
-            ViewBag.FirstDayOfWeek = firstDayOfWeek.AddDays(7);
+
+            ViewBag.FirstDayOfWeek = firstDayOfWeek;
+            ViewBag.Today = DateTime.Now.ToShortDateString();
 
             string Uid = "";
             if (Request.Cookies["UserInfo"] != null)
@@ -38,13 +43,15 @@ namespace TutorOnline.Web.Controllers
                 }
             }
             int tutorId = int.Parse(Uid);
-
+            var week0 = TuRes.GetAllSlotInTwoDates(firstDayOfWeek, firstDayOfWeek.AddDays(6), tutorId);
             var week1 = TuRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(7), firstDayOfWeek.AddDays(13), tutorId);
             var week2 = TuRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(14), firstDayOfWeek.AddDays(20), tutorId);
 
+            List<string> SlotOfWeek0 = MapEntityToModel(week0, firstDayOfWeek);
             List<string> SlotOfWeek1 = MapEntityToModel(week1, firstDayOfWeek.AddDays(7));
             List<string> SlotOfWeek2 = MapEntityToModel(week2, firstDayOfWeek.AddDays(14));
 
+            ViewBag.SlotBooked0 = SlotOfWeek0;
             ViewBag.SlotBooked1 = SlotOfWeek1;
             ViewBag.SlotBooked2 = SlotOfWeek2;
 
@@ -66,10 +73,19 @@ namespace TutorOnline.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveSlot(List<string> Week1, List<string> Week2)
+        public ActionResult SaveSlot(List<string> Week0, List<string> Week1, List<string> Week2)
         {
             List<TutorBookSlotViewModel> SlotBooked = new List<TutorBookSlotViewModel>();
-            if(Week1 != null)
+            if (Week0 != null)
+            {
+                foreach (string item in Week0)
+                {
+                    TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek);
+                    SlotBooked.Add(tempData);
+                }
+            }
+
+            if (Week1 != null)
             {
                 foreach (string item in Week1)
                 {
@@ -97,7 +113,7 @@ namespace TutorOnline.Web.Controllers
                 }
             }
             int tutorId = int.Parse(Uid);
-            var SlotBookedGetFromDB = TuRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(7), firstDayOfWeek.AddDays(20), tutorId);
+            var SlotBookedGetFromDB = TuRes.GetAllSlotInTwoDates(firstDayOfWeek, firstDayOfWeek.AddDays(20), tutorId);
 
             foreach(var item in SlotBooked)
             {
@@ -178,6 +194,11 @@ namespace TutorOnline.Web.Controllers
 
             temp.TutorId = int.Parse(Uid);
             return temp;
+        }
+
+        public ActionResult ViewSchedule()
+        {
+            return View();
         }
 
     }

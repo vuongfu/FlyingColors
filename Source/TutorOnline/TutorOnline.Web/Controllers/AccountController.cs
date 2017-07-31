@@ -19,6 +19,7 @@ namespace TutorOnline.Web.Controllers
     {
         private AccountRepository AccRes = new AccountRepository();
         private UsersRepository URes = new UsersRepository();
+        private TutorRepository TRes = new TutorRepository();
 
         [AllowAnonymous]
         public ActionResult Login()
@@ -150,15 +151,15 @@ namespace TutorOnline.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register(int? RoleId, string Email)
+        public ActionResult Register(string RoleId, string Email)
         {
-            if(RoleId != null)
+            if(!string.IsNullOrEmpty(RoleId))
             {
                 ViewBag.isSelectedRole = RoleId;
-                ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == RoleId).RoleName;
-            }else
+                ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == int.Parse(RoleId)).RoleName;
+            }else if(RoleId == "")
             {
-                TempData["message"] = "Bạn phải chọn chức vụ trước.";
+                TempData["messageWarning"] = "Bạn phải chọn chức vụ trước.";
             }
 
             if (Email != null)
@@ -177,6 +178,8 @@ namespace TutorOnline.Web.Controllers
                 new SelectListItem {  Text = "Nam", Value = "1"},
                 new SelectListItem {  Text = "Nữ", Value = "2"},
             }, "Value", "Text");
+            ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
+
 
             return View();
         }
@@ -208,6 +211,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Male", Value = "1"},
                         new SelectListItem {  Text = "Female", Value = "2"},
                     }, "Value", "Text");
+                    ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
 
                     return View(model);
                 }
@@ -232,6 +236,7 @@ namespace TutorOnline.Web.Controllers
                     temp.SkypeId = model.SkypeId;
                     temp.UserName = model.Username;
                     temp.Email = model.Email;
+                    temp.isActived = true;
 
                     URes.AddStudent(temp);                   
                 } else if (roleName == UserCommonString.Parent)
@@ -253,6 +258,7 @@ namespace TutorOnline.Web.Controllers
                     temp.SkypeId = model.SkypeId;
                     temp.UserName = model.Username;
                     temp.Email = model.Email;
+                    temp.isActived = true;
 
                     URes.AddParent(temp);
                     
@@ -278,8 +284,17 @@ namespace TutorOnline.Web.Controllers
                     temp.BankName = model.BankName;
                     temp.BMemName = model.BMemName;
                     temp.BankId = model.BankID;
+                    temp.isActived = true;
 
                     URes.AddTutor(temp);
+
+                    TutorSubject Ts = new TutorSubject();
+                    Ts.Experience = model.Experience;
+                    Ts.SubjectId = model.TutorSubjectId;
+                    Ts.Status = 7;
+                    Ts.TutorId = TRes.getTutorIdByUsername(model.Username);
+
+                    TRes.AddTutorSubject(Ts);
                     
                 }
                 return RedirectToAction("Login", "Account");
@@ -304,6 +319,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Male", Value = "1"},
                         new SelectListItem {  Text = "Female", Value = "2"},
                     }, "Value", "Text");
+            ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
 
             return View(model);
 

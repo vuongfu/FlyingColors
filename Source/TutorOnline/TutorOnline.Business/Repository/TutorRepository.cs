@@ -160,5 +160,25 @@ namespace TutorOnline.Business.Repository
             var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId);
             return slot;
         }
+
+        public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int TutorId)
+        {
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && x.StudentId != null);
+            return slot;
+        }
+
+        public void AddTutorSubject(TutorSubject data)
+        {
+            _dbContext.TutorSubjects.Add(data);
+            _dbContext.SaveChanges();
+        }
+
+        public int getTutorIdByUsername(string username)
+        {
+            var temp = _dbContext.Tutors.FirstOrDefault(x => x.UserName == username);
+            if (temp != null)
+                return temp.TutorId;
+            return -1;
+        }
     }
 }

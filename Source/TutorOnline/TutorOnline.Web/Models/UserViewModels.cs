@@ -699,6 +699,12 @@ namespace TutorOnline.Web.Models
 
         [Display(Name = "Người thụ hưởng:")]
         public string BMemName { get; set; }
+
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        public int TutorSubjectId { get; set; }
+
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        public string Experience { get; set; }
     }
 
     public class ChangePasswordViewModel

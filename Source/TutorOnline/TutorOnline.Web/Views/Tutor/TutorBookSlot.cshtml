@@ -8,7 +8,7 @@
     <a id="pre-arrow" class="disableArrow disabled" onclick="preClick()">
         <img src="~/Image/prev.png" />
     </a>
-    <b id="WeekSelect"> @ViewBag.FirstWeek </b>
+    <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
     <a id="next-arrow" onclick="nextClick()">
         <img src="~/Image/next.png" />
     </a>
@@ -29,7 +29,7 @@
         <th scope="col" style="width:100px;">Slot 10<br />20:00 - 20:45</th>
         <th scope="col" style="width:100px;">Slot 11<br />21:00 - 21:45</th>
     </tr>
-    <tr>
+    <tr id="RowSun">
         <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -37,7 +37,7 @@
             <td class="tableSlot" id="Sun@(temp)" onclick="addOrRemoveDate('Sun@(temp)')"></td>
         }
     </tr>
-    <tr>
+    <tr id="RowMon">
         <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -45,7 +45,7 @@
             <td class="tableSlot" id="Mon@(temp)" onclick="addOrRemoveDate('Mon@(temp)')"></td>
         }
     </tr>
-    <tr>
+    <tr id="RowTue">
         <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -53,7 +53,7 @@
             <td class="tableSlot" id="Tue@(temp)" onclick="addOrRemoveDate('Tue@(temp)')"></td>
         }
     </tr>
-    <tr>
+    <tr id="RowWed">
         <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -61,7 +61,7 @@
             <td class="tableSlot" id="Wed@(temp)" onclick="addOrRemoveDate('Wed@(temp)')"></td>
         }
     </tr>
-    <tr>
+    <tr id="RowThu">
         <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -69,7 +69,7 @@
             <td class="tableSlot" id="Thu@(temp)" onclick="addOrRemoveDate('Thu@(temp)')"></td>
         }
     </tr>
-    <tr>
+    <tr id="RowFri">
         <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -77,7 +77,7 @@
             <td class="tableSlot" id="Fri@(temp)" onclick="addOrRemoveDate('Fri@(temp)')"></td>
         }
     </tr>
-    <tr>
+    <tr id="RowSat">
         <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
         {
@@ -97,11 +97,19 @@
 
 
 <script type="text/javascript">
+    var selectedSlotWeek0 = new Array();
     var selectedSlotWeek1 = new Array();
     var selectedSlotWeek2 = new Array();
-    var selectedWeek = 1;
+    var selectedWeek = 0;
+    var ToDay = new Date("@ViewBag.Today");
+    var Trid;
 
     $(document).ready(function () {
+        @foreach(string item in ViewBag.SlotBooked0)
+        {
+            @Html.Raw("selectedSlotWeek0.push('" + item + "');")
+        }
+
         @foreach(string item in ViewBag.SlotBooked1)
         {
             @Html.Raw("selectedSlotWeek1.push('" + item + "');")
@@ -114,8 +122,8 @@
         }
 
         $('.slotpick tr td').removeClass('selectedSlot');
-        for (i = 0; i < selectedSlotWeek1.length; i++) {
-            jQuery('#' + selectedSlotWeek1[i]).addClass('selectedSlot');
+        for (i = 0; i < selectedSlotWeek0.length; i++) {
+            jQuery('#' + selectedSlotWeek0[i]).addClass('selectedSlot');
         }
     });
 
@@ -126,7 +134,7 @@
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             traditional: true,
-            data: JSON.stringify({ 'Week1': selectedSlotWeek1, 'Week2': selectedSlotWeek2 }),
+            data: JSON.stringify({ 'Week0': selectedSlotWeek0, 'Week1': selectedSlotWeek1, 'Week2': selectedSlotWeek2 }),
             success: function (data) {
                 alert(data);
             },
@@ -140,9 +148,12 @@
         if (selectedWeek == 1) {
             if (jQuery.inArray(slot, selectedSlotWeek1) < 0)
                 selectedSlotWeek1.push(slot);
-        } else {
+        } else if (selectedWeek == 2) {
             if (jQuery.inArray(slot, selectedSlotWeek2) < 0)
                 selectedSlotWeek2.push(slot);
+        } else {
+            if (jQuery.inArray(slot, selectedSlotWeek0) < 0)
+                selectedSlotWeek0.push(slot);
         }
 
     }
@@ -150,16 +161,45 @@
     function removeSlot(index) {
         if (selectedWeek == 1)
             selectedSlotWeek1.splice(index, 1);
-        else
+        else if (selectedWeek == 2)
             selectedSlotWeek2.splice(index, 1);
+        else
+            selectedSlotWeek0.splice(index, 1);
     }
 
     // Adds a date if we don't have it yet, else remove it
     function addOrRemoveDate(slot) {
+        var day = slot.substring(0, 3);
+        var pickeddate;
+
+
         if (selectedWeek == 1)
             var index = jQuery.inArray(slot, selectedSlotWeek1);
-        else
+        else if (selectedWeek == 2)
             var index = jQuery.inArray(slot, selectedSlotWeek2);
+        else {
+            if (day == "Sun")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(0).ToShortDateString()");
+            else if (day == "Mon")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()");
+            else if (day == "Tue")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()");
+            else if (day == "Wed")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()");
+            else if (day == "Thu")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()");
+            else if (day == "Fri")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()");
+            else
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+
+            if (pickeddate >= ToDay)
+                var index = jQuery.inArray(slot, selectedSlotWeek0);
+            else
+                alert("Bạn chỉ được chỉnh sửa từ ngày "+ ToDay.toLocaleDateString() + " trở đi");
+        }
+
+
         if (index >= 0)
             removeSlot(index);
         else
@@ -171,32 +211,51 @@
 
     function preClick() {
         if (!lockPre) {
-            jQuery('#pre-arrow').addClass('disableArrow');
+            selectedWeek = selectedWeek - 1;
             jQuery('#next-arrow').removeClass('disableArrow');
-            document.getElementById("WeekSelect").innerHTML = "@ViewBag.FirstWeek";
+            if (selectedWeek == 0)
+                document.getElementById("WeekSelect").innerHTML = "@ViewBag.CurrentWeek";
+            else if (selectedWeek == 1)
+                document.getElementById("WeekSelect").innerHTML = "@ViewBag.FirstWeek";
+            else
+                document.getElementById("WeekSelect").innerHTML = "@ViewBag.SecondWeek";
             changeWeek();
-            lockPre = true;
+            if (selectedWeek == 0) {
+                jQuery('#pre-arrow').addClass('disableArrow');
+                lockPre = true;
+            }
+            else
+                lockPre = false;
             lockNext = false;
         }
     }
 
     function nextClick() {
         if (!lockNext) {
-            jQuery('#next-arrow').addClass('disableArrow');
+            selectedWeek = selectedWeek + 1;
             jQuery('#pre-arrow').removeClass('disableArrow');
-            document.getElementById("WeekSelect").innerHTML = "@ViewBag.SecondWeek";
+            if (selectedWeek == 0)
+                document.getElementById("WeekSelect").innerHTML = "@ViewBag.CurrentWeek";
+            else if (selectedWeek == 1)
+                document.getElementById("WeekSelect").innerHTML = "@ViewBag.FirstWeek";
+            else
+                document.getElementById("WeekSelect").innerHTML = "@ViewBag.SecondWeek";
             changeWeek();
             lockPre = false;
-            lockNext = true;
+            if (selectedWeek == 2) {
+                lockNext = true;
+                jQuery('#next-arrow').addClass('disableArrow');
+            }
+            else
+                lockNext = false;
         }
     }
 
     function changeWeek() {
         if (selectedWeek == 1) {
-            selectedWeek = 2;
             $('.slotpick tr td').removeClass('selectedSlot')
-            for (i = 0; i < selectedSlotWeek2.length; i++) {
-                jQuery('#' + selectedSlotWeek2[i]).addClass('selectedSlot');
+            for (i = 0; i < selectedSlotWeek1.length; i++) {
+                jQuery('#' + selectedSlotWeek1[i]).addClass('selectedSlot');
             }
             document.getElementById("DateSun").innerHTML = "Chủ nhật <br /> @ViewBag.FirstDayOfWeek.AddDays(7).ToShortDateString()";
             document.getElementById("DateMon").innerHTML = "Thứ hai <br /> @ViewBag.FirstDayOfWeek.AddDays(8).ToShortDateString()";
@@ -206,11 +265,22 @@
             document.getElementById("DateFri").innerHTML = "Thứ sáu <br /> @ViewBag.FirstDayOfWeek.AddDays(12).ToShortDateString()";
             document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> @ViewBag.FirstDayOfWeek.AddDays(13).ToShortDateString()";
         }
-        else {
-            selectedWeek = 1;
+        else if (selectedWeek == 2) {
             $('.slotpick tr td').removeClass('selectedSlot');
-            for (i = 0; i < selectedSlotWeek1.length; i++) {
-                jQuery('#' + selectedSlotWeek1[i]).addClass('selectedSlot');
+            for (i = 0; i < selectedSlotWeek2.length; i++) {
+                jQuery('#' + selectedSlotWeek2[i]).addClass('selectedSlot');
+            }
+            document.getElementById("DateSun").innerHTML = "Chủ nhật <br /> @ViewBag.FirstDayOfWeek.AddDays(14).ToShortDateString()";
+            document.getElementById("DateMon").innerHTML = "Thứ hai <br /> @ViewBag.FirstDayOfWeek.AddDays(15).ToShortDateString()";
+            document.getElementById("DateTue").innerHTML = "Thứ ba <br /> @ViewBag.FirstDayOfWeek.AddDays(16).ToShortDateString()";
+            document.getElementById("DateWed").innerHTML = "Thứ tư <br /> @ViewBag.FirstDayOfWeek.AddDays(17).ToShortDateString()";
+            document.getElementById("DateThu").innerHTML = "Thứ năm <br /> @ViewBag.FirstDayOfWeek.AddDays(18).ToShortDateString()";
+            document.getElementById("DateFri").innerHTML = "Thứ sáu <br /> @ViewBag.FirstDayOfWeek.AddDays(19).ToShortDateString()";
+            document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> @ViewBag.FirstDayOfWeek.AddDays(20).ToShortDateString()";
+        } else {
+            $('.slotpick tr td').removeClass('selectedSlot');
+            for (i = 0; i < selectedSlotWeek0.length; i++) {
+                jQuery('#' + selectedSlotWeek0[i]).addClass('selectedSlot');
             }
             document.getElementById("DateSun").innerHTML = "Chủ nhật <br /> @ViewBag.FirstDayOfWeek.AddDays(0).ToShortDateString()";
             document.getElementById("DateMon").innerHTML = "Thứ hai <br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()";
@@ -225,7 +295,32 @@
     }
 
     $('.tableSlot').click(function () {
-        $(this).toggleClass('selectedSlot');
+        if (selectedWeek == 0) {
+            var SlotId = this.id;
+            var day = SlotId.substring(0, 3);
+            var pickeddate;
+            if (day == "Sun")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(0).ToShortDateString()");
+            else if (day == "Mon")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()");
+            else if (day == "Tue")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()");
+            else if (day == "Wed")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()");
+            else if (day == "Thu")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()");
+            else if (day == "Fri")
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()");
+            else
+                pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+            if (pickeddate >= ToDay)
+                $(this).toggleClass('selectedSlot');
+        } else {
+            $(this).toggleClass('selectedSlot');
+        }
+        
+        
+        
     });
 
 
