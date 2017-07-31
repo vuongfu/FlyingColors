@@ -102,62 +102,63 @@
         </div>
     }
     @RenderBody()
-    <footer id="myFooter">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h5>Chúng Tôi - FlyingColors Team</h5>
-                    <ul>
-                        <li>Trần Viết Vương</li>
-                        <li>Võ Thế Lâm</li>
-                        <li>Nguyễn Bảo Long</li>
-                        <li>Nguyễn Huy Phát</li>
-                        <li>Nông Thị Hoài Thương</li>
-                        <li>Nguyễn Thị Khánh Huyền</li>
-                    </ul>
+    <div>
+        <footer id="myFooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Chúng Tôi - FlyingColors Team</h5>
+                        <ul>
+                            <li>Trần Viết Vương</li>
+                            <li>Võ Thế Lâm</li>
+                            <li>Nguyễn Bảo Long</li>
+                            <li>Nguyễn Huy Phát</li>
+                            <li>Nông Thị Hoài Thương</li>
+                            <li>Nguyễn Thị Khánh Huyền</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Giáo Viên Hướng Dẫn</h5>
+                        <ul>
+                            <li>Phan Trường Lâm</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Liên Hệ</h5>
+                        <ul>
+                            <li>Địa chỉ: Đại học FPT, Hòa Lạc, Thạch Thất, Hà Nội</li>
+                            <li>Email: tutoronlinefptu@gmail.com</li>
+                            <li>Hotline: 01666432971</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Chứng Chỉ</h5>
+                        <ul>
+                            <li>Website dạy học mô hình mới</li>
+                            <li>Sáng tạo mùa hè</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    <h5>Giáo Viên Hướng Dẫn</h5>
-                    <ul>
-                        <li>Phan Trường Lâm</li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Liên Hệ</h5>
-                    <ul>
-                        <li>Địa chỉ: Đại học FPT, Hòa Lạc, Thạch Thất, Hà Nội</li>
-                        <li>Email: tutoronlinefptu@gmail.com</li>
-                        <li>Hotline: 01666432971</li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Chứng Chỉ</h5>
-                    <ul>
-                        <li>Website dạy học mô hình mới</li>
-                        <li>Sáng tạo mùa hè</li>
-                    </ul>
-                </div>
+                <!-- Here we use the Google Embed API to show Google Maps. -->
+                <!-- In order for this to work in your project you will need to generate a unique API key.  -->
+                <iframe id="map-container" frameborder="0" style="border:0"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU&amp;q=place_id:ChIJbQilLLNUNDER5Der2CkuxqM"></iframe>
             </div>
-            <!-- Here we use the Google Embed API to show Google Maps. -->
-            <!-- In order for this to work in your project you will need to generate a unique API key.  -->
-            <iframe id="map-container" frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU&amp;q=place_id:ChIJbQilLLNUNDER5Der2CkuxqM"></iframe>
-        </div>
-        <div class="social-networks">
-            <a href="https://twitter.com/VUONGFU" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="https://www.facebook.com/groups/371728629880519/" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="https://myaccount.google.com/" class="google"><i class="fa fa-google-plus"></i></a>
-        </div>
-        <p class="container-fluid text-center">
-            <a href="#HomePage" title="To Top">
-                <span class="glyphicon glyphicon-chevron-up"></span>
-            </a>
-        </p>
-        <div class="footer-copyright">
-            <p>© 2017 Copyright Flying Colors Team </p>
-        </div>
-    </footer>
-
+            <div class="social-networks">
+                <a href="https://twitter.com/VUONGFU" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.facebook.com/groups/371728629880519/" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="https://myaccount.google.com/" class="google"><i class="fa fa-google-plus"></i></a>
+            </div>
+            <p class="container-fluid text-center">
+                <a href="#HomePage" title="To Top">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+            </p>
+            <div class="footer-copyright">
+                <p>© 2017 Copyright Flying Colors Team </p>
+            </div>
+        </footer>
+    </div>
     <script>
         $(document).ready(function () {
             // Add smooth scrolling to all links in navbar + footer link

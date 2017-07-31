@@ -13,7 +13,7 @@ namespace TutorOnline.Business.Repository
     {
         public IEnumerable<Tutor> GetAllTutor()
         {
-            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true);
+            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.isActived == true && x.RoleId == 7).ToList();
             return tutors;
         }
         public List<string> GetCateNameOfTutor(int tutorId)
@@ -52,7 +52,7 @@ namespace TutorOnline.Business.Repository
             List<int> lstTuId = new List<int>();
             var obj = (from ts in _dbContext.TutorSubjects
                        join t in _dbContext.Tutors on ts.TutorId equals t.TutorId
-                       where t.isActived == true && ts.Status == 7
+                       where t.isActived == true && ts.Status == 7 && t.RoleId == 7
                        group ts by ts.TutorId into g
                        select g.Key).ToList();
             if (obj != null)
@@ -65,12 +65,12 @@ namespace TutorOnline.Business.Repository
         }
         public IEnumerable<TutorSubject> GetTutorSubjects(int tutorId)
         {
-            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 6);
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 6).ToList();
             return tutorSub;
         }
         public IEnumerable<TutorSubject> GetTutorNewSubjects(int tutorId)
         {
-            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 7);
+            var tutorSub = _dbContext.TutorSubjects.Include(x => x.Subject).Where(x => x.TutorId == tutorId && x.Status == 7).ToList();
             return tutorSub;
         }
         public IEnumerable<Tutor> GetTuByCountry(string country)
@@ -90,18 +90,18 @@ namespace TutorOnline.Business.Repository
 
         public Tutor FindTutor(int? id)
         {
-            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id).FirstOrDefault();
+            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id && x.Role.RoleName == (UserCommonString.Tutor)).FirstOrDefault();
             return tutor;
         }
         public Tutor FindPreTutor(int? id)
         {
-            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == false && x.TutorId == id).FirstOrDefault();
+            Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id && x.Role.RoleName == (UserCommonString.PreTutor)).FirstOrDefault();
             return tutor;
         }
 
         public IEnumerable<Tutor> GetAllPretutor()
         {
-            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor && x.isActived == false);
+            var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor && x.isActived == true).ToList();
             return tutors;
         }
 
@@ -113,7 +113,7 @@ namespace TutorOnline.Business.Repository
 
         public void ApprovedPreTutor(int? tusubId, int? tuId)
         {
-            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = true);
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.RoleId = 7);
             _dbContext.SaveChanges();
             _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == tusubId).ToList().ForEach(x => x.Status = 6);
             _dbContext.SaveChanges();
