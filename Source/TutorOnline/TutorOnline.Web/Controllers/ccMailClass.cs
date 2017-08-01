@@ -17,7 +17,9 @@ namespace TutorOnline.Web.Controllers
             ms.SubjectEncoding = System.Text.Encoding.UTF8;
             ms.IsBodyHtml = true;
 
+#pragma warning disable CS0618 // 'MailMessage.ReplyTo' is obsolete: 'ReplyTo is obsoleted for this type.  Please use ReplyToList instead which can accept multiple addresses. http://go.microsoft.com/fwlink/?linkid=14202'
             ms.ReplyTo = new MailAddress(strFrom);
+#pragma warning restore CS0618 // 'MailMessage.ReplyTo' is obsolete: 'ReplyTo is obsoleted for this type.  Please use ReplyToList instead which can accept multiple addresses. http://go.microsoft.com/fwlink/?linkid=14202'
             ms.Sender = new MailAddress(strFrom);
 
             SmtpClient SmtpMail = new SmtpClient("smtp.gmail.com", 587);

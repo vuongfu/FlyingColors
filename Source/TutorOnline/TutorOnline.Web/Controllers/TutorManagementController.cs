@@ -19,8 +19,6 @@ namespace TutorOnline.Web.Controllers
         private CategoriesRepository CRes = new CategoriesRepository();
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
-            ViewBag.comeFrom = "Index";
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
@@ -114,10 +112,8 @@ namespace TutorOnline.Web.Controllers
             ViewBag.totalRecord = result.Count();
             return View(result.OrderBy(x => x.FullName).ToList().ToPagedList(pageNumber, pageSize));
         }
-        public ActionResult DetailsTutor(int? id, string comeFrom)
+        public ActionResult DetailsTutor(int? id)
         {
-            ViewBag.comeFrom = comeFrom;
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -456,6 +452,85 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
+            model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
+
+            //NewTutorSubject
+            List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
+            List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
+            for (int i = 0; i < newTutorSubEntity.Count(); i++)
+            {
+                TutorSubject entity = new TutorSubject();
+                entity = newTutorSubEntity[i];
+                if (entity != null)
+                {
+                    TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                    t.TutorSubjectId = entity.TutorSubjectId;
+                    t.subjectName = entity.Subject.SubjectName;
+                    t.experiences = entity.Experience;
+
+                    newTutorSubModel.Add(t);
+                }
+            }
+
+            model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
+
+            return View(model);
+        }
+        public ActionResult DetailsTutorSignMoreSub(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Tutor tutor = Tres.FindTutor(id);
+
+            if (tutor == null)
+            {
+                return HttpNotFound();
+            }
+
+            TutorInfoViewModels model = new TutorInfoViewModels();
+
+            //Mapping model with entity
+            model.TutorId = tutor.TutorId;
+            model.FullName = tutor.FirstName + " " + tutor.LastName;
+            model.Photo = tutor.Photo;
+            model.Gender = (tutor.Gender == 1) ? "Nam" : "Nữ";
+            model.BirthDate = tutor.BirthDate;
+            model.Address = tutor.Address;
+            model.City = tutor.City;
+            model.PostalCode = tutor.PostalCode;
+            model.Country = tutor.Country;
+            model.Email = tutor.Email;
+            model.SkypeId = tutor.SkypeId;
+            model.PhoneNumber = tutor.PhoneNumber;
+            model.Salary = tutor.Salary;
+            model.BankId = tutor.BankId;
+            model.BankName = tutor.BankName;
+            model.BMemName = tutor.BMemName;
+            model.Description = tutor.Description;
+            model.isActived = (tutor.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
+            model.RegisterDate = tutor.RegisterDate;
+            //TutorSubject
+            List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(tutor.TutorId).ToList();
+            List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
+            for (int i = 0; i < tutorSubEntity.Count(); i++)
+            {
+                TutorSubject entity = new TutorSubject();
+                entity = tutorSubEntity[i];
+                if (entity != null)
+                {
+                    TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                    t.TutorSubjectId = entity.TutorSubjectId;
+                    t.subjectName = entity.Subject.SubjectName;
+                    t.experiences = entity.Experience;
+
+                    tutorSubModel.Add(t);
+                }
+            }
             model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             //NewTutorSubject

@@ -22,7 +22,7 @@ namespace TutorOnline.Business.Repository
             var objs = (from ts in _dbContext.TutorSubjects
                            join s in _dbContext.Subjects on ts.SubjectId equals s.SubjectId
                            join c in _dbContext.Categories on s.CategoryId equals c.CategoryId
-                           where ts.TutorId == tutorId
+                           where ts.TutorId == tutorId && ts.Status == 6
                            select c.CategoryName).Distinct().ToList();
             if(objs != null)
             {

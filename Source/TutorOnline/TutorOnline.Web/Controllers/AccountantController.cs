@@ -136,7 +136,9 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => s.TranDate > DateTime.Parse(StartDate)).ToList();
                 }
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e) { }
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
 
             try
             {
@@ -145,7 +147,9 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => s.TranDate < DateTime.Parse(EndDate)).ToList();
                 }
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e) { }
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -299,7 +303,9 @@ namespace TutorOnline.Web.Controllers
         // GET: Trans/Create
         public ActionResult Create(int id, String RoleName )
         {
+#pragma warning disable CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             if (id == null || (RoleName != "Student" && RoleName != "Tutor"))
+#pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -527,7 +533,9 @@ namespace TutorOnline.Web.Controllers
                             }
                             trans.UserID = User.TutorId;
                     }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
                     } catch(Exception e) {
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
                         ViewBag.Message = TranString.WrongInfo;
                         return View();
                     }

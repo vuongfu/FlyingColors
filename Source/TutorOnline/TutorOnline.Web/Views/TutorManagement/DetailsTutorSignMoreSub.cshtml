@@ -1,21 +1,28 @@
 ﻿@model TutorOnline.Web.Models.TutorInfoViewModels
 
 @{
-    ViewBag.Title = "Chi tiết ứng viên gia sư";
+    ViewBag.Title = "Chi tiết gia sư";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3 style="margin-bottom: -40px;">Chi tiết ứng viên gia sư</h3>
-            @Html.ActionLink("Trở lại", "PretutorIndex", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+            <h3 style="margin-bottom: -40px;">Chi tiết gia sư</h3>
+            @if (ViewBag.comeFrom == "Index")
+            {
+                @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+            }
+            else
+            {
+                @Html.ActionLink("Trở lại", "TutorSignMoreSubIndex", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+            }
         </div>
     </div>
     <hr />
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <strong>Ứng viên: </strong>@Html.DisplayFor(model => model.FullName)
+            <strong>Gia sư: </strong>@Html.DisplayFor(model => model.FullName)
         </div>
         <div class="panel-body">
             <div class="row">
@@ -89,29 +96,45 @@
                             </tr>
                         </table>
                         <hr />
-                        <h4 style="color:deepskyblue">Khóa học đăng ký dạy</h4>
-
-                        @{int tusubId = 0;}
-
-                        @if (Model.newTutorSub != null)
+                        <h4 style="color:deepskyblue">Những khóa học đang dạy</h4>
+                        @foreach (var item in Model.tutorSub)
                         {
-                            foreach (var item in Model.newTutorSub)
-                            {
-                                tusubId = item.TutorSubjectId;
-
-                                <table class="table">
-                                    <tr>
-                                        <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
-                                    </tr>
-                                </table>
-                                <hr />
-                            }
+                            <table class="table">
+                                <tr>
+                                    <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
+                                </tr>
+                            </table>
+                            <hr />
                         }
-                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a> | 
-                        <a href="@Url.Action("RejectedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
+                        <h4 style="color: deepskyblue">Những khóa dạy chưa được phê duyệt</h4>
+                            @if (Model.newTutorSub.Count != 0)
+                            {
+                                foreach (var item in Model.newTutorSub)
+                                {
+                                    <table class="table">
+                                        <tr>
+                                            <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("ApprovedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt</a> | 
+                                                <a href="@Url.Action("RejectedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <hr />
+                                }
+                            }
+                            else
+                            {
+                                <h5 style="color: black;"><strong>Không có khóa dạy nào đăng ký mới.</strong></h5>
+                            }
                     </div>
                 </div>
             </div>

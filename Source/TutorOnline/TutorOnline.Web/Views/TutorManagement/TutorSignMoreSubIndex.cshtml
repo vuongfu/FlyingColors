@@ -61,7 +61,7 @@
                     {
                         <tr>
                             <td>@(ViewBag.Count++ + 1)</td>
-                            <td>@Html.ActionLink(item.FullName, "DetailsTutor", new { id = item.TutorId, comeFrome = "" })</td>
+                            <td>@Html.ActionLink(item.FullName, "DetailsTutorSignMoreSub", new { id = item.TutorId })</td>
                             <td>@Html.DisplayFor(modelItem => item.Gender)</td>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>
                             <td>@Html.DisplayFor(modelItem => item.City)</td>
