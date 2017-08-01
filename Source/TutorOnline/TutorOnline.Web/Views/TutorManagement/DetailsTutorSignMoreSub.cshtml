@@ -124,7 +124,7 @@
                                         <tr>
                                             <td>
                                                 <a href="@Url.Action("ApprovedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt</a> | 
-                                                <a href="@Url.Action("RejectedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
+                                                <a href="@Url.Action("RejectedSubject", "TutorManagement", new { tusubId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
                                             </td>
                                         </tr>
                                     </table>

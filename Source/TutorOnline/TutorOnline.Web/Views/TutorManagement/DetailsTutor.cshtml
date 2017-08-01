@@ -9,14 +9,7 @@
     <div class="row">
         <div class="col-md-12">
             <h3 style="margin-bottom: -40px;">Chi tiết gia sư</h3>
-            @if (ViewBag.comeFrom == "Index")
-            {
-                @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
-            }
-            else
-            {
-                @Html.ActionLink("Trở lại", "TutorSignMoreSubIndex", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
-            }
+            @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
         </div>
     </div>
     <hr />

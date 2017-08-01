@@ -563,7 +563,7 @@ namespace TutorOnline.Web.Controllers
                 Tres.ApprovedTutorSubject(subId);
                 TempData["message"] = new ManagerStringCommon().approvedTutorSubjectSuccess.ToString();
             }
-            return RedirectToAction("DetailsTutor", "TutorManagement", new { id = tuId, comeFrom = "" }); 
+            return RedirectToAction("DetailsTutor", "TutorManagement", new { id = tuId }); 
         }
         public ActionResult ApprovedPreTutor(int? tusubId, int? tuId)
         {
@@ -573,6 +573,25 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
             }
             return RedirectToAction("PretutorIndex", "TutorManagement");
+        }
+        public ActionResult RejectedPreTutor(int? tusubId, int? tuId)
+        {
+            if (tusubId != null && tuId != null)
+            {
+                Tres.RejectedPreTutor(tusubId, tuId);
+                TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
+            }
+            return RedirectToAction("PretutorIndex", "TutorManagement");
+        }
+
+        public ActionResult RejectedSubject(int? tusubId, int? tuId)
+        {
+            if (tusubId != null)
+            {
+                Tres.RejectedTutorSubject(tusubId);
+                TempData["message"] = new ManagerStringCommon().rejectedTutorSubjectMoreSuccess.ToString();
+            }
+            return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId });
         }
     }
 }

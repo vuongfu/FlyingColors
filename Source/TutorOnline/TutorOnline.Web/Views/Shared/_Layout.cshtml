@@ -79,8 +79,10 @@
                 else
                 {
                     <div class="nav navbar-nav navbar-right">
-                        @Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
-                        @Html.ActionLink("Đăng ký", "Register", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+                        @*@Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+                        @Html.ActionLink("Đăng ký", "Register", "Account", new { area = "" }, new { @class = "btn btn-success navbar-btn" })*@
+                        <a href="@Url.Action("Login", "Account")" class="btn navbar-btn" style="background-color: #3B5998; color: white;"><span class="glyphicon glyphicon-log-in" style="color: white;"></span> Đăng nhập</a>
+                        <a href="@Url.Action("Register", "Account")" class="btn navbar-btn" style="background-color: #3B5998; color:white;"><span class="glyphicon glyphicon-education" style="color: white;"></span> Đăng ký</a>
                     </div>
                 }
                 
@@ -155,7 +157,7 @@
                 </a>
             </p>
             <div class="footer-copyright">
-                <p>© 2017 Copyright Flying Colors Team </p>
+                <p><span class="glyphicon glyphicon-copyright-mark" style="color: yellow;"></span> 2017 Copyright Flying Colors Team </p>
             </div>
         </footer>
     </div>

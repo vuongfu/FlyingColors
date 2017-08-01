@@ -119,6 +119,22 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
+        public void RejectedPreTutor(int? tusubId, int? tuId)
+        {
+            TutorSubject ts = _dbContext.TutorSubjects.Find(tusubId);
+            _dbContext.TutorSubjects.Remove(ts);
+            _dbContext.SaveChanges();
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = false);
+            _dbContext.SaveChanges();
+        }
+
+        public void RejectedTutorSubject(int? id)
+        {
+            TutorSubject ts = _dbContext.TutorSubjects.Find(id);
+            _dbContext.TutorSubjects.Remove(ts);
+            _dbContext.SaveChanges();
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();
