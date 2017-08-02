@@ -49,4 +49,17 @@ namespace TutorOnline.Web.Models
         public List<TutorSubjectViewModels> tutorSub { get; set; }
         public List<TutorSubjectViewModels> newTutorSub { get; set; }
     }
+
+    public class BookedSlotByStudent
+    {
+        public string tableSlotId { get; set; }
+
+        public int ScheduleId { get; set; }
+
+        public string LessionName { get; set; }
+
+        public string StudentName { get; set; }
+
+        public int Status { get; set; }
+    }
 }

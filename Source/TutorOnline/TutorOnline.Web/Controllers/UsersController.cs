@@ -25,7 +25,7 @@ namespace TutorOnline.Web.Controllers
         [Authorize(Roles = UserCommonString.SysAdmin)]
         public ActionResult Index(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
-            int pageSize = 7;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             ViewBag.Count = pageSize*(pageNumber-1) + 1;
 
@@ -360,6 +360,23 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int UserId = int.Parse(Uid);
+            if(UserId == id)
+            {
+                TempData["message"] = "Bạn không thể xóa chính mình!!!";
+                return RedirectToAction("Index");
+            }
+
+
             URes.DeleteBackEndUser(id);
             TempData["message"] = "Đã xóa người dùng thành công";
             return RedirectToAction("Index");

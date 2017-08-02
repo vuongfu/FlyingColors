@@ -80,8 +80,8 @@
     <tr id="RowSat">
         <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
         @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
+            {
+                string temp = String.Format("{0:00}", i);
             <td class="tableSlot" id="Sat@(temp)" onclick="addOrRemoveDate('Sat@(temp)')"></td>
         }
     </tr>
@@ -196,7 +196,7 @@
             if (pickeddate >= ToDay)
                 var index = jQuery.inArray(slot, selectedSlotWeek0);
             else
-                alert("Bạn chỉ được chỉnh sửa từ ngày "+ ToDay.toLocaleDateString() + " trở đi");
+                alert("Bạn chỉ được chỉnh sửa từ ngày " + ToDay.toLocaleDateString() + " trở đi");
         }
 
 
@@ -318,9 +318,9 @@
         } else {
             $(this).toggleClass('selectedSlot');
         }
-        
-        
-        
+
+
+
     });
 
 

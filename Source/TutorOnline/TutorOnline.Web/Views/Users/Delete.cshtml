@@ -63,7 +63,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BirthDate)
+            @Html.DisplayFor(model => model.BirthDate.Value.ToShortDateString())
         </dd>
 
         <dt>
@@ -90,7 +90,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            Email:
         </dt>
 
         <dd>
@@ -114,7 +114,7 @@
         </dd>
 
         <dt>
-            Số điện thoại
+            Số điện thoại:
         </dt>
 
         <dd>

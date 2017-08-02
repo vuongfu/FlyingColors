@@ -198,7 +198,56 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult ViewSchedule()
         {
+
+            DateTime firstDayWeek1 = firstDayOfWeek;
+            ViewBag.CurrentWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            firstDayWeek1 = firstDayWeek1.AddDays(7);
+            ViewBag.FirstWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            firstDayWeek1 = firstDayWeek1.AddDays(7);
+            ViewBag.SecondWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            ViewBag.FirstDayOfWeek = firstDayOfWeek;
+
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int tutorId = int.Parse(Uid);
+
+            ViewBag.tutorId = tutorId;
+
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetBookedSlotByStudent(DateTime startDate, DateTime endDate, int TutorId)
+        {
+            var week0 = TuRes.GetAllSlotBookedByStudent(startDate, endDate, TutorId);
+            List<BookedSlotByStudent> returnData = new List<BookedSlotByStudent>();
+            List<string> SlotOfWeek0 = MapEntityToModel(week0, firstDayOfWeek);
+
+            for (int i = 0; i < week0.Count(); i++)
+            {
+                BookedSlotByStudent temp = new BookedSlotByStudent();
+                temp.Status = week0.ElementAt(i).Status;
+                temp.tableSlotId = SlotOfWeek0[i];
+                if(temp.Status != 11)
+                {
+                    temp.ScheduleId = week0.ElementAt(i).ScheduleId;
+                    temp.StudentName = week0.ElementAt(i).Student.FirstName;
+                    temp.LessionName = week0.ElementAt(i).Lesson.LessonName;
+                }                               
+                returnData.Add(temp);
+            }
+
+            return Json(returnData, JsonRequestBehavior.AllowGet);
         }
 
     }
