@@ -264,14 +264,14 @@ CREATE TABLE [Transaction] (
 ---------------------------------------------------------Insert Data------------------------------------------------------------
 
 --Insert data to Roles Table
-INSERT INTO [Role] (RoleName) VALUES ('System Admin');
-INSERT INTO [Role] (RoleName) VALUES ('Supporter');
-INSERT INTO [Role] (RoleName) VALUES ('Accountant');
-INSERT INTO [Role] (RoleName) VALUES ('Manager');
-INSERT INTO [Role] (RoleName) VALUES ('Parent');
-INSERT INTO [Role] (RoleName) VALUES ('Student');
-INSERT INTO [Role] (RoleName) VALUES ('Tutor');
-INSERT INTO [Role] (RoleName) VALUES ('Tutor candidate');
+INSERT INTO [Role] (RoleName) VALUES ('Quản lý hệ thống');
+INSERT INTO [Role] (RoleName) VALUES ('Hỗ trợ');
+INSERT INTO [Role] (RoleName) VALUES ('Kế toán');
+INSERT INTO [Role] (RoleName) VALUES ('Quản lý');
+INSERT INTO [Role] (RoleName) VALUES ('Phụ huynh');
+INSERT INTO [Role] (RoleName) VALUES ('Học sinh');
+INSERT INTO [Role] (RoleName) VALUES ('Gia sư');
+INSERT INTO [Role] (RoleName) VALUES ('Ứng viên gia sư');
 
 --Insert data to Categories table 
 INSERT INTO [Category] (CategoryName, [Description]) VALUES ('Tiếng Nhật', NULL);
