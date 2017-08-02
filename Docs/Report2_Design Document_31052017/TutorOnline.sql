@@ -264,14 +264,14 @@ CREATE TABLE [Transaction] (
 ---------------------------------------------------------Insert Data------------------------------------------------------------
 
 --Insert data to Roles Table
-INSERT INTO [Role] (RoleName) VALUES ('System Admin');
-INSERT INTO [Role] (RoleName) VALUES ('Supporter');
-INSERT INTO [Role] (RoleName) VALUES ('Accountant');
-INSERT INTO [Role] (RoleName) VALUES ('Manager');
-INSERT INTO [Role] (RoleName) VALUES ('Parent');
-INSERT INTO [Role] (RoleName) VALUES ('Student');
-INSERT INTO [Role] (RoleName) VALUES ('Tutor');
-INSERT INTO [Role] (RoleName) VALUES ('PreTutor');
+INSERT INTO [Role] (RoleName) VALUES ('Quản lý hệ thống');
+INSERT INTO [Role] (RoleName) VALUES ('Hỗ trợ');
+INSERT INTO [Role] (RoleName) VALUES ('Kế toán');
+INSERT INTO [Role] (RoleName) VALUES ('Quản lý');
+INSERT INTO [Role] (RoleName) VALUES ('Phụ huynh');
+INSERT INTO [Role] (RoleName) VALUES ('Học sinh');
+INSERT INTO [Role] (RoleName) VALUES ('Gia sư');
+INSERT INTO [Role] (RoleName) VALUES ('Ứng viên gia sư');
 
 --Insert data to Categories table 
 INSERT INTO [Category] (CategoryName, [Description]) VALUES ('Tiếng Nhật', NULL);
@@ -281,6 +281,8 @@ INSERT INTO [Category] (CategoryName, [Description]) VALUES ('Tiếng Anh', NULL
 --Insert data to Subjects Table
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Bảng chữ cái Hiragana', 1, 'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', 'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Hiragana', NULL, NULL);
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Bảng chữ cái Katakana', 1, 'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', 'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Katakana', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Tiếng anh sơ cấp', 2, 'Tiếng anh dành cho người mới bắt đầu', 'Thành thạo ngữ pháp', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Tiếng anh cao cấp', 2, 'Tiếng anh dành cho doanh nhân', 'Giao tiếp tốt', NULL, NULL);
 
 
 --Insert data to Status table
@@ -306,8 +308,10 @@ INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Addr
 
 
 --Insert data to Tutor table
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Lý','tutor1',3-3-1983,2,'Trần Duy Hưng','tutor1@gmail.com','tutor1','tutor1','tutor1','Hà Nội',null,'Việt Nam','01632594938',0,'9876543210',0,null,null,'ngân hàng Tiên Phong','tutor1');
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Nguyễn','tutor2',3-9-1986,2,'Hoàng Quốc Việt','tutor2@gmail.com','tutor2','tutor2','tutor2','Hà Nội',null,'Việt Nam','01635594998',0,'9876598210',0,null,null,'ngân hàng Tiên Phong','tutor2');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Văn A','Nguyễn',3-3-1983,2,'Trần Duy Hưng','tutor1@gmail.com','tutor1','tutor1','tutor1','Hà Nội',null,'Vietnam','01632594938',0,'9876543210',0,null,null,'ngân hàng Tiên Phong','tutor1');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Hoài B','Nông Thị',3-9-1986,2,'Hoàng Quốc Việt','tutor2@gmail.com','tutor2','tutor2','tutor2','Hà Nội',null,'Vietnam','01635594998',0,'9876598210',0,null,null,'ngân hàng Tiên Phong','tutor2');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Văn C','Nguyễn',3-3-1983,2,'Trần Duy Hưng','tutor3@gmail.com','tutor3','tutor3','tutor3','Hà Nội',null,'Vietnam','01632594938',0,'9876543210',0,null,null,'ngân hàng Tiên Phong','tutor3');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Hoài D','Nông Thị',3-9-1986,2,'Hoàng Quốc Việt','tutor4@gmail.com','tutor4','tutor4','tutor4','Hà Nội',null,'Vietnam','01635594998',0,'9876598210',0,null,null,'ngân hàng Tiên Phong','tutor4');
 
 																																																								
 --Insert data to BackendUser table
@@ -409,8 +413,13 @@ INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiế
 
 --Insert data to TutorSubject table
 INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,1,6,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,2,6,'2 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,1,6,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,1,7,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (4,1,7,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,2,6,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,2,6,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (3,2,7,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,3,7,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (3,4,7,'1 năm');
 --Insert data to TeachSchedule table
 
 

@@ -9,7 +9,14 @@
     <div class="row">
         <div class="col-md-12">
             <h3 style="margin-bottom: -40px;">Chi tiết gia sư</h3>
-            @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+            @if (ViewBag.comeFrom == "Index")
+            {
+                @Html.ActionLink("Trở lại", "Index", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+            }
+            else
+            {
+                @Html.ActionLink("Trở lại", "TutorSignMoreSubIndex", "TutorManagement", null, new { @class = "btn btn-info pull-right" })
+            }
         </div>
     </div>
     <hr />
@@ -100,33 +107,34 @@
                                     <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
                                 </tr>
                             </table>
-                            <hr/>
+                            <hr />
                         }
-                        @*<h4 style="color: deepskyblue">Những khóa dạy chưa được phê duyệt</h4>
-                        @if (Model.newTutorSub.Count != 0)
-                        {
-                            foreach (var item in Model.newTutorSub)
+                        <h4 style="color: deepskyblue">Những khóa dạy chưa được phê duyệt</h4>
+                            @if (Model.newTutorSub.Count != 0)
                             {
-                                <table class="table">
-                                    <tr>
-                                        <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="@Url.Action("ApprovedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <hr />
+                                foreach (var item in Model.newTutorSub)
+                                {
+                                    <table class="table">
+                                        <tr>
+                                            <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Kinh nghiệm: </strong>@Html.DisplayFor(modelItem => item.experiences)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("ApprovedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt</a> | 
+                                                <a href="@Url.Action("RejectedSubject", "TutorManagement", new { tusubId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <hr />
+                                }
                             }
-                        }
-                        else
-                        {
-                            <h5 style="color: black;"><strong>Không có khóa dạy nào đăng ký mới.</strong></h5>
-                        }*@
+                            else
+                            {
+                                <h5 style="color: black;"><strong>Không có khóa dạy nào đăng ký mới.</strong></h5>
+                            }
                     </div>
                 </div>
             </div>

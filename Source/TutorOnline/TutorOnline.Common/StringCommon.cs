@@ -11,7 +11,7 @@ namespace TutorOnline.Common
         public const string Parent = "Parent";
         public const string Student = "Student";
         public const string Tutor = "Tutor";
-        public const string PreTutor = "PreTutor";
+        public const string PreTutor = "Tutor candidate";
         public const string SysAdmin = "System Admin";
         public const string Supporter = "Supporter";
         public const string Accountant = "Accountant";

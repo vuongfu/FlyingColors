@@ -110,7 +110,8 @@
                                 <hr />
                             }
                         }
-                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a>
+                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a> | 
+                        <a href="@Url.Action("RejectedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
                     </div>
                 </div>
             </div>

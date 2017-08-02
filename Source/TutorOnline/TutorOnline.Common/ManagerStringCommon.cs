@@ -65,6 +65,8 @@ namespace TutorOnline.Common
 
         public string approvedTutorSubjectSuccess = "Đã phê duyệt khóa dạy cho gia sư thành công.";
         public string approvedPreTutorSuccess = "Đã phê duyệt cho ứng viên trở thành gia sư thành công.";
+        public string rejectedPreTutorSuccess = "Đã từ chối ứng viên gia sư thành công.";
+        public string rejectedTutorSubjectMoreSuccess = "Đã từ chối khóa dạy đăng ký thêm của gia sư thành công.";
 
         public string vn = "Vietnam";
         public string foreign = "foreign";

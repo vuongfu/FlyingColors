@@ -22,7 +22,7 @@ namespace TutorOnline.Business.Repository
             var objs = (from ts in _dbContext.TutorSubjects
                            join s in _dbContext.Subjects on ts.SubjectId equals s.SubjectId
                            join c in _dbContext.Categories on s.CategoryId equals c.CategoryId
-                           where ts.TutorId == tutorId
+                           where ts.TutorId == tutorId && ts.Status == 6
                            select c.CategoryName).Distinct().ToList();
             if(objs != null)
             {
@@ -116,6 +116,22 @@ namespace TutorOnline.Business.Repository
             _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.RoleId = 7);
             _dbContext.SaveChanges();
             _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == tusubId).ToList().ForEach(x => x.Status = 6);
+            _dbContext.SaveChanges();
+        }
+
+        public void RejectedPreTutor(int? tusubId, int? tuId)
+        {
+            TutorSubject ts = _dbContext.TutorSubjects.Find(tusubId);
+            _dbContext.TutorSubjects.Remove(ts);
+            _dbContext.SaveChanges();
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = false);
+            _dbContext.SaveChanges();
+        }
+
+        public void RejectedTutorSubject(int? id)
+        {
+            TutorSubject ts = _dbContext.TutorSubjects.Find(id);
+            _dbContext.TutorSubjects.Remove(ts);
             _dbContext.SaveChanges();
         }
 
