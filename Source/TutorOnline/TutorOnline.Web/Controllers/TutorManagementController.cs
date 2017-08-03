@@ -494,7 +494,7 @@ namespace TutorOnline.Web.Controllers
                     t.experiences = entity.Experience;
 
                     newTutorSubModel.Add(t);
-                    lstNewSubId[i] = t.TutorSubjectId;
+                    lstNewSubId.Add(t.TutorSubjectId);
                 }
             }
 
@@ -608,7 +608,8 @@ namespace TutorOnline.Web.Controllers
                 Tres.ApprovedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
             }
-            return RedirectToAction("PretutorIndex", "TutorManagement");
+            //return RedirectToAction("PretutorIndex", "TutorManagement");
+            return Json(new { Approved = true });
         }
 
         [HttpPost]
@@ -619,7 +620,8 @@ namespace TutorOnline.Web.Controllers
                 Tres.RejectedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
             }
-            return RedirectToAction("PretutorIndex", "TutorManagement");
+            //return RedirectToAction("PretutorIndex", "TutorManagement");
+            return Json(new { Rejected = true });
         }
     }
 }
