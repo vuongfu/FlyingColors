@@ -230,14 +230,20 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (URes.isExistsUsername(userViewModel.Username) || URes.checkEmailLogin(userViewModel.Email) != null)
+                var check = URes.isExistsUsername(userViewModel.Username);
+                if (check || URes.checkEmailLogin(userViewModel.Email) != null)
                 {
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
                         new SelectListItem {  Text = "Nam", Value = "1"},
                         new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
-                    TempData["message"] = "Username is exists";
+                    
+                    if(check)
+                        TempData["messageWarning"] = "Tên tài khoản đã tồn tại";
+                    else
+                        TempData["messageWarning"] = "Email này đã tồn tại";
+
                     ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
                     ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
                     return View(userViewModel);
@@ -418,7 +424,15 @@ namespace TutorOnline.Web.Controllers
             }
 
             if (roleName == UserCommonString.Parent)
-                URes.DeleteParentUser(id);
+            {
+                if(URes.CheckDeleteParent(id))
+                    URes.DeleteParentUser(id);
+                else
+                {
+                    TempData["messageWarning"] = "Tài khoản phụ huynh này đã có liên kết với một tài khoản học viên khác nên không thể xóa.";
+                    return RedirectToAction("Index");
+                }
+            }                
             else if (roleName == UserCommonString.Student)
                 URes.DeleteStudentUser(id);
             else if (roleName == UserCommonString.Tutor)
@@ -426,7 +440,7 @@ namespace TutorOnline.Web.Controllers
             else
                 URes.DeleteBackEndUser(id);
 
-            TempData["message"] = "Đã xóa người dùng thành công";
+            TempData["message"] = "Đã xóa người dùng thành công.";
             return RedirectToAction("Index");
         }
 

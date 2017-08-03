@@ -201,42 +201,29 @@
             }
 
         }
-
-        @if (ViewBag.InfoClick == true)
-        {
-            <dt>
-                <br />
-            </dt>
-            <dd>
-
-            </dd>
-            <dt>
-
-            </dt>
-            <dd>
+    </dl>
+    @if (ViewBag.InfoClick == true)
+    {
+        <div class="container">
+            <div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1">
                 @Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id, info = true }, new { @class = "btn btn-success" })
-            </dd>
-
-        }
-        else
-        {
-            <dt>
-                <br />
-            </dt>
-            <dd></dd>
-            <dt>
+            </div>
+        </div>
+       
+    }
+    else
+    {
+        <div class="container">
+            <div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1">
                 @if (User.Identity.Name != Model.Username)
                 {
                     @Html.ActionLink("Xóa", "Delete", new { id = Model.Id, roleName = Model.RoleName }, new { @class = "btn btn-danger" }) @("  ")
                 }
-            </dt>
-            <dd>
-                @Html.ActionLink("Quay về", "Index", null, new { @class = "btn btn-default" })
-            </dd>
+                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
 
+    }
 
-
-        }
-    </dl>
 </div>
 

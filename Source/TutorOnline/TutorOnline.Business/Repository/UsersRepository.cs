@@ -197,6 +197,16 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
+        public bool CheckDeleteParent(int id)
+        {
+            var temp = _dbContext.Students.FirstOrDefault(x => x.ParentId == id);
+            if(temp != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void DeleteParentUser(int id)
         {
             Parent user = _dbContext.Parents.Find(id);
