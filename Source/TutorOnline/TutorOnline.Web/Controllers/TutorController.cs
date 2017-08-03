@@ -250,5 +250,10 @@ namespace TutorOnline.Web.Controllers
             return Json(returnData, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ViewDetailSlotBooked(int id)
+        {
+            return View();
+        }
+
     }
 }

@@ -7,49 +7,7 @@
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 <script src="~/Scripts/bootstrap.js"></script>
 <script>
-    @*$(document).ready(function() {
-        $(document).on('click','#results',function (e) {
 
-            if (!$("input[name=q1]:checked").val() ||
-            !$("input[name=q2]:checked").val() ||
-            !$("input[name=q3]:checked").val() ||
-            !$("input[name=q4]:checked").val() ||
-            !$("input[name=q5]:checked").val()
-            ) {
-                alert("You're not done yet!");
-            }
-        else{
-            //var list = [
-            //        parseInt($("input[name=q1]:checked").val()),
-            //        parseInt($("input[name=q2]:checked").val()),
-            //        parseInt($("input[name=q3]:checked").val()),
-            //        parseInt($("input[name=q4]:checked").val()),
-            //        parseInt($("input[name=q5]:checked").val())
-            //];
-            var model = {
-                //Answer1 : parseInt($("input[name=q1]:checked").val()),
-                //Answer2 : parseInt($("input[name=q2]:checked").val()),
-                //Answer3 : parseInt($("input[name=q3]:checked").val()),
-                //Answer4 : parseInt($("input[name=q4]:checked").val()),
-                //Answer5 : parseInt($("input[name=q5]:checked").val()),
-                "ListAnswer" : "abcd",
-                "LessonId" : @Model[0].LessonId,
-            };
-            var url = "@Url.Action("CheckScore", "Student")";
-            $.ajax({
-                type: "POST",   
-                url: url,
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(model),
-                dataType: 'json',
-                success: function (response) {
-                    $("#Score").text(response.registeredSubject);
-                    $("#Score").css({'color':'#d10202'});
-                }
-            });
-            }
-        });
-    });*@
     $(document).ready(function () {
         $(document).on('click', '#results', function (e) {
             if (!$("input[name=q1]:checked").val() ||
@@ -127,35 +85,35 @@
         font-style: italic;
     }
 </style>
+<div class="container">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        string q = "q" + (i + 1);
+        <p class="question">@(i + 1). @Model[i].Content</p>
+        <ul class="answers">
+            <input type="radio" name="@q" value="0" id="qa">
+            <label for="qa">@Model[i].ListAnswer[0].Content</label>
+            <br />
+            <input type="radio" name="@q" value="1" id="qb">
+            <label for="qb">@Model[i].ListAnswer[1].Content</label>
+            <br />
+            <input type="radio" name="@q" value="2" id="qc">
+            <label for="qc">@Model[i].ListAnswer[2].Content</label>
+            <br />
+            <input type="radio" name="@q" value="3" id="qd">
+            <label for="qd">@Model[i].ListAnswer[3].Content</label>
+            <br />
+        </ul> }
 
-@for (int i = 0; i < Model.Count; i++)
-{
-    string q = "q" + (i+1);
-<p class="question">@(i+1). @Model[i].Content</p>
-<ul class="answers">
-    <input type="radio" name="@q" value="0" id="qa">
-    <label for="qa">@Model[i].ListAnswer[0].Content</label>
-    <br />
-    <input type="radio" name="@q" value="1" id="qb">
-    <label for="qb">@Model[i].ListAnswer[1].Content</label>
-    <br />
-    <input type="radio" name="@q" value="2" id="qc">
-    <label for="qc">@Model[i].ListAnswer[2].Content</label>
-    <br />
-    <input type="radio" name="@q" value="3" id="qd">
-    <label for="qd">@Model[i].ListAnswer[3].Content</label>
-    <br />
-</ul> }
 
+    <div id="results">
+        Submit
+    </div>
 
-<div id="results">
-    Submit
+    <div>
+        <p id="Score"></p>
+    </div>
+
 </div>
-
-<div>
-    <p id="Score"></p>
-</div>
-
-
 
 

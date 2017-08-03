@@ -63,7 +63,7 @@
                     }
                     if (Request.Cookies["Role"]["RoleId"] != null)
                     {
-                        Rname = Request.Cookies["Role"]["RoleName"];
+                        Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
                     }
 
                 }
