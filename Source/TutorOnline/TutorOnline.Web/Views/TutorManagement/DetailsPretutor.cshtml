@@ -1,5 +1,6 @@
 ﻿@model TutorOnline.Web.Models.TutorInfoViewModels
 
+<script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
     ViewBag.Title = "Chi tiết ứng viên gia sư";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
@@ -106,11 +107,52 @@
                                 <hr />
                             }
                         }
-                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { model = Model, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a> | 
-                        <a href="@Url.Action("RejectedPreTutor", "TutorManagement", new { tusubId = Model.newTusubId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
+
+                        @*<a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { model = Model, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a> | 
+                        <a href="@Url.Action("RejectedPreTutor", "TutorManagement", new { tusubId = Model.newTusubId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>*@
+                        <input type="button" class="btn btn-success" name="btnSubmit" value="Phê duyệt trở thành gia sư" onclick="ApprovedPreTutor()" />
+                        <input type="button" class="btn btn-success" name="btnSubmit" value="Từ chối" onclick="RejectedPreTutor()" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var tusubId = @Model.newTusubId;
+    var tuId = @Model.TutorId;
+
+    function ApprovedPreTutor() {
+        $.ajax({
+            url: '@Url.Action("ApprovedPreTutor", "TutorManagement")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'tusubId': tusubId, 'tuId': tuId }),
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr) {
+                alert("Error");
+            }
+        });
+    }
+
+    function RejectedPreTutor() {
+        $.ajax({
+            url: '@Url.Action("RejectedPreTutor", "TutorManagement")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'tusubId': tusubId, 'tuId': tuId }),
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr) {
+                alert("Error");
+            }
+        });
+    }
+</script>

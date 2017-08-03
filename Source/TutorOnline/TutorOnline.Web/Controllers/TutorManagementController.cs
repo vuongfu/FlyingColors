@@ -480,7 +480,7 @@ namespace TutorOnline.Web.Controllers
             //NewTutorSubject
             List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
             List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
-            int[] lstNewSubId = new int[newTutorSubEntity.Count];
+            List<int> lstNewSubId = new List<int>();
             for (int i = 0; i < newTutorSubEntity.Count(); i++)
             {
                 TutorSubject entity = new TutorSubject();
@@ -499,7 +499,7 @@ namespace TutorOnline.Web.Controllers
             }
 
             model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
-            model.newTusubId = lstNewSubId.ToArray();
+            model.newTusubId = lstNewSubId.ToList();
             return View(model);
         }
         public ActionResult DetailsTutorSignMoreSub(int? id)
@@ -600,9 +600,10 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId });
         }
 
-        public ActionResult ApprovedPreTutor(int[] tusubId, int? tuId)
+        [HttpPost]
+        public ActionResult ApprovedPreTutor(List<int> tusubId, int? tuId)
         {
-            if (tusubId != null && tuId != null)
+            if (tusubId.Count != 0 && tuId != null)
             {
                 Tres.ApprovedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
@@ -610,9 +611,10 @@ namespace TutorOnline.Web.Controllers
             return RedirectToAction("PretutorIndex", "TutorManagement");
         }
 
-        public ActionResult RejectedPreTutor(int[] tusubId, int? tuId)
+        [HttpPost]
+        public ActionResult RejectedPreTutor(List<int> tusubId, int? tuId)
         {
-            if (tusubId != null && tuId != null)
+            if (tusubId.Count != 0 && tuId != null)
             {
                 Tres.RejectedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
