@@ -227,7 +227,7 @@
             <dt>
                 @if (User.Identity.Name != Model.Username)
                 {
-                    @Html.ActionLink("Xóa", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) @("  ")
+                    @Html.ActionLink("Xóa", "Delete", new { id = Model.Id, roleName = Model.RoleName }, new { @class = "btn btn-danger" }) @("  ")
                 }
             </dt>
             <dd>

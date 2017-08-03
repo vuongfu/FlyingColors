@@ -119,18 +119,17 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Lưu" class="btn btn-success" />
-            </div>
+                @if (ViewBag.InfoClick = true)
+                {
+                    @Html.ActionLink("Hủy bỏ", "Details", new { id = Model.Id, info = true }, new { @class = "btn btn-default" })
+                }
+            </div>          
         </div>
     </div>
 }
 
-@if (ViewBag.InfoClick = true)
-{
-    <div>
-        @Html.ActionLink("Hủy bỏ", "Details", new { id = Model.Id, info = true }, new { @class = "btn btn-default" })
-    </div>
-}
-else
+
+@if (ViewBag.InfoClick = false)
 {
     <div>
         @Html.ActionLink("Quay lại", "Index")

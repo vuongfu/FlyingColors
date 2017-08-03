@@ -183,7 +183,7 @@ namespace TutorOnline.Business.Repository
 
         public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int TutorId)
         {
-            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && x.StudentId != null);
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && (x.Status == 4 || x.Status == 3 || x.Status ==5 || x.Status == 11));
             return slot;
         }
 

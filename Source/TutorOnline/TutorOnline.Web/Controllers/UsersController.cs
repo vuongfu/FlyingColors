@@ -25,7 +25,7 @@ namespace TutorOnline.Web.Controllers
         [Authorize(Roles = UserCommonString.SysAdmin)]
         public ActionResult Index(string searchString, string roleString, int? genderString, string yearString, int? page)
         {
-            int pageSize = 7;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             ViewBag.Count = pageSize*(pageNumber-1) + 1;
 
@@ -341,26 +341,89 @@ namespace TutorOnline.Web.Controllers
 
         // GET: Users/Delete/5
         [Authorize(Roles = UserCommonString.SysAdmin)]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string roleName)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BackendUser user = URes.FindBackEndUser(id);
-            if (user == null)
+
+            DetailUserViewModels model;
+
+            if (roleName == UserCommonString.Parent)
             {
-                return HttpNotFound();
+                Parent user = URes.FindParentUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
             }
-            return View(user);
+                
+            else if (roleName == UserCommonString.Student)
+            {
+                Student user = URes.FindStudentUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
+            }
+                
+            else if (roleName == UserCommonString.Tutor)
+            {
+                Tutor user = URes.FindTutorUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
+            }
+
+            else
+            {
+                BackendUser user = URes.FindBackEndUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
+            }
+
+            return View(model);
+
         }
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string roleName)
         {
-            URes.DeleteBackEndUser(id);
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int UserId = int.Parse(Uid);
+            if(UserId == id && roleName == UserCommonString.SysAdmin)
+            {
+                TempData["messageWarning"] = "Bạn không thể xóa chính mình!!!";
+                return RedirectToAction("Index");
+            }
+
+            if (roleName == UserCommonString.Parent)
+                URes.DeleteParentUser(id);
+            else if (roleName == UserCommonString.Student)
+                URes.DeleteStudentUser(id);
+            else if (roleName == UserCommonString.Tutor)
+                URes.DeleteTutorUser(id);
+            else
+                URes.DeleteBackEndUser(id);
+
             TempData["message"] = "Đã xóa người dùng thành công";
             return RedirectToAction("Index");
         }

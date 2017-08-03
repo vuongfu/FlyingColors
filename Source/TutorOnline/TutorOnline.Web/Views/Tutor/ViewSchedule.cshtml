@@ -1,8 +1,246 @@
 ﻿
 @{
     ViewBag.Title = "ViewSchedule";
-    Layout = "";
+    Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
 }
 
+<p>
+    <a id="pre-arrow" class="disableArrow disabled" onclick="preClick()">
+        <img src="~/Image/prev.png" />
+    </a>
+    <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
+    <a id="next-arrow" onclick="nextClick()">
+        <img src="~/Image/next.png" />
+    </a>
+</p>
+
+<table class="table table-bordered" border="1" style="border-width:3px !important; ">
+    <tr>
+        <th></th>
+        <th scope="col" style="width:75px;">Slot 1<br />08:00 - 08:45</th>
+        <th scope="col" style="width:75px;">Slot 2<br />09:00 - 09:45</th>
+        <th scope="col" style="width:75px;">Slot 3<br />10:00 - 10:45</th>
+        <th scope="col" style="width:75px;">Slot 4<br />11:00 - 11:45</th>
+        <th scope="col" style="width:75px;">Slot 5<br />13:00 - 13:45</th>
+        <th scope="col" style="width:75px;">Slot 6<br />14:00 - 14:45</th>
+        <th scope="col" style="width:75px;">Slot 7<br />15:00 - 15:45</th>
+        <th scope="col" style="width:75px;">Slot 8<br />16:00 - 16:45</th>
+        <th scope="col" style="width:75px;">Slot 9<br />19:00 - 19:45</th>
+        <th scope="col" style="width:75px;">Slot 10<br />20:00 - 20:45</th>
+        <th scope="col" style="width:75px;">Slot 11<br />21:00 - 21:45</th>
+    </tr>
+    <tr id="RowSun">
+        <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+        {
+            string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Sun@(temp)" ></td>
+        }
+    </tr>
+    <tr id="RowMon">
+        <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+        {
+            string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Mon@(temp)"></td>
+        }
+    </tr>
+    <tr id="RowTue">
+        <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+        {
+            string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Tue@(temp)"></td>
+        }
+    </tr>
+    <tr id="RowWed">
+        <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+        {
+            string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Wed@(temp)"></td>
+        }
+    </tr>
+    <tr id="RowThu">
+        <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+        {
+            string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Thu@(temp)"></td>
+        }
+    </tr>
+    <tr id="RowFri">
+        <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+        {
+            string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Fri@(temp)"></td>
+        }
+    </tr>
+    <tr id="RowSat">
+        <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
+        @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+            <td class="tableSlot" id="Sat@(temp)"></td>
+        }
+    </tr>
+
+</table>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+
+<script type="text/javascript">
+    var selectedWeek = 0;
+
+    function bindData(week) {
+        var startDate;
+        var endDate;
+        var tutorId = @ViewBag.tutorId;
+        if (week == 0) {
+            startDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(0).ToShortDateString()");
+            endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+        } else if (week == 1) {
+            startDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(7).ToShortDateString()");
+            endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(13).ToShortDateString()");
+        } else {
+            startDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(14).ToShortDateString()");
+            endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(20).ToShortDateString()");
+        }
+
+        $.ajax({
+            url: '@Url.Action("GetBookedSlotByStudent", "Tutor")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'TutorId': tutorId }),
+            success: function (data) {
+                $('.slotpick tr td').removeClass('selectedSlot');
+                for(i in data){
+                    var stt = data[i].Status;
+                    if(stt == 11)
+                        jQuery('#' + data[i].tableSlotId).addClass('availableSlot');
+                    else if(stt == 3)
+                        jQuery('#' + data[i].tableSlotId).addClass('finishedSlot');
+                    else if(stt == 4)
+                        jQuery('#' + data[i].tableSlotId).addClass('bookedSlot');
+                    else
+                        jQuery('#' + data[i].tableSlotId).addClass('canceledSlot');
+
+                    if(stt != 11){
+                        var x = "<a href=GetSlotDetail/";
+                        x += data[i].ScheduleId + ">";
+                        x += data[i].StudentName + "<br>" + data[i].LessionName + "</a>";
+                        document.getElementById(data[i].tableSlotId).innerHTML = x;
+                    }
+                    
+                }
+            },
+            error: function (xhr) {
+                alert("Error");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        bindData(selectedWeek);
+    });
+
+    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 
+    $('.table tr td').live('mousemove', function () { 
+        $(this).addClass('ui-state-hover'); 
+        var id = this.id;
+        var date = id.substring(0,3);
+        var num = id.substring(3);
+
+        for(i = 0 ; i< 7; i++){
+            var temp = "";
+            temp += days[i] + num;
+            if(id != temp)
+                jQuery('#' + temp).addClass('colSelect');
+        }
+        
+        for(i = 1; i<= 11; i++){
+            var temp = "";
+            if(i < 10){
+                temp += date + "0";
+                temp += i;
+            }else{
+                temp += date + i;
+            }
+            if(id != temp)
+                jQuery('#' + temp).addClass('rowSelected');
+        }
+
+    })
+    $('.table tr td').live('mouseleave', function () { 
+        $(this).removeClass('ui-state-hover');
+        var id = this.id;
+        var date = id.substring(0,3);
+        var num = id.substring(3);
+
+        for(i = 0 ; i< 7; i++){
+            var temp = "";
+            temp += days[i] + num;
+            if(id != temp)
+                jQuery('#' + temp).removeClass('colSelect');
+        }
+        
+        for(i = 1; i<= 11; i++){
+            var temp = "";
+            if(i < 10){
+                temp += date + "0";
+                temp += i;
+            }else{
+                temp += date + i;
+            }
+            if(id != temp)
+                jQuery('#' + temp).removeClass('rowSelected');
+        }
+    })
+</script>
+
+<style>
+    .onmouse {
+        background-color: gray;
+    }
+
+    .availableSlot {
+        background-color: greenyellow;
+    }
+
+    .colSelect{
+        border-left-style:groove !important;
+        border-right-style:groove !important;
+        border-left-width:2px !important;
+        border-right-width:2px !important;
+    }
+
+    .rowSelected{      
+        border-top-style:groove !important;
+        border-bottom-style:groove !important;
+        border-top-width:2px !important;
+        border-bottom-width:2px !important;    
+    }
+
+    .finishedSlot{
+        background-color: skyblue;
+    }
+
+    .bookedSlot{
+        background-color: gold;
+    }
+
+    .canceledSlot{
+        background-color: tomato;
+    }
+
+    .disableArrow {
+        opacity: 0.4;
+        cursor: no-drop;
+    }
+</style>
