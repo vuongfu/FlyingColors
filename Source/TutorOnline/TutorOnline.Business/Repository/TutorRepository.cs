@@ -87,7 +87,6 @@ namespace TutorOnline.Business.Repository
             }
             
         }
-
         public Tutor FindTutor(int? id)
         {
             Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id && x.Role.RoleName == (UserCommonString.Tutor)).FirstOrDefault();
@@ -98,13 +97,11 @@ namespace TutorOnline.Business.Repository
             Tutor tutor = _dbContext.Tutors.Where(x => x.isActived == true && x.TutorId == id && x.Role.RoleName == (UserCommonString.PreTutor)).FirstOrDefault();
             return tutor;
         }
-
         public IEnumerable<Tutor> GetAllPretutor()
         {
             var tutors = _dbContext.Tutors.Include(x => x.Role).Where(x => x.Role.RoleName == UserCommonString.PreTutor && x.isActived == true).ToList();
             return tutors;
         }
-
         public void ApprovedTutorSubject(int? id)
         {
             _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == id).ToList().ForEach(x => x.Status = 6);
@@ -116,7 +113,7 @@ namespace TutorOnline.Business.Repository
             _dbContext.TutorSubjects.Remove(ts);
             _dbContext.SaveChanges();
         }
-        public void ApprovedPreTutor(int[] tusubId, int? tuId)
+        public void ApprovedPreTutor(List<int> tusubId, int? tuId)
         {
             _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.RoleId = 7);
             _dbContext.SaveChanges();
@@ -127,7 +124,7 @@ namespace TutorOnline.Business.Repository
             }
         }
 
-        public void RejectedPreTutor(int[] tusubId, int? tuId)
+        public void RejectedPreTutor(List<int> tusubId, int? tuId)
         {
             for (int i = 0; i < tusubId.Count(); i++)
             {
