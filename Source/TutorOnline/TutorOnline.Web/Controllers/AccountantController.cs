@@ -40,8 +40,8 @@ namespace TutorOnline.Web.Controllers
 
             ViewBag.RoleString = new SelectList(new List<SelectListItem>
             {
-                new SelectListItem {  Text = "Student", Value = "1"},
-                new SelectListItem {  Text = "Tutor", Value = "2"},
+                new SelectListItem {  Text = "Học sinh", Value = "1"},
+                new SelectListItem {  Text = "Phụ huynh", Value = "2"},
             }, "Value", "Text");
 
             List<TransactionListViewModels> ListTrans = new List<TransactionListViewModels>();
@@ -66,10 +66,10 @@ namespace TutorOnline.Web.Controllers
                 temp.UserType = record.UserType;
                 if(record.UserType==1)
                 {
-                    temp.UserTypeName = "Student";
+                    temp.UserTypeName = "Học sinh";
                 } else
                 {
-                    temp.UserTypeName = "Tutor";
+                    temp.UserTypeName = "Gia sư";
                 }
 
                 ListTrans.Add(temp);
@@ -117,11 +117,11 @@ namespace TutorOnline.Web.Controllers
                 IndexUserViewModel temp = new IndexUserViewModel();
                 if (item.UserType == 1)
                 {
-                    temp = ListUsers.Where(s => s.Id == item.UserID && s.RoleName == "Student").FirstOrDefault();
+                    temp = ListUsers.Where(s => s.Id == item.UserID && s.RoleName == "Học sinh").FirstOrDefault();
                 }
                 else
                 {
-                    temp = ListUsers.Where(s => s.Id == item.UserID && s.RoleName == "Tutor").FirstOrDefault();
+                    temp = ListUsers.Where(s => s.Id == item.UserID && s.RoleName == "Gia sư").FirstOrDefault();
                 }
                 item.UserName = temp.Username;
                 item.Name = temp.LastName + " " + temp.FirstName;
@@ -136,9 +136,7 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => s.TranDate > DateTime.Parse(StartDate)).ToList();
                 }
             }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
-            catch (Exception e) { }
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
+            catch (Exception e) { throw e; }
 
             try
             {
@@ -147,9 +145,7 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => s.TranDate < DateTime.Parse(EndDate)).ToList();
                 }
             }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
-            catch (Exception e) { }
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
+            catch (Exception e) { throw e; }
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -221,11 +217,11 @@ namespace TutorOnline.Web.Controllers
             ViewBag.RoleStr = roleString;
             ViewBag.GenderStr = genderString;
 
-            ViewBag.roleString = new SelectList(URes.GetAllRole().Where(s => s.RoleName == "Tutor" || s.RoleName == "Student"), "RoleName", "RoleName");
+            ViewBag.roleString = new SelectList(URes.GetAllRole().Where(s => s.RoleName == "Gia sư" || s.RoleName == "Học sinh"), "RoleName", "RoleName");
             ViewBag.genderString = new SelectList(new List<SelectListItem>
             {
-                new SelectListItem {  Text = "Male", Value = "1"},
-                new SelectListItem {  Text = "Female", Value = "2"},
+                new SelectListItem {  Text = "Nam", Value = "1"},
+                new SelectListItem {  Text = "Nữ", Value = "2"},
             }, "Value", "Text");
 
             List<TransUserViewModel> ListUsers = new List<TransUserViewModel>();
@@ -289,7 +285,7 @@ namespace TutorOnline.Web.Controllers
 
             if (roleString == "")
             {
-                ListUsers = ListUsers.Where(s => s.RoleName == "Tutor" || s.RoleName == "Student").ToList();
+                ListUsers = ListUsers.Where(s => s.RoleName == "Gia sư" || s.RoleName == "Học sinh").ToList();
             }
 
             if (genderString != null)
@@ -303,15 +299,14 @@ namespace TutorOnline.Web.Controllers
         // GET: Trans/Create
         public ActionResult Create(int id, String RoleName )
         {
-#pragma warning disable CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
-            if (id == null || (RoleName != "Student" && RoleName != "Tutor"))
-#pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
+            if (RoleName != "Học sinh" && RoleName != "Gia sư")
+
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             List<TransUserViewModel> ListUsers = new List<TransUserViewModel>();
-            if(RoleName == "Student")
+            if(RoleName == "Học sinh")
             {
                 var Student = URes.GetAllStudentUser();
                 foreach (var record in Student)
@@ -363,14 +358,12 @@ namespace TutorOnline.Web.Controllers
             trans.Name = user.LastName + user.FirstName;
             trans.Balance = (int)user.Balance;
             trans.UserTypeName = user.RoleName;
-            if(user.RoleName == "Student") { trans.UserType = 1; }
+            if(user.RoleName == "Học sinh") { trans.UserType = 1; }
             else { trans.UserType = 2; }
             return View(trans);
         }
 
-        // POST
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TransactionViewModels TransactionViewModel)
@@ -382,12 +375,12 @@ namespace TutorOnline.Web.Controllers
             }
             if (ModelState.IsValid && TransactionViewModel.Balance + TransactionViewModel.Amount >= 0 && TransactionViewModel.Amount !=0)
             {
-                if (TransactionViewModel.UserTypeName == "Student")
+                if (TransactionViewModel.UserTypeName == "Học sinh")
                 {
                     Student User = URes.FindStudentUser(TransactionViewModel.UserID);
                     User.Balance = User.Balance + TransactionViewModel.Amount;
                     URes.EditStudentUser(User);
-                } else if (TransactionViewModel.UserTypeName == "Tutor")
+                } else if (TransactionViewModel.UserTypeName == "Gia sư")
                 {
                     Tutor User = URes.FindTutorUser(TransactionViewModel.UserID);
                     User.Balance = User.Balance + TransactionViewModel.Amount;
@@ -512,7 +505,7 @@ namespace TutorOnline.Web.Controllers
                         trans.UserTypeName = ds.Tables[0].Rows[i][1].ToString();
                         trans.Amount = int.Parse(ds.Tables[0].Rows[i][2].ToString());
                         trans.Content = ds.Tables[0].Rows[i][3].ToString();
-                        if (trans.UserTypeName == "Student") { trans.UserType = 1; }
+                        if (trans.UserTypeName == "Học sinh") { trans.UserType = 1; }
                         else { trans.UserType = 2; }
 
                         if (trans.UserType == 1)
@@ -533,9 +526,7 @@ namespace TutorOnline.Web.Controllers
                             }
                             trans.UserID = User.TutorId;
                     }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
-                    } catch(Exception e) {
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
+                    } catch {
                         ViewBag.Message = TranString.WrongInfo;
                         return View();
                     }
