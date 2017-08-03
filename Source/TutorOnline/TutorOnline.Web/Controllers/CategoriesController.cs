@@ -12,7 +12,7 @@ using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = UserCommonString.Manager)]
     public class CategoriesController : Controller
     {
         // GET: Categories

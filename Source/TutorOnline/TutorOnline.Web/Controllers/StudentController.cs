@@ -8,10 +8,12 @@ using TutorOnline.Business.Repository;
 using TutorOnline.Web.Models;
 using TutorOnline.DataAccess;
 using System.Web.Http;
+using TutorOnline.Common;
+using System.Web.Security;
 
 namespace TutorOnline.Web.Controllers
 {
-    [System.Web.Mvc.Authorize(Roles = "Student")]
+    [System.Web.Http.Authorize(Roles = UserCommonString.Student)]
     public class StudentController : Controller
     {
         SubjectsRepository SubRes = new SubjectsRepository();

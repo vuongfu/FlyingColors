@@ -12,7 +12,7 @@ using System.Net;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = UserCommonString.Manager)]
     public class TutorManagementController : Controller
     {
         private TutorRepository Tres = new TutorRepository();
