@@ -119,7 +119,8 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
             for(int i = 0; i < tusubId.Count(); i ++)
             {
-                _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == tusubId[i]).ToList().ForEach(x => x.Status = 6);
+                int id = tusubId[i];
+                _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == id).ToList().ForEach(x => x.Status = 6);
                 _dbContext.SaveChanges();
             }
         }
@@ -128,7 +129,8 @@ namespace TutorOnline.Business.Repository
         {
             for (int i = 0; i < tusubId.Count(); i++)
             {
-                TutorSubject ts = _dbContext.TutorSubjects.Find(tusubId[i]);
+                int id = tusubId[i];
+                TutorSubject ts = _dbContext.TutorSubjects.Find(id);
                 _dbContext.TutorSubjects.Remove(ts);
                 _dbContext.SaveChanges();
             }
