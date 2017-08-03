@@ -136,7 +136,7 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => s.TranDate > DateTime.Parse(StartDate)).ToList();
                 }
             }
-            catch (Exception e) { throw e; }
+            catch {  }
 
             try
             {
@@ -145,7 +145,7 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => s.TranDate < DateTime.Parse(EndDate)).ToList();
                 }
             }
-            catch (Exception e) { throw e; }
+            catch  { }
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -216,6 +216,8 @@ namespace TutorOnline.Web.Controllers
             ViewBag.SearchStr = searchString;
             ViewBag.RoleStr = roleString;
             ViewBag.GenderStr = genderString;
+
+            ViewBag.Message = TempData["Message"] as string;
 
             ViewBag.roleString = new SelectList(URes.GetAllRole().Where(s => s.RoleName == "Gia sư" || s.RoleName == "Học sinh"), "RoleName", "RoleName");
             ViewBag.genderString = new SelectList(new List<SelectListItem>
@@ -390,7 +392,8 @@ namespace TutorOnline.Web.Controllers
                 Transaction tran = MapCreateViewToTrans(TransactionViewModel);
                 AccRes.Add(tran);
 
-                return RedirectToAction("Search");
+                TempData["Message"] = "Tạo giao dịch thành công";
+                return RedirectToAction("Search", new {Message = "Thành công"});
             }
             if (TransactionViewModel.Balance + TransactionViewModel.Amount < 0 || TransactionViewModel.Amount == 0)
             {
