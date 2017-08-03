@@ -13,7 +13,7 @@ using System.IO;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = UserCommonString.Manager)]
     public class MaterialsController : Controller
     {
         // GET: Materials

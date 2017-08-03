@@ -197,6 +197,26 @@ namespace TutorOnline.Business.Repository
             _dbContext.SaveChanges();
         }
 
+        public void DeleteParentUser(int id)
+        {
+            Parent user = _dbContext.Parents.Find(id);
+            _dbContext.Parents.Remove(user);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteStudentUser(int id)
+        {
+            Student user = _dbContext.Students.Find(id);
+            _dbContext.Students.Remove(user);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteTutorUser(int id)
+        {
+            Tutor user = _dbContext.Tutors.Find(id);
+            _dbContext.Tutors.Remove(user);
+            _dbContext.SaveChanges();
+        }
 
         public void Dispose()
         {

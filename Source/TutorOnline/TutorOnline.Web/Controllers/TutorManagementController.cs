@@ -12,7 +12,7 @@ using System.Net;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = UserCommonString.Manager)]
     public class TutorManagementController : Controller
     {
         private TutorRepository Tres = new TutorRepository();
@@ -231,14 +231,15 @@ namespace TutorOnline.Web.Controllers
                     model.Description = item.Description;
                     model.isActived = (item.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
                     model.RegisterDate = item.RegisterDate;
-                    model.cateTeaching = Tres.GetCateNameOfTutor(item.TutorId);
-                    //TutorSubject
-                    List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(item.TutorId).ToList();
-                    List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
-                    for (int i = 0; i < tutorSubEntity.Count(); i++)
+                    model.cateTeaching = Tres.GetNewCateNameOfTutor(item.TutorId);
+
+                    //NewTutorSubject
+                    List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(item.TutorId).ToList();
+                    List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
+                    for (int i = 0; i < newTutorSubEntity.Count(); i++)
                     {
                         TutorSubject entity = new TutorSubject();
-                        entity = tutorSubEntity[i];
+                        entity = newTutorSubEntity[i];
                         if (entity != null)
                         {
                             TutorSubjectViewModels t = new TutorSubjectViewModels();
@@ -247,11 +248,32 @@ namespace TutorOnline.Web.Controllers
                             t.subjectName = entity.Subject.SubjectName;
                             t.experiences = entity.Experience;
 
-                            tutorSubModel.Add(t);
+                            newTutorSubModel.Add(t);
                         }
                     }
 
-                    model.tutorSub = tutorSubModel;
+                    model.newTutorSub = newTutorSubModel;
+
+                    ////TutorSubject
+                    //List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(item.TutorId).ToList();
+                    //List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
+                    //for (int i = 0; i < tutorSubEntity.Count(); i++)
+                    //{
+                    //    TutorSubject entity = new TutorSubject();
+                    //    entity = tutorSubEntity[i];
+                    //    if (entity != null)
+                    //    {
+                    //        TutorSubjectViewModels t = new TutorSubjectViewModels();
+
+                    //        t.TutorSubjectId = entity.TutorSubjectId;
+                    //        t.subjectName = entity.Subject.SubjectName;
+                    //        t.experiences = entity.Experience;
+
+                    //        tutorSubModel.Add(t);
+                    //    }
+                    //}
+
+                    //model.tutorSub = tutorSubModel;
 
                     result.Add(model);
                 }
@@ -433,30 +455,32 @@ namespace TutorOnline.Web.Controllers
             model.Description = tutor.Description;
             model.isActived = (tutor.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
             model.RegisterDate = tutor.RegisterDate;
-            //TutorSubject
-            List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(tutor.TutorId).ToList();
-            List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
-            for (int i = 0; i < tutorSubEntity.Count(); i++)
-            {
-                TutorSubject entity = new TutorSubject();
-                entity = tutorSubEntity[i];
-                if (entity != null)
-                {
-                    TutorSubjectViewModels t = new TutorSubjectViewModels();
 
-                    t.TutorSubjectId = entity.TutorSubjectId;
-                    t.subjectName = entity.Subject.SubjectName;
-                    t.experiences = entity.Experience;
+            ////TutorSubject
+            //List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(tutor.TutorId).ToList();
+            //List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
+            //for (int i = 0; i < tutorSubEntity.Count(); i++)
+            //{
+            //    TutorSubject entity = new TutorSubject();
+            //    entity = tutorSubEntity[i];
+            //    if (entity != null)
+            //    {
+            //        TutorSubjectViewModels t = new TutorSubjectViewModels();
 
-                    tutorSubModel.Add(t);
-                }
-            }
+            //        t.TutorSubjectId = entity.TutorSubjectId;
+            //        t.subjectName = entity.Subject.SubjectName;
+            //        t.experiences = entity.Experience;
 
-            model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
+            //        tutorSubModel.Add(t);
+            //    }
+            //}
+
+            //model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             //NewTutorSubject
             List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
             List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
+            int[] lstNewSubId = new int[newTutorSubEntity.Count];
             for (int i = 0; i < newTutorSubEntity.Count(); i++)
             {
                 TutorSubject entity = new TutorSubject();
@@ -470,11 +494,12 @@ namespace TutorOnline.Web.Controllers
                     t.experiences = entity.Experience;
 
                     newTutorSubModel.Add(t);
+                    lstNewSubId[i] = t.TutorSubjectId;
                 }
             }
 
             model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
-
+            model.newTusubId = lstNewSubId.ToArray();
             return View(model);
         }
         public ActionResult DetailsTutorSignMoreSub(int? id)
@@ -563,27 +588,8 @@ namespace TutorOnline.Web.Controllers
                 Tres.ApprovedTutorSubject(subId);
                 TempData["message"] = new ManagerStringCommon().approvedTutorSubjectSuccess.ToString();
             }
-            return RedirectToAction("DetailsTutor", "TutorManagement", new { id = tuId }); 
+            return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId }); 
         }
-        public ActionResult ApprovedPreTutor(int? tusubId, int? tuId)
-        {
-            if (tusubId != null && tuId != null)
-            {
-                Tres.ApprovedPreTutor(tusubId, tuId);
-                TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
-            }
-            return RedirectToAction("PretutorIndex", "TutorManagement");
-        }
-        public ActionResult RejectedPreTutor(int? tusubId, int? tuId)
-        {
-            if (tusubId != null && tuId != null)
-            {
-                Tres.RejectedPreTutor(tusubId, tuId);
-                TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
-            }
-            return RedirectToAction("PretutorIndex", "TutorManagement");
-        }
-
         public ActionResult RejectedSubject(int? tusubId, int? tuId)
         {
             if (tusubId != null)
@@ -592,6 +598,26 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().rejectedTutorSubjectMoreSuccess.ToString();
             }
             return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId });
+        }
+
+        public ActionResult ApprovedPreTutor(int[] tusubId, int? tuId)
+        {
+            if (tusubId != null && tuId != null)
+            {
+                Tres.ApprovedPreTutor(tusubId, tuId);
+                TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
+            }
+            return RedirectToAction("PretutorIndex", "TutorManagement");
+        }
+
+        public ActionResult RejectedPreTutor(int[] tusubId, int? tuId)
+        {
+            if (tusubId != null && tuId != null)
+            {
+                Tres.RejectedPreTutor(tusubId, tuId);
+                TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
+            }
+            return RedirectToAction("PretutorIndex", "TutorManagement");
         }
     }
 }

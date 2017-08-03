@@ -8,14 +8,14 @@ namespace TutorOnline.Common
 {
     public static class UserCommonString
     {
-        public const string Parent = "Parent";
-        public const string Student = "Student";
-        public const string Tutor = "Tutor";
-        public const string PreTutor = "Tutor candidate";
-        public const string SysAdmin = "System Admin";
-        public const string Supporter = "Supporter";
-        public const string Accountant = "Accountant";
-        public const string Manager = "Manager";
+        public const string Parent = "Phụ huynh";
+        public const string Student = "Học sinh";
+        public const string Tutor = "Gia sư";
+        public const string PreTutor = "Ứng viên gia sư";
+        public const string SysAdmin = "Quản lý hệ thống";
+        public const string Supporter = "Hỗ trợ";
+        public const string Accountant = "Kế toán";
+        public const string Manager = "Quản lý";
         public const string EmailNotExist = "Email bạn nhập không tồn tại. Hãy kiểm tra và thử lại.";
         public const string EmailFrom = "tutoronlinefptu@gmail.com";
         public const string EmailPass = "tutoronlinefptu12345";

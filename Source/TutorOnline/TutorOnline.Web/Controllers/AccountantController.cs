@@ -17,7 +17,7 @@ using TutorOnline.Common;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = "Accountant")]
+    [Authorize(Roles = UserCommonString.Accountant)]
     public class AccountantController : Controller
     {
 

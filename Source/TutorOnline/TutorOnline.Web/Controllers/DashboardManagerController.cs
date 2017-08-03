@@ -8,7 +8,7 @@ using TutorOnline.Common;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = UserCommonString.Manager)]
     public class DashboardManagerController : Controller
     {
         CategoriesRepository CRes = new CategoriesRepository();

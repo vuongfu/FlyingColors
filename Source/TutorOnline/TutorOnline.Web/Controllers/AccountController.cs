@@ -36,7 +36,7 @@ namespace TutorOnline.Web.Controllers
                         if (Request.Cookies["Role"]["RoleId"] != null)
                         {
                             Rid = Request.Cookies["Role"]["RoleId"];
-                            Rname = Request.Cookies["Role"]["RoleName"];
+                            Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
                         }
                         if (Rname == UserCommonString.Parent || Rname == UserCommonString.Student || Rname == UserCommonString.Tutor || Rname == UserCommonString.PreTutor)
                             return RedirectToAction("Index", "Home");
@@ -67,28 +67,28 @@ namespace TutorOnline.Web.Controllers
                     {
                         var user = AccRes.getCurrentUserTypeParent(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
-                        Role["RoleName"] = user.Role.RoleName;
+                        Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.ParentId;
                     }
                     else if (RoleName == UserCommonString.Student)
                     {
                         var user = AccRes.getCurrentUserTypeStudent(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
-                        Role["RoleName"] = user.Role.RoleName;
+                        Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.StudentId;
                     }
                     else if (RoleName == UserCommonString.Tutor)
                     {
                         var user = AccRes.getCurrentUserTypeTutor(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
-                        Role["RoleName"] = user.Role.RoleName;
+                        Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.TutorId;
                     }
                     else
                     {
                         var user = AccRes.getCurrentUserTypeBackEnd(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
-                        Role["RoleName"] = user.Role.RoleName;
+                        Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.BackendUserId;
                     }
 
@@ -153,7 +153,22 @@ namespace TutorOnline.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register(string RoleId, string Email)
         {
-            if(!string.IsNullOrEmpty(RoleId))
+            if (Request.Cookies["Role"] != null)
+            {
+                string Rname = null;
+                string Rid = null;
+                if (Request.Cookies["Role"]["RoleId"] != null)
+                {
+                    Rid = Request.Cookies["Role"]["RoleId"];
+                    Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
+                }
+                if (Rname == UserCommonString.Parent || Rname == UserCommonString.Student || Rname == UserCommonString.Tutor || Rname == UserCommonString.PreTutor)
+                    return RedirectToAction("Index", "Home");
+                else
+                    return RedirectToAction("Details", "Users", new { id = Rid, info = true });
+            }
+
+            if (!string.IsNullOrEmpty(RoleId))
             {
                 ViewBag.isSelectedRole = RoleId;
                 ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == int.Parse(RoleId)).RoleName;

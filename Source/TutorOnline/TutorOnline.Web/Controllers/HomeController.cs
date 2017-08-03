@@ -18,7 +18,7 @@ namespace TutorOnline.Web.Controllers
                 if (Request.Cookies["Role"]["RoleId"] != null)
                 {
                     Rid = Request.Cookies["Role"]["RoleId"];
-                    Rname = Request.Cookies["Role"]["RoleName"];
+                    Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
                 }
                 if (Rname == UserCommonString.Manager)
                 {
