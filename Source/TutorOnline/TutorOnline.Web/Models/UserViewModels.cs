@@ -580,7 +580,7 @@ namespace TutorOnline.Web.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
@@ -609,14 +609,14 @@ namespace TutorOnline.Web.Models
         public string Username { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} phải có ít nhất {2} ký tự.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Xác nhận mật khẩu")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")] 
+        [Compare("Password", ErrorMessage = "Mật khẩu và Xác nhận mật khẩu không trùng nhau.")] 
         public string ConfirmPassword { get; set; }
     }
 
@@ -649,7 +649,7 @@ namespace TutorOnline.Web.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
@@ -681,14 +681,14 @@ namespace TutorOnline.Web.Models
         public string Username { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} phải có ít nhất {2} kí tự.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Xác nhận mật khẩu")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Mật khẩu và Xác nhận mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Số tài khoản:")]

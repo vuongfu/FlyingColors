@@ -239,6 +239,7 @@ namespace TutorOnline.Web.Controllers
                     }, "Value", "Text");
                     TempData["message"] = "Username is exists";
                     ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+                    ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
                     return View(userViewModel);
                 }
 
@@ -268,6 +269,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
             TempData["messageWarning"] = "Đã có lỗi xảy ra khi thêm người dùng " + userViewModel.Username;
             return View(userViewModel);
         }
