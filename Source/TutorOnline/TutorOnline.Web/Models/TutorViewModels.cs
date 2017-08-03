@@ -48,5 +48,6 @@ namespace TutorOnline.Web.Models
         public List<string> cateTeaching { get; set; }
         public List<TutorSubjectViewModels> tutorSub { get; set; }
         public List<TutorSubjectViewModels> newTutorSub { get; set; }
+        public int [] newTusubId { get; set; }
     }
 }

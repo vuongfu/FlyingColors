@@ -91,14 +91,10 @@
                         <hr />
                         <h4 style="color:deepskyblue">Khóa học đăng ký dạy</h4>
 
-                        @{int tusubId = 0;}
-
                         @if (Model.newTutorSub != null)
                         {
                             foreach (var item in Model.newTutorSub)
                             {
-                                tusubId = item.TutorSubjectId;
-
                                 <table class="table">
                                     <tr>
                                         <td><strong>Tên khóa dạy: </strong>@Html.DisplayFor(modelItem => item.subjectName)</td>
@@ -110,8 +106,8 @@
                                 <hr />
                             }
                         }
-                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a> | 
-                        <a href="@Url.Action("RejectedPreTutor", "TutorManagement", new { tusubId = tusubId , tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
+                        <a href="@Url.Action("ApprovedPreTutor", "TutorManagement", new { model = Model, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt trở thành gia sư</a> | 
+                        <a href="@Url.Action("RejectedPreTutor", "TutorManagement", new { tusubId = Model.newTusubId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
                     </div>
                 </div>
             </div>

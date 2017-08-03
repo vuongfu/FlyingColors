@@ -238,6 +238,7 @@ namespace TutorOnline.Web.Controllers
                 model.Purpose = subject.Purpose;
                 model.Requirement = subject.Requirement;
                 model.Photo = subject.Photo;
+                model.Description = subject.Description;
             }
             return View(model);
         }

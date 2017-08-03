@@ -110,28 +110,32 @@ namespace TutorOnline.Business.Repository
             _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == id).ToList().ForEach(x => x.Status = 6);
             _dbContext.SaveChanges();
         }
-
-        public void ApprovedPreTutor(int? tusubId, int? tuId)
-        {
-            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.RoleId = 7);
-            _dbContext.SaveChanges();
-            _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == tusubId).ToList().ForEach(x => x.Status = 6);
-            _dbContext.SaveChanges();
-        }
-
-        public void RejectedPreTutor(int? tusubId, int? tuId)
-        {
-            TutorSubject ts = _dbContext.TutorSubjects.Find(tusubId);
-            _dbContext.TutorSubjects.Remove(ts);
-            _dbContext.SaveChanges();
-            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = false);
-            _dbContext.SaveChanges();
-        }
-
         public void RejectedTutorSubject(int? id)
         {
             TutorSubject ts = _dbContext.TutorSubjects.Find(id);
             _dbContext.TutorSubjects.Remove(ts);
+            _dbContext.SaveChanges();
+        }
+        public void ApprovedPreTutor(int[] tusubId, int? tuId)
+        {
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.RoleId = 7);
+            _dbContext.SaveChanges();
+            for(int i = 0; i < tusubId.Count(); i ++)
+            {
+                _dbContext.TutorSubjects.Where(x => x.TutorSubjectId == tusubId[i]).ToList().ForEach(x => x.Status = 6);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public void RejectedPreTutor(int[] tusubId, int? tuId)
+        {
+            for (int i = 0; i < tusubId.Count(); i++)
+            {
+                TutorSubject ts = _dbContext.TutorSubjects.Find(tusubId[i]);
+                _dbContext.TutorSubjects.Remove(ts);
+                _dbContext.SaveChanges();
+            }
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
 
