@@ -84,6 +84,7 @@
             hauto = " tỷ";
         } while (so > 0);
         if (dau == 1) { chuoi = "âm" + chuoi; }
+        chuoi = chuoi + " đồng";
         return chuoi;
     }
     i = 0;
@@ -156,6 +157,7 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Balance)
+                đồng
             </dd>
 
             <dt>

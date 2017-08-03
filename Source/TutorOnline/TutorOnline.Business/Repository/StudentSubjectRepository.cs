@@ -38,7 +38,6 @@ namespace TutorOnline.Business.Repository
         }
         public void EditSubject(StudentSubject StudentSubject)
         {
-            StudentSubject.Status = 1;
             _dbContext.Entry(StudentSubject).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }

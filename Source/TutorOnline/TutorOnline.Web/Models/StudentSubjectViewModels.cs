@@ -33,4 +33,12 @@ namespace TutorOnline.Web.Models
         public List<Lesson> ListLesson { get; set; }
         public int StudiedLesson { get; set; }
     }
+
+    public class TutorScheduleViewModels
+    {
+        public String Name { get; set; }
+        public String Photo { get; set; }
+        public String Description { get; set; }
+        public List<Schedule> ListSchedule { get; set; }
+    }
 }
