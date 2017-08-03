@@ -1,4 +1,4 @@
-﻿@model TutorOnline.DataAccess.BackendUser
+﻿@model TutorOnline.Web.Models.DetailUserViewModels
 
 @{
     ViewBag.Title = "Delete";
@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserName)
+            @Html.DisplayFor(model => model.Username)
         </dd>
 
         <dt>
@@ -39,7 +39,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Role.RoleName)
+            @Html.DisplayFor(model => model.RoleName)
         </dd>
 
         <dt>
@@ -63,7 +63,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BirthDate.Value.ToShortDateString())
+            @Html.DisplayFor(model => model.BirthDate)     
         </dd>
 
         <dt>
@@ -134,6 +134,7 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
+        <input type="hidden" name="roleName" value="@Model.RoleName" />
         <div class="container">
             <div class="form-actions no-color col-md-offset-1">
                 <input type="submit" value="Xóa" class="btn btn-danger" />

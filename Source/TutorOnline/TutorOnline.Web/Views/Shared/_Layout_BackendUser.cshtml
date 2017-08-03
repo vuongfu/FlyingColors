@@ -78,11 +78,11 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="@(Rname.ToString() == "System Admin"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
-                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "DashboardManager")">Thống kê hệ thống</a></li>
-                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "LearningResources")">Quản lý tài nguyên học tập</a></li>
-                        <li class="@(Rname.ToString() == "Manager"? "":"hidden")"><a href="@Url.Action("Index", "TutorManagement")">Quản lý danh sách gia sư</a></li>
-                        <li class="@(Rname.ToString() == "Accountant"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý giao dịch</a></li>
+                        <li class="@(Rname.ToString() == "Quản lý hệ thống"? "":"hidden") "><a href="@Url.Action("Index", "Users")">Quản lý người dùng</a></li>
+                        <li class="@(Rname.ToString() == "Quản lý"? "":"hidden")"><a href="@Url.Action("Index", "DashboardManager")">Thống kê hệ thống</a></li>
+                        <li class="@(Rname.ToString() == "Quản lý"? "":"hidden")"><a href="@Url.Action("Index", "LearningResources")">Quản lý tài nguyên học tập</a></li>
+                        <li class="@(Rname.ToString() == "Quản lý"? "":"hidden")"><a href="@Url.Action("Index", "TutorManagement")">Quản lý danh sách gia sư</a></li>
+                        <li class="@(Rname.ToString() == "Kế toán"? "":"hidden")"><a href="@Url.Action("Index", "Accountant")">Quản lý giao dịch</a></li>
                         <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
                         <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
                     </ul>

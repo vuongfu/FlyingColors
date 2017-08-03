@@ -341,24 +341,63 @@ namespace TutorOnline.Web.Controllers
 
         // GET: Users/Delete/5
         [Authorize(Roles = UserCommonString.SysAdmin)]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string roleName)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BackendUser user = URes.FindBackEndUser(id);
-            if (user == null)
+
+            DetailUserViewModels model;
+
+            if (roleName == UserCommonString.Parent)
             {
-                return HttpNotFound();
+                Parent user = URes.FindParentUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
             }
-            return View(user);
+                
+            else if (roleName == UserCommonString.Student)
+            {
+                Student user = URes.FindStudentUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
+            }
+                
+            else if (roleName == UserCommonString.Tutor)
+            {
+                Tutor user = URes.FindTutorUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
+            }
+
+            else
+            {
+                BackendUser user = URes.FindBackEndUser(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                model = new DetailUserViewModels(user);
+            }
+
+            return View(model);
+
         }
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string roleName)
         {
             string Uid = "";
             if (Request.Cookies["UserInfo"] != null)
@@ -370,14 +409,21 @@ namespace TutorOnline.Web.Controllers
             }
 
             int UserId = int.Parse(Uid);
-            if(UserId == id)
+            if(UserId == id && roleName == UserCommonString.SysAdmin)
             {
-                TempData["message"] = "Bạn không thể xóa chính mình!!!";
+                TempData["messageWarning"] = "Bạn không thể xóa chính mình!!!";
                 return RedirectToAction("Index");
             }
 
+            if (roleName == UserCommonString.Parent)
+                URes.DeleteParentUser(id);
+            else if (roleName == UserCommonString.Student)
+                URes.DeleteStudentUser(id);
+            else if (roleName == UserCommonString.Tutor)
+                URes.DeleteTutorUser(id);
+            else
+                URes.DeleteBackEndUser(id);
 
-            URes.DeleteBackEndUser(id);
             TempData["message"] = "Đã xóa người dùng thành công";
             return RedirectToAction("Index");
         }

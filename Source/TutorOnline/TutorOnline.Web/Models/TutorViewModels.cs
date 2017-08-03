@@ -62,4 +62,27 @@ namespace TutorOnline.Web.Models
 
         public int Status { get; set; }
     }
+
+    public class DetailBookedSlotByStudent
+    {
+        public string FullName { get; set; }
+
+        public string Gender { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
+
+        public string Skype { get; set; }
+
+        public string Category { get; set; }
+
+        public string Subject { get; set; }
+
+        public string Lession { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public int OrderSlot { get; set; }
+    }
 }
