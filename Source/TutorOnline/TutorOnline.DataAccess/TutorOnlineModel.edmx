@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="AnswerId" />
@@ -36,7 +36,6 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="Gender" Type="int" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="60" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -47,6 +46,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -107,7 +107,6 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="Gender" Type="int" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SkypeId" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -121,6 +120,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -173,7 +173,6 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="Gender" Type="int" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="60" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SkypeId" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -187,6 +186,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="StudentFeedback">
           <Key>
@@ -244,7 +244,6 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="Gender" Type="int" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="60" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SkypeId" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -262,6 +261,7 @@
           <Property Name="BMemName" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="TutorFeedback">
           <Key>
@@ -862,7 +862,8 @@
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TutorOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -899,7 +900,6 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -910,6 +910,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="Self.FK__BackendUs__RoleI__34C8D9D1" FromRole="BackendUser" ToRole="Role" />
         </EntityType>
         <EntityType Name="Category">
@@ -986,7 +987,6 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1000,6 +1000,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Parent__RoleId__286302EC" FromRole="Parent" ToRole="Role" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Parent" ToRole="Student" />
         </EntityType>
@@ -1070,7 +1071,6 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1084,6 +1084,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Parent" Relationship="Self.FK__Student__ParentI__2F10007B" FromRole="Student" ToRole="Parent" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Student__RoleId__2E1BDC42" FromRole="Student" ToRole="Role" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Studen__71D1E811" FromRole="Student" ToRole="Schedule" />
@@ -1159,7 +1160,6 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1177,6 +1177,7 @@
           <Property Name="BMemName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
           <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Tutor__RoleId__3A81B327" FromRole="Tutor" ToRole="Role" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__TutorI__70DDC3D8" FromRole="Tutor" ToRole="Schedule" />
           <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Tutor__5629CD9C" FromRole="Tutor" ToRole="StudentFeedback" />
@@ -1829,7 +1830,6 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1840,6 +1840,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1906,7 +1907,6 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="SkypeId" ColumnName="SkypeId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -1920,6 +1920,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1977,7 +1978,6 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="SkypeId" ColumnName="SkypeId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -1991,6 +1991,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2053,7 +2054,6 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="SkypeId" ColumnName="SkypeId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -2071,6 +2071,7 @@
                 <ScalarProperty Name="BMemName" ColumnName="BMemName" />
                 <ScalarProperty Name="isActived" ColumnName="isActived" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
