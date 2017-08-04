@@ -147,8 +147,7 @@ namespace TutorOnline.Web.Controllers
             //Edit category
             if (ModelState.IsValid)
             {
-                Category category = new Category();
-                category.CategoryId = model.CategoryId;
+                Category category = CRes.FindCategory(model.CategoryId);
                 category.CategoryName = model.CategoryName.Trim();
                 category.Description = model.Description;
 

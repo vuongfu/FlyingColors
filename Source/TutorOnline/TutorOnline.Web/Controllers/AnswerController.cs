@@ -159,9 +159,7 @@ namespace TutorOnline.Web.Controllers
                     return View(model);
                 }
 
-                Answer answer = new Answer();
-                answer.AnswerId = model.AnswerId;
-                answer.QuestionId = model.QuestionId;
+                Answer answer = ARes.FindAnswer(model.AnswerId);
                 answer.Content = model.Content.Trim();
                 answer.isCorrect = model.isCorrect;
 

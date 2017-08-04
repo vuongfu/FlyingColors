@@ -188,14 +188,11 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                Question question = new Question();
+                Question question = QRes.FindQuestion(model.QuestionId);
 
                 //Mapping Entity to ViewModel
-                question.QuestionId = model.QuestionId;
                 question.Content = model.Content.Trim();
                 question.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
-                question.SubjectId = model.SubjectId;
-                question.LessonId = model.LessonId;
 
                 QRes.EditQuestion(question);
                 TempData["message"] = new ManagerStringCommon().updateQuestionSuccess.ToString();

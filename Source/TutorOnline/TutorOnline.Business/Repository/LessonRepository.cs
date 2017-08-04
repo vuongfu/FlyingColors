@@ -81,8 +81,9 @@ namespace TutorOnline.Business.Repository
 
         public bool isExistsLessonNameEdit(string name, int id)
         {
+            var curLes = FindLesson(id);
             //Get anotherCategory
-            var lesson = _dbContext.Lessons.Where(x => x.LessonId != id && x.isActived == true);
+            var lesson = _dbContext.Lessons.Where(x => x.SubjectId == curLes.SubjectId && x.LessonId != id && x.isActived == true);
             //Check isExistCategoryName
             foreach (var item in lesson)
             {
