@@ -115,10 +115,7 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Criterion criteria = new Criterion();
-                criteria.CriteriaId = model.CriteriaId;
-                criteria.LessonId = model.LessonId;
-                criteria.RoleId = model.RoleId;
+                Criterion criteria = CTRes.FindCriteria(model.CriteriaId);
                 criteria.CriteriaName = model.CriteriaName.Trim();
 
                 if (CTRes.isExistsCriteriaNameEdit(model.CriteriaName, model.CriteriaId))

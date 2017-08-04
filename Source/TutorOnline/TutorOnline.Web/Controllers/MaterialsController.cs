@@ -167,13 +167,10 @@ namespace TutorOnline.Web.Controllers
         {
             string docUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.document);
 
-            LearningMaterial material = new LearningMaterial();
+            LearningMaterial material = LMRes.FindMaterial(model.MaterialId);
 
             //Mapping Entity to ViewModel
-            material.MaterialId = model.MaterialId;
             material.MaterialUrl = (string.IsNullOrEmpty(docUrl) ? model.MaterialUrl : docUrl);
-            material.LessonId = model.LessonId;
-            material.MaterialTypeId = model.MaterialTypeId;
             material.Description = model.Description;
 
             if (ModelState.IsValid)

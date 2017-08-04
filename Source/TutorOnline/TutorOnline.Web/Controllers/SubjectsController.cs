@@ -197,11 +197,9 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                Subject subject = new Subject();
+                Subject subject = SRes.FindSubject(model.SubjectId);
 
                 //Mapping Entity to ViewModel
-                subject.SubjectId = model.SubjectId;
-                subject.CategoryId = model.CategoryId;
                 subject.SubjectName = model.SubjectName.Trim();
                 subject.Purpose = model.Purpose;
                 subject.Requirement = model.Requirement;

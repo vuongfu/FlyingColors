@@ -143,15 +143,11 @@ namespace TutorOnline.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                Lesson lesson = new Lesson();
+                Lesson lesson = LRes.FindLesson(model.LessonId);
 
                 //Mapping Entity to ViewModel
-                lesson.LessonId = model.LessonId;
                 lesson.LessonName = model.LessonName.Trim();
-                lesson.SubjectId = model.SubjectId;
                 lesson.Content = model.Content;
-                lesson.Order = model.Order;
-
                 LRes.EditLesson(lesson);
                 TempData["message"] = new ManagerStringCommon().updateLessonSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.LessonId });

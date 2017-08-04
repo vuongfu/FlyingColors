@@ -32,14 +32,17 @@
                 </tr>
             </table>
             <p></p>
-            <input type="submit" value="@TranString.Search" class="btn" />
+            <input type="submit" name="Search" value="@TranString.Search" class="btn" />
         </p>
     }
 
 </div>
+@if (ViewBag.Search == true)
+{
+    <h4>@ViewBag.totalRecord</h4>
+}
 @if (Model.FirstOrDefault() != null)
 {
-    <h4>@TranString.Have @ViewBag.totalRecord @TranString.Result</h4>
     <table class="table table-striped">
         <tr>
             <th>
@@ -86,6 +89,14 @@
 }
 @Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })
 
+
+<script>
+    $(document).ready(function () {
+        if(@ViewBag.Message != ""){
+            alert(@ViewBag.Message)
+        }
+    })
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
