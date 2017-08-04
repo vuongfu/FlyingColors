@@ -12,131 +12,133 @@
 
 
 <h2>@TranString.IndexTitle</h2>
-<p>
-    <h4>@Html.ActionLink(TranString.CreateTransaction, "Search", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
-        @Html.ActionLink(TranString.ImportExcel, "ImportExcel", new { area = "" }, new { @class = "btn btn-success navbar-btn" })</h4>
-    @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
-    {
-    <p>
-            <table class="row">
-                @*<div class="row">*@
-                <tr>
-                    <th class="row col-lg-3">
-                        <div class="row col-lg-10" style="font-weight: bold;">@TranString.UserType</div>
-                    </th>
-                    <th class="col-lg-3" style="font-weight: bold;">
-                        @TranString.Account
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
-                        @TranString.StartDate
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
-                        @TranString.EndDate
-                    </th>
-                </tr>
-                @*</div>*@
-                @*<div class="row">*@
-                <tr>
-                    <th class="col-lg-2">
-                        @Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-3">
-                        @Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" })
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2">
-                        @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" })
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2">
-                        @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" })
-                    </th>
-                </tr>
-                @*</div>*@
-            </table>
-            
 
-        <p></p>
-        <input type="submit" name="Search" value="@TranString.Search" class="btn" />
-    </p>
-
-
-if (Model.FirstOrDefault() != null)
-{
-<h4>@TranString.Have @ViewBag.totalRecord @TranString.Result </h4>
-    <table class="table table-striped">
-        <tr>
-            <th>
-                @TranString.Number
-            </th>
-            <th>
-                @TranString.TransId
-            </th>
-            <th>
-                @TranString.Content
-            </th>
-            <th>
-                @TranString.Amount
-            </th>
-            <th>
-                @TranString.TransDate
-            </th>
-            <th>
-                @TranString.Account
-            </th>
-            <th>
-                @TranString.UserType
-            </th>
-            <th>
-                @TranString.Name
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
+    <br />
+        <h4>
+            @Html.ActionLink(TranString.CreateTransaction, "Search", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+            @Html.ActionLink(TranString.ImportExcel, "ImportExcel", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+        </h4>
+        @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
         {
-            <tr>
-                <td>
-                    @(ViewBag.Count++)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TransactionId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TranDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserTypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-            </tr>
-        }
+                <br />
+                <table class="row">
+                    @*<div class="row">*@
+                    <tr>
+                        <th class="row col-lg-3">
+                            <div class="row col-lg-10" style="font-weight: bold;">@TranString.UserType</div>
+                        </th>
+                        <th class="col-lg-3" style="font-weight: bold;">
+                            @TranString.Account
+                        </th>
+                        <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
+                            @TranString.StartDate
+                        </th>
+                        <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
+                            @TranString.EndDate
+                        </th>
+                    </tr>
+                    @*</div>*@
+                    @*<div class="row">*@
+                    <tr>
+                        <th class="col-lg-2">
+                            @Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })
+                        </th>
+                        <th class="col-lg-offset-1 col-lg-3">
+                            @Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" })
+                        </th>
+                        <th class="col-lg-offset-1 col-lg-2">
+                            @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" })
+                        </th>
+                        <th class="col-lg-offset-1 col-lg-2">
+                            @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" })
+                        </th>
+                    </tr>
+                    @*</div>*@
+                </table>
 
-    </table>
-<br />
-    <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount</div>
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
-    <input type="submit" name="Export" value="@TranString.Export" class="btn" />
-        }
+    <p></p>
+    <input type="submit" name="Search" value="@TranString.Search" class="btn" />
+    <br />
+    if (ViewBag.Search == true)
+    {
+       <h4>@ViewBag.totalRecord</h4>
     }
-<script src="~/Scripts/jquery-3.1.1.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
-<script src="~/Scripts/bootstrap-datepicker.js"></script>
+    
+    if (Model.FirstOrDefault() != null)
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @TranString.Number
+                </th>
+                <th>
+                    @TranString.TransId
+                </th>
+                <th>
+                    @TranString.Content
+                </th>
+                <th>
+                    @TranString.Amount
+                </th>
+                <th>
+                    @TranString.TransDate
+                </th>
+                <th>
+                    @TranString.Account
+                </th>
+                <th>
+                    @TranString.UserType
+                </th>
+                <th>
+                    @TranString.Name
+                </th>
+            </tr>
 
-<script>
-$('.datepicker').datepicker({
-    format: 'dd/mm/yyyy',
-});
-</script>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(ViewBag.Count++)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TranDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserTypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
 
+        </table>
+        <br />
+        <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount</div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+        <input type="submit" name="Export" value="@TranString.Export" class="btn" />
+    }
+}
 
+        <script src="~/Scripts/jquery-3.1.1.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <script src="~/Scripts/bootstrap-datepicker.js"></script>
 
+        <script>
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+            });
+
+        </script>

@@ -53,7 +53,7 @@
             @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 
-                <input class="form-control text-box single-line" data-val="true" data-val-date="Ngày sinh phải là kiểu ngày" id="BirthDate" name="BirthDate" type="date" value=@(Model.BirthDate.Value.ToString("yyyy-MM-dd"))>
+                <input class="form-control text-box single-line" data-val="true" data-val-date="Ngày sinh phải là kiểu ngày" id="BirthDate" name="BirthDate" type="date" value=@(Model.BirthDate == null?"":Model.BirthDate.Value.ToString("yyyy-MM-dd"))>
                 @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -104,7 +104,7 @@
             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;" id="blah" />
-                <input type="file" name="file" id="imgInp" />
+                <input type="file" name="file" id="imgInp" accept=".png, .jpg, .jpeg, .gif" />
             </div>
         </div>
 

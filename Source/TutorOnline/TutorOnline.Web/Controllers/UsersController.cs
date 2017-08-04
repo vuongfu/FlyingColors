@@ -177,7 +177,7 @@ namespace TutorOnline.Web.Controllers
                 DetailUserViewModels viewModel = new DetailUserViewModels(user);
 
                 return View(viewModel);              
-            }else if(RName == UserCommonString.Tutor)
+            }else if(RName == UserCommonString.Tutor || RName == UserCommonString.PreTutor)
             {
                 Tutor user = URes.FindTutorUser(id);
                 if (user == null)
