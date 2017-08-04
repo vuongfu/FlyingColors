@@ -14,6 +14,7 @@ using TutorOnline.Web.Models;
 using System.Xml;
 using OfficeOpenXml;
 using TutorOnline.Common;
+using System.Globalization;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -27,7 +28,7 @@ namespace TutorOnline.Web.Controllers
 
         IndexUserViewModel user = new IndexUserViewModel();
         // GET: Accountant
-        public ActionResult Index(string searchString, string roleString, String StartDate, String EndDate, int? page, String Export)
+        public ActionResult Index(string searchString, string roleString, String StartDate, String EndDate, int? page, String Export, String Search)
         {
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -133,7 +134,8 @@ namespace TutorOnline.Web.Controllers
             {
                 if (DateTime.Parse(StartDate) != null)
                 {
-                    ListTrans = ListTrans.Where(s => s.TranDate > DateTime.Parse(StartDate)).ToList();
+                    DateTime SDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    ListTrans = ListTrans.Where(s => s.TranDate >= DateTime.Parse(StartDate)).ToList();
                 }
             }
             catch {  }
@@ -142,7 +144,8 @@ namespace TutorOnline.Web.Controllers
             {
                 if (DateTime.Parse(EndDate) != null)
                 {
-                    ListTrans = ListTrans.Where(s => s.TranDate < DateTime.Parse(EndDate)).ToList();
+                    DateTime EDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    ListTrans = ListTrans.Where(s => s.TranDate <= DateTime.Parse(EndDate)).ToList();
                 }
             }
             catch  { }
@@ -179,15 +182,17 @@ namespace TutorOnline.Web.Controllers
                 {
                     var worksheet = package.Workbook.Worksheets.Add("New Sheet");
 
-                    worksheet.Cells[1, 1].Value = TranString.TransId;
-                    worksheet.Cells[1, 2].Value = TranString.Content;
-                    worksheet.Cells[1, 3].Value = TranString.Amount;
-                    worksheet.Cells[1, 4].Value = TranString.TransDate;
-                    worksheet.Cells[1, 5].Value = TranString.Account;
-                    worksheet.Cells[1, 6].Value = TranString.UserType;
-                    worksheet.Cells[1, 7].Value = TranString.Name;
+                    worksheet.Cells[1, 1].Value = "STT";
+                    worksheet.Cells[1, 2].Value = TranString.TransId;
+                    worksheet.Cells[1, 3].Value = TranString.Content;
+                    worksheet.Cells[1, 4].Value = TranString.Amount;
+                    worksheet.Cells[1, 5].Value = TranString.TransDate;
+                    worksheet.Cells[1, 6].Value = TranString.Account;
+                    worksheet.Cells[1, 7].Value = TranString.UserType;
+                    worksheet.Cells[1, 8].Value = TranString.Name;
                     for (int i = 0; i < ListTrans.Count(); i++)
                     {
+                        worksheet.Cells[i + 2, 1].Value = i+1;
                         worksheet.Cells[i + 2, 1].Value = ListTrans[i].TransactionId.ToString();
                         worksheet.Cells[i + 2, 2].Value = ListTrans[i].Content.ToString();
                         worksheet.Cells[i + 2, 3].Value = ListTrans[i].Amount.ToString();
@@ -201,13 +206,17 @@ namespace TutorOnline.Web.Controllers
 
                 return File(memStream, "application/vnd.ms-excel", "Export.xlsx");
             }
+            if (!String.IsNullOrEmpty(Search))
+            {
+                ViewBag.Search = true;
+            }
+             ViewBag.totalRecord = "Số kết quả tìm được: " + ListTrans.Count();
 
-            ViewBag.totalRecord = ListTrans.Count();
             return View(ListTrans.OrderBy(x => x.TransactionId).ToPagedList(pageNumber, pageSize));
         }
 
 
-        public ActionResult Search(string searchString, string roleString, int? genderString, string yearString, int? page)
+        public ActionResult Search(string searchString, string roleString, int? genderString, string yearString, int? page, string Search)
         {
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -291,10 +300,16 @@ namespace TutorOnline.Web.Controllers
             }
 
             if (genderString != null)
+            {
                 ListUsers = ListUsers.Where(s => s.Gender == genderString).ToList();
+            }
 
-
-            ViewBag.totalRecord = ListUsers.Count();
+            if (!String.IsNullOrEmpty(Search))
+            {
+                ViewBag.Search = true;
+            }
+            ViewBag.totalRecord = "Số kết quả tìm được: " + ListUsers.Count();
+            
             return View(ListUsers.OrderBy(x => x.Username).ToPagedList(pageNumber, pageSize));
         }
 
@@ -375,6 +390,7 @@ namespace TutorOnline.Web.Controllers
                 ViewBag.message = TranString.ContentNotNull;
                 return View(TransactionViewModel);
             }
+            
             if (ModelState.IsValid && TransactionViewModel.Balance + TransactionViewModel.Amount >= 0 && TransactionViewModel.Amount !=0)
             {
                 if (TransactionViewModel.UserTypeName == "Học sinh")
@@ -392,12 +408,16 @@ namespace TutorOnline.Web.Controllers
                 Transaction tran = MapCreateViewToTrans(TransactionViewModel);
                 AccRes.Add(tran);
 
-                TempData["Message"] = "Tạo giao dịch thành công";
-                return RedirectToAction("Search", new {Message = "Thành công"});
+                TempData["Message"] = "Tạo giao dịch thành công.";
+                return RedirectToAction("Search", new {Message = "Thành công."});
             }
-            if (TransactionViewModel.Balance + TransactionViewModel.Amount < 0 || TransactionViewModel.Amount == 0)
+            if (TransactionViewModel.Amount == 0)
             {
                 ViewBag.message = TranString.WrongAmount;
+            }
+            if(TransactionViewModel.Balance + TransactionViewModel.Amount < 0)
+            {
+                ViewBag.message = "Số dư hiện tại không đủ.";
             }
             else { ViewBag.message = TranString.UpdateFailed; }
             return View(TransactionViewModel);
