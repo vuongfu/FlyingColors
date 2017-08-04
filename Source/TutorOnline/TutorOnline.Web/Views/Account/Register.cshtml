@@ -157,9 +157,11 @@
                         </div>
                     </div>
 
-                    if (ViewBag.SelectedRoleName == "Tutor" || ViewBag.SelectedRoleName == "PreTutor")
+                    
+
+                    if (ViewBag.SelectedRoleName == "Gia sư" || ViewBag.SelectedRoleName == "Ứng viên gia sư")
                     {
-                        
+
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -184,9 +186,10 @@
                             <div class="form-group col-xs-6 col-sm-6 col-md-6">
                                 @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    <input type="file" name="file" />
+                                    <input type="file" name="file" accept=".png,.jpg,.jpeg,.gif" />
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -195,7 +198,6 @@
                                     @Html.ValidationMessageFor(model => model.TutorSubjectId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <textarea class="form-control input-lg" style="width:100%;" placeholder="Mô tả" tabindex="20" id="Experience" name="Experience" rows="5"></textarea>
@@ -204,8 +206,17 @@
                             </div>
                         </div>
 
-                    }else
+                    }
+                    else
                     {
+                        <div class="row">
+                            <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="file" name="file" accept=".png,.jpg,.jpeg,.gif" />
+                                </div>
+                            </div>
+                        </div>
                         <input id="Experience" name="Experience" value="hidden" class="hidden" />
                         <input id="TutorSubjectId" name="TutorSubjectId" value="-1" class="hidden" />
                     }
@@ -306,6 +317,8 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
+
+
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy',
     });
