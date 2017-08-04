@@ -48,7 +48,7 @@ namespace TutorOnline.Web.Controllers
                     TutorInfoViewModels model = new TutorInfoViewModels();
                     //Mapping model with entity
                     model.TutorId = item.TutorId;
-                    model.FullName = item.FirstName + " " + item.LastName;
+                    model.FullName = item.LastName + " " + item.FirstName;
                     model.Photo = item.Photo;
                     model.Gender = (item.Gender == 1) ? "Nam" : "Nữ";
                     model.BirthDate = item.BirthDate;
@@ -130,7 +130,7 @@ namespace TutorOnline.Web.Controllers
 
             //Mapping model with entity
             model.TutorId = tutor.TutorId;
-            model.FullName = tutor.FirstName + " " + tutor.LastName;
+            model.FullName = tutor.LastName + " " + tutor.FirstName;
             model.Photo = tutor.Photo;
             model.Gender = (tutor.Gender == 1) ? "Nam" : "Nữ";
             model.BirthDate = tutor.BirthDate;
@@ -213,7 +213,7 @@ namespace TutorOnline.Web.Controllers
                     TutorInfoViewModels model = new TutorInfoViewModels();
                     //Mapping model with entity
                     model.TutorId = item.TutorId;
-                    model.FullName = item.FirstName + " " + item.LastName;
+                    model.FullName = item.LastName + " " + item.FirstName;
                     model.Photo = item.Photo;
                     model.Gender = (item.Gender == 1) ? "Nam" : "Nữ";
                     model.BirthDate = item.BirthDate;
@@ -253,27 +253,6 @@ namespace TutorOnline.Web.Controllers
                     }
 
                     model.newTutorSub = newTutorSubModel;
-
-                    ////TutorSubject
-                    //List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(item.TutorId).ToList();
-                    //List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
-                    //for (int i = 0; i < tutorSubEntity.Count(); i++)
-                    //{
-                    //    TutorSubject entity = new TutorSubject();
-                    //    entity = tutorSubEntity[i];
-                    //    if (entity != null)
-                    //    {
-                    //        TutorSubjectViewModels t = new TutorSubjectViewModels();
-
-                    //        t.TutorSubjectId = entity.TutorSubjectId;
-                    //        t.subjectName = entity.Subject.SubjectName;
-                    //        t.experiences = entity.Experience;
-
-                    //        tutorSubModel.Add(t);
-                    //    }
-                    //}
-
-                    //model.tutorSub = tutorSubModel;
 
                     result.Add(model);
                 }
@@ -334,7 +313,7 @@ namespace TutorOnline.Web.Controllers
                     TutorInfoViewModels model = new TutorInfoViewModels();
                     //Mapping model with entity
                     model.TutorId = item.TutorId;
-                    model.FullName = item.FirstName + " " + item.LastName;
+                    model.FullName = item.LastName + " " + item.FirstName;
                     model.Photo = item.Photo;
                     model.Gender = (item.Gender == 1) ? "Nam" : "Nữ";
                     model.BirthDate = item.BirthDate;
@@ -437,7 +416,7 @@ namespace TutorOnline.Web.Controllers
 
             //Mapping model with entity
             model.TutorId = tutor.TutorId;
-            model.FullName = tutor.FirstName + " " + tutor.LastName;
+            model.FullName = tutor.LastName + " " + tutor.FirstName;
             model.Photo = tutor.Photo;
             model.Gender = (tutor.Gender == 1) ? "Nam" : "Nữ";
             model.BirthDate = tutor.BirthDate;
@@ -455,27 +434,6 @@ namespace TutorOnline.Web.Controllers
             model.Description = tutor.Description;
             model.isActived = (tutor.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
             model.RegisterDate = tutor.RegisterDate;
-
-            ////TutorSubject
-            //List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(tutor.TutorId).ToList();
-            //List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
-            //for (int i = 0; i < tutorSubEntity.Count(); i++)
-            //{
-            //    TutorSubject entity = new TutorSubject();
-            //    entity = tutorSubEntity[i];
-            //    if (entity != null)
-            //    {
-            //        TutorSubjectViewModels t = new TutorSubjectViewModels();
-
-            //        t.TutorSubjectId = entity.TutorSubjectId;
-            //        t.subjectName = entity.Subject.SubjectName;
-            //        t.experiences = entity.Experience;
-
-            //        tutorSubModel.Add(t);
-            //    }
-            //}
-
-            //model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
 
             //NewTutorSubject
             List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
@@ -520,7 +478,7 @@ namespace TutorOnline.Web.Controllers
 
             //Mapping model with entity
             model.TutorId = tutor.TutorId;
-            model.FullName = tutor.FirstName + " " + tutor.LastName;
+            model.FullName = tutor.LastName + " " + tutor.FirstName;
             model.Photo = tutor.Photo;
             model.Gender = (tutor.Gender == 1) ? "Nam" : "Nữ";
             model.BirthDate = tutor.BirthDate;
@@ -608,7 +566,7 @@ namespace TutorOnline.Web.Controllers
                 Tres.ApprovedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
             }
-            //return RedirectToAction("PretutorIndex", "TutorManagement");
+
             return Json(new { Approved = true });
         }
 
@@ -620,7 +578,7 @@ namespace TutorOnline.Web.Controllers
                 Tres.RejectedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
             }
-            //return RedirectToAction("PretutorIndex", "TutorManagement");
+
             return Json(new { Rejected = true });
         }
     }

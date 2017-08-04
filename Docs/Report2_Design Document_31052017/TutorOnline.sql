@@ -264,25 +264,25 @@ CREATE TABLE [Transaction] (
 ---------------------------------------------------------Insert Data------------------------------------------------------------
 
 --Insert data to Roles Table
-INSERT INTO [Role] (RoleName) VALUES ('Quản lý hệ thống');
-INSERT INTO [Role] (RoleName) VALUES ('Hỗ trợ');
-INSERT INTO [Role] (RoleName) VALUES ('Kế toán');
-INSERT INTO [Role] (RoleName) VALUES ('Quản lý');
-INSERT INTO [Role] (RoleName) VALUES ('Phụ huynh');
-INSERT INTO [Role] (RoleName) VALUES ('Học sinh');
-INSERT INTO [Role] (RoleName) VALUES ('Gia sư');
-INSERT INTO [Role] (RoleName) VALUES ('Ứng viên gia sư');
+INSERT INTO [Role] (RoleName) VALUES (N'Quản lý hệ thống');
+INSERT INTO [Role] (RoleName) VALUES (N'Hỗ trợ');
+INSERT INTO [Role] (RoleName) VALUES (N'Kế toán');
+INSERT INTO [Role] (RoleName) VALUES (N'Quản lý');
+INSERT INTO [Role] (RoleName) VALUES (N'Phụ huynh');
+INSERT INTO [Role] (RoleName) VALUES (N'Học sinh');
+INSERT INTO [Role] (RoleName) VALUES (N'Gia sư');
+INSERT INTO [Role] (RoleName) VALUES (N'Ứng viên gia sư');
 
 --Insert data to Categories table 
-INSERT INTO [Category] (CategoryName, [Description]) VALUES ('Tiếng Nhật', NULL);
-INSERT INTO [Category] (CategoryName, [Description]) VALUES ('Tiếng Anh', NULL);
+INSERT INTO [Category] (CategoryName, [Description]) VALUES (N'Tiếng Nhật', NULL);
+INSERT INTO [Category] (CategoryName, [Description]) VALUES (N'Tiếng Anh', NULL);
 
 
 --Insert data to Subjects Table
-INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Bảng chữ cái Hiragana', 1, 'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', 'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Hiragana', NULL, NULL);
-INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Bảng chữ cái Katakana', 1, 'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', 'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Katakana', NULL, NULL);
-INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Tiếng anh sơ cấp', 2, 'Tiếng anh dành cho người mới bắt đầu', 'Thành thạo ngữ pháp', NULL, NULL);
-INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES ('Tiếng anh cao cấp', 2, 'Tiếng anh dành cho doanh nhân', 'Giao tiếp tốt', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Bảng chữ cái Hiragana', 1, N'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', N'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Hiragana', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Bảng chữ cái Katakana', 1, N'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', N'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Katakana', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Tiếng anh sơ cấp', 2, N'Tiếng anh dành cho người mới bắt đầu', N'Thành thạo chào hỏi cơ bản trong cuộc sống hằng ngày', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Tiếng anh cao cấp', 2,N'Tiếng anh dành cho doanh nhân', N'Giao tiếp tốt trong môi trường doanh nghiệp', NULL, NULL);
 
 
 --Insert data to Status table
@@ -299,32 +299,30 @@ INSERT INTO [Status] (Status) VALUES ('stusubject_finish');
 INSERT INTO [Status] (Status) VALUES ('schedule_available');
 
 --Insert data to Parent table
-INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,'Nguyen','parent1',29-4-1975,1,'020, đường Kim Đồng','parent1@gmail.com','parent1','parent1','parent1','Hà Nội',null,'Việt Nam','0123456789',0,null,null);
-INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,'Tran','parent2',29-4-1970,2,'030, đường Kim Mã','parent2@gmail.com','parent2','parent2','parent2','Hà Nội',null,'Việt Nam','0123789456',0,null,null);
+INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Nguyễn Văn',N'Lang',29-4-1975,1,N'số 20 đường Kim Đồng','parent1@gmail.com','parent1','parent1','parent1',N'Hà Nội',null,N'Việt Nam','0123456789',0,null,null);
+INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Trần Thị',N'Linh',29-4-1970,2,N'số 30 đường Kim Mã','parent2@gmail.com','parent2','parent2','parent2',N'Hà Nội',null,N'Việt Nam','0123789456',0,null,null);
 
 --Insert data to Student table
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,1,'Nguyen','Student1',3-3-2000,1,'020, đường Kim Đồng','student1@gmail.com','student1','student1','student1','Hà Nội',null,'Việt Nam','01632594938',0,null,null);
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,2,'Tran','Student2',1-3-2002,1,'030, đường Kim Mã','student2@gmail.com','student2','student2','student2','Hà Nội',null,'Việt Nam','01632594938',0,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,1,N'Nguyễn Đức',N'Hùng',3-3-2000,1,N'số 20 đường Kim Đồng','student1@gmail.com','student1','student1','student1',N'Hà Nội',null,N'Việt Nam','01632594938',0,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,2,N'Trần Thị',N'Duyên',1-3-2001,2,N'số 30 đường Kim Mã','student2@gmail.com','student2','student2','student2',N'Hà Nội',null,N'Việt Nam','01632594938',0,null,null);
 
 
 --Insert data to Tutor table
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Văn A','Nguyễn',3-3-1983,2,'Trần Duy Hưng','tutor1@gmail.com','tutor1','tutor1','tutor1','Hà Nội',null,'Vietnam','01632594938',0,'9876543210',0,null,null,'ngân hàng Tiên Phong','tutor1');
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Hoài B','Nông Thị',3-9-1986,2,'Hoàng Quốc Việt','tutor2@gmail.com','tutor2','tutor2','tutor2','Hà Nội',null,'Vietnam','01635594998',0,'9876598210',0,null,null,'ngân hàng Tiên Phong','tutor2');
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Văn C','Nguyễn',3-3-1983,2,'Trần Duy Hưng','tutor3@gmail.com','tutor3','tutor3','tutor3','Hà Nội',null,'Vietnam','01632594938',0,'9876543210',0,null,null,'ngân hàng Tiên Phong','tutor3');
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,'Hoài D','Nông Thị',3-9-1986,2,'Hoàng Quốc Việt','tutor4@gmail.com','tutor4','tutor4','tutor4','Hà Nội',null,'Vietnam','01635594998',0,'9876598210',0,null,null,'ngân hàng Tiên Phong','tutor4');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,N'Nguyễn Đức',N'Trung',3-3-1983,1,N'số 3 Trần Duy Hưng','tutor1@gmail.com','tutor1','tutor1','tutor1',N'Hà Nội',null,N'Việt Nam','01632594938',0,'9876543210',0,null,null,N'ngân hàng Tiên Phong','tutor1');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (7,N'Trần Thị B',N'Châu',3-9-1986,2,N'số 124 Hoàng Quốc Việt','tutor2@gmail.com','tutor2','tutor2','tutor2',N'Hà Nội',null,N'Việt Nam','01635594998',0,'9876598210',0,null,null,N'ngân hàng Vietcombank','tutor2');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (8,N'Đỗ Mạnh',N'Cường',3-3-1983,1,N'số 54 Trường Chinh','tutor3@gmail.com','tutor3','tutor3','tutor3',N'Hà Nội',null,N'Việt Nam','01632594938',0,'9876543210',0,null,null,N'ngân hàng Quân đội','tutor3');
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName) VALUES (8,N'Lý Thị',N'Linh',3-9-1986,2,N'số 98 Lê Văn Lương','tutor4@gmail.com','tutor4','tutor4','tutor4',N'Hà Nội',null,N'Việt Nam','01635594998',0,'9876598210',0,null,null,N'ngân hàng Nông nghiệp','tutor4');
 
 																																																								
 --Insert data to BackendUser table
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,'Dương','SystemAdmin',25-3-1985,1,null,'systemadmin@gmail.com','systemadmin','systemadmin','Hà Nội','Việt Nam','01697404180',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Trần','supporter1',25-3-1985,1,null,'supporter1@gmail.com','supporter1','supporter1','Hà Nội','Việt Nam','012351213265',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Nguyễn','supporter2',2-3-1980,1,null,'supporter2@gmail.com','supporter2','supporter2','Hà Nội','Việt Nam','012354213233',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,'Trịnh','accountant1',22-12-1985,2,null,'accountant1@gmail.com','accountant1','accountant1','Cao Bằng','Việt Nam','012351415466',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,'Bế','accountant2',20-12-1982,1,null,'accountant2@gmail.com','accountant2','accountant2','Đà Nẵng','Việt Nam','012351498466',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Nguyễn','supporter3',2-10-1981,2,null,'supporter3@gmail.com','supporter3','supporter3','Thái Nguyên','Việt Nam','019352415466',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Bế','supporter4',21-12-1985,1,null,'supporter4@gmail.com','supporter4','supporter4','Đà Nẵng','Việt Nam','012451498466',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,'Nguyễn','supporter5',2-11-19810,1,null,'supporter5@gmail.com','supporter5','supporter5','Thái Nguyên','Việt Nam','010352415466',null,null);
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,'Phạm','manager1',29-4-1985,1,null,'manager1@gmail.com','manager1','manager1','Đà Nẵng','Viet Nam','01289123566',null,null);		
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,'Phạm','manager2',22-4-1981,1,null,'manager2@gmail.com','manager2','manager2','Hải Phòng','Viet Nam','01989123566',null,null);	
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,N'Nguyễn Huy',N'Phát',23-01-1995,1,N'số 85 đại lộ Tôn Đức Thắng','systemadmin1@gmail.com','systemadmin1','systemadmin',N'Hải Phòng',N'Việt Nam','0947003988',null,N'Pine cool ngầu');
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,N'Nguyễn Bảo',N'Long',29-04-1995,1,N'số 11 ga Hà Đông','systemadmin2@gmail.com','systemadmin2','systemadmin',N'Hà Nội',N'Việt Nam','01632594938',null,N'Long lạnh lùng');
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,N'Nông Thị Hoài',N'Thương',01-09-1995,2,N'số 6 đồi số 6','supporter1@gmail.com','supporter1','supporter1',N'Cao Bằng','Việt Nam','0123888888',null,N'Thương xinh đẹp');
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,N'Nguyễn Thị Khánh',N'Huyền',02-09-1994,2,N'số 18 làng Quan Họ','supporter2@gmail.com','supporter2','supporter2',N'Bắc Ninh',N'Việt Nam','0123666666',null,N'Huyền xinh đẹp');
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,N'Trần Viết',N'Vương',31-08-1995,1,N'số 8 đường Hoàng Hoa Thám','accountant1@gmai.com','accountant1','accountant1',N'Quảng Nam',N'Việt Nam','01666432971',null,N'Vương đẹp trai');
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,N'Võ Thế',N'Lâm',15-07-1995,1,N'số 126 Lê Lợi','accountant2@gmail.com','accountant2','accountant2',N'Quảng Bình',N'Việt Nam','01659849505',null,N'Lâm đẹp trai');
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,N'Nguyễn Ngọc',N'Anh',22-09-1994,2,N'182 Chùa Hàng','manager1@gmail.com','manager1','manager1',N'Hải Phòng',N'Việt Nam','01653917952',null,N'Ngọc Anh xinh đẹp');		
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,N'Bạch San',N'San',04-07-2001,2,N'190 Nguyễn Thị Minh Khai','manager2@gmail.com','manager2','manager2',N'Buôn Mê Thuột',N'Việt Nam','01636118187',null,N'San San xinh đẹp');	
 	
 --Insert data to MaterialumentType table
 INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('pdf');
@@ -332,20 +330,20 @@ INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('docx');
 INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('mp3');
 
 --Insert data to Lesson table
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,'Bài 1', 1, 'Giới thiệu khái quát về chương trình,học Hiragana: 10 chữ cái đầu tiên, chào hỏi cơ bản 1')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (2,'Bài 2', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 1, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 2')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (3,'Bài 3', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 2, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 3')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (4,'Bài 4', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 3, Học Hiragana: 8 chữ tiếp theo, chào hỏi cơ bản 4')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (5,'Bài 5', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản 4, Học Hiragana: 8 chữ tiếp theo')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,'Bài 6', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm đục + Âm bán đục ')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (7,'Bài 7', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm ghép')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (8,'Bài 8', 1, 'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm dài + Âm ngắt')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,'Bài 1', 2, 'Giới thiệu khái quát về chương trình,học Katakana: Âm dài + âm ngắt + 10 chữ cái đầu tiên')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (2,'Bài 2', 2, 'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (3,'Bài 3', 2, 'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (4,'Bài 4', 2, 'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (5,'Bài 5', 2, 'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
-INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,'Bài 6', 2, 'Luyện tập: Katakana, Học Katakana: Âm ghép')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,N'Bài 1', 1, N'Giới thiệu khái quát về chương trình,học Hiragana: 10 chữ cái đầu tiên, chào hỏi cơ bản 1')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (2,N'Bài 2', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản 1, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 2')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (3,N'Bài 3', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản 2, Học Hiragana: 10 chữ tiếp theo, chào hỏi cơ bản 3')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (4,N'Bài 4', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản 3, Học Hiragana: 8 chữ tiếp theo, chào hỏi cơ bản 4')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (5,N'Bài 5', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản 4, Học Hiragana: 8 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,N'Bài 6', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm đục + Âm bán đục ')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (7,N'Bài 7', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm ghép')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (8,N'Bài 8', 1, N'Luyện tập: Hiragana và Chào hỏi cơ bản, Học Hiragana: Âm dài + Âm ngắt')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (1,N'Bài 1', 2, N'Giới thiệu khái quát về chương trình,học Katakana: Âm dài + âm ngắt + 10 chữ cái đầu tiên')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (2,N'Bài 2', 2, N'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (3,N'Bài 3', 2, N'Luyện tập: Katakana, Học Katakana: 10 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (4,N'Bài 4', 2, N'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (5,N'Bài 5', 2, N'Luyện tập: Katakana, Học Katakana: 8 chữ tiếp theo')
+INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,N'Bài 6', 2, N'Luyện tập: Katakana, Học Katakana: Âm ghép')
 							 
 --Insert data to Material table 
 
@@ -355,49 +353,49 @@ INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,'Bài 6', 
 
 
 --Insert data to Criteria table ?????
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',1,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',1,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',1,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',2,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',2,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',2,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',3,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',3,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',3,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',4,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',4,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',4,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',5,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',5,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',5,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',6,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',6,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',6,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',7,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',7,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',7,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',8,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',8,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',8,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',1,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',1,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',1,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',2,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',2,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',2,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',3,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',3,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',3,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',4,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',4,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',4,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',5,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',5,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',5,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',6,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',6,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',6,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',7,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',7,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',7,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',8,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',8,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',8,1);
 
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',9,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',9,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',9,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',10,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',10,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',10,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',11,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',11,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',11,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',12,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',12,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',12,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',13,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',13,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',13,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng đọc',14,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng phát âm',14,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiếp thu',14,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',9,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',9,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',9,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',10,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',10,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',10,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',11,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',11,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',11,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',12,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',12,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',12,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',13,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',13,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',13,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',14,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',14,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',14,1);
 
 --Insert data to StudentFeedback
 
@@ -412,463 +410,455 @@ INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES ('Khả năng tiế
 
 
 --Insert data to TutorSubject table
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,1,6,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,1,7,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (4,1,7,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,2,6,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,2,6,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (3,2,7,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,3,7,'1 năm');
-INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (3,4,7,'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,1,6,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,1,7,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (4,1,7,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,2,6,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,2,6,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (3,2,7,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (1,3,7,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,3,7,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (3,4,7,N'1 năm');
+INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (4,4,7,N'1 năm');
 --Insert data to TeachSchedule table
 
 
 --Insert data to Question table
-INSERT INTO Question (Content,LessonId) VALUES ('ue',1);
-INSERT INTO Question (Content,LessonId) VALUES ('kaki',1);
-INSERT INTO Question (Content,LessonId) VALUES ('koe',1);
-INSERT INTO Question (Content,LessonId) VALUES ('えき',1);
-INSERT INTO Question (Content,LessonId) VALUES ('いけ',1);
-
-INSERT INTO Question (Content,LessonId) VALUES ('keisatsu',2);
-INSERT INTO Question (Content,LessonId) VALUES ('tokei',2);
-INSERT INTO Question (Content,LessonId) VALUES ('asa',2);
-INSERT INTO Question (Content,LessonId) VALUES ('くつ',2);
-INSERT INTO Question (Content,LessonId) VALUES ('せき',2);
-
-INSERT INTO Question (Content,LessonId) VALUES ('ano sakana',3);
-INSERT INTO Question (Content,LessonId) VALUES ('nani',3);
-INSERT INTO Question (Content,LessonId) VALUES ('niku',3);
-INSERT INTO Question (Content,LessonId) VALUES ('たいせつ',3);
-INSERT INTO Question (Content,LessonId) VALUES ('ちかてつ',3);
-
-INSERT INTO Question (Content,LessonId) VALUES ('yasumi',4);
-INSERT INTO Question (Content,LessonId) VALUES ('moshi moshi',4);
-INSERT INTO Question (Content,LessonId) VALUES ('yakiniku',4);
-INSERT INTO Question (Content,LessonId) VALUES ('ともだち',4);
-INSERT INTO Question (Content,LessonId) VALUES ('さむい',4);
-
-INSERT INTO Question (Content,LessonId) VALUES ('yakitori',5);
-INSERT INTO Question (Content,LessonId) VALUES ('sumimasen',5);
-INSERT INTO Question (Content,LessonId) VALUES ('kuruma',5);
-INSERT INTO Question (Content,LessonId) VALUES ('せんたく',5);
-INSERT INTO Question (Content,LessonId) VALUES ('わたし',5);
-
-INSERT INTO Question (Content,LessonId) VALUES ('hajime mashite  ',6);
-INSERT INTO Question (Content,LessonId) VALUES ('shinbun',6);
-INSERT INTO Question (Content,LessonId) VALUES ('denwa',6);
-INSERT INTO Question (Content,LessonId) VALUES ('すごいですね',6);
-INSERT INTO Question (Content,LessonId) VALUES ('ぎんざ',6);
-
-INSERT INTO Question (Content,LessonId) VALUES ('okyakusan',7);
-INSERT INTO Question (Content,LessonId) VALUES ('kanojo',7);
-INSERT INTO Question (Content,LessonId) VALUES ('ocha',7);
-INSERT INTO Question (Content,LessonId) VALUES ('しゅくだい',7);
-INSERT INTO Question (Content,LessonId) VALUES ('かいしゃ',7);
-
-INSERT INTO Question (Content,LessonId) VALUES ('roppyakuen',8);
-INSERT INTO Question (Content,LessonId) VALUES ('yūmei',8);
-INSERT INTO Question (Content,LessonId) VALUES ('chūgoku',8);
-INSERT INTO Question (Content,LessonId) VALUES ('がっこう',8);
-INSERT INTO Question (Content,LessonId) VALUES ('いっかい',8);
-
-INSERT INTO Question (Content,LessonId) VALUES ('kukkī',9);
-INSERT INTO Question (Content,LessonId) VALUES ('kokekokkō',9);
-INSERT INTO Question (Content,LessonId) VALUES ('kēki',9);
-INSERT INTO Question (Content,LessonId) VALUES ('コーク',9);
-INSERT INTO Question (Content,LessonId) VALUES ('キック',9);
-
-INSERT INTO Question (Content,LessonId) VALUES ('テキスト',10);
-INSERT INTO Question (Content,LessonId) VALUES ('デザート',10);
-INSERT INTO Question (Content,LessonId) VALUES ('kēsu',10);
-INSERT INTO Question (Content,LessonId) VALUES ('sōsēji',10);
-INSERT INTO Question (Content,LessonId) VALUES ('uisukī',10);
-
-INSERT INTO Question (Content,LessonId) VALUES ('supīdo',11);
-INSERT INTO Question (Content,LessonId) VALUES ('hītā',11);
-INSERT INTO Question (Content,LessonId) VALUES ('nōto',11);
-INSERT INTO Question (Content,LessonId) VALUES ('ネクタイ',11);
-INSERT INTO Question (Content,LessonId) VALUES ('パスタ',11);
-
-INSERT INTO Question (Content,LessonId) VALUES ('roppyakuen',12);
-INSERT INTO Question (Content,LessonId) VALUES ('gamu',12);
-INSERT INTO Question (Content,LessonId) VALUES ('mōtā',12);
-INSERT INTO Question (Content,LessonId) VALUES ('ハム',12);
-INSERT INTO Question (Content,LessonId) VALUES ('ヨット',12);
-
-INSERT INTO Question (Content,LessonId) VALUES ('supōtsukurabu',13);
-INSERT INTO Question (Content,LessonId) VALUES ('emēru',13);
-INSERT INTO Question (Content,LessonId) VALUES ('hoteru',13);
-INSERT INTO Question (Content,LessonId) VALUES ('レストラン',13);
-INSERT INTO Question (Content,LessonId) VALUES ('カラオケ',13);
-
-INSERT INTO Question (Content,LessonId) VALUES ('kyanseru',14);
-INSERT INTO Question (Content,LessonId) VALUES ('fairu',14);
-INSERT INTO Question (Content,LessonId) VALUES ('waishatsu',14);
-INSERT INTO Question (Content,LessonId) VALUES ('ピョンヤン',14);
-INSERT INTO Question (Content,LessonId) VALUES ('フィリピン',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'ue',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'kaki',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'koe',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'えき',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'いけ',1);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'keisatsu',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'tokei',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'asa',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'くつ',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'せき',2);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'ano sakana',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'nani',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'niku',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'たいせつ',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'ちかてつ',3);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'yasumi',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'moshi moshi',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'yakiniku',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'ともだち',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'さむい',4);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'yakitori',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'sumimasen',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'kuruma',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'せんたく',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'わたし',5);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'hajime mashite  ',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'shinbun',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'denwa',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'すごいですね',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'ぎんざ',6);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'okyakusan',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'kanojo',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'ocha',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'しゅくだい',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'かいしゃ',7);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'roppyakuen',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'yūmei',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'chūgoku',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'がっこう',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'いっかい',8);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'kukkī',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'kokekokkō',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'kēki',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'コーク',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'キック',9);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'テキスト',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'デザート',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'kēsu',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'sōsēji',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'uisukī',10);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'supīdo',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'hītā',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'nōto',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'ネクタイ',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'パスタ',11);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'roppyakuen',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'gamu',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'mōtā',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'ハム',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'ヨット',12);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'supōtsukurabu',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'emēru',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'hoteru',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'レストラン',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'カラオケ',13);
+                                                
+INSERT INTO Question (Content,LessonId) VALUES (N'kyanseru',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'fairu',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'waishatsu',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'ピョンヤン',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'フィリピン',14);
 
 
 --Insert data to Answer table
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('うえ',1,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('うけ',1,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('いか',1,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('いえ',1,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かこ',2,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('こけ',2,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かき',2,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('きか',2,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('えこ',3,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('こえ',3,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('けお',3,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おけ',3,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('eki',4,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ei',4,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ike',4,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ie',4,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('eki',5,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ei',5,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ike',5,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ie',5,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('せいさつ',6,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('けいさく',6,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('けいかつ',6,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('けいさつ',6,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('とけえ',7,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('とけい',7,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おてい',7,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おけい',7,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あさ',8,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おそ',8,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('えせ',8,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('いき',8,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kutsu',9,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kusu',9,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tsusu',9,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tsuku',9,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('keki',10,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('seshi',10,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kechi',10,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('seki',10,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あにさかな',11,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あのさかの',11,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あのさかな',11,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あにさきの',11,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('なに',12,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('にく',12,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あの',12,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('あに',12,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('にき',13,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('にく',13,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('くに',13,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('にす',13,0);
-
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('taisetsu',14,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tasetsu',14,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('taseitsu',14,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('taisesu',14,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('chikaketsu',15,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('chikasetsu',15,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('chikatetsu',15,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('chikaesu',15,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やすみ',16,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やすむ',16,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ゆすま',16,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ゆすむ',16,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('もさもさ',17,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('もしもし',17,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('みそみそ',17,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('もかもか',17,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やきぬく',18,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やきにか',18,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やきにく',18,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ゆきにく',18,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tomodachi',19,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tamagochi',19,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tamadachi',19,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tomakuchi',19,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('samuu',20,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('samui',20,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('samiu',20,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('samii',20,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ゆきとり',21,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やきとり',21,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やきにく',21,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('やきぬり',21,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('しみません',22,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('すみません',22,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('すまみせん',22,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('しみまけん',22,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('くるま',23,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('くれめ',23,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('くるみ',23,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かるま',23,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('sentaki',24,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('sentaku',24,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kentaku',24,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kentaki',24,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('watashi',25,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('wasashi',25,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('wataki',25,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('wasaki',25,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('はじままして',26,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('はじめまして',26,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('はじめみして',26,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ばじめまじて',26,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('しんぷん',27,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('しんぶん',27,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('じんぷん',27,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('じんぶん',27,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('でんが',28,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('てんわ',28,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('でんわ',28,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('てんが',28,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('sugoidesune',29,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('sugiodesune',29,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('zugoidesune',29,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('zugoitesune',29,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ginza',30,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kinza',30,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kinsa',30,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kinka',30,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おきゃくさん',31,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おきゅくかん',31,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おきゃくさん',31,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おきゅくさん',31,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かのしょ',32,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かのじょ',32,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かのじょう',32,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('かのしょう',32,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おちゃ',33,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('こちゃ',33,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('おちょ',33,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('こちょう',33,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('shokudai',34,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('shokkudai',34,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('shukkudai',34,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('shukudai',34,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('saisha',35,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kaisha',35,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kasha',35,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kashu',35,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('るっぴゃくえん',36,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ろっぴゃくえん',36,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ろぴゃくえん',36,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('るぴゃくえん',36,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ゆうめい',37,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ゆいめい',37,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ようめい',37,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ようめ',37,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ちゅごく',38,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ちゅこく',38,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ちゅうごく',38,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ちゅうこく',38,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kakkou',39,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kakou',39,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('gakou',39,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('gakkou',39,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ikai',40,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ikkai',40,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('iikai',40,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('iikkai',40,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('クッキー',41,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('クキー',41,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キクー',41,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キックー',41,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('コケココ',42,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('コケココー',42,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('コケコッコー',42,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('コケッココー',42,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ケキ',43,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ケーキ',43,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ケキー',43,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ケーキー',43,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kōku',44,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kōki',44,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kōke',44,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kōka',44,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('gakku',45,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kikku',45,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('gikku',45,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kiggu',45,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tekisuto',46,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tegisuto',46,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tekizuto',46,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('tokisuso',46,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('dezāso',47,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('dezāto',47,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('detāto',47,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('desāto',47,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ケース',48,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キース',48,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ケーズ',48,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キーズ',48,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ソーセジ',49,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ソケージ',49,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ソーケージ',49,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ソーセージ',49,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ウイスキ',50,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('イエスキー',50,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ウオスキー',50,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ウイスキー',50,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スピドー',51,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スピード',51,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スビドー',51,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スビード',51,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ヒーター',52,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ヘーター',52,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ヒートー',52,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ヘートー',52,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ニーチ',53,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ノート',53,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ネーテ',53,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ナータ',53,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('nekuta',54,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('nekitai',54,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('nekutai',54,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('nekutaii',54,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('basuta',55,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('hashita',55,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('pasuta',55,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('pashita',55,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ミッセージ',56,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('メッセージ',56,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('マッサージ',56,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('メッサージ',56,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('カマ',57,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ガマ',57,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('カム',57,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ガム',57,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('モーテー',58,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('モートー',58,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('モーター',58,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('モッター',58,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('hamu',59,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kamu',59,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('bamu',59,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('samu',59,0);
-
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('yotto',60,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('yōtto',60,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('yōto',60,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('yottō',60,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スポースクラブ',61,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スポースケラブ',61,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スポースクワブ',61,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('スポースケワブ',61,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('イマール',62,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('イマール',62,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('エマール',62,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('エメール',62,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ホテル',63,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ホチル',63,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ホチス',63,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ホテス',63,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('resutoran',64,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('resutoran',64,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('esutore',64,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('resutoso',64,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kawaoku',65,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('karaoku',65,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('karaoke',65,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('kawaoke',65,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キャソセル',66,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キャンセル',66,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キュンセル',66,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('キュソセル',66,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ファイル',67,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ファル',67,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ウァイル',67,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ウァル',67,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ワイシャシ',68,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ワイシャツ',68,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ワイツャツ',68,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('ワイツャシ',68,0);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('pyosoyan',69,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('pyosoyaso',69,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('pyonyaso',69,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('pyonyan',69,1);
-
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('piripin',70,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('firipin',70,1);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('philipin',70,0);
-INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES ('phiripin',70,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'うえ',1,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'うけ',1,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'いか',1,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'いえ',1,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かこ',2,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'こけ',2,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かき',2,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'きか',2,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'えこ',3,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'こえ',3,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'けお',3,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おけ',3,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'eki',4,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ei',4,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ike',4,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ie',4,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'eki',5,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ei',5,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ike',5,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ie',5,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'せいさつ',6,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'けいさく',6,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'けいかつ',6,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'けいさつ',6,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'とけえ',7,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'とけい',7,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おてい',7,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おけい',7,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あさ',8,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おそ',8,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'えせ',8,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'いき',8,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kutsu',9,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kusu',9,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tsusu',9,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tsuku',9,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'keki',10,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'seshi',10,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kechi',10,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'seki',10,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あにさかな',11,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あのさかの',11,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あのさかな',11,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あにさきの',11,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'なに',12,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'にく',12,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あの',12,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'あに',12,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'にき',13,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'にく',13,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'くに',13,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'にす',13,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'taisetsu',14,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tasetsu',14,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'taseitsu',14,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'taisesu',14,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'chikaketsu',15,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'chikasetsu',15,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'chikatetsu',15,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'chikaesu',15,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やすみ',16,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やすむ',16,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ゆすま',16,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ゆすむ',16,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'もさもさ',17,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'もしもし',17,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'みそみそ',17,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'もかもか',17,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やきぬく',18,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やきにか',18,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やきにく',18,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ゆきにく',18,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tomodachi',19,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tamagochi',19,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tamadachi',19,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tomakuchi',19,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'samuu',20,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'samui',20,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'samiu',20,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'samii',20,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ゆきとり',21,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やきとり',21,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やきにく',21,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'やきぬり',21,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'しみません',22,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'すみません',22,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'すまみせん',22,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'しみまけん',22,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'くるま',23,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'くれめ',23,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'くるみ',23,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かるま',23,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'sentaki',24,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'sentaku',24,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kentaku',24,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kentaki',24,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'watashi',25,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'wasashi',25,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'wataki',25,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'wasaki',25,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'はじままして',26,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'はじめまして',26,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'はじめみして',26,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ばじめまじて',26,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'しんぷん',27,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'しんぶん',27,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'じんぷん',27,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'じんぶん',27,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'でんが',28,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'てんわ',28,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'でんわ',28,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'てんが',28,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'sugoidesune',29,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'sugiodesune',29,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'zugoidesune',29,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'zugoitesune',29,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ginza',30,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kinza',30,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kinsa',30,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kinka',30,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おきゃくさん',31,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おきゅくかん',31,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おきゃくさん',31,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おきゅくさん',31,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かのしょ',32,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かのじょ',32,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かのじょう',32,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'かのしょう',32,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おちゃ',33,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'こちゃ',33,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'おちょ',33,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'こちょう',33,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'shokudai',34,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'shokkudai',34,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'shukkudai',34,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'shukudai',34,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'saisha',35,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kaisha',35,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kasha',35,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kashu',35,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'るっぴゃくえん',36,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ろっぴゃくえん',36,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ろぴゃくえん',36,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'るぴゃくえん',36,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ゆうめい',37,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ゆいめい',37,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ようめい',37,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ようめ',37,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ちゅごく',38,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ちゅこく',38,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ちゅうごく',38,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ちゅうこく',38,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kakkou',39,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kakou',39,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'gakou',39,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'gakkou',39,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ikai',40,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ikkai',40,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'iikai',40,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'iikkai',40,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'クッキー',41,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'クキー',41,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キクー',41,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キックー',41,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'コケココ',42,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'コケココー',42,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'コケコッコー',42,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'コケッココー',42,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ケキ',43,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ケーキ',43,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ケキー',43,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ケーキー',43,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kōku',44,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kōki',44,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kōke',44,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kōka',44,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'gakku',45,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kikku',45,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'gikku',45,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kiggu',45,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tekisuto',46,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tegisuto',46,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tekizuto',46,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'tokisuso',46,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'dezāso',47,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'dezāto',47,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'detāto',47,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'desāto',47,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ケース',48,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キース',48,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ケーズ',48,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キーズ',48,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ソーセジ',49,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ソケージ',49,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ソーケージ',49,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ソーセージ',49,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ウイスキ',50,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'イエスキー',50,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ウオスキー',50,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ウイスキー',50,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スピドー',51,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スピード',51,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スビドー',51,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スビード',51,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ヒーター',52,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ヘーター',52,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ヒートー',52,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ヘートー',52,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ニーチ',53,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ノート',53,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ネーテ',53,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ナータ',53,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'nekuta',54,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'nekitai',54,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'nekutai',54,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'nekutaii',54,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'basuta',55,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'hashita',55,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'pasuta',55,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'pashita',55,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ミッセージ',56,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'メッセージ',56,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'マッサージ',56,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'メッサージ',56,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'カマ',57,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ガマ',57,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'カム',57,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ガム',57,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'モーテー',58,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'モートー',58,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'モーター',58,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'モッター',58,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'hamu',59,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kamu',59,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'bamu',59,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'samu',59,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'yotto',60,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'yōtto',60,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'yōto',60,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'yottō',60,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スポースクラブ',61,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スポースケラブ',61,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スポースクワブ',61,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'スポースケワブ',61,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'イマール',62,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'イマール',62,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'エマール',62,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'エメール',62,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ホテル',63,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ホチル',63,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ホチス',63,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ホテス',63,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'resutoran',64,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'resutoran',64,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'esutore',64,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'resutoso',64,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kawaoku',65,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'karaoku',65,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'karaoke',65,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'kawaoke',65,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キャソセル',66,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キャンセル',66,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キュンセル',66,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'キュソセル',66,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ファイル',67,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ファル',67,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ウァイル',67,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ウァル',67,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ワイシャシ',68,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ワイシャツ',68,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ワイツャツ',68,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'ワイツャシ',68,0);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'pyosoyan',69,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'pyosoyaso',69,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'pyonyaso',69,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'pyonyan',69,1);
+                                                          
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'piripin',70,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'firipin',70,1);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'philipin',70,0);
+INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'phiripin',70,0);
 
 
 --Insert data to Transaction table
