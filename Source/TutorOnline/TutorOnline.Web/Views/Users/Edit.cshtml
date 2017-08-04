@@ -104,7 +104,7 @@
             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <img src="~/Content/Uploads/Images/@Model.Photo" style="height:70px;width:70px;" id="blah" />
-                <input type="file" name="file" id="imgInp" />
+                <input type="file" name="file" id="imgInp" accept=".png, .jpg, .jpeg, .gif" />
             </div>
         </div>
 
