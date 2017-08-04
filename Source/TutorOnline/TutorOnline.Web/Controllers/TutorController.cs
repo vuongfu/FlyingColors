@@ -231,7 +231,7 @@ namespace TutorOnline.Web.Controllers
         {
             var week0 = TuRes.GetAllSlotBookedByStudent(startDate, endDate, TutorId);
             List<BookedSlotByStudent> returnData = new List<BookedSlotByStudent>();
-            List<string> SlotOfWeek0 = MapEntityToModel(week0, firstDayOfWeek);
+            List<string> SlotOfWeek0 = MapEntityToModel(week0, startDate);
 
             for (int i = 0; i < week0.Count(); i++)
             {
@@ -252,6 +252,8 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult ViewDetailSlotBooked(int id)
         {
+
+
             return View();
         }
 

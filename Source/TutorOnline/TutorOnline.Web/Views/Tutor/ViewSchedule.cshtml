@@ -5,16 +5,11 @@
 }
 
 <p>
-    <a id="pre-arrow" class="disableArrow disabled" onclick="preClick()">
-        <img src="~/Image/prev.png" />
-    </a>
-    <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
-    <a id="next-arrow" onclick="nextClick()">
-        <img src="~/Image/next.png" />
-    </a>
+    <input class="week-picker" id="WeekSelect" readonly="readonly">
+    <br /><br />
 </p>
 
-<table class="table table-bordered" border="1" style="border-width:3px !important; ">
+<table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
     <tr>
         <th></th>
         <th scope="col" style="width:75px;">Slot 1<br />08:00 - 08:45</th>
@@ -87,27 +82,30 @@
     </tr>
 
 </table>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
 <script type="text/javascript">
     var selectedWeek = 0;
+    var startDate;
+    var endDate;
+    var tutorId = @ViewBag.tutorId;
 
-    function bindData(week) {
-        var startDate;
-        var endDate;
-        var tutorId = @ViewBag.tutorId;
-        if (week == 0) {
-            startDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(0).ToShortDateString()");
-            endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
-        } else if (week == 1) {
-            startDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(7).ToShortDateString()");
-            endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(13).ToShortDateString()");
-        } else {
-            startDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(14).ToShortDateString()");
-            endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(20).ToShortDateString()");
+    function bindData() {
+        $("#WeekSelect").attr("disabled", "disabled");
+        $('.slotpick tr td').removeClass('availableSlot');
+        $('.slotpick tr td').removeClass('finishedSlot');
+        $('.slotpick tr td').removeClass('bookedSlot');
+        $('.slotpick tr td').removeClass('canceledSlot');                
+        var items = document.getElementsByTagName('td');
+        for (var i = 0; i < items.length; i++) {
+            var x = "";
+            items[i].innerHTML = x;
+
         }
+
 
         $.ajax({
             url: '@Url.Action("GetBookedSlotByStudent", "Tutor")',
@@ -117,7 +115,8 @@
             traditional: true,
             data: JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'TutorId': tutorId }),
             success: function (data) {
-                $('.slotpick tr td').removeClass('selectedSlot');
+                $("#WeekSelect").removeAttr("disabled");
+                
                 for(i in data){
                     var stt = data[i].Status;
                     if(stt == 11)
@@ -135,24 +134,28 @@
                         x += data[i].StudentName + "<br>" + data[i].LessionName + "</a>";
                         document.getElementById(data[i].tableSlotId).innerHTML = x;
                     }
-                    
                 }
+
             },
             error: function (xhr) {
+                $("#WeekSelect").removeAttr("disabled");
                 alert("Error");
             }
         });
     }
 
     $(document).ready(function () {
+        startDate = new Date("@ViewBag.FirstDayOfWeek.ToShortDateString()");
+        endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+        $('#WeekSelect').val("@ViewBag.FirstDayOfWeek.ToShortDateString() - @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
         bindData(selectedWeek);
     });
 
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 
-    $('.table tr td').live('mousemove', function () { 
-        $(this).addClass('ui-state-hover'); 
+    $('.table tr td').live('mousemove', function () {
+        $(this).addClass('ui-state-hover');
         var id = this.id;
         var date = id.substring(0,3);
         var num = id.substring(3);
@@ -163,7 +166,7 @@
             if(id != temp)
                 jQuery('#' + temp).addClass('colSelect');
         }
-        
+
         for(i = 1; i<= 11; i++){
             var temp = "";
             if(i < 10){
@@ -177,7 +180,7 @@
         }
 
     })
-    $('.table tr td').live('mouseleave', function () { 
+    $('.table tr td').live('mouseleave', function () {
         $(this).removeClass('ui-state-hover');
         var id = this.id;
         var date = id.substring(0,3);
@@ -189,7 +192,7 @@
             if(id != temp)
                 jQuery('#' + temp).removeClass('colSelect');
         }
-        
+
         for(i = 1; i<= 11; i++){
             var temp = "";
             if(i < 10){
@@ -202,6 +205,57 @@
                 jQuery('#' + temp).removeClass('rowSelected');
         }
     })
+
+    $( ".week-picker" ).datepicker({
+
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        changeMonth: true,
+        changeYear: true,
+        showWeek: true,
+        beforeShowDay: function(date) {
+
+            var cssClass = '';
+            if(date >= startDate && date <= endDate)
+                cssClass = 'ui-datepicker-current-day';
+            return [true, cssClass];
+
+        },
+        onSelect: function(dateText, inst) {
+            var date = new Date(dateText);
+            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+
+            $('#WeekSelect').val(startDate.toLocaleDateString() + " - " + endDate.toLocaleDateString());
+
+            var d = new Date();
+
+            document.getElementById("DateSun").innerHTML = "Chủ nhật <br />"+ startDate.toLocaleDateString();
+            d.setDate(startDate.getDate() + 1);
+            document.getElementById("DateMon").innerHTML = "Thứ hai <br /> "+ d.toLocaleDateString();
+            d.setDate(d.getDate() + 1);
+            document.getElementById("DateTue").innerHTML = "Thứ ba <br /> "+ d.toLocaleDateString();
+            d.setDate(d.getDate() + 1);
+            document.getElementById("DateWed").innerHTML = "Thứ tư <br /> "+ d.toLocaleDateString();
+            d.setDate(d.getDate() + 1);
+            document.getElementById("DateThu").innerHTML = "Thứ năm <br /> " + d.toLocaleDateString();
+            d.setDate(d.getDate() + 1);
+            document.getElementById("DateFri").innerHTML = "Thứ sáu <br /> "+ d.toLocaleDateString();
+            d.setDate(d.getDate() + 1);
+            document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> " + d.toLocaleDateString();
+
+            bindData();
+        }
+    });
+
+    $(".ui-datepicker-calendar tr").live("mousemove", function() {
+        $(this).find("td a").addClass("ui-state-hover");
+        $(this).find(".ui-datepicker-week-col").addClass("ui-state-hover");
+    });
+    $(".ui-datepicker-calendar tr").live("mouseleave", function() {
+        $(this).find("td a").removeClass("ui-state-hover");
+        $(this).find(".ui-datepicker-week-col").removeClass("ui-state-hover");
+    });
 </script>
 
 <style>
