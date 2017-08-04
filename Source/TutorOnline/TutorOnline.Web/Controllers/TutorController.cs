@@ -242,7 +242,7 @@ namespace TutorOnline.Web.Controllers
                 {
                     temp.ScheduleId = week0.ElementAt(i).ScheduleId;
                     temp.StudentName = week0.ElementAt(i).Student.FirstName;
-                    temp.LessionName = week0.ElementAt(i).Lesson.LessonName;
+                    temp.LessonName = week0.ElementAt(i).Lesson.LessonName;
                 }                               
                 returnData.Add(temp);
             }

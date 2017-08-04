@@ -206,6 +206,7 @@
         }
     })
 
+
     $( ".week-picker" ).datepicker({
 
         showOtherMonths: true,
@@ -231,22 +232,24 @@
             var d = new Date();
 
             document.getElementById("DateSun").innerHTML = "Chủ nhật <br />"+ startDate.toLocaleDateString();
-            d.setDate(startDate.getDate() + 1);
+            d = new Date(startDate.getTime()+(1*24*60*60*1000));
             document.getElementById("DateMon").innerHTML = "Thứ hai <br /> "+ d.toLocaleDateString();
-            d.setDate(d.getDate() + 1);
+            d = new Date(d.getTime()+(1*24*60*60*1000));
             document.getElementById("DateTue").innerHTML = "Thứ ba <br /> "+ d.toLocaleDateString();
-            d.setDate(d.getDate() + 1);
+            d = new Date(d.getTime()+(1*24*60*60*1000));
             document.getElementById("DateWed").innerHTML = "Thứ tư <br /> "+ d.toLocaleDateString();
-            d.setDate(d.getDate() + 1);
+            d = new Date(d.getTime()+(1*24*60*60*1000));
             document.getElementById("DateThu").innerHTML = "Thứ năm <br /> " + d.toLocaleDateString();
-            d.setDate(d.getDate() + 1);
+            d = new Date(d.getTime()+(1*24*60*60*1000));
             document.getElementById("DateFri").innerHTML = "Thứ sáu <br /> "+ d.toLocaleDateString();
-            d.setDate(d.getDate() + 1);
+            d = new Date(d.getTime()+(1*24*60*60*1000));
             document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> " + d.toLocaleDateString();
 
             bindData();
         }
     });
+
+
 
     $(".ui-datepicker-calendar tr").live("mousemove", function() {
         $(this).find("td a").addClass("ui-state-hover");

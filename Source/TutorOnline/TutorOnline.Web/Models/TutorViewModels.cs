@@ -57,7 +57,7 @@ namespace TutorOnline.Web.Models
 
         public int ScheduleId { get; set; }
 
-        public string LessionName { get; set; }
+        public string LessonName { get; set; }
 
         public string StudentName { get; set; }
 
@@ -80,7 +80,7 @@ namespace TutorOnline.Web.Models
 
         public string Subject { get; set; }
 
-        public string Lession { get; set; }
+        public string Lesson { get; set; }
 
         public DateTime Date { get; set; }
 
