@@ -10,10 +10,12 @@ namespace TutorOnline.Web.Models
         public int AnswerId { get; set; }
 
         [Required (ErrorMessage = "Hãy nhập nội dung câu trả lời.")]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
         [Required]
         public int QuestionId { get; set; }
+        [DataType(DataType.MultilineText)]
         public string QuesContent { get; set; }
         public string QuesPhoto { get; set; }
         public string isCorrectStr { get; set; }

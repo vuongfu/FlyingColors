@@ -17,6 +17,7 @@ namespace TutorOnline.Web.Models
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
         [Required(ErrorMessage = "Hãy nhập nội dung cho bài học.")]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         public int Order { get; set; }
     }

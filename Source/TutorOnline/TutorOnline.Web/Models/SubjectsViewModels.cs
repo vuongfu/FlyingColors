@@ -15,8 +15,14 @@ namespace TutorOnline.Web.Models
         [Required(ErrorMessage = "Hãy chọn môn học cho khóa học.")]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Purpose { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Requirement { get; set; }
         public string Photo { get; set; }
     }

@@ -12,6 +12,8 @@ namespace TutorOnline.Web.Models
         public string MaterialUrl { get; set; }
         public int MaterialTypeId { get; set; }
         public string MaterialTypeName { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Hãy chọn bài học cho tài liệu.")]
