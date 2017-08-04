@@ -12,6 +12,7 @@ namespace TutorOnline.Web.Models
 
         [Required(ErrorMessage = "Hãy nhập tên môn học.")]
         public string CategoryName { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
 }

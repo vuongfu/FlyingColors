@@ -13,6 +13,7 @@ namespace TutorOnline.Web.Models
         public string Photo { get; set; }
 
         [Required(ErrorMessage ="Hãy nhập nội dung câu hỏi.")]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         public Nullable<int> LessonId { get; set; }
         public string lessonName { get; set; }
