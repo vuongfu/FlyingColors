@@ -324,6 +324,7 @@ namespace TutorOnline.Web.Controllers
                 BackendUser user = URes.FindBackEndUser(model.Id);
                 user.Address = model.Address;
                 user.City = model.City;
+                user.BirthDate = model.BirthDate;
                 user.Country = model.Country;
                 user.Description = model.Description;
                 user.FirstName = model.FirstName;
@@ -344,6 +345,7 @@ namespace TutorOnline.Web.Controllers
                     }, "Value", "Text");
             ViewBag.RoleID = new SelectList(URes.GetAllRole(), "RoleId", "RoleName", model.RoleID);
             TempData["messageWarning"] = "Đã có lỗi xảy ra khi cập nhật thông tin của người dùng " + model.Username;
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", model.Country);
             return View(model);
         }
 

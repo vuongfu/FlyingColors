@@ -217,12 +217,15 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Chức vụ:")]
         public string RoleName { get; set; }
 
+		[Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
+		[Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Ngày sinh:")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
@@ -243,6 +246,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Quốc gia:")]
         public string Country { get; set; }
 
+		[Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
 

@@ -252,6 +252,8 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult ViewDetailSlotBooked(int id)
         {
+
+
             return View();
         }
 

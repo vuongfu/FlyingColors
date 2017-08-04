@@ -95,6 +95,17 @@
 
     function bindData() {
         $("#WeekSelect").attr("disabled", "disabled");
+        $('.slotpick tr td').removeClass('availableSlot');
+        $('.slotpick tr td').removeClass('finishedSlot');
+        $('.slotpick tr td').removeClass('bookedSlot');
+        $('.slotpick tr td').removeClass('canceledSlot');                
+        var items = document.getElementsByTagName('td');
+        for (var i = 0; i < items.length; i++) {
+            var x = "";
+            items[i].innerHTML = x;
+
+        }
+
 
         $.ajax({
             url: '@Url.Action("GetBookedSlotByStudent", "Tutor")',
@@ -104,18 +115,8 @@
             traditional: true,
             data: JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'TutorId': tutorId }),
             success: function (data) {
-                $('.slotpick tr td').removeClass('availableSlot');
-                $('.slotpick tr td').removeClass('finishedSlot');
-                $('.slotpick tr td').removeClass('bookedSlot');
-                $('.slotpick tr td').removeClass('canceledSlot');
                 $("#WeekSelect").removeAttr("disabled");
-
-                var items = document.getElementsByTagName('td');
-                for (var i = 0; i < items.length; i++) {
-                    var x = "";
-                    items[i].innerHTML = x;
-
-                }
+                
                 for(i in data){
                     var stt = data[i].Status;
                     if(stt == 11)
