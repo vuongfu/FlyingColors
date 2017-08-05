@@ -9,6 +9,7 @@ using TutorOnline.Common;
 using TutorOnline.Web.Models;
 using PagedList;
 using System.Net;
+using System.Globalization;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -18,6 +19,7 @@ namespace TutorOnline.Web.Controllers
         private TutorRepository Tres = new TutorRepository();
         private TutorRepository TuRes = new TutorRepository();
         private CategoriesRepository CRes = new CategoriesRepository();
+
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
             int pageSize = 5;
@@ -60,7 +62,7 @@ namespace TutorOnline.Web.Controllers
                     model.Email = item.Email;
                     model.SkypeId = item.SkypeId;
                     model.PhoneNumber = item.PhoneNumber;
-                    model.Salary = item.Salary;
+                    model.Salary = System.Convert.ToDouble(item.Salary);
                     model.BankId = item.BankId;
                     model.BankName = item.BankName;
                     model.BMemName = item.BMemName;
@@ -142,7 +144,7 @@ namespace TutorOnline.Web.Controllers
             model.Email = tutor.Email;
             model.SkypeId = tutor.SkypeId;
             model.PhoneNumber = tutor.PhoneNumber;
-            model.Salary = tutor.Salary;
+            model.Salary = System.Convert.ToDouble(tutor.Salary);
             model.BankId = tutor.BankId;
             model.BankName = tutor.BankName;
             model.BMemName = tutor.BMemName;
@@ -225,7 +227,7 @@ namespace TutorOnline.Web.Controllers
                     model.Email = item.Email;
                     model.SkypeId = item.SkypeId;
                     model.PhoneNumber = item.PhoneNumber;
-                    model.Salary = item.Salary;
+                    model.Salary = System.Convert.ToDouble(item.Salary);
                     model.BankId = item.BankId;
                     model.BankName = item.BankName;
                     model.BMemName = item.BMemName;
@@ -325,7 +327,7 @@ namespace TutorOnline.Web.Controllers
                     model.Email = item.Email;
                     model.SkypeId = item.SkypeId;
                     model.PhoneNumber = item.PhoneNumber;
-                    model.Salary = item.Salary;
+                    model.Salary = System.Convert.ToDouble(item.Salary);
                     model.BankId = item.BankId;
                     model.BankName = item.BankName;
                     model.BMemName = item.BMemName;
@@ -428,7 +430,7 @@ namespace TutorOnline.Web.Controllers
             model.Email = tutor.Email;
             model.SkypeId = tutor.SkypeId;
             model.PhoneNumber = tutor.PhoneNumber;
-            model.Salary = tutor.Salary;
+            model.Salary = System.Convert.ToDouble(tutor.Salary);
             model.BankId = tutor.BankId;
             model.BankName = tutor.BankName;
             model.BMemName = tutor.BMemName;
@@ -490,7 +492,7 @@ namespace TutorOnline.Web.Controllers
             model.Email = tutor.Email;
             model.SkypeId = tutor.SkypeId;
             model.PhoneNumber = tutor.PhoneNumber;
-            model.Salary = tutor.Salary;
+            model.Salary = System.Convert.ToDouble(tutor.Salary);
             model.BankId = tutor.BankId;
             model.BankName = tutor.BankName;
             model.BMemName = tutor.BMemName;
@@ -584,83 +586,15 @@ namespace TutorOnline.Web.Controllers
 
             return Json(new { Rejected = false });
         }
-        [HttpPost]
-        public ActionResult EditTuSalary(decimal? salary, int? tuId)
+        
+        public ActionResult EditTuSalary(double? salary, int? tuId)
         {
-            Tutor tutor = TuRes.FindTutor(tuId);
-            TutorInfoViewModels model = new TutorInfoViewModels();
-            if(tutor != null)
-            {
-                //Mapping model with entity
-                model.TutorId = tutor.TutorId;
-                model.FullName = tutor.LastName + " " + tutor.FirstName;
-                model.Photo = tutor.Photo;
-                model.Gender = (tutor.Gender == 1) ? "Nam" : "Nữ";
-                model.BirthDate = tutor.BirthDate;
-                model.Address = tutor.Address;
-                model.City = tutor.City;
-                model.PostalCode = tutor.PostalCode;
-                model.Country = tutor.Country;
-                model.Email = tutor.Email;
-                model.SkypeId = tutor.SkypeId;
-                model.PhoneNumber = tutor.PhoneNumber;
-                model.Salary = tutor.Salary;
-                model.BankId = tutor.BankId;
-                model.BankName = tutor.BankName;
-                model.BMemName = tutor.BMemName;
-                model.Description = tutor.Description;
-                model.isActived = (tutor.isActived == true) ? "Đang hoạt động" : "Ngưng hoạt động";
-                model.RegisterDate = tutor.RegisterDate;
-                //TutorSubject
-                List<TutorSubject> tutorSubEntity = Tres.GetTutorSubjects(tutor.TutorId).ToList();
-                List<TutorSubjectViewModels> tutorSubModel = new List<TutorSubjectViewModels>();
-                for (int i = 0; i < tutorSubEntity.Count(); i++)
-                {
-                    TutorSubject entity = new TutorSubject();
-                    entity = tutorSubEntity[i];
-                    if (entity != null)
-                    {
-                        TutorSubjectViewModels t = new TutorSubjectViewModels();
-
-                        t.TutorSubjectId = entity.TutorSubjectId;
-                        t.subjectName = entity.Subject.SubjectName;
-                        t.experiences = entity.Experience;
-
-                        tutorSubModel.Add(t);
-                    }
-                }
-                model.tutorSub = tutorSubModel.OrderBy(x => x.subjectName).ToList();
-
-                //NewTutorSubject
-                List<TutorSubject> newTutorSubEntity = Tres.GetTutorNewSubjects(tutor.TutorId).ToList();
-                List<TutorSubjectViewModels> newTutorSubModel = new List<TutorSubjectViewModels>();
-                for (int i = 0; i < newTutorSubEntity.Count(); i++)
-                {
-                    TutorSubject entity = new TutorSubject();
-                    entity = newTutorSubEntity[i];
-                    if (entity != null)
-                    {
-                        TutorSubjectViewModels t = new TutorSubjectViewModels();
-
-                        t.TutorSubjectId = entity.TutorSubjectId;
-                        t.subjectName = entity.Subject.SubjectName;
-                        t.experiences = entity.Experience;
-
-                        newTutorSubModel.Add(t);
-                    }
-                }
-
-                model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
-            }
             if (salary != null && tuId != null)
             {
                 Tres.EditTuSalary(salary, tuId);
-                TempData["salaryEditMsg"] = "Tiền lương đã được cập nhật.";
+                TempData["message"] = new ManagerStringCommon().updateSalaryForTutorSuccess;
             }
-            else
-                TempData["salaryEditMsg"] = "Tiền lương chưa được cập nhật.";
-
-            return View(model);
+            return Json(new { UpdatedSalary = true });
         }
 
         protected override void Dispose(bool disposing)
@@ -669,6 +603,7 @@ namespace TutorOnline.Web.Controllers
             {
                 Tres.Dispose();
                 TuRes.Dispose();
+                CRes.Dispose();
             }
             base.Dispose(disposing);
         }

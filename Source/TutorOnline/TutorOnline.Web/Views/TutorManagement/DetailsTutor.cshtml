@@ -90,11 +90,7 @@
                                 <td class="text-left" style="padding-right: 300px;">
                                     @Html.DisplayFor(model => model.Salary) vnđ | 
                                     <button type="button" class="btn-info" id="btnSalary" value="salary">Chỉnh sửa</button>
-                                    @if (TempData["salaryEditMsg"] != null)
-                                    {
-                                        <p style="color: lawngreen">@TempData["message"]</p>
-                                    }
-                                    <form>
+                                    <form method="post">
                                         <input type="text" id="salarytbox" name="salaryTextBox" style="display:none" placeholder="Hãy nhập số tiền...">
                                         <input type="submit" class="btn btn-success" id="btnSaEdited" style="display:none" name="btnSubmit" value="Cập nhật" onclick="EditSalary()" />
                                     </form>
@@ -143,6 +139,7 @@
     }
     function EditSalary() {
         var tuId = @Model.TutorId;
+        @{int tuId = Model.TutorId;}
         var salary = document.getElementById("salarytbox").value;
         $.ajax({
             url: '@Url.Action("EditTuSalary", "TutorManagement")',
@@ -150,7 +147,12 @@
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             traditional: true,
-            data: JSON.stringify({ 'salary': salary, 'tuId': tuId })
+            data: JSON.stringify({ 'salary': salary, 'tuId': tuId }),
+            success: function (response) {
+                if(response.UpdatedSalary == true){
+                    window.location.href = '@Url.Action("DetailsTutor", "TutorManagement", new { id = tuId })';
+                }
+            }
         });
     }
 </script>

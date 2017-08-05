@@ -349,6 +349,11 @@ namespace TutorOnline.Web.Controllers
             if (disposing)
             {
                 LRes.Dispose();
+                LMRes.Dispose();
+                QRes.Dispose();
+                ARes.Dispose();
+                SRes.Dispose();
+                CRes.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -135,16 +135,12 @@ namespace TutorOnline.Business.Repository
             _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
-        public void EditTuSalary(decimal? salary, int? tuId)
+        public void EditTuSalary(double? salary, int? tuId)
         {
-            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.Salary = salary);
+            decimal dsalary = System.Convert.ToDecimal(salary);
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.Salary = dsalary);
             _dbContext.SaveChanges();
         }
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-        }
-
         public void DeleteSlotBooked(int id)
         {
             Schedule temp = _dbContext.Schedules.Find(id);
@@ -201,6 +197,9 @@ namespace TutorOnline.Business.Repository
                 return temp.TutorId;
             return -1;
         }
-
+        public void Dispose()
+        {
+            _dbContext.Dispose();
+        }
     }
 }

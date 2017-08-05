@@ -205,5 +205,15 @@ namespace TutorOnline.Web.Controllers
             TempData["message"] = new ManagerStringCommon().deleteAnswerSuccess.ToString();
             return RedirectToAction("Details", "Question", new { id = queId, subId = subId});
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                QRes.Dispose();
+                ARes.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
