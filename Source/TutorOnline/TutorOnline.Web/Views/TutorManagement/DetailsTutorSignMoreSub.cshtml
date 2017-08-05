@@ -1,5 +1,5 @@
 ﻿@model TutorOnline.Web.Models.TutorInfoViewModels
-
+<script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
     ViewBag.Title = "Chi tiết gia sư";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
@@ -126,8 +126,10 @@
                                     <td class="text-left" style="padding-right: 300px;">@Html.DisplayFor(modelItem => item.experiences)</td>
                                 </tr>
                             </table>
-                            <hr />
                         }
+
+                        <hr />
+
                         <h4 style="color: deepskyblue">Những khóa dạy chưa được phê duyệt</h4>
                             @if (Model.newTutorSub.Count != 0)
                             {
@@ -147,9 +149,10 @@
                                                 <a href="@Url.Action("ApprovedSubject", "TutorManagement", new { subId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-success">Phê duyệt</a> | 
                                                 <a href="@Url.Action("RejectedSubject", "TutorManagement", new { tusubId = item.TutorSubjectId, tuId = Model.TutorId })" class="btn btn-danger">Từ chối</a>
                                             </td>
+                                            <td></td>
                                         </tr>
                                     </table>
-                                    <hr />
+                                   
                                 }
                             }
                             else

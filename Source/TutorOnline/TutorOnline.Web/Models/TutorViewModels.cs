@@ -35,6 +35,7 @@ namespace TutorOnline.Web.Models
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
+        [DataType(DataType.Currency)]
         public Nullable<decimal> Salary { get; set; }
         public string Description { get; set; }
         public string BankId { get; set; }
