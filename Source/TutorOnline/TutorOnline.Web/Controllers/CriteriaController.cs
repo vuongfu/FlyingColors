@@ -180,6 +180,7 @@ namespace TutorOnline.Web.Controllers
             if (disposing)
             {
                 CTRes.Dispose();
+                LRes.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -66,5 +66,19 @@ namespace TutorOnline.Web.Controllers
 
             return View();
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                CRes.Dispose();
+                SRes.Dispose();
+                LMRes.Dispose();
+                LRes.Dispose();
+                URes.Dispose();
+                TRes.Dispose();
+                StuRes.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

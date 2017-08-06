@@ -9,6 +9,7 @@ using TutorOnline.Common;
 using TutorOnline.Web.Models;
 using PagedList;
 using System.Net;
+using System.Globalization;
 
 namespace TutorOnline.Web.Controllers
 {
@@ -16,7 +17,9 @@ namespace TutorOnline.Web.Controllers
     public class TutorManagementController : Controller
     {
         private TutorRepository Tres = new TutorRepository();
+        private TutorRepository TuRes = new TutorRepository();
         private CategoriesRepository CRes = new CategoriesRepository();
+
         public ActionResult Index(string btnSearch, string searchString, string cateString, int? page)
         {
             int pageSize = 5;
@@ -59,7 +62,7 @@ namespace TutorOnline.Web.Controllers
                     model.Email = item.Email;
                     model.SkypeId = item.SkypeId;
                     model.PhoneNumber = item.PhoneNumber;
-                    model.Salary = item.Salary;
+                    model.Salary = System.Convert.ToDouble(item.Salary);
                     model.BankId = item.BankId;
                     model.BankName = item.BankName;
                     model.BMemName = item.BMemName;
@@ -141,7 +144,7 @@ namespace TutorOnline.Web.Controllers
             model.Email = tutor.Email;
             model.SkypeId = tutor.SkypeId;
             model.PhoneNumber = tutor.PhoneNumber;
-            model.Salary = tutor.Salary;
+            model.Salary = System.Convert.ToDouble(tutor.Salary);
             model.BankId = tutor.BankId;
             model.BankName = tutor.BankName;
             model.BMemName = tutor.BMemName;
@@ -224,7 +227,7 @@ namespace TutorOnline.Web.Controllers
                     model.Email = item.Email;
                     model.SkypeId = item.SkypeId;
                     model.PhoneNumber = item.PhoneNumber;
-                    model.Salary = item.Salary;
+                    model.Salary = System.Convert.ToDouble(item.Salary);
                     model.BankId = item.BankId;
                     model.BankName = item.BankName;
                     model.BMemName = item.BMemName;
@@ -324,7 +327,7 @@ namespace TutorOnline.Web.Controllers
                     model.Email = item.Email;
                     model.SkypeId = item.SkypeId;
                     model.PhoneNumber = item.PhoneNumber;
-                    model.Salary = item.Salary;
+                    model.Salary = System.Convert.ToDouble(item.Salary);
                     model.BankId = item.BankId;
                     model.BankName = item.BankName;
                     model.BMemName = item.BMemName;
@@ -427,7 +430,7 @@ namespace TutorOnline.Web.Controllers
             model.Email = tutor.Email;
             model.SkypeId = tutor.SkypeId;
             model.PhoneNumber = tutor.PhoneNumber;
-            model.Salary = tutor.Salary;
+            model.Salary = System.Convert.ToDouble(tutor.Salary);
             model.BankId = tutor.BankId;
             model.BankName = tutor.BankName;
             model.BMemName = tutor.BMemName;
@@ -489,7 +492,7 @@ namespace TutorOnline.Web.Controllers
             model.Email = tutor.Email;
             model.SkypeId = tutor.SkypeId;
             model.PhoneNumber = tutor.PhoneNumber;
-            model.Salary = tutor.Salary;
+            model.Salary = System.Convert.ToDouble(tutor.Salary);
             model.BankId = tutor.BankId;
             model.BankName = tutor.BankName;
             model.BMemName = tutor.BMemName;
@@ -557,7 +560,6 @@ namespace TutorOnline.Web.Controllers
             }
             return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId });
         }
-
         [HttpPost]
         public ActionResult ApprovedPreTutor(List<int> tusubId, int? tuId)
         {
@@ -565,11 +567,12 @@ namespace TutorOnline.Web.Controllers
             {
                 Tres.ApprovedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().approvedPreTutorSuccess.ToString();
+
+                return Json(new { Approved = true });
             }
 
-            return Json(new { Approved = true });
+            return Json(new { Approved = false });
         }
-
         [HttpPost]
         public ActionResult RejectedPreTutor(List<int> tusubId, int? tuId)
         {
@@ -577,9 +580,32 @@ namespace TutorOnline.Web.Controllers
             {
                 Tres.RejectedPreTutor(tusubId, tuId);
                 TempData["message"] = new ManagerStringCommon().rejectedPreTutorSuccess.ToString();
+
+                return Json(new { Rejected = true });
             }
 
-            return Json(new { Rejected = true });
+            return Json(new { Rejected = false });
+        }
+        
+        public ActionResult EditTuSalary(double? salary, int? tuId)
+        {
+            if (salary != null && tuId != null)
+            {
+                Tres.EditTuSalary(salary, tuId);
+                TempData["message"] = new ManagerStringCommon().updateSalaryForTutorSuccess;
+            }
+            return Json(new { UpdatedSalary = true });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Tres.Dispose();
+                TuRes.Dispose();
+                CRes.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

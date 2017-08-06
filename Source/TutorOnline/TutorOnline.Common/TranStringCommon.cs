@@ -13,7 +13,7 @@ namespace TutorOnline.Common
         public string Of = " trên ";
         public string Have = "Có ";
         public string Result = " kết quả tìm kiếm";
-        public string Back = "Trở về";
+        public string Back = "Quay lại";
 
         //Index common string
         public string Number = "STT";
@@ -45,6 +45,7 @@ namespace TutorOnline.Common
         public string TransAmount = "Số tiền giao dịch";
         public string Note = "Sử dụng dấu (-) cho giao dịch rút tiền khỏi tài khoản";
         public string UpdateButton = "Cập nhật";
+        public string CreateButton = "Tạo";
         public string ContentNotNull = "Xin hãy điền nội dung giao dịch";
 
         //Import Excel common string

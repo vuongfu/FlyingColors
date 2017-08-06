@@ -46,7 +46,6 @@ namespace TutorOnline.Business.Repository
             }
             return lstCate;
         }
-
         public List<int> GetTutorIdWhoSignMoreSub()
         {
             List<int> lstTuId = new List<int>();
@@ -124,7 +123,6 @@ namespace TutorOnline.Business.Repository
                 _dbContext.SaveChanges();
             }
         }
-
         public void RejectedPreTutor(List<int> tusubId, int? tuId)
         {
             for (int i = 0; i < tusubId.Count(); i++)
@@ -137,12 +135,12 @@ namespace TutorOnline.Business.Repository
             _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.isActived = false);
             _dbContext.SaveChanges();
         }
-
-        public void Dispose()
+        public void EditTuSalary(double? salary, int? tuId)
         {
-            _dbContext.Dispose();
+            decimal dsalary = System.Convert.ToDecimal(salary);
+            _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.Salary = dsalary);
+            _dbContext.SaveChanges();
         }
-
         public void DeleteSlotBooked(int id)
         {
             Schedule temp = _dbContext.Schedules.Find(id);
@@ -235,6 +233,10 @@ namespace TutorOnline.Business.Repository
             if (temp != null)
                 return temp.TutorFeedbackId;
             return -1;
+        }
+        public void Dispose()
+        {
+            _dbContext.Dispose();
         }
     }
 }

@@ -326,5 +326,16 @@ namespace TutorOnline.Web.Controllers
 
             return View(result.Where(x => x.QuestionId == queId).OrderBy(x => x.AnswerId).ToList());
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                QRes.Dispose();
+                LRes.Dispose();
+                ARes.Dispose();
+                SRes.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
