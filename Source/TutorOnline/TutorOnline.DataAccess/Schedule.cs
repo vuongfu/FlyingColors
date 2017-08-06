@@ -14,6 +14,13 @@ namespace TutorOnline.DataAccess
     
     public partial class Schedule
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Schedule()
+        {
+            this.StudentFeedbacks = new HashSet<StudentFeedback>();
+            this.TutorFeedbacks = new HashSet<TutorFeedback>();
+        }
+    
         public int ScheduleId { get; set; }
         public int TutorId { get; set; }
         public System.DateTime OrderDate { get; set; }
@@ -29,5 +36,9 @@ namespace TutorOnline.DataAccess
         public virtual Status Status1 { get; set; }
         public virtual Student Student { get; set; }
         public virtual Tutor Tutor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentFeedback> StudentFeedbacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TutorFeedback> TutorFeedbacks { get; set; }
     }
 }
