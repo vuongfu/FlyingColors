@@ -35,7 +35,6 @@ namespace TutorOnline.Web.Models
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-        [Range(0, 10000000, ErrorMessage = "Lương / 1 buổi dạy phải từ 0 đến 10000000 vnđ.")]
         public Nullable<double> Salary { get; set; }
         public string Description { get; set; }
         public string BankId { get; set; }

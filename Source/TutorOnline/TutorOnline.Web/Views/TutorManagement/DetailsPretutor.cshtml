@@ -1,5 +1,4 @@
 ﻿@model TutorOnline.Web.Models.TutorInfoViewModels
-
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
     ViewBag.Title = "Chi tiết ứng viên gia sư";
@@ -89,8 +88,13 @@
                             <tr>
                                 <td><strong>Lương/1 buổi dạy:</strong></td>
                                 <td class="text-left" style="padding-right: 300px;">
-                                    @Html.DisplayFor(model => model.Salary) vnđ | 
-                                    <button type="button" class="btn-info">Chỉnh sửa</button>
+                                    @Html.DisplayFor(model => model.Salary) vnđ
+                                    <p />
+                                    <input type="button" class="btn btn-info" id="btnSalary" value="Chỉnh sửa" />
+                                    <p id="msgSalary" style="color: orangered"></p>
+                                    <input type="text" id="salarytbox" name="salaryTextBox" style="display:none" placeholder="Hãy nhập số tiền..." required>
+                                    <input type="button" class="btn btn-success" id="btnSaEdited" style="display:none; margin-top:10px;" value="Cập nhật" onclick="EditSalary()" />
+                                    <input type="button" class="btn btn-danger pull-right" id="btnSaCanceled" style="display:none; margin-top: -32px; margin-right: 30px;" value="Hủy" onclick="CancelSalary()" />
                                 </td>
                             </tr>
                             <tr>
@@ -176,5 +180,49 @@
                 }
             }
         });
+    }
+
+    //Update Tutor's Salary
+    document.getElementById('btnSalary').onclick = function() {
+        document.getElementById("btnSalary").style.display='none';
+        document.getElementById("salarytbox").style.display='block';
+        document.getElementById("btnSaEdited").style.display='block';
+        document.getElementById("btnSaCanceled").style.display='block';
+        document.getElementById("msgSalary").style.display='block';
+    }
+    document.getElementById('btnSaCanceled').onclick = function() {
+        document.getElementById("salarytbox").style.display='none';
+        document.getElementById("btnSaEdited").style.display='none';
+        document.getElementById("btnSaCanceled").style.display='none';
+        document.getElementById("msgSalary").innerHTML = "";
+        document.getElementById("salarytbox").value = '';
+        document.getElementById("msgSalary").style.display='none';
+        document.getElementById("btnSalary").style.display='block';
+    }
+    function EditSalary() {
+        var tuId = @Model.TutorId;
+        @{int tuId = Model.TutorId;}
+        var salary = document.getElementById("salarytbox").value;
+        if(salary == "") {
+            document.getElementById("msgSalary").innerHTML = "Bạn chưa nhập số tiền.";
+        }
+        else if(salary > 10000000)
+            document.getElementById("msgSalary").innerHTML = "Số tiền phải nằm trong khoảng từ 0 đến 10 triệu vnđ.";
+        else {
+            $.ajax({
+                url: '@Url.Action("EditTuSalary", "TutorManagement")',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                traditional: true,
+                data: JSON.stringify({ 'salary': salary, 'tuId': tuId }),
+                success: function (response) {
+                    if(response.UpdatedSalary == true){
+                        document.getElementById("salarytbox").value = '';
+                        window.location.href = '@Url.Action("DetailsPretutor", "TutorManagement", new { id = tuId })';
+                    }
+                }
+            });
+        }
     }
 </script>

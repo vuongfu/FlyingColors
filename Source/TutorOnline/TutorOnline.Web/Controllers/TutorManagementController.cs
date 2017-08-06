@@ -586,7 +586,7 @@ namespace TutorOnline.Web.Controllers
 
             return Json(new { Rejected = false });
         }
-        
+        [HttpPost]
         public ActionResult EditTuSalary(double? salary, int? tuId)
         {
             if (salary != null && tuId != null)

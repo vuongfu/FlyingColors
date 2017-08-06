@@ -166,6 +166,20 @@ CREATE TABLE [Criteria] (
 	[isActived] bit not null default 1
 );
 
+CREATE TABLE [Schedule] (
+	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
+	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[OrderSlot] int NOT NULL,
+	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NULL,
+	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NULL,
+	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
+	[Type] [int] NULL,
+	[CanReason] [nvarchar](1000) NULL,
+	[Price] [money] NOT NULL,
+	CONSTRAINT UC_DateSlot UNIQUE (TutorId,OrderDate,OrderSlot)
+);
+
 CREATE TABLE [StudentFeedback] (
 	[StudentFeedbackId] [int] IdENTITY(1,1) PRIMARY KEY,
 	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
@@ -211,21 +225,6 @@ CREATE TABLE [TutorSubject] (
 	CONSTRAINT UC_TutorSub UNIQUE (SubjectId, TutorId),
 	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
 	[Experience] [nvarchar](4000) not null
-);
-
-CREATE TABLE [Schedule] (
-	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
-	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
-	[OrderDate] [datetime] NOT NULL,
-	[OrderSlot] int NOT NULL,
-	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NULL,
-	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NULL,
-	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
-	[Type] [int] NULL,
-	[CanReason] [nvarchar](1000) NULL,
-	[Price] [money] NOT NULL,
-	CONSTRAINT UC_DateSlot UNIQUE (TutorId,OrderDate,OrderSlot)
-
 );
 
 CREATE TABLE [AuditLog] (
