@@ -27,11 +27,13 @@ namespace TutorOnline.DataAccess
         public System.DateTime FeedbackDate { get; set; }
         public string Comment { get; set; }
         public Nullable<int> TestResult { get; set; }
+        public int ScheduleId { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual Student Student { get; set; }
         public virtual Tutor Tutor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TutorFeedbackDetail> TutorFeedbackDetails { get; set; }
+        public virtual Schedule Schedule { get; set; }
     }
 }

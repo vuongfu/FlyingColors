@@ -21,9 +21,11 @@ namespace TutorOnline.DataAccess
         public System.DateTime FeedbackDate { get; set; }
         public int Rate { get; set; }
         public string Comment { get; set; }
+        public int ScheduleId { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual Student Student { get; set; }
         public virtual Tutor Tutor { get; set; }
+        public virtual Schedule Schedule { get; set; }
     }
 }

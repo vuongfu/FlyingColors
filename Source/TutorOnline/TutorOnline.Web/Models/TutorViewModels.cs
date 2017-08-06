@@ -83,8 +83,25 @@ namespace TutorOnline.Web.Models
 
         public string Lesson { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public int OrderSlot { get; set; }
+
+        public string OrderTime { get; set; }
+
+        public int ScheduleId { get; set; }
+
+        public string Photo { get; set; }
+
+        public int Status { get; set; }
+
+        public string StatusName { get; set; }
+
+        public List<int> CriteriaId { get; set; }
+
+        public List<string> CriteriaContent { get; set; }
+
+        public DateTime ScheduleDate { get; set; }
     }
 }

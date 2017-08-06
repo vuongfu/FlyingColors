@@ -61,6 +61,8 @@
         <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Tutor__5AEE82B9" ManuallyRouted="false" />
         <AssociationConnector Association="TutorOnlineModel.FK__TutorSubj__Tutor__6C190EBB" ManuallyRouted="false" />
         <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Tutor__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="TutorOnlineModel.FK__StudentFe__Sched__151B244E" />
+        <AssociationConnector Association="TutorOnlineModel.FK__TutorFeed__Sched__14270015" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -197,6 +197,43 @@ namespace TutorOnline.Business.Repository
                 return temp.TutorId;
             return -1;
         }
+
+        public Schedule getSlotById(int id)
+        {
+            var temp = _dbContext.Schedules.Find(id);
+            return temp;
+        }
+
+        public IEnumerable<TutorFeedback> FindFeedbackForStudent(int tutorId, int studentId, int lessonId)
+        {
+            var data = _dbContext.TutorFeedbacks.Where(x => x.LessonId == lessonId && x.StudentId == studentId && x.TutorId == tutorId).Include(x => x.TutorFeedbackDetails);
+            return data;
+        }
+
+        public IEnumerable<Criterion> getCriteriaForLesson(int lessonId)
+        {
+            var temp = _dbContext.Criteria.Where(x => x.LessonId == lessonId);
+            return temp;
+        }
+
+        public void AddTutorFeedback(TutorFeedback data)
+        {
+            _dbContext.TutorFeedbacks.Add(data);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddTutorFeedbackDetail(TutorFeedbackDetail data)
+        {
+            _dbContext.TutorFeedbackDetails.Add(data);
+        }
+
+        public int getTutorFeedbackId(int tutorId, int lessonId, int studentId, DateTime feedbackDate)
+        {
+            var temp = _dbContext.TutorFeedbacks.FirstOrDefault(x => x.TutorId == tutorId && x.LessonId == lessonId && x.StudentId == studentId && x.FeedbackDate.ToShortDateString() == feedbackDate.ToShortDateString());
+            if (temp != null)
+                return temp.TutorFeedbackId;
+            return -1;
+        }
         public void Dispose()
         {
             _dbContext.Dispose();
