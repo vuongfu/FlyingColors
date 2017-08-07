@@ -77,9 +77,11 @@
             }
             <div class="row">
                 <div class="col-md-2">
-                    <ul class="nav nav-pills nav-stacked">                       
-                        <li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>
+                    <ul class="nav nav-pills nav-stacked">      
+                        <li><a href="@Url.Action("TutorBookSlot","Tutor")">Đặt lịch dạy</a></li>                 
+                        <li><a href="@Url.Action("ViewSchedule","Tutor")">Xem lịch dạy</a></li>
+                        @*<li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
+                        <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>*@
                     </ul>
                 </div>
                 <div class="col-md-10">

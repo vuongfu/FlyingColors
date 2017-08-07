@@ -178,6 +178,24 @@ namespace TutorOnline.Business.Repository
             return slot;
         }
 
+        public IEnumerable<Schedule> GetAllSlotBookedByStudentNotStart(DateTime StartDay, DateTime EndDay, int TutorId)
+        {
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.Status == 4 && x.TutorId == TutorId);
+            return slot;
+        }
+
+        public void CancelSlot(int tutorId, int OrderSlot, DateTime OrderDate, string reason)
+        {
+            Schedule slot = _dbContext.Schedules.FirstOrDefault(x => x.TutorId == tutorId && x.OrderSlot == OrderSlot && x.OrderDate == OrderDate);
+            if(slot != null)
+            {
+                slot.Status = 5;
+                slot.CanReason = reason;
+                _dbContext.Entry(slot).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+            }
+        }
+
         public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int TutorId)
         {
             var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && (x.Status == 4 || x.Status == 3 || x.Status ==5 || x.Status == 11));
@@ -204,9 +222,9 @@ namespace TutorOnline.Business.Repository
             return temp;
         }
 
-        public IEnumerable<TutorFeedback> FindFeedbackForStudent(int tutorId, int studentId, int lessonId)
+        public TutorFeedback FindFeedbackForStudent( int scheduleId)
         {
-            var data = _dbContext.TutorFeedbacks.Where(x => x.LessonId == lessonId && x.StudentId == studentId && x.TutorId == tutorId).Include(x => x.TutorFeedbackDetails);
+            var data = _dbContext.TutorFeedbacks.FirstOrDefault(x => x.ScheduleId == scheduleId);
             return data;
         }
 
@@ -225,11 +243,12 @@ namespace TutorOnline.Business.Repository
         public void AddTutorFeedbackDetail(TutorFeedbackDetail data)
         {
             _dbContext.TutorFeedbackDetails.Add(data);
+            _dbContext.SaveChanges();
         }
 
-        public int getTutorFeedbackId(int tutorId, int lessonId, int studentId, DateTime feedbackDate)
+        public int getTutorFeedbackId(int tutorId, int scheduleId, int studentId)
         {
-            var temp = _dbContext.TutorFeedbacks.FirstOrDefault(x => x.TutorId == tutorId && x.LessonId == lessonId && x.StudentId == studentId && x.FeedbackDate.ToShortDateString() == feedbackDate.ToShortDateString());
+            var temp = _dbContext.TutorFeedbacks.FirstOrDefault(x => x.TutorId == tutorId && x.ScheduleId == scheduleId && x.StudentId == studentId);
             if (temp != null)
                 return temp.TutorFeedbackId;
             return -1;

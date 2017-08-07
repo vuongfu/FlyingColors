@@ -116,6 +116,11 @@ namespace TutorOnline.Web.Controllers
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Accountant") : ReturnUrl);
                         return Redirect(url);
                     }
+                    else if(RoleName == UserCommonString.Tutor || RoleName == UserCommonString.PreTutor)
+                    {
+                        string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("ViewSchedule", "Tutor") : ReturnUrl);
+                        return Redirect(url);
+                    }
                     else
                     {
                         return RedirectToAction("Index", "Home");

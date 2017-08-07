@@ -103,5 +103,14 @@ namespace TutorOnline.Web.Models
         public List<string> CriteriaContent { get; set; }
 
         public DateTime ScheduleDate { get; set; }
+
+        public bool CanFeedback { get; set; }
+    }
+
+    public class ViewFeedbackViewModel
+    {
+        public int criteriaId { get; set; }
+
+        public int value { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "TutorBookSlot";
-    Layout = "";
+    Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
 }
 
 <p>
@@ -100,6 +100,7 @@
     var selectedSlotWeek0 = new Array();
     var selectedSlotWeek1 = new Array();
     var selectedSlotWeek2 = new Array();
+    var bookedSlotbyStudent = new Array();
     var selectedWeek = 0;
     var ToDay = new Date("@ViewBag.Today");
     var Trid;
@@ -121,9 +122,22 @@
 
         }
 
+        @foreach(string item in ViewBag.SlotBookedByStudent)
+        {
+            @Html.Raw("bookedSlotbyStudent.push('" + item + "');")
+        }
+
         $('.slotpick tr td').removeClass('selectedSlot');
         for (i = 0; i < selectedSlotWeek0.length; i++) {
             jQuery('#' + selectedSlotWeek0[i]).addClass('selectedSlot');
+        }
+
+        for (i = 0; i < bookedSlotbyStudent.length; i++) {
+            var slot = bookedSlotbyStudent[i].substring(0, 5);
+            var week = bookedSlotbyStudent[i].substring(5);
+            if (week == "1") {
+                jQuery('#' + slot).addClass('bookedSlot');
+            }
         }
     });
 
@@ -171,8 +185,6 @@
     function addOrRemoveDate(slot) {
         var day = slot.substring(0, 3);
         var pickeddate;
-
-
         if (selectedWeek == 1)
             var index = jQuery.inArray(slot, selectedSlotWeek1);
         else if (selectedWeek == 2)
@@ -334,6 +346,10 @@
 
     .selectedSlot {
         background-color: forestgreen;
+    }
+
+    .bookedSlot {
+        background-color: orangered !important;
     }
 
     .disableArrow {

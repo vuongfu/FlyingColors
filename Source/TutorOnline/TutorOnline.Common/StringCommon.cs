@@ -24,4 +24,12 @@ namespace TutorOnline.Common
         public const string SendEmailSuccess = "Mật khẩu đã được đặt lại. Xin hãy kiểm tra email của bạn.";
         public const string RequiredMess = "Xin hãy điền thông tin vào đây.";
     }
+
+    public static class StatusString
+    {
+        public const string ScheduleFinished = "Đã hoàn thành";
+        public const string ScheduleBooked = "Đã được đặt";
+        public const string SchudulueCanceled = "Đã bị hủy";
+        public const string SchudulueAvailabled = "Khả dụng";
+    }
 }
