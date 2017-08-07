@@ -380,17 +380,32 @@ $(document).ready(function () {
                                     {
                                         <tr>
                                             <td>@(ViewBag.Count++)</td>
-                                            @if (ViewBag.Count <= Model.StudiedLesson)
+                                            @if (ViewBag.Count <= Model.StudiedLesson + 1)
                                             {
                                                 <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = DateTime.Today.ToString(), Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
+                                                <td>
+                                                    <i class="material-icons button edit">feedback</i>
+                                                    <i class="material-icons button delete" onclick="Download(@item.LessonId)">file_download</i>
+                                                    <i class="material-icons button test" onclick="Test(@item.LessonId)">edit</i>
+                                                </td>
                                             }
-                                            else
-                                            {<td>@item.Content</td>}
-                                            <td>
-                                                <i class="material-icons button edit">feedback</i>
-                                                <i class="material-icons button delete" onclick="Download(@item.LessonId)">file_download</i>
-                                                <i class="material-icons button test" onclick="Test(@item.LessonId)">edit</i>
-                                            </td>
+                                            else if (ViewBag.Count == Model.StudiedLesson + 1)
+                                            {
+                                                <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = DateTime.Today.ToString(), Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
+                                                <td>
+                                                    <i class="material-icons button edit">feedback</i>
+                                                    <i class="material-icons button delete">file_download</i>
+                                                    <i class="material-icons button test">edit</i>
+                                                </td>
+                                            } else
+                                            {
+                                                <td>@item.Content</td>
+                                                <td>
+                                                    <i class="material-icons button edit">feedback</i>
+                                                    <i class="material-icons button delete">file_download</i>
+                                                    <i class="material-icons button test">edit</i>
+                                                </td>
+                                            }
                                         </tr>
                                     }
                                 </tbody>
