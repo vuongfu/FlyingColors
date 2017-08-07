@@ -5,7 +5,7 @@
 }
 
 <p>
-    <a id="pre-arrow" class="disableArrow disabled" onclick="preClick()">
+    <a id="pre-arrow" class="disableArrow"  onclick="preClick()">
         <img src="~/Image/prev.png" />
     </a>
     <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
@@ -102,6 +102,9 @@
     var selectedSlotWeek2 = new Array();
     var bookedSlotbyStudent = new Array();
     var selectedWeek = 0;
+    var lockPre = true;
+    var lockNext = false;
+    var lockLoad = false;
     var ToDay = new Date("@ViewBag.Today");
     var Trid;
 
@@ -135,13 +138,43 @@
         for (i = 0; i < bookedSlotbyStudent.length; i++) {
             var slot = bookedSlotbyStudent[i].substring(0, 5);
             var week = bookedSlotbyStudent[i].substring(5);
-            if (week == "1") {
+            if (week == "0") {
                 jQuery('#' + slot).addClass('bookedSlot');
             }
         }
     });
 
+    function CancelSlot(slot) {
+        var checkConfirm = confirm("Tiết học này đã được học sinh đặt. Bạn có chắc chắn muốn hủy?");
+        if (checkConfirm == true) {
+            var reason = prompt("Xin hãy nhập lý do bạn hủy tiết học:", "");
+            if (reason == null || reason == "") {
+                alert("Bạn phải nhập lý do hủy tiết học.");
+                return false;
+            }
+            lockLoad = true;
+            $.ajax({
+                url: '@Url.Action("CancelSlot", "Tutor")',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                traditional: true,
+                data: JSON.stringify({ 'slot': slot, 'week': selectedWeek, 'reason': reason }),
+                success: function (data) {
+                    lockLoad = false;
+                    jQuery('#' + slot).removeClass('selectedSlot');
+                    jQuery('#' + slot).removeClass('bookedSlot');
+                    alert(data);
+                },
+                error: function (xhr) {
+                    alert("Error");
+                }
+            });
+        }
+    }
+
     function SubmitSlot() {
+        lockLoad = true;
         $.ajax({
             url: '@Url.Action("SaveSlot", "Tutor")',
             dataType: "json",
@@ -150,6 +183,7 @@
             traditional: true,
             data: JSON.stringify({ 'Week0': selectedSlotWeek0, 'Week1': selectedSlotWeek1, 'Week2': selectedSlotWeek2 }),
             success: function (data) {
+                lockLoad = false;
                 alert(data);
             },
             error: function (xhr) {
@@ -159,10 +193,18 @@
     }
 
     function addSlot(slot) {
+        var dataCheck = "" + slot + selectedWeek;
+        var check = jQuery.inArray(dataCheck, bookedSlotbyStudent);
+        if (check >= 0) {
+            CancelSlot(slot);
+            return false;
+        }
+
         if (selectedWeek == 1) {
             if (jQuery.inArray(slot, selectedSlotWeek1) < 0)
                 selectedSlotWeek1.push(slot);
         } else if (selectedWeek == 2) {
+
             if (jQuery.inArray(slot, selectedSlotWeek2) < 0)
                 selectedSlotWeek2.push(slot);
         } else {
@@ -173,12 +215,35 @@
     }
 
     function removeSlot(index) {
-        if (selectedWeek == 1)
+
+        if (selectedWeek == 1) {
+            var dataCheck = "" + selectedSlotWeek1[index] + selectedWeek;
+            var check = jQuery.inArray(dataCheck, bookedSlotbyStudent);
+            if (check >= 0) {
+                CancelSlot(selectedSlotWeek1[index]);
+                return false;
+            }
             selectedSlotWeek1.splice(index, 1);
-        else if (selectedWeek == 2)
+        }
+        else if (selectedWeek == 2) {
+            var dataCheck = "" + selectedSlotWeek2[index] + selectedWeek;
+            var check = jQuery.inArray(dataCheck, bookedSlotbyStudent);
+            if (check >= 0) {
+                CancelSlot(selectedSlotWeek2[index]);
+                return false;
+            }
             selectedSlotWeek2.splice(index, 1);
-        else
+        }
+        else {
+            var dataCheck = "" + selectedSlotWeek0[index] + selectedWeek;
+            var check = jQuery.inArray(dataCheck, bookedSlotbyStudent);
+            if (check >= 0) {
+                CancelSlot(selectedSlotWeek0[index]);
+                return false;
+            }
             selectedSlotWeek0.splice(index, 1);
+        }
+
     }
 
     // Adds a date if we don't have it yet, else remove it
@@ -218,11 +283,10 @@
             addSlot(slot);
     }
 
-    var lockPre = true;
-    var lockNext = false;
+
 
     function preClick() {
-        if (!lockPre) {
+        if (!lockPre && !lockLoad) {
             selectedWeek = selectedWeek - 1;
             jQuery('#next-arrow').removeClass('disableArrow');
             if (selectedWeek == 0)
@@ -243,7 +307,7 @@
     }
 
     function nextClick() {
-        if (!lockNext) {
+        if (!lockNext && !lockLoad) {
             selectedWeek = selectedWeek + 1;
             jQuery('#pre-arrow').removeClass('disableArrow');
             if (selectedWeek == 0)
@@ -264,8 +328,9 @@
     }
 
     function changeWeek() {
+        $('.slotpick tr td').removeClass('selectedSlot')
+        $('.slotpick tr td').removeClass('bookedSlot')
         if (selectedWeek == 1) {
-            $('.slotpick tr td').removeClass('selectedSlot')
             for (i = 0; i < selectedSlotWeek1.length; i++) {
                 jQuery('#' + selectedSlotWeek1[i]).addClass('selectedSlot');
             }
@@ -278,7 +343,6 @@
             document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> @ViewBag.FirstDayOfWeek.AddDays(13).ToShortDateString()";
         }
         else if (selectedWeek == 2) {
-            $('.slotpick tr td').removeClass('selectedSlot');
             for (i = 0; i < selectedSlotWeek2.length; i++) {
                 jQuery('#' + selectedSlotWeek2[i]).addClass('selectedSlot');
             }
@@ -290,7 +354,6 @@
             document.getElementById("DateFri").innerHTML = "Thứ sáu <br /> @ViewBag.FirstDayOfWeek.AddDays(19).ToShortDateString()";
             document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> @ViewBag.FirstDayOfWeek.AddDays(20).ToShortDateString()";
         } else {
-            $('.slotpick tr td').removeClass('selectedSlot');
             for (i = 0; i < selectedSlotWeek0.length; i++) {
                 jQuery('#' + selectedSlotWeek0[i]).addClass('selectedSlot');
             }
@@ -303,6 +366,14 @@
             document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()";
         }
 
+        var currentWeek = "" + selectedWeek;
+        for (i = 0; i < bookedSlotbyStudent.length; i++) {
+            var slot = bookedSlotbyStudent[i].substring(0, 5);
+            var week = bookedSlotbyStudent[i].substring(5);
+            if (week == currentWeek) {
+                jQuery('#' + slot).addClass('bookedSlot');
+            }
+        }
 
     }
 
@@ -339,7 +410,7 @@
     $('.slotpick tr td').live('mousemove', function () { $(this).addClass('onmouse'); })
     $('.slotpick tr td').live('mouseleave', function () { $(this).removeClass('onmouse'); })
 </script>
-<style>
+<style type="text/css">
     .onmouse {
         background-color: gray;
     }
@@ -353,6 +424,7 @@
     }
 
     .disableArrow {
+        
         opacity: 0.4;
         cursor: no-drop;
     }
