@@ -88,11 +88,11 @@
                             <tr>
                                 <td><strong>Lương/1 buổi dạy:</strong></td>
                                 <td class="text-left" style="padding-right: 300px;">
-                                    @Html.DisplayFor(model => model.Salary) vnđ
+                                    @Html.DisplayFor(model => model.Salary) VNĐ
                                     <p />
                                     <input type="button" class="btn btn-info" id="btnSalary" value="Chỉnh sửa" />
                                     <p id="msgSalary" style="color: orangered"></p>
-                                    <input type="text" id="salarytbox" name="salaryTextBox" style="display:none" placeholder="Hãy nhập số tiền..." required>
+                                    <input type="number" id="salarytbox" name="salaryTextBox" style="display:none" placeholder="Hãy nhập số tiền..." required>
                                     <input type="button" class="btn btn-success" id="btnSaEdited" style="display:none; margin-top:10px;" value="Cập nhật" onclick="EditSalary()" />
                                     <input type="button" class="btn btn-danger pull-right" id="btnSaCanceled" style="display:none; margin-top: -32px; margin-right: 30px;" value="Hủy" onclick="CancelSalary()" />
                                 </td>
@@ -206,8 +206,8 @@
         if(salary == "") {
             document.getElementById("msgSalary").innerHTML = "Bạn chưa nhập số tiền.";
         }
-        else if(salary > 10000000)
-            document.getElementById("msgSalary").innerHTML = "Số tiền phải nằm trong khoảng từ 0 đến 10 triệu vnđ.";
+        else if(salary > 10000000 || salary < 0)
+            document.getElementById("msgSalary").innerHTML = "Số tiền phải nằm trong khoảng từ 0 đến 10 triệu VNĐ.";
         else {
             $.ajax({
                 url: '@Url.Action("EditTuSalary", "TutorManagement")',
