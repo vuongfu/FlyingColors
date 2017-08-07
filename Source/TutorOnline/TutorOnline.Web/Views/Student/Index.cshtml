@@ -1,0 +1,342 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.hc-user-btn {
+width: 280px;
+height: 95px;
+background-color: forestgreen;
+font-size: 16px;
+font-weight: bold;
+padding-left: 60px; text-align: left;
+padding-top: 36px;
+position: relative;
+text-transform: uppercase;
+position: relative;
+border-radius: 10px;
+display: inline-block;
+margin-bottom: 10px;
+color: white
+}
+
+.hc-user-btn:hover {
+    background-color: cornflowerblue
+}
+
+.hc-user-btn:hover, .hc-user-btn:visited, .hc-user-btn:focus  {color: white; text-decoration: none}
+.center{
+text-align: center !important;
+}
+i.hc-user-btn-info {
+  background-image: url("../img/2016/ubutton-bg.png");
+  background-position: 0 0;
+  height: 43px;
+  left: 6px;
+  position: absolute;
+  top: 24px;
+  width: 43px;
+}
+div.eline {height: 0px; margin-top: 10px; margin-bottom: 10px; width: 100%}
+.header-line{
+	margin-top:45px;
+}
+.col-box-one {
+	padding-right:30px;
+}
+.section-header-one{
+	text-align: center;
+	margin-top:25px;
+}
+.txtlink {
+color: lawngreen;
+text-decoration: none;
+margin-left: 20px;
+font-size: 16px;
+}
+.txtlink:hover {
+text-decoration: none;
+}
+</style>
+<section id="nutluachon">
+    <div class="container">
+        <div class="col-sm-6 center">
+            <a class="hc-user-btn" href="javascript:void(0):;">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
+        </div>
+        <div class="col-sm-6 center">
+            <a class="hc-user-btn" href="javascript:void(0):;">Quá trình học tập <i class="hc-user-btn-timeline"></i></a>
+        </div>
+        <div clas="eline">&nbsp;</div>
+        <div class="col-sm-6 center">
+            <a class="hc-user-btn" href="javascript:void(0):;">Nạp tiền &amp; Thanh toán <i class="hc-user-btn-charge"></i></a>
+        </div>
+        <div class="col-sm-6 center">
+            <a class="hc-user-btn" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
+        </div>
+        <div clas="eline">&nbsp;</div>
+        <div class="col-sm-6 center">
+            <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
+        </div>
+        <div class="col-sm-6 center">
+            <a class="hc-user-btn" href="javascript:;" onclick="showSection()">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
+        </div>
+    </div>
+</section>
+<section id="schedule">
+    <div class="col-md-12 col-box-one header-line">
+        <div class="col-md-12 section-header-one center">
+            <h2>Lịch học của bạn</h2>
+        </div>
+        <div class="col-lg-11" style="text-align: right">
+            <a href="@Url.Action("ViewSchedule","Student")" class="txtlink"><h4>Xem tất cả</h4></a>
+        </div>
+    <div class="col-lg-offset-1 col-lg-10 container-fluid">
+        <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
+            <tr>
+                <th></th>
+                <th scope="col" style="width:75px;">08:00 - 08:45</th>
+                <th scope="col" style="width:75px;">09:00 - 09:45</th>
+                <th scope="col" style="width:75px;">10:00 - 10:45</th>
+                <th scope="col" style="width:75px;">11:00 - 11:45</th>
+                <th scope="col" style="width:75px;">13:00 - 13:45</th>
+                <th scope="col" style="width:75px;">14:00 - 14:45</th>
+                <th scope="col" style="width:75px;">15:00 - 15:45</th>
+                <th scope="col" style="width:75px;">16:00 - 16:45</th>
+                <th scope="col" style="width:75px;">19:00 - 19:45</th>
+                <th scope="col" style="width:75px;">20:00 - 20:45</th>
+                <th scope="col" style="width:75px;">21:00 - 21:45</th>
+            </tr>
+            <tr id="RowSun">
+                <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Sun@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowMon">
+                <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Mon@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowTue">
+                <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Tue@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowWed">
+                <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Wed@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowThu">
+                <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Thu@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowFri">
+                <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Fri@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowSat">
+                <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Sat@(temp)"></td>
+                }
+            </tr>
+        </table>
+    </div>
+</section>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    var selectedWeek = 0;
+    var startDate;
+    var endDate;
+    var StudentId = @ViewBag.StudentId;
+
+    function bindData() {
+        $("#WeekSelect").attr("disabled", "disabled");
+        $('.slotpick tr td').removeClass('availableSlot');
+        $('.slotpick tr td').removeClass('finishedSlot');
+        $('.slotpick tr td').removeClass('bookedSlot');
+        $('.slotpick tr td').removeClass('canceledSlot');
+        var items = document.getElementsByTagName('td');
+        for (var i = 0; i < items.length; i++) {
+            var x = "";
+            items[i].innerHTML = x;
+        }
+
+
+        $.ajax({
+            url: '@Url.Action("GetBookedSlot", "Student")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'StudentId': StudentId }),
+            success: function (data) {
+                $("#WeekSelect").removeAttr("disabled");
+
+                for(i in data){
+                    var stt = data[i].Status;
+                    if(stt == 11)
+                        jQuery('#' + data[i].tableSlotId).addClass('availableSlot');
+                    else if(stt == 3)
+                        jQuery('#' + data[i].tableSlotId).addClass('finishedSlot');
+                    else if(stt == 4)
+                        jQuery('#' + data[i].tableSlotId).addClass('bookedSlot');
+                    else
+                        jQuery('#' + data[i].tableSlotId).addClass('canceledSlot');
+
+                    if(stt != 11){
+                        var x = "<a href=GetSlotDetail/";
+                        x += data[i].ScheduleId + ">";
+                        x += data[i].TutorName + "<br>" + data[i].LessonName + "</a>";
+                        document.getElementById(data[i].tableSlotId).innerHTML = x;
+                    }
+                }
+
+            },
+            error: function (xhr) {
+                alert("Error");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("table").on("click", "td", function() {
+            alert($( this ).text());
+        });
+    });
+    $(document).ready(function () {
+        startDate = new Date("@ViewBag.FirstDayOfWeek.ToShortDateString()");
+        endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+        bindData(selectedWeek);
+    });
+
+    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    $('.table tr td').live('mousemove', function () {
+        $(this).addClass('ui-state-hover');
+        var id = this.id;
+        var date = id.substring(0,3);
+        var num = id.substring(3);
+
+        for(i = 0 ; i< 7; i++){
+            var temp = "";
+            temp += days[i] + num;
+            if(id != temp)
+                jQuery('#' + temp).addClass('colSelect');
+        }
+
+        for(i = 1; i<= 11; i++){
+            var temp = "";
+            if(i < 10){
+                temp += date + "0";
+                temp += i;
+            }else{
+                temp += date + i;
+            }
+            if(id != temp)
+                jQuery('#' + temp).addClass('rowSelected');
+        }
+
+    })
+    $('.table tr td').live('mouseleave', function () {
+        $(this).removeClass('ui-state-hover');
+        var id = this.id;
+        var date = id.substring(0,3);
+        var num = id.substring(3);
+
+        for(i = 0 ; i< 7; i++){
+            var temp = "";
+            temp += days[i] + num;
+            if(id != temp)
+                jQuery('#' + temp).removeClass('colSelect');
+        }
+
+        for(i = 1; i<= 11; i++){
+            var temp = "";
+            if(i < 10){
+                temp += date + "0";
+                temp += i;
+            }else{
+                temp += date + i;
+            }
+            if(id != temp)
+                jQuery('#' + temp).removeClass('rowSelected');
+        }
+    })
+
+    $(".ui-datepicker-calendar tr").live("mousemove", function() {
+        $(this).find("td a").addClass("ui-state-hover");
+        $(this).find(".ui-datepicker-week-col").addClass("ui-state-hover");
+    });
+    $(".ui-datepicker-calendar tr").live("mouseleave", function() {
+        $(this).find("td a").removeClass("ui-state-hover");
+        $(this).find(".ui-datepicker-week-col").removeClass("ui-state-hover");
+    });
+</script>
+<style>
+    .onmouse {
+        background-color: gray;
+    }
+
+    .availableSlot {
+        background-color: greenyellow;
+    }
+
+    .colSelect {
+        border-left-style: groove !important;
+        border-right-style: groove !important;
+        border-left-width: 2px !important;
+        border-right-width: 2px !important;
+    }
+
+    .rowSelected {
+        border-top-style: groove !important;
+        border-bottom-style: groove !important;
+        border-top-width: 2px !important;
+        border-bottom-width: 2px !important;
+    }
+
+    .finishedSlot {
+        background-color: skyblue;
+    }
+
+    .bookedSlot {
+        background-color: gold;
+    }
+
+    .canceledSlot {
+        background-color: tomato;
+    }
+
+    .disableArrow {
+        opacity: 0.4;
+        cursor: no-drop;
+    }
+</style>
+

@@ -25,7 +25,6 @@ namespace TutorOnline.Web.Controllers
         TranStringCommon TranString = new TranStringCommon();
         private AccountantRepository AccRes = new AccountantRepository();
         private UsersRepository URes = new UsersRepository();
-
         IndexUserViewModel user = new IndexUserViewModel();
         // GET: Accountant
         public ActionResult Index(string searchString, string roleString, String StartDate, String EndDate, int? page, String Export, String Search)
@@ -135,20 +134,20 @@ namespace TutorOnline.Web.Controllers
                 if (DateTime.Parse(StartDate) != null)
                 {
                     DateTime SDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    ListTrans = ListTrans.Where(s => s.TranDate >= DateTime.Parse(StartDate)).ToList();
+                    ListTrans = ListTrans.Where(s => s.TranDate >= SDate).ToList();
                 }
             }
-            catch {  }
+            catch(Exception e) {new LogWriter(e.ToString()); }
 
             try
             {
                 if (DateTime.Parse(EndDate) != null)
                 {
                     DateTime EDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    ListTrans = ListTrans.Where(s => s.TranDate <= DateTime.Parse(EndDate)).ToList();
+                    ListTrans = ListTrans.Where(s => s.TranDate <= EDate).ToList();
                 }
             }
-            catch  { }
+            catch (Exception e) { new LogWriter(e.ToString()); }
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -193,13 +192,13 @@ namespace TutorOnline.Web.Controllers
                     for (int i = 0; i < ListTrans.Count(); i++)
                     {
                         worksheet.Cells[i + 2, 1].Value = i+1;
-                        worksheet.Cells[i + 2, 1].Value = ListTrans[i].TransactionId.ToString();
-                        worksheet.Cells[i + 2, 2].Value = ListTrans[i].Content.ToString();
-                        worksheet.Cells[i + 2, 3].Value = ListTrans[i].Amount.ToString();
-                        worksheet.Cells[i + 2, 4].Value = ListTrans[i].TranDate.ToString();
-                        worksheet.Cells[i + 2, 5].Value = ListTrans[i].UserName.ToString();
-                        worksheet.Cells[i + 2, 6].Value = ListTrans[i].UserTypeName.ToString();
-                        worksheet.Cells[i + 2, 7].Value = ListTrans[i].Name.ToString();
+                        worksheet.Cells[i + 2, 2].Value = ListTrans[i].TransactionId.ToString();
+                        worksheet.Cells[i + 2, 3].Value = ListTrans[i].Content.ToString();
+                        worksheet.Cells[i + 2, 4].Value = ListTrans[i].Amount.ToString();
+                        worksheet.Cells[i + 2, 5].Value = ListTrans[i].TranDate.ToString();
+                        worksheet.Cells[i + 2, 6].Value = ListTrans[i].UserName.ToString();
+                        worksheet.Cells[i + 2, 7].Value = ListTrans[i].UserTypeName.ToString();
+                        worksheet.Cells[i + 2, 8].Value = ListTrans[i].Name.ToString();
                     }
                         memStream = new System.IO.MemoryStream(package.GetAsByteArray());
                 }
@@ -414,10 +413,12 @@ namespace TutorOnline.Web.Controllers
             if (TransactionViewModel.Amount == 0)
             {
                 ViewBag.message = TranString.WrongAmount;
+                return View(TransactionViewModel);
             }
             if(TransactionViewModel.Balance + TransactionViewModel.Amount < 0)
             {
                 ViewBag.message = "Số dư hiện tại không đủ.";
+                return View(TransactionViewModel);
             }
             else { ViewBag.message = TranString.UpdateFailed; }
             return View(TransactionViewModel);

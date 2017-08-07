@@ -5,59 +5,67 @@
 <link href="~/Scripts/entry-main.css" rel="stylesheet" />
 @{
     ViewBag.title = "viewcategory";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     //layout = "~/views/shared/_layout_backenduser.cshtml";
 }
 <style>
     body {
-        background-color: #e0dbd9;
+        background: none;
     }
 
 
 </style>
 <body>
-    <h2>viewcategory</h2>
+    
     <div id="khoahoc" class="container">
-        <div class="row">
-            <h3 class="text-center text-muted">khóa học</h3>
-        </div>
-        <br />
-        @for (int i = 0; i < ViewBag.totalRecord; i = i + 4)
-        {<div class="row">
-        @for (int j = 0; j <= 3; j++)
+        @if (Model.Count != 0)
         {
-            if (i + j < ViewBag.totalRecord)
-            {
-                @*<a href="ViewCategory?SubjectId=@Model[i + j].SubjectId">xx
-                    <div class="col-md-3">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="~/image/TutorOnline_Icon.png" alt="card image cap">
-                            <div class="card-block"  id="card-block">
-                                <h4 class="card-title">@Html.DisplayFor(modelitem => Model[i + j].SubjectName)</h4>
-                                <p class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelitem => Model[i + j].Purpose)</p>
+            <div class="row">
+                <h3 class="text-center text-muted">@Model[0].CategoryName</h3>
+            </div>
+        }
+        <br />
+        @for (int i = 0; i < ViewBag.totalRecord; i = i + 5)
+        {
+            <div class="row">
+                @for (int j = 0; j <= 4; j++)
+                {
+                    if (i + j < ViewBag.totalRecord)
+                    {
+                        @*<a href="ViewCategory?SubjectId=@Model[i + j].SubjectId">xx
+                            <div class="col-md-3">
+                                <div class="card" style="width: 20rem;">
+                                    <img class="card-img-top" src="~/image/TutorOnline_Icon.png" alt="card image cap">
+                                    <div class="card-block"  id="card-block">
+                                        <h4 class="card-title">@Html.DisplayFor(modelitem => Model[i + j].SubjectName)</h4>
+                                        <p class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelitem => Model[i + j].Purpose)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>*@
+                        <div class="slider-list--item--3nEQO col-md-3" style="margin-right: 0px;">
+                            <div class="merchandising-course-card--card--Ef5aV merchandising-course-card--card__list-view--13LYX">
+                                <a href="SubjectDetail?SubjectId=@Model[i + j].SubjectId" class="merchandising-course-card--mask--2NGzX">
+                                    <span class="merchandising-course-card--card__options--2slCk">
+                                        <img src="~/image/Course.jpg" alt="@Model[i + j].SubjectName" class="merchandising-course-card--card__image--2oGQE" height="240" width="240">
+                                    </span>
+                                    <span class="merchandising-course-card--card__details--1G7gB">
+                                        <span class="merchandising-course-card--details__name--3h_2f">@Model[i + j].SubjectName</span>
+                                        <div class="merchandising-course-card--card__instructor-titles--IJ4_5">
+                                            <p class="dib" data-purpose="course-card-instructor-titles"> @Model[i + j].Purpose </p>
+                                        </div> 
+                                    </span>
+                                </a>
                             </div>
                         </div>
-                    </div>
-                </a>*@
-                <div class="slider-list--item--3nEQO col-md-3" style="margin-right: 0px;">
-                    <div class="merchandising-course-card--card--Ef5aV merchandising-course-card--card__list-view--13LYX">
-                        <a href="SubjectDetail?SubjectId=@Model[i + j].SubjectId" class="merchandising-course-card--mask--2NGzX">
-                            <span class="merchandising-course-card--card__options--2slCk">
-                                <img src="~/image/Course.jpg" alt="@Model[i + j].SubjectName" class="merchandising-course-card--card__image--2oGQE" height="240" width="240">
-                            </span>
-                            <span class="merchandising-course-card--card__details--1G7gB">
-                                <span class="merchandising-course-card--details__name--3h_2f">@Model[i + j].SubjectName</span>
-                                <div class="merchandising-course-card--card__instructor-titles--IJ4_5">
-                                    <p class="dib" data-purpose="course-card-instructor-titles"> @Model[i + j].Purpose </p>
-                                </div> 
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            }
+                    }
+                }
+            </div>
         }
-    </div>
-        }
+        <p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong tổng số @Model.PageCount trang</p>
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
+        
     </div>
 </body>
 

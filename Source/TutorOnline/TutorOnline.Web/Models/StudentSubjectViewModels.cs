@@ -41,4 +41,17 @@ namespace TutorOnline.Web.Models
         public String Description { get; set; }
         public List<Schedule> ListSchedule { get; set; }
     }
+
+    public class BookedSlot
+    {
+        public string tableSlotId { get; set; }
+
+        public int ScheduleId { get; set; }
+
+        public string LessonName { get; set; }
+
+        public string TutorName { get; set; }
+
+        public int Status { get; set; }
+    }
 }
