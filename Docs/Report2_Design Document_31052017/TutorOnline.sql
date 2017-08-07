@@ -166,6 +166,20 @@ CREATE TABLE [Criteria] (
 	[isActived] bit not null default 1
 );
 
+CREATE TABLE [Schedule] (
+	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
+	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[OrderSlot] int NOT NULL,
+	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NULL,
+	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NULL,
+	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
+	[Type] [int] NULL,
+	[CanReason] [nvarchar](1000) NULL,
+	[Price] [money] NOT NULL,
+	CONSTRAINT UC_DateSlot UNIQUE (TutorId,OrderDate,OrderSlot)
+);
+
 CREATE TABLE [StudentFeedback] (
 	[StudentFeedbackId] [int] IdENTITY(1,1) PRIMARY KEY,
 	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
@@ -211,21 +225,6 @@ CREATE TABLE [TutorSubject] (
 	CONSTRAINT UC_TutorSub UNIQUE (SubjectId, TutorId),
 	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
 	[Experience] [nvarchar](4000) not null
-);
-
-CREATE TABLE [Schedule] (
-	[ScheduleId] [int] IdENTITY(1,1) PRIMARY KEY,
-	[TutorId] [int] FOREIGN KEY REFERENCES [Tutor](TutorId) NOT NULL,
-	[OrderDate] [datetime] NOT NULL,
-	[OrderSlot] int NOT NULL,
-	[StudentId] [int] FOREIGN KEY REFERENCES [Student](StudentId) NULL,
-	[LessonId] [int] FOREIGN KEY REFERENCES [Lesson](LessonId) NULL,
-	[Status] [int] FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL,
-	[Type] [int] NULL,
-	[CanReason] [nvarchar](1000) NULL,
-	[Price] [money] NOT NULL,
-	CONSTRAINT UC_DateSlot UNIQUE (TutorId,OrderDate,OrderSlot)
-
 );
 
 CREATE TABLE [AuditLog] (
@@ -355,49 +354,49 @@ INSERT INTO [Lesson] ([Order],LessonName,SubjectId,Content) VALUES (6,N'Bài 6',
 
 
 --Insert data to Criteria table ?????
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',1,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',1,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',1,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',2,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',2,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',2,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',3,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',3,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',3,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',4,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',4,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',4,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',5,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',5,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',5,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',6,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',6,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',6,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',7,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',7,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',7,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',8,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',8,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',8,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',1,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',1,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',1,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',2,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',2,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',2,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',3,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',3,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',3,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',4,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',4,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',4,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',5,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',5,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',5,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',6,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',6,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',6,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',7,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',7,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',7,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',8,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',8,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',8,6);
 
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',9,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',9,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',9,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',10,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',10,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',10,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',11,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',11,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',11,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',12,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',12,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',12,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',13,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',13,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',13,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',14,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',14,1);
-INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',14,1);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',9,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',9,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',9,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',10,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',10,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',10,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',11,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',11,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',11,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',12,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',12,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',12,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',13,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',13,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',13,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng đọc',14,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng phát âm',14,6);
+INSERT INTO [Criteria] (CriteriaName,LessonId,RoleId) VALUES (N'Khả năng tiếp thu',14,6);
 
 --Insert data to StudentFeedback
 

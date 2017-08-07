@@ -1,5 +1,8 @@
 ﻿@model TutorOnline.Web.Models.SubjectDetailViewModels
 @using TutorOnline.Common;
+@using TutorOnline.DataAccess;
+@using System.Linq;
+
 <style>
     #imgBanner {
   background-image: url("../Image/banner.jpg");
@@ -257,6 +260,9 @@ td:last-child {
 .delete:hover {
   color: #dc2a2a;
 }
+.test:hover {
+  color: lawngreen;
+}
 </style>
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
@@ -310,7 +316,20 @@ $(document).ready(function () {
         });
     });
 });
+
+    function Download(Id){
+        window.location = '/Student/Download?LessonId=' + Id;
+    }
+
+    function Test(Id){
+        window.location = '/Student/Test?LessonId=' + Id;
+    }
+    //function ShowModelPopUp () {
+    //    window.open('https://www.facebook.com/messages/t/1471929032860044', "PopupWindow", 'width=400px,height=400px,top=150,left=250');
+
+    //}
 </script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
     <section id="imgBanner">
         <h2>Course Details</h2>
@@ -363,11 +382,15 @@ $(document).ready(function () {
                                             <td>@(ViewBag.Count++)</td>
                                             @if (ViewBag.Count <= Model.StudiedLesson)
                                             {
-                                                <td><a href="#">@item.LessonName</a></td>
+                                                <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = DateTime.Today.ToString(), Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
                                             }
                                             else
-                                            {<td>@item.LessonName</td>}
-                                            <td></td>
+                                            {<td>@item.Content</td>}
+                                            <td>
+                                                <i class="material-icons button edit">feedback</i>
+                                                <i class="material-icons button delete" onclick="Download(@item.LessonId)">file_download</i>
+                                                <i class="material-icons button test" onclick="Test(@item.LessonId)">edit</i>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>

@@ -12,12 +12,12 @@ namespace TutorOnline.Business.Repository
     {
         public IEnumerable<StudentSubject> GetAllSubject()
         {
-            var StudentSubjects = _dbContext.StudentSubjects.Include(x => x.Subject).Where(x => x.Status == 1);
+            var StudentSubjects = _dbContext.StudentSubjects.Include(x => x.Subject);
             return StudentSubjects;
         }
         public IEnumerable<StudentSubject> GetSubById(int? SubjectId, int? StudentId)
         {
-            var StudentSubjects = _dbContext.StudentSubjects.Include(x => x.Subject).Where(x => x.Status == 1 && x.SubjectId == SubjectId && x.StudentId == StudentId);
+            var StudentSubjects = _dbContext.StudentSubjects.Include(x => x.Subject).Where(x => x.SubjectId == SubjectId && x.StudentId == StudentId);
             return StudentSubjects;
         }
         public StudentSubject FindSubject(int? id)
@@ -32,7 +32,6 @@ namespace TutorOnline.Business.Repository
         }
         public void AddSubject(StudentSubject StudentSubject)
         {
-            StudentSubject.Status = 1;
             _dbContext.StudentSubjects.Add(StudentSubject);
             _dbContext.SaveChanges();
         }

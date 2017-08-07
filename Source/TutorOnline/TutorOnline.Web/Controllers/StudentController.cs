@@ -7,11 +7,14 @@ using System.Web.Mvc;
 using TutorOnline.Business.Repository;
 using TutorOnline.Web.Models;
 using TutorOnline.DataAccess;
-
+using System.Globalization;
+using TutorOnline.Common;
+using System.IO;
+using Ionic.Zip;
 
 namespace TutorOnline.Web.Controllers
 {
-    [System.Web.Mvc.Authorize(Roles = "Student")]
+    [System.Web.Mvc.Authorize(Roles = UserCommonString.Student)]
     public class StudentController : Controller
     {
         SubjectsRepository SubRes = new SubjectsRepository();
@@ -24,45 +27,144 @@ namespace TutorOnline.Web.Controllers
         StudentRepository StuRes = new StudentRepository();
         AccountantRepository AccRes = new AccountantRepository();
         UsersRepository URes = new UsersRepository();
+        CategoriesRepository CateRes = new CategoriesRepository();
+
+        static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
+        static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
 
         // GET: Student
         public ActionResult Index()
         {
+            DateTime firstDayWeek1 = firstDayOfWeek;
+            ViewBag.CurrentWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            firstDayWeek1 = firstDayWeek1.AddDays(7);
+            ViewBag.FirstWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            firstDayWeek1 = firstDayWeek1.AddDays(7);
+            ViewBag.SecondWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            ViewBag.FirstDayOfWeek = firstDayOfWeek;
+
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int StudentId = int.Parse(Uid);
+
+            ViewBag.StudentId = StudentId;
 
             return View();
         }
-        public ActionResult ViewCategory( int? page, int Category)
+        public ActionResult ViewCategory(int? CategoryId, int? page )
         {
-            int pageSize = 9;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
-            var Subject = SubRes.GetAllSubject().Where(s => s.CategoryId == Category);
+            
             List<SubjectsViewModels> ListSub = new List<SubjectsViewModels>();
-            foreach(var item in Subject)
+            if(CategoryId != null)
             {
-                SubjectsViewModels temp = new SubjectsViewModels();
-                temp.CategoryId = item.CategoryId;
-                temp.Description = item.Description;
-                temp.Photo = item.Photo;
-                temp.Purpose = item.Purpose;
-                temp.SubjectId = item.SubjectId;
-                temp.SubjectName = item.SubjectName;
-                temp.Requirement = item.Requirement;
-                ListSub.Add(temp);
+                var Subject = SubRes.GetAllSubject().Where(s => s.CategoryId == CategoryId);
+                foreach (var item in Subject)
+                {
+                    SubjectsViewModels temp = new SubjectsViewModels();
+                    temp.CategoryId = item.CategoryId;
+                    temp.CategoryName = item.Category.CategoryName;
+                    temp.Description = item.Description;
+                    temp.Photo = item.Photo;
+                    temp.Purpose = item.Purpose;
+                    temp.SubjectId = item.SubjectId;
+                    temp.SubjectName = item.SubjectName;
+                    temp.Requirement = item.Requirement;
+                    ListSub.Add(temp);
+                }
             }
             ViewBag.totalRecord = ListSub.Count();
             return View(ListSub.OrderBy(x => x.SubjectId).ToPagedList(pageNumber, pageSize));
         }
+
+        public ActionResult ViewAllCategory()
+        {
+            List<SubjectsViewModels> ListSub = new List<SubjectsViewModels>();
+                var Subject = SubRes.GetAllSubject().OrderBy(x => x.SubjectId);
+                foreach (var item in Subject)
+                {
+                    SubjectsViewModels temp = new SubjectsViewModels();
+                    temp.CategoryName = item.Category.CategoryName;
+                    temp.CategoryId = item.CategoryId;
+                    temp.Description = item.Description;
+                    temp.Photo = item.Photo;
+                    temp.Purpose = item.Purpose;
+                    temp.SubjectId = item.SubjectId;
+                    temp.SubjectName = item.SubjectName;
+                    temp.Requirement = item.Requirement;
+                    ListSub.Add(temp);
+                }
+            List<List<SubjectsViewModels>> Result = new List<List<SubjectsViewModels>>();
+            List<Category> ListCate = CateRes.GetAllCategories().ToList();
+
+            foreach(var item in ListCate)
+            {
+                List<SubjectsViewModels> temp = new List<SubjectsViewModels>();
+                temp = ListSub.Where(x => x.CategoryId == item.CategoryId).ToList();
+
+                Result.Add(temp);
+            }
+            
+            return View(Result);
+        }
+
+        public ActionResult ViewStudentSubject()
+        {
+            List<SubjectsViewModels> ListSub = new List<SubjectsViewModels>();
+            if (Request.Cookies["UserInfo"]["UserId"] != null)
+            {
+                int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+                var StudentSubject = StuSubRes.GetAllSubject().Where(x => x.StudentId == StudentId && x.Status == 8).OrderBy(x => x.SubjectId);
+                foreach (var item in StudentSubject)
+                {
+                    SubjectsViewModels temp = new SubjectsViewModels();
+                    temp.CategoryName = item.Subject.Category.CategoryName;
+                    temp.CategoryId = item.Subject.CategoryId;
+                    temp.Description = item.Subject.Description;
+                    temp.Photo = item.Subject.Photo;
+                    temp.Purpose = item.Subject.Purpose;
+                    temp.SubjectId = item.Subject.SubjectId;
+                    temp.SubjectName = item.Subject.SubjectName;
+                    temp.Requirement = item.Subject.Requirement;
+                    ListSub.Add(temp);
+                }
+            }
+            List<List<SubjectsViewModels>> Result = new List<List<SubjectsViewModels>>();
+            List<Category> ListCate = CateRes.GetAllCategories().ToList();
+
+            foreach (var item in ListCate)
+            {
+                List<SubjectsViewModels> temp = new List<SubjectsViewModels>();
+                temp = ListSub.Where(x => x.CategoryId == item.CategoryId).ToList();
+
+                Result.Add(temp);
+            }
+
+            return View(Result);
+        }
+
         public ActionResult SubjectDetail(int SubjectId)
         {
             int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
             StudentSubject StuSubject = StuSubRes.GetSubById(SubjectId, StudentId).FirstOrDefault();
-            if(StuSubject != null && StuSubject.Status != 7)
+            if (StuSubject != null && StuSubject.Status != 7)
             {
                 ViewBag.isRegistered = 1;
             }
             Subject Subject = SubRes.GetAllSubject().Where(s => s.SubjectId == SubjectId).FirstOrDefault();
             SubjectDetailViewModels SubjectDetail = new SubjectDetailViewModels();
-            if(Subject != null)
+            if (Subject != null)
             {
                 SubjectDetail.Photo = Subject.Photo;
                 SubjectDetail.Purpose = Subject.Purpose;
@@ -70,7 +172,7 @@ namespace TutorOnline.Web.Controllers
 
                 if (StuSubject != null) { SubjectDetail.StudiedLesson = StuSubject.StudiedLesson; }
                 else { SubjectDetail.StudiedLesson = 0; }
-                
+
                 SubjectDetail.SubjectId = Subject.SubjectId;
                 SubjectDetail.SubjectName = Subject.SubjectName;
                 SubjectDetail.Description = Subject.Description;
@@ -78,6 +180,27 @@ namespace TutorOnline.Web.Controllers
                 SubjectDetail.ListLesson = LesRes.GetAllLessons().Where(s => s.SubjectId == Subject.SubjectId).ToList();
             }
             return View(SubjectDetail);
+        }
+
+        //Install DotNetZip Nuget
+        public FileResult Download (int LessonId)
+        {
+            Lesson Lesson = LesRes.FindLesson(LessonId);
+            var outputStream = new MemoryStream();
+
+            using (var zip = new ZipFile())
+            {
+                foreach (var item in Lesson.LearningMaterials)
+                {
+                    String path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content\Uploads\Documents\" + item.MaterialUrl);
+                    zip.AddItem(path, "");
+                }
+                zip.Save(outputStream);
+            }
+
+            outputStream.Position = 0;
+            return File(outputStream, "application/zip", Lesson.LessonName + ".zip");
+            
         }
 
         //install Microsoft.AspNet.WebApi.Core
@@ -92,7 +215,7 @@ namespace TutorOnline.Web.Controllers
                 if (StuSub != null)
                 {
                     //Thêm check tiến độ.
-                    if(StuSub.StudiedLesson >= LesRes.GetAllLessons().Where(s => s.SubjectId == Subject.SubjectId).Count())
+                    if (StuSub.StudiedLesson >= LesRes.GetAllLessons().Where(s => s.SubjectId == Subject.SubjectId).Count())
                     {
                         StuSub.Status = 10;
                     } else { StuSub.Status = 8; }
@@ -134,7 +257,7 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Test(int? LessonId)
         {
             List<QuestionTestViewModels> listQuest = new List<QuestionTestViewModels>();
-            if(LessonId != null)
+            if (LessonId != null)
             {
                 var list = QuesRes.GetAllLesQuestion(LessonId).ToList();
                 foreach (var item in list)
@@ -177,7 +300,7 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
-            return Json(new { registeredSubject = "Bạn đã trả lời đúng "+score+" trên " + Result.ListAnswer.Count + " câu."});
+            return Json(new { registeredSubject = "Bạn đã trả lời đúng " + score + " trên " + Result.ListAnswer.Count + " câu." });
         }
 
         public ActionResult FeedBack(int SlotId)
@@ -204,7 +327,7 @@ namespace TutorOnline.Web.Controllers
             int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
             StudentSubject StudentSubject = StuSubRes.GetSubById(SubjectId, StudentId).FirstOrDefault();
             //change to today
-            DateTime Date = DateTime.Parse("07/8/2017");
+            DateTime Date = DateTime.Today;
             Date = Date.AddDays(Week * 7);
             DateTime ChoosedDate = DateTime.Parse(SelectedDate);
             ViewBag.LessonId = LessonId;
@@ -222,7 +345,7 @@ namespace TutorOnline.Web.Controllers
                 List<Schedule> TutorSchedule = ScheRes.GetTutorSchedule(ChoosedDate, item.TutorId);
                 TutorScheduleViewModels temp = new TutorScheduleViewModels();
                 temp.ListSchedule = TutorSchedule;
-                if(Tutor != null)
+                if (Tutor != null)
                 {
                     temp.Photo = Tutor.Photo;
                     temp.Description = Tutor.Description;
@@ -232,12 +355,12 @@ namespace TutorOnline.Web.Controllers
 
                 ListSchedule.Add(temp);
             }
-            
+
             return View(ListSchedule);
         }
 
 
-        
+
         public ActionResult Book(int ScheduleId, int LessonId, int type)
         {
             Schedule Slot = ScheRes.FindSchedule(ScheduleId);
@@ -248,30 +371,30 @@ namespace TutorOnline.Web.Controllers
                 Slot.StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
             } catch
             {
-                return Json(new { BookSlot = false, Message ="Xin mời đăng nhập lại để thực hiện thao tác." });
+                return Json(new { BookSlot = false, Message = "Xin mời đăng nhập lại để thực hiện thao tác." });
             }
-            
 
-            if(type == 1)
+
+            if (type == 1)
             {
                 Student Student = URes.FindStudentUser(Slot.StudentId);
-                if(Student.Balance - Slot.Price < 0)
+                if (Student.Balance - Slot.Price < 0)
                 {
                     return Json(new { BookSlot = false, Message = "Tài khoản của bạn không đủ để thực hiện thao tác này." });
-                } else { 
+                } else {
                     Transaction Tran = new Transaction();
                     Tran.Amount = Slot.Price * -1;
                     Tran.Content = "Trừ tiền buổi học " + Slot.ScheduleId + " của học viên " + Student.UserName;
                     Tran.UserID = Student.StudentId;
                     Tran.UserType = 6;
-                    Tran.TranDate = DateTime.Today;
+                    Tran.TranDate = DateTime.Now;
                     AccRes.Add(Tran);
-                    if(Slot.Price != 0)
+                    if (Slot.Price != 0)
                     {
                         Student.Balance = Student.Balance - Slot.Price;
                         URes.EditStudentUser(Student);
-                    }                    
-                } 
+                    }
+                }
             }
 
             ScheRes.EditSchedule(Slot);
@@ -283,8 +406,8 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Cancel(int ScheduleId)
         {
             Schedule Slot = ScheRes.FindSchedule(ScheduleId);
-            DateTime SlotTime = new DateTime(Slot.OrderDate.Year, Slot.OrderDate.Month, Slot.OrderDate.Day,int.Parse(GetSlotTime(Slot.OrderSlot)),0,0);
-            if(SlotTime <= DateTime.Now.AddDays(4))
+            DateTime SlotTime = new DateTime(Slot.OrderDate.Year, Slot.OrderDate.Month, Slot.OrderDate.Day, int.Parse(GetSlotTime(Slot.OrderSlot)), 0, 0);
+            if (SlotTime <= DateTime.Now.AddDays(4))
             {
                 return Json(new { BookSlot = false, Message = "Bạn phải hủy môn học trước ít nhất 24 tiếng." });
             }
@@ -293,7 +416,7 @@ namespace TutorOnline.Web.Controllers
             ScheRes.EditSchedule(Slot);
             String SlotTimeNew = GetSlotTime(Slot.OrderSlot) + ":00";
 
-            if(Slot.Type == 1)
+            if (Slot.Type == 1)
             {
                 Student Student = URes.FindStudentUser(Slot.StudentId);
                 Transaction Tran = new Transaction();
@@ -301,15 +424,82 @@ namespace TutorOnline.Web.Controllers
                 Tran.Content = "Hoàn tiền buổi học " + Slot.ScheduleId + " của học viên " + Student.UserName;
                 Tran.UserID = Student.StudentId;
                 Tran.UserType = 6;
-                Tran.TranDate = DateTime.Today;
+                Tran.TranDate = DateTime.Now;
                 AccRes.Add(Tran);
                 Student.Balance = Student.Balance + Slot.Price;
                 URes.EditStudentUser(Student);
             }
-            return Json(new { BookSlot = true,  Time = SlotTimeNew});
+            return Json(new { BookSlot = true, Time = SlotTimeNew });
         }
 
-        public string GetSlotTime(int SlotOrder)
+        public ActionResult ViewSchedule()
+        {
+            DateTime firstDayWeek1 = firstDayOfWeek;
+            ViewBag.CurrentWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            firstDayWeek1 = firstDayWeek1.AddDays(7);
+            ViewBag.FirstWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            firstDayWeek1 = firstDayWeek1.AddDays(7);
+            ViewBag.SecondWeek = firstDayWeek1.ToShortDateString() + " - " + firstDayWeek1.AddDays(6).ToShortDateString();
+
+            ViewBag.FirstDayOfWeek = firstDayOfWeek;
+
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int StudentId = int.Parse(Uid);
+
+            ViewBag.StudentId = StudentId;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetBookedSlot(DateTime startDate, DateTime endDate, int StudentId)
+        {
+            var week0 = StuRes.GetAllSlotBookedByStudent(startDate, endDate, StudentId);
+            List<BookedSlot> returnData = new List<BookedSlot>();
+            List<string> SlotOfWeek0 = MapEntityToModel(week0, startDate);
+
+            for (int i = 0; i < week0.Count(); i++)
+            {
+                BookedSlot temp = new BookedSlot();
+                temp.Status = week0.ElementAt(i).Status;
+                temp.tableSlotId = SlotOfWeek0[i];
+                if (temp.Status != 11)
+                {
+                    temp.ScheduleId = week0.ElementAt(i).ScheduleId;
+                    temp.TutorName = week0.ElementAt(i).Tutor.FirstName;
+                    temp.LessonName = week0.ElementAt(i).Lesson.LessonName;
+                }
+                returnData.Add(temp);
+            }
+
+            return Json(returnData, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<string> MapEntityToModel(IEnumerable<Schedule> ListData, DateTime StartDate)
+        {
+            List<string> returnList = new List<string>();
+            string[] namesDays = DateTimeFormatInfo.CurrentInfo.AbbreviatedDayNames;
+
+            foreach (var item in ListData)
+            {
+                string day = namesDays[(item.OrderDate - StartDate).Days];
+                string temp = day + String.Format("{0:00}", item.OrderSlot);
+                returnList.Add(temp);
+            }
+            return returnList;
+        }
+        
+        private string GetSlotTime(int SlotOrder)
         {
             String time = "";
             switch (SlotOrder)
