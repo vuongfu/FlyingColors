@@ -108,13 +108,10 @@
             if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
-            if (parseInt($(this).val()) >= 1000000000) {  e.preventDefault();  }
-            if (parseInt($(this).val()) <= -1000000000) { e.preventDefault(); }
+            if (parseInt($(this).val()) >= 100000000) { e.preventDefault(); }
+            if (parseInt($(this).val()) <= -100000000) { e.preventDefault(); }
         });
-        $("#change").keyup(function (e){
-            if (parseInt($(this).val()) >= 1000000000) { $(this).val(999999999); e.preventDefault(); }
-            if (parseInt($(this).val()) <= -1000000000) { $(this).val(-999999999); e.preventDefault(); }
-        });
+
         $("#change").keyup(function () {
             $("#money").text(docso($(this).val()));
         });

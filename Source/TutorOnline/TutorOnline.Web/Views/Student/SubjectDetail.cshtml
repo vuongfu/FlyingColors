@@ -4,265 +4,308 @@
 @using System.Linq;
 
 <style>
-    #imgBanner {
-  background-image: url("../Image/banner.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  display: inline;
-  float: left;
-  height: 300px;
-  margin-top: 77px;
-  padding: 118px 0;
-  text-align: center;
-  width: 100%;
-}
-#imgBanner h2 {
-  color: #fff;
-  font-size: 72px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-}
-#courseArchive{
-  float: left;
-  display: inline;
-  width: 100%;
-  background-color: #f6f6f6;
-  padding: 60px 0px;
-}
-.courseArchive_content{
-  float: left;
-  display: inline;
-  width: 100%;
-}
-.courseArchive_content .single_course {
-  margin-bottom: 30px;
-}
-.pagination li a{
-  -webkit-transition: all 0.5s;
-  -mz-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.pagination li a:hover,.pagination li a:focus{
-  color: #fff;
-}
-.courseArchive_sidebar{
-  background-color: #fff;
-  float: left;
-  display: inline;
-  width: 100%; 
-  padding: 12px;
-  min-height: 500px;
-}
-.single_sidebar{
-  float: left;
-  display: inline;
-  width: 100%;
-  margin-bottom: 15px;  
-}
-.single_sidebar > h2 {
-  color: #fff;
-  font-size: 26px;
-  padding: 0 5px;
-  margin-bottom: 15px;
-}
-.single_sidebar > h2 span{
-  font-size: 24px;
-}
-.single_sidebar .news_tab .media-body > a {
-  margin-top: 0;
-}
-.single_sidebar > ul > li>a {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 5px;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.single_sidebar > ul > li>a:hover,.single_sidebar > ul > li>a:focus{
-  text-decoration: none;
-  outline: none;
-}
-.singlecourse_ferimg_area{
-  float: left;
-  display: inline;
-  width: 100%;
-  background-color: #ffffff;
-}
-.singlecourse_ferimg{
-  float: left;
-  display: inline;
-  width: 100%;
-}
-.singlecourse_ferimg > img {
-  max-height: 350px;
-  width: 100%;
-}
-.singlecourse_bottom {
-  display: inline;
-  float: left;
-  padding: 15px;
-  width: 100%;
-}
-.singlecourse_bottom > h2 {
-  display: inline-block;
-  float: left;
-  font-size: 18px;
-  margin-right: 20px;
-  padding-bottom: 0px;
-}
-.singlecourse_author{
-  float: left;
-  display: inline-block;
-  color: #c0c1c1;
-  font-size: 15px;
-  -webkit-transition: all 0.5s ease 0s;
-  -ms-transition: all 0.5s ease 0s;
-  -o-transition: all 0.5s ease 0s;
-  transition: all 0.5s ease 0s;  
-}
-.singlecourse_author:hover{
-  color: #000;
-}
-.singlecourse_author img{
-  border-radius: 50%;
-  height: 40px;
-  /*margin-bottom: 25px;*/
-  margin-right: 15px;
-  width: 40px;
-}
-.singlecourse_price {
-  display: inline-block;
-  float: right;
-  font-size: 25px;
-  margin-top: 4px;
-}
-.single_course_content {
-  display: inline;
-  float: left;
-  margin-top: 35px;
-  width: 100%;
-}
-.single_course_content > h2 {
-  margin-bottom: 15px;
-  text-transform: uppercase;
-}
-.single_course_content > p {
-  font-size: 15px;
-  line-height: 1.9em;
-}
-.course_table{
-  margin-top: 50px;
-  background-color: #fff;
-}
-.course_table thead{
-  color: #fff;
-}
-.course_table thead>tr>th{
-  color: #ffffff;
-  text-transform: uppercase;
-}
-@@media(max-width:767px ){
-.navbar-default .navbar-nav > li > a {padding: 10px 20px;}
-.navbar-nav > li > .dropdown-menu {left: 15px;}	
-.navbar-nav > li > .dropdown-menu:before {border-left: 10px solid transparent;border-right: 10px solid transparent;right: 65%;}
-.navbar-toggle{margin-top: 15px;}
-.navbar-default .navbar-brand {margin-bottom: 8px;margin-top: 8px;}
-.navbar-nav > li > .dropdown-menu:before {display: none;}
-.slider_caption {width: 90%;}
-.slider_right_caption {left: 5%;}
-.slider_caption h2 {font-size: 25px;line-height: 35px;}
-.slider_area {margin-top: 66px;}
-.aboutus_area {padding-right: 0px;margin-bottom: 30px;}
-.single_whyus_top {margin-bottom: 30px;}
-.single_skill {margin-bottom: 30px;}
-.single_stsTestimonial { margin-bottom: 30px;}
-.footer_bootomLeft {margin-bottom: 10px;text-align: center;}
-.footer_bootomRight {text-align: center;}
-.single_footer_widget {text-align: center;}
-.footer_social{text-align: center;}
-.footer_social li {display: inline-block;}
-#imgBanner {margin-top: 65px;}
-#imgBanner h2 {font-size: 50px;}
-.courseArchive_content {margin-bottom: 65px;}
-.gallery_area a {width: 28.5%;}
-.contact_address {margin-top: 50px;text-align: center;}
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+        #imgBanner {
+      background-image: url("../Image/banner.jpg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      display: inline;
+      float: left;
+      height: 300px;
+      margin-top: 77px;
+      padding: 118px 0;
+      text-align: center;
+      width: 100%;
+    }
+    #imgBanner h2 {
+      color: #fff;
+      font-size: 72px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    #courseArchive{
+      float: left;
+      display: inline;
+      width: 100%;
+      background-color: #f6f6f6;
+      padding: 60px 0px;
+    }
+    .courseArchive_content{
+      float: left;
+      display: inline;
+      width: 100%;
+    }
+    .courseArchive_content .single_course {
+      margin-bottom: 30px;
+    }
+    .pagination li a{
+      -webkit-transition: all 0.5s;
+      -mz-transition: all 0.5s;
+      -ms-transition: all 0.5s;
+      -o-transition: all 0.5s;
+      transition: all 0.5s;
+    }
+    .pagination li a:hover,.pagination li a:focus{
+      color: #fff;
+    }
+    .courseArchive_sidebar{
+      background-color: #fff;
+      float: left;
+      display: inline;
+      width: 100%;
+      padding: 12px;
+      min-height: 500px;
+    }
+    .single_sidebar{
+      float: left;
+      display: inline;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .single_sidebar > h2 {
+      color: #fff;
+      font-size: 26px;
+      padding: 0 5px;
+      margin-bottom: 15px;
+    }
+    .single_sidebar > h2 span{
+      font-size: 24px;
+    }
+    .single_sidebar .news_tab .media-body > a {
+      margin-top: 0;
+    }
+    .single_sidebar > ul > li>a {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 5px;
+      -webkit-transition: all 0.5s;
+      -o-transition: all 0.5s;
+      transition: all 0.5s;
+    }
+    .single_sidebar > ul > li>a:hover,.single_sidebar > ul > li>a:focus{
+      text-decoration: none;
+      outline: none;
+    }
+    .singlecourse_ferimg_area{
+      float: left;
+      display: inline;
+      width: 100%;
+      background-color: #ffffff;
+    }
+    .singlecourse_ferimg{
+      float: left;
+      display: inline;
+      width: 100%;
+    }
+    .singlecourse_ferimg > img {
+      max-height: 350px;
+      width: 100%;
+    }
+    .singlecourse_bottom {
+      display: inline;
+      float: left;
+      padding: 15px;
+      width: 100%;
+    }
+    .singlecourse_bottom > h2 {
+      display: inline-block;
+      float: left;
+      font-size: 18px;
+      margin-right: 20px;
+      padding-bottom: 0px;
+    }
+    .singlecourse_author{
+      float: left;
+      display: inline-block;
+      color: #c0c1c1;
+      font-size: 15px;
+      -webkit-transition: all 0.5s ease 0s;
+      -ms-transition: all 0.5s ease 0s;
+      -o-transition: all 0.5s ease 0s;
+      transition: all 0.5s ease 0s;
+    }
+    .singlecourse_author:hover{
+      color: #000;
+    }
+    .singlecourse_author img{
+      border-radius: 50%;
+      height: 40px;
+      /*margin-bottom: 25px;*/
+      margin-right: 15px;
+      width: 40px;
+    }
+    .singlecourse_price {
+      display: inline-block;
+      float: right;
+      font-size: 25px;
+      margin-top: 4px;
+    }
+    .single_course_content {
+      display: inline;
+      float: left;
+      margin-top: 35px;
+      width: 100%;
+    }
+    .single_course_content > h2 {
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+    .single_course_content > p {
+      font-size: 15px;
+      line-height: 1.9em;
+    }
+    .course_table{
+      margin-top: 50px;
+      background-color: #fff;
+    }
+    .course_table thead{
+      color: #fff;
+    }
+    .course_table thead>tr>th{
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+    @@media(max-width:767px ){
+    .navbar-default .navbar-nav > li > a {padding: 10px 20px;}
+    .navbar-nav > li > .dropdown-menu {left: 15px;}
+    .navbar-nav > li > .dropdown-menu:before {border-left: 10px solid transparent;border-right: 10px solid transparent;right: 65%;}
+    .navbar-toggle{margin-top: 15px;}
+    .navbar-default .navbar-brand {margin-bottom: 8px;margin-top: 8px;}
+    .navbar-nav > li > .dropdown-menu:before {display: none;}
+    .slider_caption {width: 90%;}
+    .slider_right_caption {left: 5%;}
+    .slider_caption h2 {font-size: 25px;line-height: 35px;}
+    .slider_area {margin-top: 66px;}
+    .aboutus_area {padding-right: 0px;margin-bottom: 30px;}
+    .single_whyus_top {margin-bottom: 30px;}
+    .single_skill {margin-bottom: 30px;}
+    .single_stsTestimonial { margin-bottom: 30px;}
+    .footer_bootomLeft {margin-bottom: 10px;text-align: center;}
+    .footer_bootomRight {text-align: center;}
+    .single_footer_widget {text-align: center;}
+    .footer_social{text-align: center;}
+    .footer_social li {display: inline-block;}
+    #imgBanner {margin-top: 65px;}
+    #imgBanner h2 {font-size: 50px;}
+    .courseArchive_content {margin-bottom: 65px;}
+    .gallery_area a {width: 28.5%;}
+    .contact_address {margin-top: 50px;text-align: center;}
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #333;
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #333;
+    }
 
-table {
-  text-align: left;
-  line-height: 40px;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 2px solid #78ADC9;
-  width: 500px;
-  margin: 50px auto;
-  border-radius: .25rem;
-}
+    table {
+      text-align: left;
+      line-height: 40px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 2px solid #78ADC9;
+      width: 500px;
+      margin: 50px auto;
+      border-radius: .25rem;
+    }
 
-thead tr:first-child {
-  background: #78ADC9;
-  color: #fff;
-  border: none;
-}
+    thead tr:first-child {
+      background: #78ADC9;
+      color: #fff;
+      border: none;
+    }
 
-th:first-child,
-td:first-child {
-  padding: 0 15px 0 20px;
-}
+    th:first-child,
+    td:first-child {
+      padding: 0 15px 0 20px;
+    }
 
-thead tr:last-child th {
-  border-bottom: 3px solid #ddd;
-}
+    thead tr:last-child th {
+      border-bottom: 3px solid #ddd;
+    }
 
-tbody tr:hover {
-  background-color: #9ECAE1;
-  cursor: default;
-}
+    tbody tr:hover {
+      background-color: #9ECAE1;
+      cursor: default;
+    }
 
-tbody tr:last-child td {
-  border: none;
-}
+    tbody tr:last-child td {
+      border: none;
+    }
 
-tbody td {
-  border-bottom: 1px solid #ddd;
-}
+    tbody td {
+      border-bottom: 1px solid #ddd;
+    }
 
-td:last-child {
-  text-align: right;
-  padding-right: 10px;
-}
+    td:last-child {
+      text-align: right;
+      padding-right: 10px;
+    }
 
-.button {
-  color: #aaa;
-  cursor: pointer;
-  vertical-align: middle;
-}
+    .button {
+      color: #aaa;
+      cursor: pointer;
+      vertical-align: middle;
+    }
 
-.edit:hover {
-  color: #0a79df;
-}
+    .edit:hover {
+      color: #0a79df;
+    }
 
-.delete:hover {
-  color: #dc2a2a;
-}
-.test:hover {
-  color: lawngreen;
-}
+    .delete:hover {
+      color: #dc2a2a;
+    }
+    .test:hover {
+      color: lawngreen;
+    }
+    .wrapper {
+                padding: 20px;
+                margin: 50px auto;
+                width: 400px;
+                min-height: 200px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0,0,0,.1);
+                background-color: #fff;
+            }
+            .rating{
+                overflow: hidden;
+                vertical-align: bottom;
+                display: inline-block;
+                width: auto;
+                height: 20px;
+                margin-right: 60px;
+            }
+            .rating > input{
+                opacity: 0;
+                margin-right: -100%;
+            }
+            .rating > label{
+                position: relative;
+                display: block;
+                float: right;
+                background: url('/Image/star-off-big.png');
+                background-size: 20px 20px;
+            }
+            .rating > label:before{
+                display: block;
+                opacity: 0;
+                content: '';
+                width: 20px;
+                height: 20px;
+                background: url('/Image/star-on-big.png');
+                background-size: 20px 20px;
+                transition: opacity 0.2s linear;
+            }
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating:not(:hover) > :checked ~ label:before{
+                opacity: 1;
+            }
 </style>
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
@@ -271,51 +314,51 @@ td:last-child {
     ViewBag.Count = 1;
 }
 <script>
-$(document).ready(function () {
-    $(document).on('click','#register',function (e) {
+    $(document).ready(function () {
+        $(document).on('click','#register',function (e) {
 
-        var model = {   StudentSubjectId : null ,
-                        SubjectId : @Model.SubjectId,
-                        StudentId : null,
-                        Status : null
-                    };
-        var url = "@Url.Action("RegisterSubject", "Student")";
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(model),
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            success: function (response) {
-                $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng kí môn học</h4></button>' );
-                $("#clicked").text(response.registeredSubject);
-                $("#clicked").css({'color':'#68f442'});
-            }
+            var model = {   StudentSubjectId : null ,
+                SubjectId : @Model.SubjectId,
+                StudentId : null,
+                Status : null
+            };
+            var url = "@Url.Action("RegisterSubject", "Student")";
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(model),
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (response) {
+                    $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng kí môn học</h4></button>' );
+                    $("#clicked").text(response.registeredSubject);
+                    $("#clicked").css({'color':'#68f442'});
+                }
+            });
         });
     });
-});
-$(document).ready(function () {
-    $(document).on('click','#unregister',function (e) {
-        var model = {   StudentSubjectId : null ,
-            SubjectId : @Model.SubjectId,
-            StudentId : null,
-            Status : null
-        };
-        var url = "@Url.Action("UnRegisterSubject", "Student")";
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(model),
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            success: function (response) {
-                $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí môn học</h4></button>' );
-                $("#clicked").text(response.registeredSubject);
-                $("#clicked").css({'color':'#d10202'});
-            }
+    $(document).ready(function () {
+        $(document).on('click','#unregister',function (e) {
+            var model = {   StudentSubjectId : null ,
+                SubjectId : @Model.SubjectId,
+                StudentId : null,
+                Status : null
+            };
+            var url = "@Url.Action("UnRegisterSubject", "Student")";
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(model),
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (response) {
+                    $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí môn học</h4></button>' );
+                    $("#clicked").text(response.registeredSubject);
+                    $("#clicked").css({'color':'#d10202'});
+                }
+            });
         });
     });
-});
 
     function Download(Id){
         window.location = '/Student/Download?LessonId=' + Id;
@@ -324,10 +367,50 @@ $(document).ready(function () {
     function Test(Id){
         window.location = '/Student/Test?LessonId=' + Id;
     }
-    //function ShowModelPopUp () {
-    //    window.open('https://www.facebook.com/messages/t/1471929032860044', "PopupWindow", 'width=400px,height=400px,top=150,left=250');
 
-    //}
+    function bindData(Id) {
+        $.ajax({
+            url: '@Url.Action("GetFeedBack", "Student")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'LessonId': Id}),
+            success: function (data) {
+                if(data != null){
+                    var x = "";
+                    for(i in data.Result)
+                    {
+                        if(i < data.Count){
+                            x += '<div class="row">';
+                            x += '<div class="col-sm-4 col-md-4" align="right">';
+                            x += '<b>'+data.Result[i].CriterionName+':</b>';
+                            x += '</div>';
+                            x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                            for(var j = 5; j >= 1; j--){
+                                if(data.Result[i].CriterionValue == j){
+                                    x += '<input type="radio" name="'+data.Result[i].CriterionName+'" value="'+j+'" checked disabled>';
+                                } else {
+                                    x += '<input type="radio" name="'+data.Result[i].CriterionName+'" value="'+j+'" disabled>';
+                                }
+                                x += '<label for="'+data.Result[i].CriterionName+j+'">'+j+'</label>';
+                            }
+                            x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+                        }
+                    }
+                    $("#Criteria").html(x);
+                }
+            },
+            error: function (xhr) {
+                alert("Error");
+            }
+        });
+    }
+    function FeedBack(Id)
+    {
+        $('#FeedbackModal').modal("show");
+        bindData(Id);
+    }
 </script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
@@ -379,12 +462,12 @@ $(document).ready(function () {
                                     @foreach (var item in Model.ListLesson)
                                     {
                                         <tr>
-                                            <td>@(ViewBag.Count++)</td>
-                                            @if (ViewBag.Count <= Model.StudiedLesson + 1)
+                                            <td>@(ViewBag.Count)</td>
+                                            @if (ViewBag.Count < Model.StudiedLesson + 1)
                                             {
                                                 <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = DateTime.Today.ToString(), Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
                                                 <td>
-                                                    <i class="material-icons button edit">feedback</i>
+                                                    <i class="material-icons button edit" onclick="FeedBack(@item.LessonId)">feedback</i>
                                                     <i class="material-icons button delete" onclick="Download(@item.LessonId)">file_download</i>
                                                     <i class="material-icons button test" onclick="Test(@item.LessonId)">edit</i>
                                                 </td>
@@ -397,7 +480,8 @@ $(document).ready(function () {
                                                     <i class="material-icons button delete">file_download</i>
                                                     <i class="material-icons button test">edit</i>
                                                 </td>
-                                            } else
+                                            }
+                                            else
                                             {
                                                 <td>@item.Content</td>
                                                 <td>
@@ -407,6 +491,7 @@ $(document).ready(function () {
                                                 </td>
                                             }
                                         </tr>
+                                        ViewBag.Count++;
                                     }
                                 </tbody>
                             </table>
@@ -417,74 +502,96 @@ $(document).ready(function () {
                 <!-- End course content -->
                 <!-- start course archive sidebar -->
                 @*<div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="courseArchive_sidebar">
-                        <!-- start single sidebar -->
-                        <div class="single_sidebar">
-                            <h2>Events <span class="fa fa-angle-double-right"></span></h2>
-                            <ul class="news_tab">
-                                <li>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#" class="news_img">
-                                                <img alt="img" src="img/news.jpg" class="media-object">
-                                            </a>
+                        <div class="courseArchive_sidebar">
+                            <!-- start single sidebar -->
+                            <div class="single_sidebar">
+                                <h2>Events <span class="fa fa-angle-double-right"></span></h2>
+                                <ul class="news_tab">
+                                    <li>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="#" class="news_img">
+                                                    <img alt="img" src="img/news.jpg" class="media-object">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="#">Dummy text of the printing and typesetting industry</a>
+                                                <span class="feed_date">27.02.15</span>
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <a href="#">Dummy text of the printing and typesetting industry</a>
-                                            <span class="feed_date">27.02.15</span>
+                                    </li>
+                                    <li>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="#" class="news_img">
+                                                    <img alt="img" src="img/news.jpg" class="media-object">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="#">Dummy text of the printing and typesetting industry</a>
+                                                <span class="feed_date">28.02.15</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#" class="news_img">
-                                                <img alt="img" src="img/news.jpg" class="media-object">
-                                            </a>
+                                    </li>
+                                    <li>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="#" class="news_img">
+                                                    <img alt="img" src="img/news.jpg" class="media-object">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="#">Dummy text of the printing and typesetting industry</a>
+                                                <span class="feed_date">28.02.15</span>
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <a href="#">Dummy text of the printing and typesetting industry</a>
-                                            <span class="feed_date">28.02.15</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#" class="news_img">
-                                                <img alt="img" src="img/news.jpg" class="media-object">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#">Dummy text of the printing and typesetting industry</a>
-                                            <span class="feed_date">28.02.15</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End single sidebar -->
+                            <!-- start single sidebar -->
+                            <div class="single_sidebar">
+                                <h2>Quick Links <span class="fa fa-angle-double-right"></span></h2>
+                                <ul>
+                                    <li><a href="#">Link 1</a></li>
+                                    <li><a href="#">Link 2</a></li>
+                                    <li><a href="#">Link 3</a></li>
+                                    <li><a href="#">Link 4</a></li>
+                                    <li><a href="#">Link 5</a></li>
+                                </ul>
+                            </div>
+                            <!-- End single sidebar -->
+                            <!-- start single sidebar -->
+                            <div class="single_sidebar">
+                                <h2>Sponsor Add <span class="fa fa-angle-double-right"></span></h2>
+                                <a class="side_add" href="#"><img src="img/side-add.jpg" alt="img"></a>
+                            </div>
+                            <!-- End single sidebar -->
                         </div>
-                        <!-- End single sidebar -->
-                        <!-- start single sidebar -->
-                        <div class="single_sidebar">
-                            <h2>Quick Links <span class="fa fa-angle-double-right"></span></h2>
-                            <ul>
-                                <li><a href="#">Link 1</a></li>
-                                <li><a href="#">Link 2</a></li>
-                                <li><a href="#">Link 3</a></li>
-                                <li><a href="#">Link 4</a></li>
-                                <li><a href="#">Link 5</a></li>
-                            </ul>
-                        </div>
-                        <!-- End single sidebar -->
-                        <!-- start single sidebar -->
-                        <div class="single_sidebar">
-                            <h2>Sponsor Add <span class="fa fa-angle-double-right"></span></h2>
-                            <a class="side_add" href="#"><img src="img/side-add.jpg" alt="img"></a>
-                        </div>
-                        <!-- End single sidebar -->
-                    </div>
-                </div>*@
+                    </div>*@
                 <!-- start course archive sidebar -->
+            </div>
+        </div>
+    </div>
+    <!-- Modal feedback -->
+    <div class="modal fade" id="FeedbackModal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Đánh giá học sinh</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8" id="Criteria">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
             </div>
         </div>
     </div>

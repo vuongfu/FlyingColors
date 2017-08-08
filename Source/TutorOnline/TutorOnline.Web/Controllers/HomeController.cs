@@ -11,7 +11,7 @@ namespace TutorOnline.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (Request.Cookies["Role"] != null)
+            if (Request.Cookies["Role"] != null && User.Identity.IsAuthenticated)
             {
                 string Rname = null;
                 string Rid = null;

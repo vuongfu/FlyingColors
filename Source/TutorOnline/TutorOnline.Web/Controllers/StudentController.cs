@@ -28,6 +28,7 @@ namespace TutorOnline.Web.Controllers
         AccountantRepository AccRes = new AccountantRepository();
         UsersRepository URes = new UsersRepository();
         CategoriesRepository CateRes = new CategoriesRepository();
+        FeedBackRepository FBRes = new FeedBackRepository();
 
         static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
         static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
@@ -201,6 +202,58 @@ namespace TutorOnline.Web.Controllers
             outputStream.Position = 0;
             return File(outputStream, "application/zip", Lesson.LessonName + ".zip");
             
+        }
+
+        public ActionResult GetFeedBack(int? LessonId, int? ScheduleId)
+        {
+            TutorFeedback returnData = new TutorFeedback();
+            if (LessonId != null)
+            {
+                int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+                returnData = FBRes.GetTutorFeedBackByLesson(LessonId.Value, StudentId).FirstOrDefault();
+            }
+            if (ScheduleId != null)
+            {
+                returnData = FBRes.GetTutorFeedBackBySchedule(ScheduleId.Value).FirstOrDefault();
+            }
+
+            List<FeedBackDetail> Result = new List<FeedBackDetail>();
+
+            
+
+            foreach (var item in returnData.TutorFeedbackDetails)
+            {
+                FeedBackDetail temp = new FeedBackDetail();
+                temp.CriterionName = item.Criterion.CriteriaName;
+                temp.CriterionValue = item.CriteriaValue.ToString();
+                Result.Add(temp);
+            }
+            FeedBackDetail Test = new FeedBackDetail();
+            Test.CriterionName = "Test Score";
+            if(returnData.TestResult == null)
+            {
+                Test.CriterionValue = "Chưa làm bài kiểm tra";
+            } else
+            {
+                Test.CriterionValue = returnData.TestResult.ToString();
+            }
+
+            Result.Add(Test);
+
+            FeedBackDetail Comment = new FeedBackDetail();
+            if(returnData.Comment != null)
+            {
+                Comment.CriterionValue = returnData.Comment;
+            } else
+            {
+                Comment.CriterionValue = "Không có phản hồi thêm cho bài học này";
+            }
+            
+            Comment.CriterionName = "Comment";
+
+            Result.Add(Comment);
+
+            return Json(new {Result = Result, Count = returnData.TutorFeedbackDetails.Count} , JsonRequestBehavior.AllowGet);
         }
 
         //install Microsoft.AspNet.WebApi.Core
