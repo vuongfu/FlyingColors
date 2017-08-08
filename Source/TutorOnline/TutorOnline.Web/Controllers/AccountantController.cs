@@ -371,7 +371,7 @@ namespace TutorOnline.Web.Controllers
 
             trans.UserID = id;
             trans.UserName = user.Username;
-            trans.Name = user.LastName + user.FirstName;
+            trans.Name = user.LastName + " " + user.FirstName;
             trans.Balance = (int)user.Balance;
             trans.UserTypeName = user.RoleName;
             if(user.RoleName == "Học sinh") { trans.UserType = 1; }
