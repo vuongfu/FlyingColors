@@ -19,6 +19,18 @@ namespace TutorOnline.Web.Controllers
         private AnswersRepository ARes = new AnswersRepository();
         private SubjectsRepository SRes = new SubjectsRepository();
 
+        public bool IsValidUri(String uri)
+        {
+            try
+            {
+                new Uri(uri);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public ActionResult CreateLinkQuestion(int? subId)
         {
             if (subId == null)
@@ -30,7 +42,6 @@ namespace TutorOnline.Web.Controllers
 
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateLinkQuestion(QuestionLinkViewModels model)
@@ -41,6 +52,13 @@ namespace TutorOnline.Web.Controllers
             if (ModelState.IsValid)
             {
                 Question question = new Question();
+                if(IsValidUri(model.Link) == false)
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().uriIsNotValid.ToString();
+                    ViewBag.subId = subId;
+                    ViewBag.subName = subName;
+                    return View(model);
+                }
                 if (QRes.isExistsQuestionLink(model.Link, subId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionLink.ToString();

@@ -69,6 +69,8 @@ namespace TutorOnline.Common
         public string rejectedTutorSubjectMoreSuccess = "Đã từ chối khóa dạy đăng ký thêm của gia sư thành công.";
         public string updateSalaryForTutorSuccess = "Tiền lương đã được cập nhật.";
 
+        public string uriIsNotValid = "Link bài tập tham khảo không khả dụng. Hãy nhập lại!";
+
         public string vn = "Vietnam";
         public string foreign = "foreign";
     }

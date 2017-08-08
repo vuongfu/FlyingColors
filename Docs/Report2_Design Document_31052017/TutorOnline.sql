@@ -863,5 +863,5 @@ INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'phiripin',70,0);
 
 
 --Insert data to Transaction table
-
-
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nộp 500000 VNĐ',500000,'05/08/2017 16:05:00',1,1);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả lương cho tutor1',1000000,'08/08/2017 08:00:00',1,2);                                       
