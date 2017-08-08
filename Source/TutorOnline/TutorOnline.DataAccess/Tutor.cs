@@ -37,7 +37,7 @@ namespace TutorOnline.DataAccess
         public string PostalCode { get; set; }
         public string Country { get; set; }
         public string PhoneNumber { get; set; }
-        public Nullable<decimal> Balance { get; set; }
+        public decimal Balance { get; set; }
         public string BankId { get; set; }
         public Nullable<decimal> Salary { get; set; }
         public string Photo { get; set; }

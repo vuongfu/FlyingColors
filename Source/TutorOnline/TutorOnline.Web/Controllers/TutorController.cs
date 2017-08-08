@@ -16,6 +16,7 @@ namespace TutorOnline.Web.Controllers
     public class TutorController : Controller
     {
         private TutorRepository TuRes = new TutorRepository();
+        private ScheduleRespository SchRes = new ScheduleRespository();
 
         static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
         static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
@@ -43,10 +44,10 @@ namespace TutorOnline.Web.Controllers
                 }
             }
             int tutorId = int.Parse(Uid);
-            var week0 = TuRes.GetAllSlotInTwoDates(firstDayOfWeek, firstDayOfWeek.AddDays(6), tutorId);
-            var week1 = TuRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(7), firstDayOfWeek.AddDays(13), tutorId);
-            var week2 = TuRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(14), firstDayOfWeek.AddDays(20), tutorId);
-            var SlotBookedByStudent = TuRes.GetAllSlotBookedByStudentNotStart(firstDayOfWeek, firstDayOfWeek.AddDays(20), tutorId);
+            var week0 = SchRes.GetAllSlotInTwoDates(firstDayOfWeek, firstDayOfWeek.AddDays(6), tutorId);
+            var week1 = SchRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(7), firstDayOfWeek.AddDays(13), tutorId);
+            var week2 = SchRes.GetAllSlotInTwoDates(firstDayOfWeek.AddDays(14), firstDayOfWeek.AddDays(20), tutorId);
+            var SlotBookedByStudent = SchRes.GetAllSlotBookedByStudentNotStart(firstDayOfWeek, firstDayOfWeek.AddDays(20), tutorId);
 
             List<string> SlotOfWeek0 = MapEntityToModel(week0, firstDayOfWeek);
             List<string> SlotOfWeek1 = MapEntityToModel(week1, firstDayOfWeek.AddDays(7));
@@ -105,7 +106,7 @@ namespace TutorOnline.Web.Controllers
 
             TutorBookSlotViewModel tempData = MapDataFromView(slot, temp);
 
-            TuRes.CancelSlot(tempData.TutorId,int.Parse(tempData.OrderSlot), tempData.OrderDate, reason);
+            SchRes.CancelSlot(tempData.TutorId,int.Parse(tempData.OrderSlot), tempData.OrderDate, reason);
 
             return Json("Hủy thành công", JsonRequestBehavior.AllowGet);
         }
@@ -151,7 +152,7 @@ namespace TutorOnline.Web.Controllers
                 }
             }
             int tutorId = int.Parse(Uid);
-            var SlotBookedGetFromDB = TuRes.GetAllSlotInTwoDates(firstDayOfWeek, firstDayOfWeek.AddDays(20), tutorId);
+            var SlotBookedGetFromDB = SchRes.GetAllSlotInTwoDates(firstDayOfWeek, firstDayOfWeek.AddDays(20), tutorId);
 
             foreach(var item in SlotBooked)
             {
@@ -165,7 +166,7 @@ namespace TutorOnline.Web.Controllers
                     data.OrderDate = item.OrderDate;
                     data.Price = TuRes.GetPriceOfSlot(item.TutorId);
                     data.Status = TuRes.GetDefaultStatusIdForSlot();
-                    TuRes.AddSlotBooked(data);
+                    SchRes.AddSlotBookedByTutor(data);
                 }
             }
 
@@ -182,7 +183,7 @@ namespace TutorOnline.Web.Controllers
 
             foreach(int id in DeleteList)
             {
-                TuRes.DeleteSlotBooked(id);
+                SchRes.DeleteSlotBookedOfTutor(id);
             }
 
             return Json("Lưu thành công", JsonRequestBehavior.AllowGet);
@@ -267,7 +268,7 @@ namespace TutorOnline.Web.Controllers
         [HttpPost]
         public ActionResult GetBookedSlotByStudent(DateTime startDate, DateTime endDate, int TutorId)
         {
-            var week0 = TuRes.GetAllSlotBookedByStudent(startDate, endDate, TutorId);
+            var week0 = SchRes.GetAllSlotBookedByStudent(startDate, endDate, TutorId);
             List<BookedSlotByStudent> returnData = new List<BookedSlotByStudent>();
             List<string> SlotOfWeek0 = MapEntityToModel(week0, startDate);
 
@@ -290,7 +291,7 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult GetSlotDetail(int id)
         {
-            Schedule data = TuRes.getSlotById(id);
+            Schedule data = SchRes.getSlotById(id);
             DetailBookedSlotByStudent model = new DetailBookedSlotByStudent();
 
             if(data != null)
@@ -339,7 +340,8 @@ namespace TutorOnline.Web.Controllers
                 model.CriteriaId = dataForCriteId;
                 model.CriteriaContent = dataForCriteContent;
                 model.ScheduleDate = data.OrderDate;
-
+                var feedback = TuRes.FindFeedbackForStudent(id);
+                model.Comment = feedback.Comment;
                 var now = DateTime.Now;
 
             }
@@ -377,10 +379,10 @@ namespace TutorOnline.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveFeedback(List<int> listCreId, List<int> listValue, int scheduleId)
+        public ActionResult SaveFeedback(List<int> listCreId, List<int> listValue, int scheduleId, string comment)
         {
            
-            var slot = TuRes.getSlotById(scheduleId);
+            var slot = SchRes.getSlotById(scheduleId);
 
             int check = TuRes.getTutorFeedbackId(slot.TutorId, slot.ScheduleId, (int)slot.StudentId);
             if(check != -1)
@@ -392,6 +394,7 @@ namespace TutorOnline.Web.Controllers
             feedback.LessonId = (int)slot.LessonId;
             feedback.ScheduleId = scheduleId;
             feedback.FeedbackDate = DateTime.Now;
+            feedback.Comment = comment;
             TuRes.AddTutorFeedback(feedback);
 
             int feedbackId = TuRes.getTutorFeedbackId(feedback.TutorId, feedback.ScheduleId, feedback.StudentId);

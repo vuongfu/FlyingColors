@@ -24,8 +24,8 @@ namespace TutorOnline.DataAccess
         public int ScheduleId { get; set; }
     
         public virtual Lesson Lesson { get; set; }
+        public virtual Schedule Schedule { get; set; }
         public virtual Student Student { get; set; }
         public virtual Tutor Tutor { get; set; }
-        public virtual Schedule Schedule { get; set; }
     }
 }

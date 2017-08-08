@@ -9,7 +9,7 @@
     <div class="col-xs-12 col-sm-6 col-md-8 col-sm-offset-1 col-md-offset-1">
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6" align="center">
-                <h3>Thông tin học viên</h3>
+                <h3>Thông tin học sinh</h3>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6" align="center">
                 <h3>Thông tin tiết học</h3>
@@ -181,9 +181,17 @@
                                     </div>
                                     <div class="col-sm-4 col-md-4"></div>
                                 </div>
+                                
                             }
-
-                                                     
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-2 col-md-2" align="right">
+                                    <b>Nhận xét:</b>
+                                </div>
+                                <div class="col-md-5 col-sm-5">
+                                    <textarea class="form-control input-lg" style="width:100%;" tabindex="20" id="CommentFeedback" name="CommentFeedback" rows="5">@(Model.Comment==null?"":Model.Comment)</textarea>
+                                </div>
+                            </div>                        
                         </div>
                     </div>
                 </div>                 
@@ -209,10 +217,12 @@
 <script type="text/javascript">
     var listCreId = new Array();
     var listValue = new Array();
+    var comment;
 
     function getDataFeedBack() {
         listValue.splice(0, listValue.length);
         listCreId.splice(0, listCreId.length);
+        comment = $("textarea[name='CommentFeedback']").val();
 
         @foreach(var item in Model.CriteriaId)
         {
@@ -236,7 +246,7 @@
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             traditional: true,
-            data: JSON.stringify({ 'listCreId': listCreId, 'listValue': listValue, 'scheduleId': @Model.ScheduleId }),
+            data: JSON.stringify({ 'listCreId': listCreId, 'listValue': listValue, 'scheduleId': @Model.ScheduleId, 'comment':comment }),
             success: function (data) {
                 jQuery('#loadingImg').addClass('hidden');
                 jQuery('#MessSave').removeClass('hidden');
@@ -244,6 +254,7 @@
                 document.getElementById("MessSave").innerHTML = "Đánh giá về sinh viên đã được lưu lại.";
                 document.getElementById("TitleLoading").innerHTML = "Lưu thành công.";
                 document.getElementById("btnFeedback").innerHTML = "Xem đánh giá";
+                document.getElementById("CommentFeedback").readOnly = "true";
                 var inputs = document.getElementsByTagName('input');
                 for(var i = 0; i < inputs.length; i++)
                 {
@@ -278,7 +289,7 @@
                     return false;
                 jQuery('#btnSubmitFeedback').addClass('hidden');             
                 document.getElementById("btnFeedback").innerHTML = "Xem đánh giá";
-                
+                document.getElementById("CommentFeedback").readOnly = "true";
                 for(i in data){
                     var id = "" + data[i].criteriaId + "" + data[i].value;
                     document.getElementById(id).click();

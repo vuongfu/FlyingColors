@@ -140,13 +140,7 @@ namespace TutorOnline.Business.Repository
             decimal dsalary = System.Convert.ToDecimal(salary);
             _dbContext.Tutors.Where(x => x.TutorId == tuId).ToList().ForEach(x => x.Salary = dsalary);
             _dbContext.SaveChanges();
-        }
-        public void DeleteSlotBooked(int id)
-        {
-            Schedule temp = _dbContext.Schedules.Find(id);
-            _dbContext.Schedules.Remove(temp);
-            _dbContext.SaveChanges();
-        }
+        }        
 
         public Decimal GetPriceOfSlot(int tutorId)
         {
@@ -165,42 +159,7 @@ namespace TutorOnline.Business.Repository
                 return temp.StatusId;
             return 0;
         }
-
-        public void AddSlotBooked(Schedule slot)
-        {
-            _dbContext.Schedules.Add(slot);
-            _dbContext.SaveChanges();
-        }
-
-        public IEnumerable<Schedule> GetAllSlotInTwoDates(DateTime StartDay, DateTime EndDay, int TutorId)
-        {
-            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && x.Status== 11);
-            return slot;
-        }
-
-        public IEnumerable<Schedule> GetAllSlotBookedByStudentNotStart(DateTime StartDay, DateTime EndDay, int TutorId)
-        {
-            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.Status == 4 && x.TutorId == TutorId);
-            return slot;
-        }
-
-        public void CancelSlot(int tutorId, int OrderSlot, DateTime OrderDate, string reason)
-        {
-            Schedule slot = _dbContext.Schedules.FirstOrDefault(x => x.TutorId == tutorId && x.OrderSlot == OrderSlot && x.OrderDate == OrderDate);
-            if(slot != null)
-            {
-                slot.Status = 5;
-                slot.CanReason = reason;
-                _dbContext.Entry(slot).State = EntityState.Modified;
-                _dbContext.SaveChanges();
-            }
-        }
-
-        public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int TutorId)
-        {
-            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && (x.Status == 4 || x.Status == 3 || x.Status ==5 || x.Status == 11));
-            return slot;
-        }
+          
 
         public void AddTutorSubject(TutorSubject data)
         {
@@ -214,12 +173,6 @@ namespace TutorOnline.Business.Repository
             if (temp != null)
                 return temp.TutorId;
             return -1;
-        }
-
-        public Schedule getSlotById(int id)
-        {
-            var temp = _dbContext.Schedules.Find(id);
-            return temp;
         }
 
         public TutorFeedback FindFeedbackForStudent( int scheduleId)

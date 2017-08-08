@@ -104,6 +104,8 @@ namespace TutorOnline.Web.Models
         public DateTime ScheduleDate { get; set; }
 
         public bool CanFeedback { get; set; }
+
+        public string Comment { get; set; }
     }
 
     public class ViewFeedbackViewModel
@@ -111,5 +113,6 @@ namespace TutorOnline.Web.Models
         public int criteriaId { get; set; }
 
         public int value { get; set; }
+
     }
 }

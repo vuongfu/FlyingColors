@@ -50,5 +50,52 @@ namespace TutorOnline.Business.Repository
             List<TutorSubject> TutorSubject = _dbContext.TutorSubjects.Where(x => x.SubjectId == SubjectId).ToList();
             return TutorSubject;
         }
+        public void DeleteSlotBookedOfTutor(int id)
+        {
+            Schedule temp = _dbContext.Schedules.Find(id);
+            _dbContext.Schedules.Remove(temp);
+            _dbContext.SaveChanges();
+        }
+        public void AddSlotBookedByTutor(Schedule slot)
+        {
+            _dbContext.Schedules.Add(slot);
+            _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<Schedule> GetAllSlotInTwoDates(DateTime StartDay, DateTime EndDay, int TutorId)
+        {
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && x.Status == 11);
+            return slot;
+        }
+
+        public IEnumerable<Schedule> GetAllSlotBookedByStudentNotStart(DateTime StartDay, DateTime EndDay, int TutorId)
+        {
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.Status == 4 && x.TutorId == TutorId);
+            return slot;
+        }
+
+        public void CancelSlot(int tutorId, int OrderSlot, DateTime OrderDate, string reason)
+        {
+            Schedule slot = _dbContext.Schedules.FirstOrDefault(x => x.TutorId == tutorId && x.OrderSlot == OrderSlot && x.OrderDate == OrderDate);
+            if (slot != null)
+            {
+                slot.Status = 5;
+                slot.CanReason = reason;
+                _dbContext.Entry(slot).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int TutorId)
+        {
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && (x.Status == 4 || x.Status == 3 || x.Status == 5 || x.Status == 11));
+            return slot;
+        }
+
+        public Schedule getSlotById(int id)
+        {
+            var temp = _dbContext.Schedules.Find(id);
+            return temp;
+        }
     }
 }

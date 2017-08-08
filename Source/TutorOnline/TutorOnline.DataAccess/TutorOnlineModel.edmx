@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TutorOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="AnswerId" />
@@ -115,7 +115,7 @@
           <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Balance" Type="money" />
+          <Property Name="Balance" Type="money" Nullable="false" />
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
@@ -181,7 +181,7 @@
           <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="24" Nullable="false" />
-          <Property Name="Balance" Type="money" />
+          <Property Name="Balance" Type="money" Nullable="false" />
           <Property Name="Photo" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="isActived" Type="bit" Nullable="false" />
@@ -253,7 +253,7 @@
           <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="24" Nullable="false" />
-          <Property Name="Balance" Type="money" />
+          <Property Name="Balance" Type="money" Nullable="false" />
           <Property Name="BankId" Type="nvarchar" MaxLength="50" />
           <Property Name="Salary" Type="money" />
           <Property Name="Photo" Type="varchar" MaxLength="100" />
@@ -896,7 +896,8 @@
             <End Role="TutorSubject" EntitySet="TutorSubject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TutorOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1028,7 +1029,7 @@
           <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
@@ -1082,8 +1083,8 @@
           <NavigationProperty Name="Status1" Relationship="Self.FK__Schedule__Status__73BA3083" FromRole="Schedule" ToRole="Status" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Schedule__Studen__71D1E811" FromRole="Schedule" ToRole="Student" />
           <NavigationProperty Name="Tutor" Relationship="Self.FK__Schedule__TutorI__70DDC3D8" FromRole="Schedule" ToRole="Tutor" />
-          <NavigationProperty Name="StudentFeedbacks" Relationship="TutorOnlineModel.FK__StudentFe__Sched__151B244E" FromRole="Schedule" ToRole="StudentFeedback" />
-          <NavigationProperty Name="TutorFeedbacks" Relationship="TutorOnlineModel.FK__TutorFeed__Sched__14270015" FromRole="Schedule" ToRole="TutorFeedback" />
+          <NavigationProperty Name="StudentFeedbacks" Relationship="Self.FK__StudentFe__Sched__151B244E" FromRole="Schedule" ToRole="StudentFeedback" />
+          <NavigationProperty Name="TutorFeedbacks" Relationship="Self.FK__TutorFeed__Sched__14270015" FromRole="Schedule" ToRole="TutorFeedback" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1114,7 +1115,7 @@
           <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isActived" Type="Boolean" Nullable="false" />
@@ -1138,11 +1139,11 @@
           <Property Name="FeedbackDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Rate" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK__StudentFe__Lesso__5812160E" FromRole="StudentFeedback" ToRole="Lesson" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK__StudentFe__Sched__151B244E" FromRole="StudentFeedback" ToRole="Schedule" />
           <NavigationProperty Name="Student" Relationship="Self.FK__StudentFe__Stude__571DF1D5" FromRole="StudentFeedback" ToRole="Student" />
           <NavigationProperty Name="Tutor" Relationship="Self.FK__StudentFe__Tutor__5629CD9C" FromRole="StudentFeedback" ToRole="Tutor" />
-          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Schedule" Relationship="TutorOnlineModel.FK__StudentFe__Sched__151B244E" FromRole="StudentFeedback" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="StudentSubject">
           <Key>
@@ -1205,7 +1206,7 @@
           <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="BankId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -1232,12 +1233,12 @@
           <Property Name="FeedbackDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="TestResult" Type="Int32" />
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK__TutorFeed__Lesso__5CD6CB2B" FromRole="TutorFeedback" ToRole="Lesson" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK__TutorFeed__Sched__14270015" FromRole="TutorFeedback" ToRole="Schedule" />
           <NavigationProperty Name="Student" Relationship="Self.FK__TutorFeed__Stude__5BE2A6F2" FromRole="TutorFeedback" ToRole="Student" />
           <NavigationProperty Name="Tutor" Relationship="Self.FK__TutorFeed__Tutor__5AEE82B9" FromRole="TutorFeedback" ToRole="Tutor" />
           <NavigationProperty Name="TutorFeedbackDetails" Relationship="Self.FK__TutorFeed__Tutor__5FB337D6" FromRole="TutorFeedback" ToRole="TutorFeedbackDetail" />
-          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Schedule" Relationship="TutorOnlineModel.FK__TutorFeed__Sched__14270015" FromRole="TutorFeedback" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="TutorFeedbackDetail">
           <Key>
@@ -1539,6 +1540,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__StudentFe__Sched__151B244E">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="StudentFeedback" Type="Self.StudentFeedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="StudentFeedback">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TutorFeed__Sched__14270015">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="TutorFeedback" Type="Self.TutorFeedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="TutorFeedback">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__StudentSu__Statu__66603565">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="StudentSubject" Type="Self.StudentSubject" Multiplicity="*" />
@@ -1786,6 +1811,14 @@
             <End Role="Tutor" EntitySet="Tutors" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
+          <AssociationSet Name="FK__StudentFe__Sched__151B244E" Association="Self.FK__StudentFe__Sched__151B244E">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TutorFeed__Sched__14270015" Association="Self.FK__TutorFeed__Sched__14270015">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
+          </AssociationSet>
           <AssociationSet Name="FK__StudentSu__Statu__66603565" Association="Self.FK__StudentSu__Statu__66603565">
             <End Role="Status" EntitySet="Status" />
             <End Role="StudentSubject" EntitySet="StudentSubjects" />
@@ -1830,39 +1863,7 @@
             <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
             <End Role="TutorFeedbackDetail" EntitySet="TutorFeedbackDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentFe__Sched__151B244E" Association="TutorOnlineModel.FK__StudentFe__Sched__151B244E">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="StudentFeedback" EntitySet="StudentFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TutorFeed__Sched__14270015" Association="TutorOnlineModel.FK__TutorFeed__Sched__14270015">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="TutorFeedback" EntitySet="TutorFeedbacks" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK__StudentFe__Sched__151B244E">
-          <End Type="TutorOnlineModel.Schedule" Role="Schedule" Multiplicity="1" />
-          <End Type="TutorOnlineModel.StudentFeedback" Role="StudentFeedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="ScheduleId" />
-            </Principal>
-            <Dependent Role="StudentFeedback">
-              <PropertyRef Name="ScheduleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TutorFeed__Sched__14270015">
-          <End Type="TutorOnlineModel.Schedule" Role="Schedule" Multiplicity="1" />
-          <End Type="TutorOnlineModel.TutorFeedback" Role="TutorFeedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="ScheduleId" />
-            </Principal>
-            <Dependent Role="TutorFeedback">
-              <PropertyRef Name="ScheduleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2069,7 +2070,6 @@
           <EntitySetMapping Name="StudentFeedbacks">
             <EntityTypeMapping TypeName="TutorOnlineModel.StudentFeedback">
               <MappingFragment StoreEntitySet="StudentFeedback">
-                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
                 <ScalarProperty Name="StudentFeedbackId" ColumnName="StudentFeedbackId" />
                 <ScalarProperty Name="TutorId" ColumnName="TutorId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -2077,6 +2077,7 @@
                 <ScalarProperty Name="FeedbackDate" ColumnName="FeedbackDate" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2150,7 +2151,6 @@
           <EntitySetMapping Name="TutorFeedbacks">
             <EntityTypeMapping TypeName="TutorOnlineModel.TutorFeedback">
               <MappingFragment StoreEntitySet="TutorFeedback">
-                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
                 <ScalarProperty Name="TutorFeedbackId" ColumnName="TutorFeedbackId" />
                 <ScalarProperty Name="TutorId" ColumnName="TutorId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -2158,6 +2158,7 @@
                 <ScalarProperty Name="FeedbackDate" ColumnName="FeedbackDate" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="TestResult" ColumnName="TestResult" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
