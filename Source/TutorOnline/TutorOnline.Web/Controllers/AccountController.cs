@@ -92,14 +92,14 @@ namespace TutorOnline.Web.Controllers
                         tempId = user.BackendUserId;
                     }
 
-
-                    Role.Expires.Add(new TimeSpan(0, 15, 0));
+                     
+                    Role.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(Role);
 
                     HttpCookie UserInfo = new HttpCookie("UserInfo");
                     UserInfo["UserId"] = tempId.ToString();
                     UserInfo["UserName"] = model.Username;
-                    UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
+                    UserInfo.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(UserInfo);
 
                     if(RoleName == UserCommonString.Manager)

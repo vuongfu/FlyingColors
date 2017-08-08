@@ -11,10 +11,10 @@ namespace TutorOnline.Business.Repository
     {
         public string Authenticate(string username, string password)
         {
-            var CheckBackEndUser = _dbContext.BackendUsers.FirstOrDefault(a => a.UserName == username && a.Password == password);
-            var CheckTutor = _dbContext.Tutors.FirstOrDefault(a => a.UserName == username && a.Password == password);
-            var CheckStudent = _dbContext.Students.FirstOrDefault(a => a.UserName == username && a.Password == password);
-            var CheckParent = _dbContext.Parents.FirstOrDefault(a => a.UserName == username && a.Password == password);
+            var CheckBackEndUser = _dbContext.BackendUsers.FirstOrDefault(a => a.UserName == username && String.Compare(a.Password, password, false) == 0);
+            var CheckTutor = _dbContext.Tutors.FirstOrDefault(a => a.UserName == username && String.Compare(a.Password, password, false) == 0);
+            var CheckStudent = _dbContext.Students.FirstOrDefault(a => a.UserName == username && String.Compare(a.Password, password, false) == 0);
+            var CheckParent = _dbContext.Parents.FirstOrDefault(a => a.UserName == username && String.Compare(a.Password, password, false) == 0);
             if (CheckBackEndUser == null && CheckTutor == null && CheckStudent == null && CheckParent == null)
                 return null;
 

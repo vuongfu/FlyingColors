@@ -5,7 +5,7 @@
 }
 
 <p>
-    <a id="pre-arrow" class="disableArrow"  onclick="preClick()">
+    <a id="pre-arrow" class="disableArrow" onclick="preClick()">
         <img src="~/Image/prev.png" />
     </a>
     <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
@@ -95,6 +95,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
+@Html.Partial("_LoadingData")  
 
 <script type="text/javascript">
     var selectedSlotWeek0 = new Array();
@@ -153,6 +154,8 @@
                 return false;
             }
             lockLoad = true;
+            LoadingData();
+
             $.ajax({
                 url: '@Url.Action("CancelSlot", "Tutor")',
                 dataType: "json",
@@ -164,10 +167,10 @@
                     lockLoad = false;
                     jQuery('#' + slot).removeClass('selectedSlot');
                     jQuery('#' + slot).removeClass('bookedSlot');
-                    alert(data);
+                    CloseWithMess(data);
                 },
                 error: function (xhr) {
-                    alert("Error");
+                    CloseWithMess("Đã có lỗi xảy ra.");
                 }
             });
         }
@@ -175,6 +178,8 @@
 
     function SubmitSlot() {
         lockLoad = true;
+        LoadingData();
+
         $.ajax({
             url: '@Url.Action("SaveSlot", "Tutor")',
             dataType: "json",
@@ -184,10 +189,10 @@
             data: JSON.stringify({ 'Week0': selectedSlotWeek0, 'Week1': selectedSlotWeek1, 'Week2': selectedSlotWeek2 }),
             success: function (data) {
                 lockLoad = false;
-                alert(data);
+                CloseWithMess(data);
             },
             error: function (xhr) {
-                alert("Error");
+                CloseWithMess("Đã có lỗi xảy ra.");
             }
         });
     }
@@ -272,8 +277,11 @@
 
             if (pickeddate >= ToDay)
                 var index = jQuery.inArray(slot, selectedSlotWeek0);
-            else
+            else {
                 alert("Bạn chỉ được chỉnh sửa từ ngày " + ToDay.toLocaleDateString() + " trở đi");
+                return false;
+            }
+
         }
 
 
@@ -424,7 +432,6 @@
     }
 
     .disableArrow {
-        
         opacity: 0.4;
         cursor: no-drop;
     }

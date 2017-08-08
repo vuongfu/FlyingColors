@@ -1,0 +1,61 @@
+﻿<button type="button" class="btn hidden" data-toggle="modal" data-target="#Loading" data-backdrop="static" id="btnLoad">Load</button>
+<!-- Modal loading -->
+<div class="modal" id="Loading" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="TitleLoading"></h4>
+            </div>
+            <div class="modal-body">
+                <div align="center">
+                    <img src="~/Image/Loading1.gif" id="loadingImg" width="70" height="70" />
+                    <h5 id="MessSave"></h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseSaveModal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    .modal {
+      text-align: center;
+      padding: 0!important;
+    }
+
+    .modal:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -4px; /* Adjusts for spacing */
+    }
+
+    .modal-dialog {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+</style>
+
+<script type="text/javascript">
+    function LoadingData() {
+        document.getElementById("btnLoad").click();
+        jQuery('#btnCloseSaveModal').addClass('hidden');
+        jQuery('#loadingImg').removeClass('hidden');
+        document.getElementById("MessSave").innerHTML = "";
+    }
+
+    function CloseLoading() {
+        document.getElementById("btnLoad").click();
+    }
+
+    function CloseWithMess(strMess) {
+        jQuery('#loadingImg').addClass('hidden');
+        document.getElementById("MessSave").innerHTML = strMess;
+        jQuery('#btnCloseSaveModal').removeClass('hidden');
+    }
+</script>

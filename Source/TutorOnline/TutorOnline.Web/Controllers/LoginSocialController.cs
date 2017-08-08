@@ -46,10 +46,10 @@ namespace TutorOnline.Web.Controllers
                     HttpCookie UserInfo = new HttpCookie("UserInfo");
                     UserInfo["UserId"] = data.UserId.ToString();
                     UserInfo["UserName"] = data.UserName;
-                    UserInfo.Expires.Add(new TimeSpan(0, 15, 0));
+                    UserInfo.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(UserInfo);
 
-                    Role.Expires.Add(new TimeSpan(0, 15, 0));
+                    Role.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(Role);
                     return RedirectToAction("Index", "Home");
                 }
