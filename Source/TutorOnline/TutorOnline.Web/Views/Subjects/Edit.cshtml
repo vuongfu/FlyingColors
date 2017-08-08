@@ -8,13 +8,14 @@
 @using (Html.BeginForm("Edit", "Subjects", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+    
     <h3>Chỉnh sửa khóa học</h3>
     <hr />
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.SubjectId)
         @Html.HiddenFor(model => model.CategoryName)
+        @Html.HiddenFor(model => model.Photo)
 
         <div class="form-group">
             <p class="control-label col-md-2">Tên khóa học: </p>
