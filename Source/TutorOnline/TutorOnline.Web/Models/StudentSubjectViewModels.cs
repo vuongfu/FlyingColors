@@ -54,4 +54,10 @@ namespace TutorOnline.Web.Models
 
         public int Status { get; set; }
     }
+
+    public class FeedBackDetail
+    {
+        public string CriterionName { get; set; }
+        public string CriterionValue { get; set; }
+    }
 }

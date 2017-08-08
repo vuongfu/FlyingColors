@@ -134,7 +134,7 @@ namespace TutorOnline.Web.Controllers
                 if (DateTime.Parse(StartDate) != null)
                 {
                     DateTime SDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    ListTrans = ListTrans.Where(s => s.TranDate >= SDate).ToList();
+                    ListTrans = ListTrans.Where(s => s.TranDate.Date >= SDate.Date).ToList();
                 }
             }
             catch(Exception e) {new LogWriter(e.ToString()); }
@@ -144,7 +144,7 @@ namespace TutorOnline.Web.Controllers
                 if (DateTime.Parse(EndDate) != null)
                 {
                     DateTime EDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    ListTrans = ListTrans.Where(s => s.TranDate <= EDate).ToList();
+                    ListTrans = ListTrans.Where(s => s.TranDate.Date <= EDate.Date).ToList();
                 }
             }
             catch (Exception e) { new LogWriter(e.ToString()); }
