@@ -50,7 +50,7 @@ namespace TutorOnline.Web.Controllers
 
             if ((searchString == null || roleString == null || StartDate == null || EndDate == null) && page == null)
             {
-
+                ViewBag.searchClick = false;
                 ViewBag.totalRecord = ListTrans.Count();
                 return View(ListTrans.ToPagedList(pageNumber, pageSize));
             }
@@ -213,7 +213,8 @@ namespace TutorOnline.Web.Controllers
             {
                 ViewBag.Search = true;
             }
-             ViewBag.totalRecord = "Số kết quả tìm được: " + ListTrans.Count();
+            ViewBag.searchClick = true;
+            ViewBag.totalRecord = "Số kết quả tìm được: " + ListTrans.Count();
 
             return View(ListTrans.OrderBy(x => x.TransactionId).ToPagedList(pageNumber, pageSize));
         }
@@ -242,8 +243,9 @@ namespace TutorOnline.Web.Controllers
             var Tutor = URes.GetAllTutorUser();
             var Student = URes.GetAllStudentUser();
 
-            if ((searchString == null || roleString == null) && page == null)
+            if ((searchString == null || roleString == null || genderString == null) && page == null)
             {
+                ViewBag.searchClick = false;
                 //users = URes.GetAllUser().Where(s => s.Username == "-1");
                 ViewBag.totalRecord = ListUsers.Count();
                 return View(ListUsers.ToPagedList(pageNumber, pageSize));
@@ -311,6 +313,7 @@ namespace TutorOnline.Web.Controllers
             {
                 ViewBag.Search = true;
             }
+            ViewBag.searchClick = true;
             ViewBag.totalRecord = "Số kết quả tìm được: " + ListUsers.Count();
             
             return View(ListUsers.OrderBy(x => x.Username).ToPagedList(pageNumber, pageSize));
@@ -447,7 +450,7 @@ namespace TutorOnline.Web.Controllers
         }
 
         //install ExcelDataReader
-        //install ExcelDataReader.AsDataSet
+        //install ExcelDataReader.AsAsDataSet
         [HttpPost]
         public ActionResult ImportExcel(HttpPostedFileBase file)
         {

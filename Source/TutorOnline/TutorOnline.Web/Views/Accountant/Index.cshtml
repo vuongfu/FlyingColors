@@ -41,7 +41,7 @@
                     @*<div class="row">*@
                     <tr>
                         <th class="col-lg-2">
-                            @Html.DropDownList("roleString", null, "All", htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("roleString", null, "Tất cả", htmlAttributes: new { @class = "form-control" })
                         </th>
                         <th class="col-lg-offset-1 col-lg-3">
                             @Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" })
@@ -59,7 +59,7 @@
     <p></p>
     <input type="submit" name="Search" value="@TranString.Search" class="btn" />
     <br />
-    if (ViewBag.Search == true)
+    if (ViewBag.searchClick == true)
     {
        <h4>@ViewBag.totalRecord</h4>
     }
@@ -126,7 +126,7 @@
 
         </table>
         <br />
-        <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount</div>
+        <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
         <input type="submit" name="Export" value="@TranString.Export" class="btn" />
     }
