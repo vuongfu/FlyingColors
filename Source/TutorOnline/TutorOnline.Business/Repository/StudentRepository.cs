@@ -38,13 +38,13 @@ namespace TutorOnline.Business.Repository
 
         public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int StudentId)
         {
-            var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.StudentId == StudentId && (x.Status == 4 || x.Status == 3 || x.Status == 5));
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate.Date >= StartDay.Date && x.OrderDate.Date <= EndDay.Date && x.StudentId == StudentId && (x.Status == 4 || x.Status == 3 || x.Status == 5));
             return slot;
         }
 
         public IEnumerable<Schedule> GetAllSlotBookedToday(int StudentId)
         {
-            var slot = _dbContext.Schedules.Where(x => x.OrderDate ==  DateTime.Today && x.StudentId == StudentId && (x.Status == 4 || x.Status == 3 || x.Status == 5));
+            var slot = _dbContext.Schedules.Where(x => x.OrderDate.Date ==  DateTime.Today.Date && x.StudentId == StudentId && (x.Status == 4 || x.Status == 3 || x.Status == 5));
             return slot;
         }
 

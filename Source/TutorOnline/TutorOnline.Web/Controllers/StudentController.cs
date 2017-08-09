@@ -220,40 +220,48 @@ namespace TutorOnline.Web.Controllers
             List<FeedBackDetail> Result = new List<FeedBackDetail>();
 
             
+            if(returnData != null)
+            {
+                foreach (var item in returnData.TutorFeedbackDetails)
+                {
+                    FeedBackDetail temp = new FeedBackDetail();
+                    temp.CriterionName = item.Criterion.CriteriaName;
+                    temp.CriterionValue = item.CriteriaValue.ToString();
+                    Result.Add(temp);
+                }
+                FeedBackDetail Test = new FeedBackDetail();
+                Test.CriterionName = "Kết quả kiểm tra";
+                if (returnData.TestResult == null)
+                {
+                    Test.CriterionValue = "Chưa làm bài kiểm tra";
+                }
+                else
+                {
+                    Test.CriterionValue = returnData.TestResult.ToString();
+                }
 
-            foreach (var item in returnData.TutorFeedbackDetails)
-            {
-                FeedBackDetail temp = new FeedBackDetail();
-                temp.CriterionName = item.Criterion.CriteriaName;
-                temp.CriterionValue = item.CriteriaValue.ToString();
-                Result.Add(temp);
-            }
-            FeedBackDetail Test = new FeedBackDetail();
-            Test.CriterionName = "Test Score";
-            if(returnData.TestResult == null)
-            {
-                Test.CriterionValue = "Chưa làm bài kiểm tra";
+                Result.Add(Test);
+
+                FeedBackDetail Comment = new FeedBackDetail();
+                if (returnData.Comment != null)
+                {
+                    Comment.CriterionValue = returnData.Comment;
+                }
+                else
+                {
+                    Comment.CriterionValue = "Không có phản hồi thêm cho bài học này";
+                }
+
+                Comment.CriterionName = "Phản hồi khác";
+
+                Result.Add(Comment);
+                return Json(new { Result = Result, Count = returnData.TutorFeedbackDetails.Count, Exist = true }, JsonRequestBehavior.AllowGet);
             } else
             {
-                Test.CriterionValue = returnData.TestResult.ToString();
+                return Json(new { Exist = false }, JsonRequestBehavior.AllowGet);
             }
 
-            Result.Add(Test);
-
-            FeedBackDetail Comment = new FeedBackDetail();
-            if(returnData.Comment != null)
-            {
-                Comment.CriterionValue = returnData.Comment;
-            } else
-            {
-                Comment.CriterionValue = "Không có phản hồi thêm cho bài học này";
-            }
             
-            Comment.CriterionName = "Comment";
-
-            Result.Add(Comment);
-
-            return Json(new {Result = Result, Count = returnData.TutorFeedbackDetails.Count} , JsonRequestBehavior.AllowGet);
         }
 
         //install Microsoft.AspNet.WebApi.Core
@@ -382,7 +390,8 @@ namespace TutorOnline.Web.Controllers
             //change to today
             DateTime Date = DateTime.Today;
             Date = Date.AddDays(Week * 7);
-            DateTime ChoosedDate = DateTime.Parse(SelectedDate);
+            DateTime ChoosedDate = DateTime.ParseExact(SelectedDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            new LogWriter("ChoosedDate = " + ChoosedDate.ToString());
             ViewBag.LessonId = LessonId;
             ViewBag.Date = Date;
             ViewBag.SelectedDate = ChoosedDate;
@@ -427,6 +436,7 @@ namespace TutorOnline.Web.Controllers
                 return Json(new { BookSlot = false, Message = "Xin mời đăng nhập lại để thực hiện thao tác." });
             }
 
+            //var BookedSlot = StuRes.GetAllSlotBookedByStudent()
 
             if (type == 1)
             {
