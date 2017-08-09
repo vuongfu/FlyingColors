@@ -390,7 +390,7 @@ namespace TutorOnline.Web.Controllers
             //change to today
             DateTime Date = DateTime.Today;
             Date = Date.AddDays(Week * 7);
-            DateTime ChoosedDate = DateTime.ParseExact(SelectedDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ChoosedDate = DateTime.ParseExact(SelectedDate, "d/M/yyyy", CultureInfo.InvariantCulture);
             new LogWriter("ChoosedDate = " + ChoosedDate.ToString());
             ViewBag.LessonId = LessonId;
             ViewBag.Date = Date;
