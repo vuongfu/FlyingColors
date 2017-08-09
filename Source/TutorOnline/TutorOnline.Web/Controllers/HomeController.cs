@@ -38,7 +38,11 @@ namespace TutorOnline.Web.Controllers
                 {
                     string url = (Url.Action("ViewSchedule", "Tutor"));
                     return Redirect(url);
-                }             
+                }else if(Rname == UserCommonString.Student)
+                {
+                    string url = (Url.Action("Index", "Student"));
+                    return Redirect(url);
+                }            
             }
             return View();
         }

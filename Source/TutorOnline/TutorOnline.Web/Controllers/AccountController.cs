@@ -317,6 +317,8 @@ namespace TutorOnline.Web.Controllers
                     TRes.AddTutorSubject(Ts);
                     
                 }
+
+                TempData["message"] = "Đã đăng ký tài khoản thành công.";
                 return RedirectToAction("Login", "Account");
             }
 
