@@ -135,7 +135,7 @@ namespace TutorOnline.Web.Controllers
             {
                 if (DateTime.Parse(StartDate) != null)
                 {
-                    DateTime SDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime SDate = DateTime.ParseExact(StartDate, "d/M/yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("SDate = " + SDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date >= SDate.Date).ToList();
                 }
@@ -243,7 +243,7 @@ namespace TutorOnline.Web.Controllers
             var Tutor = URes.GetAllTutorUser();
             var Student = URes.GetAllStudentUser();
 
-            if ((searchString == null || roleString == null || genderString == null) && page == null)
+            if ((searchString == null || roleString == null) && page == null)
             {
                 ViewBag.searchClick = false;
                 //users = URes.GetAllUser().Where(s => s.Username == "-1");
