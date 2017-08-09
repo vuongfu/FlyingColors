@@ -503,11 +503,20 @@ namespace TutorOnline.Web.Controllers
                             trans.Amount = int.Parse(ds.Tables[0].Rows[i][2].ToString());
                             trans.Content = ds.Tables[0].Rows[i][3].ToString();
                             if (trans.UserTypeName == UserCommonString.Student) { trans.UserType = 1; }
-                            else { trans.UserType = 2; }
+                            else if (trans.UserTypeName == UserCommonString.Tutor) { trans.UserType = 2; }
+                            else {
+                                ViewBag.Message = "Loại người dùng tại dòng " + (i + 1) + "không hợp lệ.";
+                                return View();
+                            }
 
                             if (trans.UserType == 1)
                             {
                                 Student User = Student.Where(s => s.UserName.Equals(trans.UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                                if(user == null)
+                                {
+                                    ViewBag.Message = "Tên người dùng tại dòng " + (i + 1) + "không tồn tại.";
+                                    return View();
+                                }
                                 if (User.Balance + trans.Amount < 0)
                                 {
                                     ViewBag.Message = TranString.WrongAmountWith + trans.UserName;
@@ -518,6 +527,11 @@ namespace TutorOnline.Web.Controllers
                             if (trans.UserType == 2)
                             {
                                 Tutor User = Tutor.Where(s => s.UserName.Equals(trans.UserName, StringComparison.CurrentCultureIgnoreCase) && s.RoleId == 7).FirstOrDefault();
+                                if (user == null)
+                                {
+                                    ViewBag.Message = "Tên người dùng tại dòng " + (i + 1) + "không tồn tại.";
+                                    return View();
+                                }
                                 if (User.Balance + trans.Amount < 0)
                                 {
                                     ViewBag.Message = TranString.WrongAmountWith + trans.UserName;
