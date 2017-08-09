@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Quản lý môn học";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
-    ViewBag.Count = 0;
 }
 
 <div class="container-fluid">
@@ -56,13 +55,13 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@(ViewBag.Count++ + 1)</td>
+                            <td>@(ViewBag.Count++)</td>
                             <td>@Html.ActionLink(item.CategoryName, "Details", new { id = item.CategoryId })</td>
                             <td>@Html.DisplayFor(modelItem => item.Description)</td>
                         </tr>
                     }
                 </table>
-                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên tổng số @Model.PageCount trang
                 @Html.PagedListPager(Model, page => Url.Action("Index",
                                  new { page, searchString = ViewBag.searchStr }))
             </div>

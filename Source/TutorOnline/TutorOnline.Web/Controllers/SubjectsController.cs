@@ -27,6 +27,7 @@ namespace TutorOnline.Web.Controllers
         {
             int pageSize = 5;
             int pageNumber = (page ?? 1);
+            ViewBag.Count = pageSize * (pageNumber - 1) + 1;
 
             ViewBag.searchStr = searchString;
             ViewBag.cateStr = cateString;

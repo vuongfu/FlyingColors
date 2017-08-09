@@ -3,16 +3,16 @@
 <div class="modal" id="Loading" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" id="modalLoadHead">
                 <h4 id="TitleLoading"></h4>
             </div>
             <div class="modal-body">
                 <div align="center">
-                    <img src="~/Image/Loading1.gif" id="loadingImg" width="70" height="70" />
+                    <img src="~/Image/Loading2.gif" id="loadingImg" width="150" height="150" />
                     <h5 id="MessSave"></h5>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id="modalLoadFoot">
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseSaveModal">Đóng</button>
             </div>
         </div>
@@ -45,6 +45,8 @@
     function LoadingData() {
         document.getElementById("btnLoad").click();
         jQuery('#btnCloseSaveModal').addClass('hidden');
+        jQuery('#modalLoadHead').addClass('hidden');
+        jQuery('#modalLoadFoot').addClass('hidden');
         jQuery('#loadingImg').removeClass('hidden');
         document.getElementById("MessSave").innerHTML = "";
     }
@@ -57,5 +59,7 @@
         jQuery('#loadingImg').addClass('hidden');
         document.getElementById("MessSave").innerHTML = strMess;
         jQuery('#btnCloseSaveModal').removeClass('hidden');
+        jQuery('#modalLoadHead').removeClass('hidden');
+        jQuery('#modalLoadFoot').removeClass('hidden');
     }
 </script>

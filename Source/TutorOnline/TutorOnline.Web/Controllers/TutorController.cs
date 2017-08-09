@@ -341,7 +341,9 @@ namespace TutorOnline.Web.Controllers
                 model.CriteriaContent = dataForCriteContent;
                 model.ScheduleDate = data.OrderDate;
                 var feedback = TuRes.FindFeedbackForStudent(id);
-                model.Comment = feedback.Comment;
+                model.Comment = "";
+                if (feedback != null)
+                    model.Comment = feedback.Comment;
                 var now = DateTime.Now;
 
             }
