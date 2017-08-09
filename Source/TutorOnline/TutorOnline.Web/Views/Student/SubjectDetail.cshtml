@@ -427,8 +427,8 @@
     }
     function FeedBack(Id)
     {
-        $('#FeedbackModal').modal("show");
         bindData(Id);
+        $('#FeedbackModal').modal("show");
     }
 </script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -480,11 +480,12 @@
                                 <tbody>
                                     @foreach (var item in Model.ListLesson)
                                     {
+                                        String Date = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
                                         <tr>
                                             <td>@(ViewBag.Count)</td>
                                             @if (ViewBag.Count < Model.StudiedLesson + 1)
                                             {
-                                                <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = DateTime.Today.ToString(), Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
+                                                <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = Date, Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
                                                 <td>
                                                     <i class="material-icons button edit" onclick="FeedBack(@item.LessonId)">feedback</i>
                                                     <i class="material-icons button delete" onclick="Download(@item.LessonId)">file_download</i>
@@ -493,7 +494,7 @@
                                             }
                                             else if (ViewBag.Count == Model.StudiedLesson + 1)
                                             {
-                                                <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = DateTime.Today.ToString(), Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
+                                                <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = Date, Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
                                                 <td>
                                                     <i class="material-icons button edit">feedback</i>
                                                     <i class="material-icons button delete">file_download</i>

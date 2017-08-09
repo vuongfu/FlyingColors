@@ -10,7 +10,9 @@ namespace TutorOnline.Common
     {
         //Common string
         public string Page = "Trang ";
-        public string Of = " trên ";
+        public string Page1 = " trang.";
+        public string Of = " trong tổng số ";
+
         public string Have = "Có ";
         public string Result = " kết quả tìm kiếm";
         public string Back = "Quay lại";
