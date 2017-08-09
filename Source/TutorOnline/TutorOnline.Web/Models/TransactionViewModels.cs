@@ -16,7 +16,9 @@ namespace TutorOnline.Web.Models
         public string Content { get; set; }
         [Display(Name = "Số tiền:")]
         public int Amount { get; set; }
+
         [Display(Name = "ngày giờ giao dịch:")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public System.DateTime TranDate { get; set; }
         [Display(Name = "Số tài khoản:")]
         public int UserID { get; set; }
@@ -40,6 +42,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Số tiền:")]
         public int Amount { get; set; }
         [Display(Name = "ngày giờ giao dịch:")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public System.DateTime TranDate { get; set; }
         [Display(Name = "Số tài khoản:")]
         public int UserID { get; set; }

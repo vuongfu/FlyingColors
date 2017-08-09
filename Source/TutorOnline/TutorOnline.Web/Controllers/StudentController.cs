@@ -436,7 +436,23 @@ namespace TutorOnline.Web.Controllers
                 return Json(new { BookSlot = false, Message = "Xin mời đăng nhập lại để thực hiện thao tác." });
             }
 
-            //var BookedSlot = StuRes.GetAllSlotBookedByStudent()
+            var BookedSlot = StuRes.GetAllSlotBookedByStudent(DateTime.Today, DateTime.Today.AddDays(14), Slot.StudentId.Value);
+            var CheckSlot = BookedSlot.Where(x => x.LessonId == LessonId).FirstOrDefault();
+
+            if (CheckSlot != null && CheckSlot.Status == 4)
+            {
+                return Json(new { BookSlot = false, Message = "Bạn đã đặt bài học cho tiết học này rồi." });
+            }
+
+            Lesson CheckLesson = LesRes.FindLesson(LessonId);
+            if(CheckLesson == null)
+            {
+                return Json(new { BookSlot = false, Message = "Không tồn tại tiết học này." });
+            }
+            if (CheckLesson.Order > StuSubRes.GetSubById(CheckLesson.SubjectId,Slot.StudentId).FirstOrDefault().StudiedLesson + 1)
+            {
+                return Json(new { BookSlot = false, Message = "Bạn không thể đặt lịch học cho tiết học này bây giờ." });
+            }
 
             if (type == 1)
             {

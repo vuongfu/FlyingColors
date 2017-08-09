@@ -457,77 +457,7 @@ namespace TutorOnline.Web.Controllers
 
             List<TransactionViewModels> ListTrans = new List<TransactionViewModels>();
 
-            //DataSet ds = new DataSet();
-            ////if (Request.Files["file"].ContentLength > 0)
-            ////{
-            //    string fileExtension = System.IO.Path.GetExtension(Request.Files["file"].FileName);
-
-            //    if (fileExtension == ".xls" || fileExtension == ".xlsx")
-            //    {
-            //        string fileLocation = Server.MapPath("~/Content/") + Request.Files["file"].FileName;
-            //        if (System.IO.File.Exists(fileLocation))
-            //        {
-
-            //            System.IO.File.Delete(fileLocation);
-            //        }
-            //        Request.Files["file"].SaveAs(fileLocation);
-            //        string excelConnectionString = string.Empty;
-            //        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            //        //connection String for xls file format.
-            //        if (fileExtension == ".xls")
-            //        {
-            //            excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            //        }
-            //        //connection String for xlsx file format.
-            //        else if (fileExtension == ".xlsx")
-            //        {
-
-            //            excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            //        }
-            //        //Create Connection to Excel work book and add oledb namespace
-            //        OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
-            //        excelConnection.Open();
-            //        System.Data.DataTable dt = new System.Data.DataTable();
-
-            //        dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-            //        if (dt == null)
-            //        {
-            //            return null;
-            //        }
-
-            //        String[] excelSheets = new String[dt.Rows.Count];
-            //        int t = 0;
-            //        //excel data saves in temp file here.
-            //        foreach (DataRow row in dt.Rows)
-            //        {
-            //            excelSheets[t] = row["TABLE_NAME"].ToString();
-            //            t++;
-            //        }
-            //        OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
-
-
-            //        string query = string.Format("Select * from [{0}]", excelSheets[0]);
-            //        using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
-            //        {
-            //            dataAdapter.Fill(ds);
-            //        }
-            //        excelConnection.Close();
-            //    }
-            //    if (fileExtension.ToString().ToLower().Equals(".xml"))
-            //    {
-            //        string fileLocation = Server.MapPath("~/Content/") + Request.Files["FileUpload"].FileName;
-            //        if (System.IO.File.Exists(fileLocation))
-            //        {
-            //            System.IO.File.Delete(fileLocation);
-            //        }
-
-            //        Request.Files["FileUpload"].SaveAs(fileLocation);
-            //        XmlTextReader xmlreader = new XmlTextReader(fileLocation);
-            //        // DataSet ds = new DataSet();
-            //        ds.ReadXml(xmlreader);
-            //        xmlreader.Close();
-            //    }
-
+            
             if (ModelState.IsValid)
             {
                 DataSet ds = new DataSet();
@@ -570,12 +500,12 @@ namespace TutorOnline.Web.Controllers
                             trans.UserTypeName = ds.Tables[0].Rows[i][1].ToString();
                             trans.Amount = int.Parse(ds.Tables[0].Rows[i][2].ToString());
                             trans.Content = ds.Tables[0].Rows[i][3].ToString();
-                            if (trans.UserTypeName == "Student") { trans.UserType = 1; }
+                            if (trans.UserTypeName == UserCommonString.Student) { trans.UserType = 1; }
                             else { trans.UserType = 2; }
 
                             if (trans.UserType == 1)
                             {
-                                Student User = Student.Where(s => s.UserName == trans.UserName).FirstOrDefault();
+                                Student User = Student.Where(s => s.UserName.Equals(trans.UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
                                 if (User.Balance + trans.Amount < 0)
                                 {
                                     ViewBag.Message = TranString.WrongAmountWith + trans.UserName;
@@ -585,7 +515,7 @@ namespace TutorOnline.Web.Controllers
                             }
                             if (trans.UserType == 2)
                             {
-                                Tutor User = Tutor.Where(s => s.UserName == trans.UserName).FirstOrDefault();
+                                Tutor User = Tutor.Where(s => s.UserName.Equals(trans.UserName, StringComparison.CurrentCultureIgnoreCase) && s.RoleId == 7).FirstOrDefault();
                                 if (User.Balance + trans.Amount < 0)
                                 {
                                     ViewBag.Message = TranString.WrongAmountWith + trans.UserName;

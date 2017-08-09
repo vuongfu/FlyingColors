@@ -87,6 +87,7 @@
     @Html.PagedListPager(Model, page => Url.Action("Search",
     new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
 }
+<br />
 @Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })
 
 
