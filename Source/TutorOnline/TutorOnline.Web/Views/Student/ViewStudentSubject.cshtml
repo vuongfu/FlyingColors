@@ -13,36 +13,45 @@
 </style>
 <body>
     <div id="khoahoc" class="container">
-    @for (int i = 0; i < Model.Count; i++)
-    { 
-        <div class="col-lg-11">
-            @if (Model[i].Count != 0)
+        @if (Model.Count != 0)
+        {
+            for (int i = 0; i < Model.Count; i++)
             {
-                <div class="row">
-                    <h3 class="text-center text-muted">@Model[i][0].CategoryName</h3>
-                </div>
-                <br />
-                for (int j = 0; j < Model[i].Count; j++)
-                {
-                    <div class="slider-list--item--3nEQO col-md-3" style="margin-right: 0px;">
-                        <div class="merchandising-course-card--card--Ef5aV merchandising-course-card--card__list-view--13LYX">
-                            <a href="SubjectDetail?SubjectId=@Model[i][j].SubjectId" class="merchandising-course-card--mask--2NGzX">
-                                <span class="merchandising-course-card--card__options--2slCk">
-                                    <img src="~/image/Course.jpg" alt="@Model[i][j].SubjectName" class="merchandising-course-card--card__image--2oGQE" height="240" width="240">
-                                </span>
-                                <span class="merchandising-course-card--card__details--1G7gB">
-                                    <span class="merchandising-course-card--details__name--3h_2f">@Model[i][j].SubjectName</span>
-                                    <div class="merchandising-course-card--card__instructor-titles--IJ4_5">
-                                        <p class="dib" data-purpose="course-card-instructor-titles"> @Model[i][j].Purpose </p>
-                                    </div>
-                                </span>
-                            </a>
+                <div class="col-lg-11">
+                    @if (Model[i].Count != 0)
+                    {
+                        <div class="row">
+                            <h3 class="text-center text-muted">@Model[i][0].CategoryName</h3>
                         </div>
-                    </div>
+                        <br />
+                        for (int j = 0; j < Model[i].Count; j++)
+                        {
+                            <div class="slider-list--item--3nEQO col-md-3" style="margin-right: 0px;">
+                                <div class="merchandising-course-card--card--Ef5aV merchandising-course-card--card__list-view--13LYX">
+                                    <a href="SubjectDetail?SubjectId=@Model[i][j].SubjectId" class="merchandising-course-card--mask--2NGzX">
+                                        <span class="merchandising-course-card--card__options--2slCk">
+                                            <img src="~/image/Course.jpg" alt="@Model[i][j].SubjectName" class="merchandising-course-card--card__image--2oGQE" height="240" width="240">
+                                        </span>
+                                        <span class="merchandising-course-card--card__details--1G7gB">
+                                            <span class="merchandising-course-card--details__name--3h_2f">@Model[i][j].SubjectName</span>
+                                            <div class="merchandising-course-card--card__instructor-titles--IJ4_5">
+                                                <p class="dib" data-purpose="course-card-instructor-titles"> @Model[i][j].Purpose </p>
+                                            </div>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
                     }
-                }
                 </div>
             }
+        }
+        else
+        {
+            <h2 class="center"> Bạn chưa đăng ký khóa học nào.</h2>
+            <div class="center">@Html.ActionLink("Đến khóa học", "ViewAllCategory", null, htmlAttributes: new { @class = "btn btn-success" })</div>
+            <br />
+        }
     </div>
 </body>
 
