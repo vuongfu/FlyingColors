@@ -294,15 +294,17 @@ namespace TutorOnline.Web.Controllers
                     ).ToList();
             }
 
+            if (roleString == "" || roleString == null)
+            {
+                ListUsers = ListUsers.Where(s => s.RoleName == "Gia sư" || s.RoleName == "Học sinh").ToList();
+            }
+
             if (!String.IsNullOrEmpty(roleString))
             {
                 ListUsers = ListUsers.Where(s => s.RoleName == roleString).ToList();
             }
 
-            if (roleString == "")
-            {
-                ListUsers = ListUsers.Where(s => s.RoleName == "Gia sư" || s.RoleName == "Học sinh").ToList();
-            }
+
 
             if (genderString != null)
             {
