@@ -377,7 +377,7 @@
             traditional: true,
             data: JSON.stringify({ 'LessonId': Id}),
             success: function (data) {
-                if(data != null){
+                if(data.Exist == true){
                     var x = "";
                     for(i in data.Result)
                     {
@@ -398,11 +398,30 @@
                             x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
                         }
                     }
+                    x += '<div class="row">';
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>'+data.Result[data.Count].CriterionName+':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                    x += '<p>'+data.Result[data.Count].CriterionValue+'</p>';
+                    x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    x += '<div class="row">';
+
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>'+data.Result[data.Count + 1].CriterionName+':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-8 col-md-8">';
+                    x += '<p>'+data.Result[data.Count + 1].CriterionValue+'</p>';
+                    x += ' </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
                     $("#Criteria").html(x);
+                } else {
+                    alert('Chưa có feedback cho tiết học này.');
                 }
             },
             error: function (xhr) {
-                alert("Error");
+                alert('Đã có lỗi xảy ra. Xin vui lòng thử lại sau.');
             }
         });
     }
