@@ -19,7 +19,7 @@
                 <tr>
                     <th class="col-lg-5">@TranString.Search</th>
                     <th class="col-lg-1"></th>
-                    <th class="col-lg-2">Tìm kiếm</th>
+                    <th class="col-lg-2">@TranString.UserType</th>
                     <th class="col-lg-1"></th>
                     <th class="col-lg-2">@TranString.Gender</th>
                 </tr>
@@ -87,6 +87,7 @@
     @Html.PagedListPager(Model, page => Url.Action("Search",
     new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, genderString = ViewBag.GenderStr }))
 }
+<br />
 @Html.ActionLink(TranString.Back, "Index", new { area = "" }, new { @class = "btn btn-info" })
 
 

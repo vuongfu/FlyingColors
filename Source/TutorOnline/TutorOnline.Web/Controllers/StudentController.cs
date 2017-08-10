@@ -148,8 +148,10 @@ namespace TutorOnline.Web.Controllers
             {
                 List<SubjectsViewModels> temp = new List<SubjectsViewModels>();
                 temp = ListSub.Where(x => x.CategoryId == item.CategoryId).ToList();
-
-                Result.Add(temp);
+                if(temp.Count != 0)
+                {
+                    Result.Add(temp);
+                }               
             }
 
             return View(Result);
@@ -369,19 +371,68 @@ namespace TutorOnline.Web.Controllers
             return View();
         }
 
-        //public ActionResult BookSlot()
-        //{
-        //    int SubjectId = 1;
-        //    //change to today
-        //    DateTime Date = DateTime.Parse("07/8/2017");
-        //    ViewBag.LessonId = 1;
-        //    ViewBag.Date = Date;
-        //    ViewBag.SelectedDate = Date;
-        //    ViewBag.SubjectId = SubjectId;
-        //    ViewBag.StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
-        //    List<IEnumerable<Schedule>> TutorSchedule = ScheRes.GetTutorSchedule(Date, SubjectId);
-        //    return View(TutorSchedule);
-        //}
+        public ActionResult GetSlotDetail(int id)
+        {
+            Schedule data = ScheRes.getSlotById(id);
+            DetailBookedSlotByStudent model = new DetailBookedSlotByStudent();
+
+            if (data != null)
+            {
+                model.Category = data.Lesson.Subject.Category.CategoryName;
+                model.Date = data.OrderDate;
+                model.Email = data.Student.Email;
+                model.FullName = data.Student.LastName + " " + data.Student.FirstName;
+                model.Gender = data.Student.Gender == 1 ? "Nam" : "Nữ";
+                model.Lesson = data.Lesson.LessonName;
+                string time = "";
+                int slot = data.OrderSlot;
+                if (slot <= 4)
+                    time = String.Format("{0:00}", 7 + slot) + ":00 - " + String.Format("{0:00}", 7 + slot) + ":45";
+                else if (slot > 4 && slot <= 8)
+                    time = String.Format("{0:00}", 12 + slot) + ":00 - " + String.Format("{0:00}", 12 + slot) + ":45";
+                else
+                    time = String.Format("{0:00}", 18 + slot) + ":00 - " + String.Format("{0:00}", 18 + slot) + ":45";
+
+                model.OrderTime = time;
+                model.OrderSlot = data.OrderSlot;
+                model.Phone = data.Student.PhoneNumber;
+                model.Photo = data.Student.Photo;
+                model.ScheduleId = data.ScheduleId;
+                model.Skype = data.Student.SkypeId;
+                model.Subject = data.Lesson.Subject.SubjectName;
+                model.Status = data.Status;
+                if (model.Status == 3)
+                    model.StatusName = StatusString.ScheduleFinished;
+                else if (model.Status == 4)
+                    model.StatusName = StatusString.ScheduleBooked;
+                else if (model.Status == 5)
+                    model.StatusName = StatusString.SchudulueCanceled;
+                else
+                    model.StatusName = StatusString.SchudulueAvailabled;
+
+                var criteria = TurRes.getCriteriaForLesson((int)data.LessonId);
+                List<int> dataForCriteId = new List<int>();
+                List<string> dataForCriteContent = new List<string>();
+                for (int i = 0; i < criteria.Count(); i++)
+                {
+                    var cri = criteria.ElementAt(i);
+                    dataForCriteId.Add(cri.CriteriaId);
+                    dataForCriteContent.Add(cri.CriteriaName);
+                }
+                model.CriteriaId = dataForCriteId;
+                model.CriteriaContent = dataForCriteContent;
+                model.ScheduleDate = data.OrderDate;
+                var feedback = TurRes.FindFeedbackForStudent(id);
+                model.Comment = "";
+                if (feedback != null)
+                    model.Comment = feedback.Comment;
+                var now = DateTime.Now;
+
+            }
+
+
+            return View(model);
+        }
 
         public ActionResult BookSlot(String SelectedDate, int Week, int LessonId, int SubjectId)
         {
@@ -406,16 +457,16 @@ namespace TutorOnline.Web.Controllers
                 Tutor Tutor = ListTutor.Where(x => x.TutorId == item.TutorId).FirstOrDefault();
                 List<Schedule> TutorSchedule = ScheRes.GetTutorSchedule(ChoosedDate, item.TutorId);
                 TutorScheduleViewModels temp = new TutorScheduleViewModels();
-                temp.ListSchedule = TutorSchedule;
+                
                 if (Tutor != null)
                 {
                     temp.Photo = Tutor.Photo;
                     temp.Description = Tutor.Description;
                     temp.Name = Tutor.FirstName + " " + Tutor.LastName;
+                    temp.ListSchedule = TutorSchedule;
+                    ListSchedule.Add(temp);
                 }
 
-
-                ListSchedule.Add(temp);
             }
 
             return View(ListSchedule);
@@ -436,7 +487,29 @@ namespace TutorOnline.Web.Controllers
                 return Json(new { BookSlot = false, Message = "Xin mời đăng nhập lại để thực hiện thao tác." });
             }
 
-            //var BookedSlot = StuRes.GetAllSlotBookedByStudent()
+            var BookedSlot = StuRes.GetAllSlotBookedByStudent(DateTime.Today, DateTime.Today.AddDays(14), Slot.StudentId.Value);
+
+            DateTime SlotTime = Slot.OrderDate.AddHours(int.Parse(GetSlotTime(Slot.OrderSlot)));
+            if( SlotTime< DateTime.Now)
+            {
+                return Json(new { BookSlot = false, Message = "Đã qua thời gian để có thể đặt tiết học này." });
+            }
+
+            var CheckSlot = BookedSlot.Where(x => x.LessonId == LessonId).FirstOrDefault();
+            if (CheckSlot != null && CheckSlot.Status == 4)
+            {
+                return Json(new { BookSlot = false, Message = "Bạn đã đặt bài học cho tiết học này rồi." });
+            }
+
+            Lesson CheckLesson = LesRes.FindLesson(LessonId);
+            if(CheckLesson == null)
+            {
+                return Json(new { BookSlot = false, Message = "Không tồn tại tiết học này." });
+            }
+            if (CheckLesson.Order > StuSubRes.GetSubById(CheckLesson.SubjectId,Slot.StudentId).FirstOrDefault().StudiedLesson + 1)
+            {
+                return Json(new { BookSlot = false, Message = "Bạn phải hoàn thành một số tiết học khác trước để có thể đặt tiết học này." });
+            }
 
             if (type == 1)
             {
@@ -447,7 +520,7 @@ namespace TutorOnline.Web.Controllers
                 } else {
                     Transaction Tran = new Transaction();
                     Tran.Amount = Slot.Price * -1;
-                    Tran.Content = "Trừ tiền buổi học " + Slot.ScheduleId + " của học viên " + Student.UserName;
+                    Tran.Content = "Trừ tiền tiết học " + Slot.ScheduleId + " của học viên " + Student.UserName;
                     Tran.UserID = Student.StudentId;
                     Tran.UserType = 6;
                     Tran.TranDate = DateTime.Now;
@@ -461,7 +534,7 @@ namespace TutorOnline.Web.Controllers
             }
 
             ScheRes.EditSchedule(Slot);
-            return Json(new { BookSlot = true, Message = "Đặt lịch học thành công." });
+            return Json(new { BookSlot = true, Message = "Đặt tiết học thành công." });
         }
 
 
@@ -472,7 +545,7 @@ namespace TutorOnline.Web.Controllers
             DateTime SlotTime = new DateTime(Slot.OrderDate.Year, Slot.OrderDate.Month, Slot.OrderDate.Day, int.Parse(GetSlotTime(Slot.OrderSlot)), 0, 0);
             if (SlotTime <= DateTime.Now.AddDays(4))
             {
-                return Json(new { BookSlot = false, Message = "Bạn phải hủy môn học trước ít nhất 24 tiếng." });
+                return Json(new { BookSlot = false, Message = "Bạn phải hủy tiết học trước ít nhất 24 tiếng." });
             }
             Slot.Status = 11;
             Slot.LessonId = null;
