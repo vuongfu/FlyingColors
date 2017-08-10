@@ -86,6 +86,12 @@ namespace TutorOnline.Business.Repository
             }
         }
 
+        public void UpdateSlot(Schedule slot)
+        {
+            _dbContext.Entry(slot).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+
         public IEnumerable<Schedule> GetAllSlotBookedByStudent(DateTime StartDay, DateTime EndDay, int TutorId)
         {
             var slot = _dbContext.Schedules.Where(x => x.OrderDate >= StartDay && x.OrderDate <= EndDay && x.TutorId == TutorId && (x.Status == 4 || x.Status == 3 || x.Status == 5 || x.Status == 11));
