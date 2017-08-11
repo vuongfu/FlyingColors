@@ -55,7 +55,7 @@
     {
         <div class="row">
             <div class="col-md-12">
-                <h4>Tìm thấy @ViewBag.totalRecord kết quả.</h4>
+                <h4>Số kết quả tìm được: @ViewBag.totalRecord</h4>
             </div>
         </div>
         <div class="row">
@@ -83,7 +83,7 @@
                         </tr>
                     }
                 </table>
-                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên tổng số @Model.PageCount trang
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong tổng số @Model.PageCount trang
                 @Html.PagedListPager(Model, page => Url.Action("Index",
                                  new { page, searchString = ViewBag.searchStr, cateString = ViewBag.cateStr }))
             </div>
@@ -93,7 +93,7 @@
     {
         <div class="row">
             <div class="col-md-12">
-                <h4>Tìm thấy @ViewBag.totalRecord kết quả</h4>
+                <h4>Số kết quả tìm được: @ViewBag.totalRecord</h4>
             </div>
         </div>
     }

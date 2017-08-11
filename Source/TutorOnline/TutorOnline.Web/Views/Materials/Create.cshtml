@@ -58,11 +58,11 @@
                 <input type="submit" value="Thêm tài liệu" class="btn btn-success" />
                 @if (ViewBag.subId != null && ViewBag.lesId == null)
                 {
-                    @Html.ActionLink("Trở lại", "Details", "Subjects", new { @id = ViewBag.subId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Quay lại", "Details", "Subjects", new { @id = ViewBag.subId }, new { @class = "btn btn-default" })
                 }
                 else
                 {
-                    @Html.ActionLink("Trở lại", "Details", "Lessons", new { @id = ViewBag.lesId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Quay lại", "Details", "Lessons", new { @id = ViewBag.lesId }, new { @class = "btn btn-default" })
                 }
             </div>
         </div>
