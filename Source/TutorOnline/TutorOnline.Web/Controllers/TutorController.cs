@@ -17,6 +17,8 @@ namespace TutorOnline.Web.Controllers
     {
         private TutorRepository TuRes = new TutorRepository();
         private ScheduleRespository SchRes = new ScheduleRespository();
+        private StudentSubjectRepository SSRes = new StudentSubjectRepository();
+        private LessonRepository LRes = new LessonRepository();
 
         static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
         static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
@@ -293,6 +295,7 @@ namespace TutorOnline.Web.Controllers
         {
             Schedule data = SchRes.getSlotById(id);
             DetailBookedSlotByStudent model = new DetailBookedSlotByStudent();
+            
 
             if(data != null)
             {
@@ -409,6 +412,13 @@ namespace TutorOnline.Web.Controllers
                 data.CriteriaValue = listValue[i];
                 TuRes.AddTutorFeedbackDetail(data);
             }
+
+            slot.Status = 3;
+            SchRes.UpdateSlot(slot);
+            var subject = SSRes.GetSubById(slot.Lesson.SubjectId, slot.StudentId);
+            var dataStuSubject = subject.FirstOrDefault();
+            dataStuSubject.StudiedLesson++;
+            SSRes.EditSubject(dataStuSubject);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }

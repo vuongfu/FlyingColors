@@ -228,7 +228,7 @@ namespace TutorOnline.Web.Models
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Ngày sinh:")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public Nullable<System.DateTime> BirthDate { get; set; }
 
         [Display(Name = "Giới tính:")]
