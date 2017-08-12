@@ -27,6 +27,19 @@ namespace TutorOnline.Business.Repository
             var temp = _dbContext.TutorFeedbacks.Include(x => x.TutorFeedbackDetails).Where(x => x.ScheduleId == ScheduleId);
             return temp;
         }
+
+        public void AddStudentFeedback(StudentFeedback data)
+        {
+            _dbContext.StudentFeedbacks.Add(data);
+            _dbContext.SaveChanges();
+        }
+
+        public StudentFeedback FindFeedbackForTutor(int scheduleId)
+        {
+            var data = _dbContext.StudentFeedbacks.FirstOrDefault(x => x.ScheduleId == scheduleId);
+            return data;
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();

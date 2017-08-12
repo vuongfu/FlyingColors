@@ -1,0 +1,511 @@
+﻿@model TutorOnline.Web.Models.DetailBookedSlotByStudent
+@{
+    ViewBag.Title = "GetSlotDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="col-xs-12 col-sm-6 col-md-8 col-sm-offset-1 col-md-offset-1">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6" align="center">
+                <h3>Thông tin gia sư</h3>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6" align="center">
+                <h3>Thông tin tiết học</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="row">
+                    @if (String.IsNullOrEmpty(Model.Photo))
+                    {
+                        <div class="avatarDetail" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
+                    }
+                    else
+                    {
+                        <div class="avatarDetail" style="background-image: url(~/Content/Uploads/Images/@Model.Photo)"></div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6" id="dataStu">
+                        <b>Họ và tên:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.FullName)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Giới tính:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Gender)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Số điện thoại:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Phone)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Địa chỉ Email:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Skype:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Skype)
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Môn học:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Category)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Khóa học:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Subject)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Bài học:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Lesson)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Ngày học:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Date)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Thời gian:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.OrderTime)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Trạng thái:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.StatusName)
+                    </div>
+                </div>
+                <div class="row col-sm-offset-2 col-md-offset-2">
+                    <button type="button" class="btn btn-success" onclick="FeedBack(@Model.ScheduleId)" id="btnFeedback1">Xem đánh giá bài học</button>
+                    <button type="button" class="btn btn-success" onclick="Cancel(@Model.ScheduleId)" id="btnFeedback1">Hủy đặt</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row col-sm-offset-1 col-md-offset-1">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FeedbackModal" id="btnFeedback">Đánh giá gia sư</button>
+            <button type="button" class="btn hidden" data-toggle="modal" data-target="#Loading" data-backdrop="static" id="btnLoad">Load</button>
+            @Html.ActionLink("Quay về", "ViewSchedule", null, new { @class = "btn btn-success" })
+        </div>
+    </div>
+</div>
+<!-- Modal loading -->
+<div class="modal fade" id="Loading" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="TitleLoading1"></h4>
+            </div>
+            <div class="modal-body">
+                <div align="center">
+                    <img src="~/Image/Loading2.gif" id="loadingImg" width="150" height="150" />
+                    <h5 id="MessSave"></h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseSaveModal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal feedback -->
+<div class="modal fade" id="FeedbackModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Đánh giá gia sư</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-8">
+                            @for (int i = 0; i < Model.CriteriaContent.Count(); i++)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-3" align="right">
+                                        <b>@Model.CriteriaContent[i]:</b>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <span class="rating">
+                                            <input id="@Model.CriteriaId[i]5" type="radio" name="@Model.CriteriaId[i]" value="5">
+                                            <label for="@Model.CriteriaId[i]5">5</label>
+                                            <input id="@Model.CriteriaId[i]4" type="radio" name="@Model.CriteriaId[i]" value="4">
+                                            <label for="@Model.CriteriaId[i]4">4</label>
+                                            <input id="@Model.CriteriaId[i]3" type="radio" name="@Model.CriteriaId[i]" value="3">
+                                            <label for="@Model.CriteriaId[i]3">3</label>
+                                            <input id="@Model.CriteriaId[i]2" type="radio" name="@Model.CriteriaId[i]" value="2" checked>
+                                            <label for="@Model.CriteriaId[i]2">2</label>
+                                            <input id="@Model.CriteriaId[i]1" type="radio" name="@Model.CriteriaId[i]" value="1">
+                                            <label for="@Model.CriteriaId[i]1">1</label>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4"></div>
+                                </div>
+
+                            }
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-2 col-md-2" align="right">
+                                    <b>Nhận xét:</b>
+                                </div>
+                                <div class="col-md-5 col-sm-5">
+                                    <textarea class="form-control" style="width:100%;" id="CommentFeedback" name="CommentFeedback" rows="5">@(Model.Comment == null ? "" : Model.Comment)</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnSubmitFeedback" onclick="SaveFeedBack()">Lưu lại</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal feedback -->
+<div class="modal fade" id="FeedbackModal1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Đánh giá học sinh</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-8" id="Criteria">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_LoadingData")
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<script src="~/Scripts/bootstrap.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+    var listCreId = new Array();
+    var listValue = new Array();
+    var comment;
+
+    function getDataFeedBack() {
+        listValue.splice(0, listValue.length);
+        listCreId.splice(0, listCreId.length);
+        comment = $("textarea[name='CommentFeedback']").val();
+
+        @foreach(var item in Model.CriteriaId)
+        {
+            @Html.Raw("listCreId.push(" + item +");");
+            @Html.Raw("listValue.push($(\"input[type='radio'][name='" + item + "']:checked\").val());");
+        }
+    }
+
+    function SaveFeedBack() {
+        getDataFeedBack();
+        document.getElementById("btnFeedback").click();
+        document.getElementById("btnLoad").click();
+        jQuery('#loadingImg').removeClass('hidden');
+        jQuery('#MessSave').addClass('hidden');
+        jQuery('#btnCloseSaveModal').addClass('hidden');
+        document.getElementById("TitleLoading1").innerHTML = "Đang lưu đánh giá...";
+
+        $.ajax({
+            url: '@Url.Action("SaveFeedback", "Student")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'listCreId': listCreId, 'listValue': listValue, 'scheduleId': @Model.ScheduleId, 'comment':comment }),
+            success: function (data) {
+                jQuery('#loadingImg').addClass('hidden');
+                jQuery('#MessSave').removeClass('hidden');
+                jQuery('#btnCloseSaveModal').removeClass('hidden');
+                document.getElementById("MessSave").innerHTML = "Đánh giá về gia sư đã được lưu lại.";
+                document.getElementById("TitleLoading1").innerHTML = "Lưu thành công.";
+                document.getElementById("btnFeedback").innerHTML = "Xem đánh giá";
+                document.getElementById("CommentFeedback").readOnly = "true";
+                var inputs = document.getElementsByTagName('input');
+                for(var i = 0; i < inputs.length; i++)
+                {
+                    if(inputs[i].type == 'radio')
+                    {
+                        inputs[i].disabled = true;
+                    }
+                }
+                jQuery('#btnSubmitFeedback').addClass('hidden');
+            },
+            error: function (xhr) {
+                jQuery('#loadingImg').addClass('hidden');
+                jQuery('#MessSave').removeClass('hidden');
+                jQuery('#btnCloseSaveModal').removeClass('hidden');
+                document.getElementById("MessSave").innerHTML = "Có lỗi xảy ra trong quá trình lưu. <br>Xin hãy thử lại sau.";
+                document.getElementById("TitleLoading1").innerHTML = "Xảy ra lỗi.";
+            }
+        });
+    }
+
+
+    $(document).ready(function(){
+        $.ajax({
+            url: '@Url.Action("CheckFeedBack", "Student")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'scheduleId': @Model.ScheduleId }),
+            success: function (data) {
+                if(data == false)
+                    return false;
+                jQuery('#btnSubmitFeedback').addClass('hidden');
+                document.getElementById("btnFeedback").innerHTML = "Xem đánh giá";
+                document.getElementById("CommentFeedback").readOnly = "true";
+                for(i in data){
+                    var id = "" + data[i].criteriaId + "" + data[i].value;
+                    document.getElementById(id).click();
+                }
+
+                var inputs = document.getElementsByTagName('input');
+                for(var i = 0; i < inputs.length; i++)
+                {
+                    if(inputs[i].type == 'radio')
+                    {
+                        inputs[i].disabled = true;
+                    }
+                }
+            },
+            error: function (xhr) {
+
+            }
+        });
+    });
+
+    function bindData(Id) {
+        $.ajax({
+            url: '@Url.Action("GetFeedBack", "Student")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'ScheduleId': Id}),
+            success: function (data) {
+                if(data.Exist == true){
+                    var x = "";
+                    for(i in data.Result)
+                    {
+                        if(i < data.Count){
+                            x += '<div class="row">';
+                            x += '<div class="col-sm-4 col-md-4" align="right">';
+                            x += '<b>'+data.Result[i].CriterionName+':</b>';
+                            x += '</div>';
+                            x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                            for(var j = 5; j >= 1; j--){
+                                if(data.Result[i].CriterionValue == j){
+                                    x += '<input type="radio" name="'+data.Result[i].CriterionName+'" value="'+j+'" checked disabled>';
+                                } else {
+                                    x += '<input type="radio" name="'+data.Result[i].CriterionName+'" value="'+j+'" disabled>';
+                                }
+                                x += '<label for="'+data.Result[i].CriterionName+j+'">'+j+'</label>';
+                            }
+                            x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+                        }
+                    }
+                    x += '<div class="row">';
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>'+data.Result[data.Count].CriterionName+':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                    x += '<p>'+data.Result[data.Count].CriterionValue+'</p>';
+                    x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    x += '<div class="row">';
+
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>'+data.Result[data.Count + 1].CriterionName+':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-8 col-md-8">';
+                    x += '<p>'+data.Result[data.Count + 1].CriterionValue+'</p>';
+                    x += ' </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    $("#Criteria").html(x);
+
+                    $('#FeedbackModal1').modal("show");
+                    jQuery('#btnCloseSaveModal').removeClass('hidden');
+                    document.getElementById("btnLoad").click();
+                } else {
+                    jQuery('#loadingImg').addClass('hidden');
+                    jQuery('#MessSave').removeClass('hidden');
+                    jQuery('#btnCloseSaveModal').removeClass('hidden');
+                    document.getElementById("MessSave").innerHTML = "Chưa có đánh giá cho tiết học này.";
+                    document.getElementById("TitleLoading1").innerHTML = "Không có đánh giá.";
+                }
+
+            },
+            error: function (xhr) {
+                jQuery('#loadingImg').addClass('hidden');
+                jQuery('#MessSave').removeClass('hidden');
+                jQuery('#btnCloseSaveModal').removeClass('hidden');
+                document.getElementById("MessSave").innerHTML = "Có lỗi xảy ra trong quá trình tải. <br>Xin hãy thử lại sau.";
+                document.getElementById("TitleLoading1").innerHTML = "Xảy ra lỗi.";
+            }
+        });
+    }
+    function FeedBack(Id)
+    {
+        document.getElementById("btnLoad").click();
+        jQuery('#loadingImg').removeClass('hidden');
+        jQuery('#MessSave').addClass('hidden');
+        jQuery('#btnCloseSaveModal').addClass('hidden');
+        document.getElementById("TitleLoading1").innerHTML = "Đang tải đánh giá...";
+        bindData(Id);
+
+    }
+
+    function Cancel(slotid) {
+        LoadingData();
+        var r = confirm("Bạn có chắc chắn muốn hủy đặt buổi học này?");
+        if (r == true)
+        {
+            var url = "@Url.Action("Cancel", "Student")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    'ScheduleId': slotid
+                },
+                error: function() {
+                    alert('Internal server error!');
+                },
+                success: function(data) {
+                    if(data.BookSlot == true){
+                        CloseWithMess("Hủy đặt thành công.");
+                        window.location.href = '/Student/ViewSchedule';
+                    } else {
+                        jQuery('#MessSave').addClass('hidden');
+                        CloseWithMess("Có lỗi phát sinh, xin hãy thử lại sau.");
+                    }
+                }
+            });
+        }
+    }
+</script>
+<style>
+    .avatarDetail {
+        width: 100px;
+        height: 100px;
+        margin: 10px auto 10px;
+        border-radius: 100%;
+        border: 2px solid #aaa;
+        background-size: cover;
+    }
+
+    #dataStu {
+        text-align: right;
+    }
+
+    #dataLesson {
+        text-align: right;
+    }
+
+    .wrapper {
+        padding: 20px;
+        margin: 50px auto;
+        width: 400px;
+        min-height: 200px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,.1);
+        background-color: #fff;
+    }
+
+    .rating {
+        overflow: hidden;
+        vertical-align: bottom;
+        display: inline-block;
+        width: auto;
+        height: 20px;
+        margin-right: 60px;
+    }
+
+        .rating > input {
+            opacity: 0;
+            margin-right: -100%;
+        }
+
+        .rating > label {
+            position: relative;
+            display: block;
+            float: right;
+            background: url('/Image/star-off-big.png');
+            background-size: 20px 20px;
+        }
+
+            .rating > label:before {
+                display: block;
+                opacity: 0;
+                content: '';
+                width: 20px;
+                height: 20px;
+                background: url('/Image/star-on-big.png');
+                background-size: 20px 20px;
+                transition: opacity 0.2s linear;
+            }
+
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating:not(:hover) > :checked ~ label:before {
+                opacity: 1;
+            }
+</style>

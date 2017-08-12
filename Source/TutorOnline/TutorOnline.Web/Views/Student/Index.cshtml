@@ -84,7 +84,7 @@ text-decoration: none;
         </div>
     </div>
 </section>
-<section id="schedule">
+<section id="schedule" style="display:none;">
     <div class="col-md-12 col-box-one header-line">
         <div class="col-md-12 section-header-one center">
             <h2>Lịch học của bạn</h2>
@@ -167,6 +167,9 @@ text-decoration: none;
         </table>
     </div>
 </section>
+<section id="Transaction" class="container">
+    @Html.Action("ViewTransaction", "Student")
+</section>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
@@ -211,7 +214,7 @@ text-decoration: none;
                         jQuery('#' + data[i].tableSlotId).addClass('canceledSlot');
 
                     if(stt != 11){
-                        var x = "<a href=GetSlotDetail/";
+                        var x = "<a href=/Student/GetSlotDetail/";
                         x += data[i].ScheduleId + ">";
                         x += data[i].TutorName + "<br>" + data[i].LessonName + "</a>";
                         document.getElementById(data[i].tableSlotId).innerHTML = x;
@@ -225,11 +228,7 @@ text-decoration: none;
         });
     }
 
-    $(document).ready(function () {
-        $("table").on("click", "td", function() {
-            alert($( this ).text());
-        });
-    });
+
     $(document).ready(function () {
         startDate = new Date("@ViewBag.FirstDayOfWeek.ToShortDateString()");
         endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");

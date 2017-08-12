@@ -3,83 +3,87 @@
     ViewBag.Title = "ViewSchedule";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<p>
-    <input class="week-picker" id="WeekSelect" readonly="readonly">
-    <br /><br />
-</p>
-<div class="col-lg-offset-1 col-lg-10"></div>
-<table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
-    <tr>
-        <th></th>
-        <th scope="col" style="width:75px;">Slot 1<br />08:00 - 08:45</th>
-        <th scope="col" style="width:75px;">Slot 2<br />09:00 - 09:45</th>
-        <th scope="col" style="width:75px;">Slot 3<br />10:00 - 10:45</th>
-        <th scope="col" style="width:75px;">Slot 4<br />11:00 - 11:45</th>
-        <th scope="col" style="width:75px;">Slot 5<br />13:00 - 13:45</th>
-        <th scope="col" style="width:75px;">Slot 6<br />14:00 - 14:45</th>
-        <th scope="col" style="width:75px;">Slot 7<br />15:00 - 15:45</th>
-        <th scope="col" style="width:75px;">Slot 8<br />16:00 - 16:45</th>
-        <th scope="col" style="width:75px;">Slot 9<br />19:00 - 19:45</th>
-        <th scope="col" style="width:75px;">Slot 10<br />20:00 - 20:45</th>
-        <th scope="col" style="width:75px;">Slot 11<br />21:00 - 21:45</th>
-    </tr>
-    <tr id="RowSun">
-        <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Sun@(temp)"></td>
-        }
-    </tr>
-    <tr id="RowMon">
-        <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Mon@(temp)"></td>
-        }
-    </tr>
-    <tr id="RowTue">
-        <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Tue@(temp)"></td>
-        }
-    </tr>
-    <tr id="RowWed">
-        <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Wed@(temp)"></td>
-        }
-    </tr>
-    <tr id="RowThu">
-        <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Thu@(temp)"></td>
-        }
-    </tr>
-    <tr id="RowFri">
-        <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Fri@(temp)"></td>
-        }
-    </tr>
-    <tr id="RowSat">
-        <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
+<section>
+    <div class="col-lg-offset-1 col-lg-10 container">
+        <br />
+        <p>
+            <input class="week-picker" id="WeekSelect" readonly="readonly">
+            <br /><br />
+        </p>
+        <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
+            <tr>
+                <th></th>
+                <th scope="col" style="width:75px;">Slot 1<br />08:00 - 08:45</th>
+                <th scope="col" style="width:75px;">Slot 2<br />09:00 - 09:45</th>
+                <th scope="col" style="width:75px;">Slot 3<br />10:00 - 10:45</th>
+                <th scope="col" style="width:75px;">Slot 4<br />11:00 - 11:45</th>
+                <th scope="col" style="width:75px;">Slot 5<br />13:00 - 13:45</th>
+                <th scope="col" style="width:75px;">Slot 6<br />14:00 - 14:45</th>
+                <th scope="col" style="width:75px;">Slot 7<br />15:00 - 15:45</th>
+                <th scope="col" style="width:75px;">Slot 8<br />16:00 - 16:45</th>
+                <th scope="col" style="width:75px;">Slot 9<br />19:00 - 19:45</th>
+                <th scope="col" style="width:75px;">Slot 10<br />20:00 - 20:45</th>
+                <th scope="col" style="width:75px;">Slot 11<br />21:00 - 21:45</th>
+            </tr>
+            <tr id="RowSun">
+                <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
             {
                 string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Sat@(temp)"></td>
-        }
-    </tr>
-</table>
+                    <td class="tableSlot" id="Sun@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowMon">
+                <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Mon@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowTue">
+                <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Tue@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowWed">
+                <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Wed@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowThu">
+                <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Thu@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowFri">
+                <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Fri@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowSat">
+                <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Sat@(temp)"></td>
+                }
+            </tr>
+        </table>
+    </div>
+</section>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">

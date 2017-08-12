@@ -306,6 +306,7 @@
             .rating:not(:hover) > :checked ~ label:before{
                 opacity: 1;
             }
+
 </style>
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
@@ -358,6 +359,10 @@
                 }
             });
         });
+    });
+
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
     });
 
     function Download(Id){
@@ -430,6 +435,10 @@
         bindData(Id);
         $('#FeedbackModal').modal("show");
     }
+
+    function NotAvaiable (){
+        alert('Bạn chưa có quyền thực hiện chức năng này');
+    }
 </script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
@@ -487,27 +496,27 @@
                                             {
                                                 <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = Date, Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
                                                 <td>
-                                                    <i class="material-icons button edit" onclick="FeedBack(@item.LessonId)">feedback</i>
-                                                    <i class="material-icons button delete" onclick="Download(@item.LessonId)">file_download</i>
-                                                    <i class="material-icons button test" onclick="Test(@item.LessonId)">edit</i>
+                                                    <i class="material-icons button edit" onclick="FeedBack(@item.LessonId)" data-toggle="tooltip" title="Xem đánh giá">feedback</i>
+                                                    <i class="material-icons button delete" onclick="Download(@item.LessonId)" data-toggle="tooltip" title="Tải tài liệu">file_download</i>
+                                                    <i class="material-icons button test" onclick="Test(@item.LessonId)" data-toggle="tooltip" title="Làm bài kiểm tra">edit</i>
                                                 </td>
                                             }
                                             else if (ViewBag.Count == Model.StudiedLesson + 1)
                                             {
                                                 <td><a href="@Url.Action("BookSlot","Student",new {SelectedDate = Date, Week = 0, LessonId = item.LessonId,  SubjectId = Model.SubjectId})">@item.Content</a></td>
                                                 <td>
-                                                    <i class="material-icons button edit">feedback</i>
-                                                    <i class="material-icons button delete">file_download</i>
-                                                    <i class="material-icons button test">edit</i>
+                                                    <i class="material-icons button edit" onclick="NotAvaiable()" data-toggle="tooltip" title="Xem đánh giá">feedback</i>
+                                                    <i class="material-icons button delete" onclick="Download(@item.LessonId)" data-toggle="tooltip" title="Tải tài liệu">file_download</i>
+                                                    <i class="material-icons button test" onclick="NotAvaiable()" data-toggle="tooltip" title="Làm bài kiểm tra">edit</i>
                                                 </td>
                                             }
                                             else
                                             {
                                                 <td>@item.Content</td>
                                                 <td>
-                                                    <i class="material-icons button edit">feedback</i>
-                                                    <i class="material-icons button delete">file_download</i>
-                                                    <i class="material-icons button test">edit</i>
+                                                    <i class="material-icons button edit" onclick="NotAvaiable()" data-toggle="tooltip" title="Xem đánh giá">feedback</i>
+                                                    <i class="material-icons button delete" onclick="NotAvaiable()" data-toggle="tooltip" title="Tải tài liệu">file_download</i>
+                                                    <i class="material-icons button test" onclick="NotAvaiable()" data-toggle="tooltip" title="Làm bài kiểm tra">edit</i>
                                                 </td>
                                             }
                                         </tr>

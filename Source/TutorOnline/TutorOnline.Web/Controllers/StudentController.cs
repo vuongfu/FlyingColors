@@ -380,9 +380,9 @@ namespace TutorOnline.Web.Controllers
             {
                 model.Category = data.Lesson.Subject.Category.CategoryName;
                 model.Date = data.OrderDate;
-                model.Email = data.Student.Email;
-                model.FullName = data.Student.LastName + " " + data.Student.FirstName;
-                model.Gender = data.Student.Gender == 1 ? "Nam" : "Nữ";
+                model.Email = data.Tutor.Email;
+                model.FullName = data.Tutor.LastName + " " + data.Tutor.FirstName;
+                model.Gender = data.Tutor.Gender == 1 ? "Nam" : "Nữ";
                 model.Lesson = data.Lesson.LessonName;
                 string time = "";
                 int slot = data.OrderSlot;
@@ -395,10 +395,10 @@ namespace TutorOnline.Web.Controllers
 
                 model.OrderTime = time;
                 model.OrderSlot = data.OrderSlot;
-                model.Phone = data.Student.PhoneNumber;
-                model.Photo = data.Student.Photo;
+                model.Phone = data.Tutor.PhoneNumber;
+                model.Photo = data.Tutor.Photo;
                 model.ScheduleId = data.ScheduleId;
-                model.Skype = data.Student.SkypeId;
+                model.Skype = data.Tutor.SkypeId;
                 model.Subject = data.Lesson.Subject.SubjectName;
                 model.Status = data.Status;
                 if (model.Status == 3)
@@ -410,15 +410,12 @@ namespace TutorOnline.Web.Controllers
                 else
                     model.StatusName = StatusString.SchudulueAvailabled;
 
-                var criteria = TurRes.getCriteriaForLesson((int)data.LessonId);
                 List<int> dataForCriteId = new List<int>();
                 List<string> dataForCriteContent = new List<string>();
-                for (int i = 0; i < criteria.Count(); i++)
-                {
-                    var cri = criteria.ElementAt(i);
-                    dataForCriteId.Add(cri.CriteriaId);
-                    dataForCriteContent.Add(cri.CriteriaName);
-                }
+
+                dataForCriteId.Add(0);
+                dataForCriteContent.Add("Đánh giá");
+
                 model.CriteriaId = dataForCriteId;
                 model.CriteriaContent = dataForCriteContent;
                 model.ScheduleDate = data.OrderDate;
@@ -432,6 +429,45 @@ namespace TutorOnline.Web.Controllers
 
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SaveFeedback(List<int> listCreId, List<int> listValue, int scheduleId, string comment)
+        {
+
+            var slot = ScheRes.getSlotById(scheduleId);
+
+            int check = TurRes.getTutorFeedbackId(slot.TutorId, slot.ScheduleId, (int)slot.StudentId);
+            if (check != -1)
+                return Json(false, JsonRequestBehavior.AllowGet);
+
+            StudentFeedback feedback = new StudentFeedback();
+            feedback.TutorId = slot.TutorId;
+            feedback.StudentId = (int)slot.StudentId;
+            feedback.LessonId = (int)slot.LessonId;
+            feedback.ScheduleId = scheduleId;
+            feedback.FeedbackDate = DateTime.Now;
+            feedback.Comment = comment;
+            feedback.Rate = listValue[0];
+            FBRes.AddStudentFeedback(feedback);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CheckFeedBack(int ScheduleId)
+        {
+            var temp = FBRes.FindFeedbackForTutor(ScheduleId);
+            List<ViewFeedbackViewModel> listData = new List<ViewFeedbackViewModel>();
+            if (temp == null)
+                return Json(false, JsonRequestBehavior.AllowGet);
+
+                ViewFeedbackViewModel data = new ViewFeedbackViewModel();
+                data.criteriaId = 0;
+                data.value = temp.Rate;
+
+                listData.Add(data);
+
+            return Json(listData, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult BookSlot(String SelectedDate, int Week, int LessonId, int SubjectId)
@@ -462,7 +498,7 @@ namespace TutorOnline.Web.Controllers
                 {
                     temp.Photo = Tutor.Photo;
                     temp.Description = Tutor.Description;
-                    temp.Name = Tutor.FirstName + " " + Tutor.LastName;
+                    temp.Name = Tutor.LastName + " " + Tutor.FirstName;
                     temp.ListSchedule = TutorSchedule;
                     ListSchedule.Add(temp);
                 }
@@ -506,7 +542,13 @@ namespace TutorOnline.Web.Controllers
             {
                 return Json(new { BookSlot = false, Message = "Không tồn tại tiết học này." });
             }
-            if (CheckLesson.Order > StuSubRes.GetSubById(CheckLesson.SubjectId,Slot.StudentId).FirstOrDefault().StudiedLesson + 1)
+
+            StudentSubject CheckSubject = StuSubRes.GetSubById(CheckLesson.SubjectId, Slot.StudentId).FirstOrDefault();
+            if(CheckSubject == null)
+            {
+                return Json(new { BookSlot = false, Message = "Bạn phải đăng ký môn học trước khi có thể đặt tiết học này." });
+            }
+            if (CheckLesson.Order > CheckSubject.StudiedLesson + 1)
             {
                 return Json(new { BookSlot = false, Message = "Bạn phải hoàn thành một số tiết học khác trước để có thể đặt tiết học này." });
             }
@@ -522,7 +564,7 @@ namespace TutorOnline.Web.Controllers
                     Tran.Amount = Slot.Price * -1;
                     Tran.Content = "Trừ tiền tiết học " + Slot.ScheduleId + " của học viên " + Student.UserName;
                     Tran.UserID = Student.StudentId;
-                    Tran.UserType = 6;
+                    Tran.UserType = 1;
                     Tran.TranDate = DateTime.Now;
                     AccRes.Add(Tran);
                     if (Slot.Price != 0)
@@ -543,7 +585,7 @@ namespace TutorOnline.Web.Controllers
         {
             Schedule Slot = ScheRes.FindSchedule(ScheduleId);
             DateTime SlotTime = new DateTime(Slot.OrderDate.Year, Slot.OrderDate.Month, Slot.OrderDate.Day, int.Parse(GetSlotTime(Slot.OrderSlot)), 0, 0);
-            if (SlotTime <= DateTime.Now.AddDays(4))
+            if (SlotTime <= DateTime.Now.AddDays(1))
             {
                 return Json(new { BookSlot = false, Message = "Bạn phải hủy tiết học trước ít nhất 24 tiếng." });
             }
@@ -559,7 +601,7 @@ namespace TutorOnline.Web.Controllers
                 Tran.Amount = Slot.Price;
                 Tran.Content = "Hoàn tiền buổi học " + Slot.ScheduleId + " của học viên " + Student.UserName;
                 Tran.UserID = Student.StudentId;
-                Tran.UserType = 6;
+                Tran.UserType = 1;
                 Tran.TranDate = DateTime.Now;
                 AccRes.Add(Tran);
                 Student.Balance = Student.Balance + Slot.Price;
@@ -678,6 +720,52 @@ namespace TutorOnline.Web.Controllers
                     break;
             }
             return time;
+        }
+
+        public PartialViewResult ViewTransaction(String Content, String StartDate, String EndDate, int? page)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            ViewBag.Count = pageSize * (pageNumber - 1) + 1;
+
+            ViewBag.StartDate = StartDate;
+            ViewBag.EndDate = EndDate;
+
+            int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]); ;
+            List<Transaction> ListTrans = new List<Transaction>();
+            if (StudentId != 0)
+            {
+                
+                ListTrans = AccRes.GetAllTrans().Where(x => x.UserID == StudentId && x.UserType == 1).ToList();
+
+                try
+                {
+                    DateTime SDate = DateTime.ParseExact(StartDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    new LogWriter("SDate = " + SDate.ToString());
+                    ListTrans = ListTrans.Where(s => s.TranDate.Date >= SDate.Date).ToList();
+                }
+                catch (Exception e) { new LogWriter(e.ToString()); }
+
+                try
+                {
+                    DateTime EDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    new LogWriter("EDate = " + EDate.ToString());
+                    ListTrans = ListTrans.Where(s => s.TranDate.Date <= EDate.Date).ToList();
+                }
+                catch (Exception e) { new LogWriter(e.ToString()); }
+
+                if (!String.IsNullOrEmpty(Content))
+                {
+
+                    ListTrans = ListTrans.Where(s => AccRes.SearchForString(s.Content, Content)).ToList();
+                }
+
+                ViewBag.searchClick = true;
+                ViewBag.totalRecord = "Số kết quả tìm được: " + ListTrans.Count();
+
+                return PartialView(ListTrans.OrderBy(x => x.TranDate).ToPagedList(pageNumber, pageSize));
+            }
+            return PartialView();
         }
     }
 }

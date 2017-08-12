@@ -8,15 +8,22 @@
 }
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
-<link href="~/Scripts/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap-datepicker.standalone.css" rel="'stylesheet" />
 
+<script>
+    function Pay() {
+        window.location = '/Accountant/PaySalary';
+    }
+</script>
 
+@Html.Partial("_LoadingData")
 <h2>@TranString.IndexTitle</h2>
 
     <br />
         <h4>
             @Html.ActionLink(TranString.CreateTransaction, "Search", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
             @Html.ActionLink(TranString.ImportExcel, "ImportExcel", new { area = "" }, new { @class = "btn btn-success navbar-btn" })
+            <button class="btn btn-success navbar-btn" onclick="Pay()">Trả lương cho tutor</button>
         </h4>
         @using (Html.BeginForm("Index", "Accountant", FormMethod.Get))
         {

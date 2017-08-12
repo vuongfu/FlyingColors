@@ -133,47 +133,23 @@ namespace TutorOnline.Web.Controllers
                 ListTrans = ListTrans.Where(s => s.UserType == int.Parse(roleString)).ToList();
             try
             {
-                if (DateTime.Parse(StartDate) != null)
-                {
                     DateTime SDate = DateTime.ParseExact(StartDate, "d/M/yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("SDate = " + SDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date >= SDate.Date).ToList();
-                }
             }
             catch(Exception e) {new LogWriter(e.ToString()); }
 
             try
             {
-                if (DateTime.Parse(EndDate) != null)
-                {
                     DateTime EDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("EDate = " + EDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date <= EDate.Date).ToList();
-                }
             }
             catch (Exception e) { new LogWriter(e.ToString()); }
 
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                //ListUsers = ListUsers.Where(s => s.Username.Contains(searchString) || s.FirstName.Contains(searchString) || s.LastName.Contains(searchString)).ToList();
-                //List<TransactionListViewModels> ListTransTemp = new List<TransactionListViewModels>();
-                //TransactionListViewModels temp = new TransactionListViewModels();
-                //foreach (IndexUserViewModel item in ListUsers)
-                //{
-                //    if (item.RoleName == "Student")
-                //    {
-                //        temp = ListTrans.Where(s => s.UserID == item.Id && s.UserType == 1).FirstOrDefault();
-                //    }
-                //    else
-                //    {
-                //        temp = ListTrans.Where(s => s.UserID == item.Id && s.UserType == 2).FirstOrDefault();
-                //    }
-                //    temp.UserName = item.Username;
-                //    temp.Name = item.FirstName + " " + item.LastName;
-                //    ListTransTemp.Add(temp);
-                //}
-                //ListTrans = ListTransTemp;
 
                 ListTrans = ListTrans.Where(s => AccRes.SearchForString(s.UserName, searchString) || AccRes.SearchForString(s.Name, searchString)).ToList();
             }
@@ -219,6 +195,60 @@ namespace TutorOnline.Web.Controllers
             return View(ListTrans.OrderBy(x => x.TransactionId).ToPagedList(pageNumber, pageSize));
         }
 
+
+        public FileResult PaySalary()
+        {
+
+            System.IO.MemoryStream memStream;
+            List<Tutor> ListTutor = URes.GetAllTutorUser().Where(s => s.Balance > 0).ToList();
+
+            List<TransactionViewModels> ListTrans = new List<TransactionViewModels>();
+
+            foreach(Tutor item in ListTutor)
+            {
+                TransactionViewModels temp = new TransactionViewModels();
+                temp.Amount = (int)item.Balance * -1;
+                temp.Content = "Trả lương cho gia sư " + item.UserName;
+                temp.Name = item.LastName + " " + item.FirstName;
+                temp.TranDate = DateTime.Now;
+                temp.UserName = item.UserName;
+                temp.UserTypeName = UserCommonString.Tutor;
+                ListTrans.Add(temp);
+
+                Transaction Trans = new Transaction();
+                Trans = MapCreateViewToTrans(temp);
+
+                item.Balance = 0;
+
+                URes.EditTutorUser(item);
+                AccRes.Add(Trans);
+            }
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("New Sheet");
+
+                worksheet.Cells[1, 1].Value = "STT";
+                worksheet.Cells[1, 2].Value = TranString.Content;
+                worksheet.Cells[1, 3].Value = TranString.Amount;
+                worksheet.Cells[1, 4].Value = TranString.TransDate;
+                worksheet.Cells[1, 5].Value = TranString.Account;
+                worksheet.Cells[1, 6].Value = TranString.UserType;
+                worksheet.Cells[1, 7].Value = TranString.Name;
+                for (int i = 0; i < ListTrans.Count(); i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = i + 1;
+                    worksheet.Cells[i + 2, 2].Value = ListTrans[i].Content.ToString();
+                    worksheet.Cells[i + 2, 3].Value = ListTrans[i].Amount.ToString();
+                    worksheet.Cells[i + 2, 4].Value = ListTrans[i].TranDate.ToString();
+                    worksheet.Cells[i + 2, 5].Value = ListTrans[i].UserName.ToString();
+                    worksheet.Cells[i + 2, 6].Value = ListTrans[i].UserTypeName.ToString();
+                    worksheet.Cells[i + 2, 7].Value = ListTrans[i].Name.ToString();
+                }
+                memStream = new System.IO.MemoryStream(package.GetAsByteArray());
+            }
+
+            return File(memStream, "application/vnd.ms-excel", "Payment.xlsx");
+        }
 
         public ActionResult Search(string searchString, string roleString, int? genderString, string yearString, int? page, string Search)
         {
@@ -529,7 +559,7 @@ namespace TutorOnline.Web.Controllers
                                 Tutor User = Tutor.Where(s => s.UserName.Equals(trans.UserName, StringComparison.CurrentCultureIgnoreCase) && s.RoleId == 7).FirstOrDefault();
                                 if (user == null)
                                 {
-                                    ViewBag.Message = "Tên người dùng tại dòng " + (i + 1) + "không tồn tại.";
+                                    ViewBag.Message = "Tên người dùng tại dòng " + (i + 1) + " không tồn tại.";
                                     return View();
                                 }
                                 if (User.Balance + trans.Amount < 0)

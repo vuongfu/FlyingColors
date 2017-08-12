@@ -70,7 +70,7 @@
                 },
                 success: function(data) {
                     if(data.BookSlot == true){
-                        $("#slot_" + id).attr("class", "btn-selfbooked").text('BOOKED').attr("onclick", "Cancel(" + slotid + ")");
+                        $("#slot_" + id).attr("class", "btn-selfbooked").text('BOOKED').attr("onclick", "Cancel(" + id + ")");
                         alert("Đăng ký thành công!");
                     } else {
                         alert(data.Message);
@@ -408,14 +408,22 @@
                             {
                                 <div class="col-lg-4" style="overflow: hidden;height: 535px;border:1px solid #a42532; padding: 25px 30px;border-left-width: 1px">
                                     <div class="col-lg-6">
-                                        <a href="#"><img src="@Model[i].Photo" width="135" height="135" alt="avatar"></a>
+                                        @if (String.IsNullOrEmpty(Model[i].Photo))
+                                        {
+                                            <a href="#"><img src="../../Image/TutorOnline_Icon.png" width="135" height="135" alt="avatar"></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#"><img src="~/Content/Uploads/Images/@Model[i].Photo" width="135" height="135" alt="avatar"></a>
+                                        }
+                                        
                                     </div>
                                     <div class="col-lg-6">
                                         @Model[i].Description
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-lg-6">
-                                        <a style="color: black;display:block;height:35px; line-height: 35px; text-align:left;font-size:20px; margin: 10px 0px" href="">@Model[i].Name</a>
+                                        <a style="color: black;display:block;height:35px; line-height: 35px; text-align:left;font-size:15px; margin: 10px 0px" href="">@Model[i].Name</a>
                                     </div>
 
                                     <!-- sound -->
