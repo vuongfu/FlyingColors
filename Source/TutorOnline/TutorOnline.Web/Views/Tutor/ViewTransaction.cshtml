@@ -1,0 +1,194 @@
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransactionListViewModels>
+@using PagedList.Mvc;
+@using TutorOnline.Common;
+@{
+    TranStringCommon TranString = new TranStringCommon();
+    ViewBag.Title = "ViewTransaction";
+    Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
+}
+
+<style>
+    .caps {
+        text-transform: uppercase;
+    }
+
+    .row-narrow {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .well {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="well">
+        <h3 class="caps">
+            <strong>Lịch sử giao dịch</strong>
+        </h3>
+        <hr />
+        @using (Html.BeginForm("ViewTransaction", "Tutor", FormMethod.Get))
+        {
+            <table>
+                <tr>
+                    <td class="text-right"><b>Nội dung:</b></td>
+                    <td class="text-left">@Html.TextBox("SearchString", null, htmlAttributes: new { @class = "form-control" })</td>
+                    <td style="padding-left:15px;"></td>
+                    <td class="text-right"><b>Từ ngày:</b></td>
+                    <td class="text-left">@Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" , id = "dateFrom" })</td>
+                    <td style="padding-left:15px;"></td>
+                    <td class="text-right"><b>Đến ngày:</b></td>
+                    <td class="text-left">@Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" , id = "dateTo" })</td>
+                    <td style="padding-left:15px;"></td>
+                    <td class="text-right"><input type="submit" name="Search" value="@TranString.Search" class="btn" /></td>
+                </tr>
+            </table>
+        }
+
+
+
+        <hr />
+
+        @if (ViewBag.searchClick == true)
+        {
+            <p>Số kết quả tìm được: @ViewBag.totalRecord</p>
+        }
+
+        @if (Model.FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <table class="table table-hover table-striped">
+                    <tr>
+                        <th>
+                            @TranString.Number
+                        </th>
+                        <th>
+                            Mã giao dịch
+                        </th>
+                        <th>
+                            @TranString.Content
+                        </th>
+                        <th>
+                            @TranString.Amount
+                        </th>
+                        <th>
+                            @TranString.TransDate
+                        </th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @(ViewBag.Count++)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TransactionId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Content)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TranDate)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+            <br />
+            <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchStr,  Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+        }
+
+    </div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+
+<script>
+    var startDate, endDate;
+    $('#dateTo').blur(function () {
+        var s = $('#dateTo').val();
+        var dateRegex = '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
+        if (!dateRegex.match(s)) {
+            $('#dateTo').val("");
+        } 
+    });
+
+    $('#dateFrom').blur(function () {
+        var s = $('#dateFrom').val();
+        var dateRegex = '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
+        if (!dateRegex.match(s)) {
+            $('#dateFrom').val("");
+        }
+    });
+
+    $('.datepicker').datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        onSelect: function (dateText, inst) {
+            var id = inst.id;
+            var startDateStr = $('#dateTo').val();
+            var endDateStr = $('#dateTo').val();
+
+            if (startDateStr == "") {
+                startDate = null;
+            }
+
+            if (endDateStr == "") {
+                endDate = null;
+            }
+
+            if (id == "dateFrom") {
+                startDate = new Date(dateText);
+            } else {
+                endDate = new Date(dateText);
+            }
+
+            if (startDate != null && endDate != null) {
+                if (startDate > endDate) {
+                    if (id == "dateFrom") {
+                        endDate = startDate;
+                        $('#dateFrom').val(convertDate(startDate.toLocaleDateString()));
+                        $('#dateTo').val(convertDate(startDate.toLocaleDateString()));
+                    } else {
+                        startDate = endDate;
+                        $('#dateFrom').val(convertDate(endDate.toLocaleDateString()));
+                        $('#dateTo').val(convertDate(endDate.toLocaleDateString()));
+                    }
+                } else {
+                    $('#dateFrom').val(convertDate(startDate.toLocaleDateString()));
+                    $('#dateTo').val(convertDate(endDate.toLocaleDateString()));
+                }
+            } else {
+                if (startDate == null) {
+                    $('#dateTo').val(convertDate(endDate.toLocaleDateString()));
+                } else {
+                    $('#dateFrom').val(convertDate(startDate.toLocaleDateString()));
+                }
+            }
+            
+
+        }
+    });
+
+    function convertDate(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+    }
+
+</script>

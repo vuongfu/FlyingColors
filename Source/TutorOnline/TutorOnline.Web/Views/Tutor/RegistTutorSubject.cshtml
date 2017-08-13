@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewBag.Title = "RegistTutorSubject";
+    Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
+}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+    .UILinkButton {
+        background: none;
+        border: none;
+        border-bottom: 0.3125rem solid #3ccfcf;
+        color: #455358;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        max-width: 100%;
+        padding: 0 0 0.75rem;
+        text-align: center;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9375rem;
+        letter-spacing: 0.075rem;
+        line-height: 1.2;
+        transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        transition-property: all;
+        vertical-align: middle;
+        width: auto;
+    }
+
+        .UILinkButton:hover {
+            border-bottom-color: #ffcd1f;
+            color: #ffcd1f;
+        }
+
+    .SubjectContent-addRow {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 100;
+    }
+
+    .SubjectContent-addRowButton {
+        white-space: nowrap;
+    }
+
+    .delete:hover {
+        color: #0a79df;
+    }
+
+    .button {
+        color: #aaa;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    .CreateSetPage-footer {
+        margin-top: 1.25rem;
+    }
+
+    .CreateSetPage-publishButton {
+        text-align: right;
+    }
+
+    .UIButton {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        max-width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        line-height: 1.285714285714286;
+        -webkit-transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        -moz-transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        -webkit-transition-property: all;
+        -moz-transition-property: all;
+        transition-property: all;
+        width: auto;
+    }
+
+        .UIButton, .UIButton:visited {
+            background-color: #3ccfcf;
+            color: #fff;
+        }
+
+        .UIButton:hover{
+            background-color:#ffcd1f;
+            color: #000000;
+        }
+
+    .UIButton--hero {
+        padding: 2rem 5.5rem;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 0.0625rem;
+        line-height: 1.222222222222222;
+    }
+
+    .UIButton-wrapper {
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-inline-box;
+        display: -moz-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+        -moz-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%;
+    }
+</style>
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row content">
+
+        <div class="col-sm-9 col-sm-offset-2">
+            @if (ViewBag.ListSubject != null && ViewBag.ListSubject.Count > 0)
+            {
+                <form id="form1" name="form1" onsubmit="event.preventDefault(); SaveRegistSubject();">
+                    <div id="DisplaySubject">
+                        <div class="well">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div style="padding-top:42px; text-align:left;">
+                                        <i class="material-icons button delete" onclick="btnDeleteClick(this)" id="1" title="Xóa khóa dạy">delete</i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <h4>Khóa dạy</h4>
+                                    @Html.DropDownList("TutorSubjectId", null, htmlAttributes: new { @class = "form-control slSubject", name = "sub1", id = "sub1" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4>Kinh nghiệm</h4>
+                                    <textarea class="form-control" style="width:100%;" id="Fb1" name="Fb1" rows="5" required ></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well" align="center" id="addRowBtn">
+                        <div>
+                            <span class="SubjectContent-addRowButton">
+                                <button class="UILinkButton" type="button" onclick="addSubject()">
+                                    <span style="font-size:medium;">
+                                        + Thêm khóa dạy
+                                    </span>
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="CreateSetPage-footer">
+                        <div class="CreateSetPage-publishButton">
+                            <button class="UIButton UIButton--hero" type="submit" id="btnSubmit" onclick="SaveRegist()">
+                                <span class="UIButton-wrapper">
+                                    <span>
+                                        Đăng ký
+                                    </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="well" align="center">
+                    <h4>
+                        Bạn đã đăng ký dạy cho tất cả khóa học.
+                    </h4>
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+
+@Html.Partial("_LoadingData")  
+
+<script type="text/javascript">
+    var listSubjectId = new Array();
+    var listSubjectName = new Array();
+    var count = 1;
+    var countId = 1;
+    var listSelectId = new Array();
+    var listSelectedValue = new Array();
+    var listExp = new Array();
+    var maxSub;
+
+
+    $(document).ready(function () {
+        @if(ViewBag.ListSubject != null)
+        {
+            @Html.Raw("maxSub = "+ViewBag.ListSubject.Count+";");
+
+            foreach (var item in ViewBag.ListSubject)
+            {
+                @Html.Raw("listSubjectId.push('"+ item.SubjectId + "');");
+                @Html.Raw("listSubjectName.push('" + item.SubjectName + "');");
+            }
+        }
+        listSelectId.push("1");        
+        if (count >= maxSub) {
+            jQuery('#addRowBtn').addClass('hidden');
+        } else {
+            jQuery('#addRowBtn').removeClass('hidden');
+        }
+    });
+
+    function getListValueSelected() {
+        for (var i = 0; i < listSelectId.length; i++) {
+            var dataCheck = $("#sub" + listSelectId[i] + " :selected").val();            
+            if (jQuery.inArray(dataCheck, listSelectedValue) == -1)
+                listSelectedValue.push(dataCheck);
+
+        }
+            
+    }
+
+    function resortListSubject() {
+        for (var i = 0; i < listSelectedValue.length; i++) {
+            var data = listSubjectId[0];
+            var index = jQuery.inArray(data, listSelectedValue);
+            if (index == -1) {
+                break;
+            }
+            var id = listSubjectId.shift();
+            listSubjectId.push(id);
+            var value = listSubjectName.shift();
+            listSubjectName.push(value);
+        }
+    }
+
+    function addSubject() {
+        getListValueSelected();
+        resortListSubject();
+        count++;
+
+        if (count > 0)
+            jQuery('#btnSubmit').removeClass('hidden');
+
+        countId++;
+        if (count >= maxSub) {
+            jQuery('#addRowBtn').addClass('hidden');
+        } else {
+            jQuery('#addRowBtn').removeClass('hidden');
+        }
+        listSelectId.push("" + countId);
+        var strNewRow = "<div class='well'><div class='row'><div class='col-sm-1'><div style='padding-top:42px; text-align:left;'><i class='material-icons button delete' onclick='btnDeleteClick(this)' id='" + countId + "' title='Xóa khóa dạy'>delete</i></div></div>";
+        strNewRow += "<div class='col-sm-5'><h4>Khóa dạy</h4>";
+        strNewRow += "<select class='form-control slSubject' name='sub" + countId + "' id='sub" + countId + "'>";
+
+        for (var i = 0; i < listSubjectId.length; i++) {
+            strNewRow += "<option value='" + listSubjectId[i] + "'>" + listSubjectName[i] + "</option>";
+        }
+
+        strNewRow += "</select>";
+        strNewRow += "</div><div class='col-sm-6'><h4>Kinh nghiệm</h4>";
+        strNewRow += "<textarea class='form-control' style='width:100%;' id='Fb" + countId + "' name='Fb" + countId + "' rows='5' required ></textarea> </div> </div> </div>";
+        jQuery('#DisplaySubject').append(strNewRow);
+        checkSelect();
+        $('select').change();
+    }
+
+    function btnDeleteClick(_btn) {
+        
+        count--;
+        if(count <= 0)
+            jQuery('#btnSubmit').addClass('hidden');        
+
+        if (count >= maxSub) {
+            jQuery('#addRowBtn').addClass('hidden');
+        } else {
+            jQuery('#addRowBtn').removeClass('hidden');
+        }
+        var delId = _btn.id;
+        var index = jQuery.inArray(delId, listSelectId);
+        listSelectId.splice(index, 1);
+
+        var dataCheck = $("#sub" + delId + " :selected").val();
+        var index1 = jQuery.inArray(dataCheck, listSelectedValue);
+        if (index1 != -1)
+            listSelectedValue.splice(index1, 1);
+
+        var dataWell = _btn.parentNode.parentNode.parentNode.parentNode;
+        dataWell.parentNode.removeChild(dataWell);
+        checkSelect();
+        $('select').change();
+    }
+
+    function SaveRegistSubject() {
+        listExp.length = 0;
+        getListValueSelected();
+        for (var i = 0; i < listSelectId.length; i++) {
+            var dataCheck = $("#Fb" + listSelectId[i]).val();            
+            listExp.push(dataCheck);
+        }
+        LoadingData();
+
+        $.ajax({
+            url: '@Url.Action("SaveSubject", "Tutor")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'subjectId': listSelectedValue, 'exp': listExp }),
+            success: function (data) {                
+                CloseWithMess(data);
+                window.location.href = "ViewSchedule";
+            },
+            error: function (xhr) {
+                CloseWithMess("Đã có lỗi xảy ra.");
+            }
+        });
+
+    }
+    
+</script>

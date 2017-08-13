@@ -3,90 +3,92 @@
     ViewBag.Title = "TutorBookSlot";
     Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
 }
+<div class="well">
+    <p>
+        <a id="pre-arrow" class="disableArrow" onclick="preClick()">
+            <img src="~/Image/prev.png" />
+        </a>
+        <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
+        <a id="next-arrow" onclick="nextClick()">
+            <img src="~/Image/next.png" />
+        </a>
+    </p>
 
-<p>
-    <a id="pre-arrow" class="disableArrow" onclick="preClick()">
-        <img src="~/Image/prev.png" />
-    </a>
-    <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
-    <a id="next-arrow" onclick="nextClick()">
-        <img src="~/Image/next.png" />
-    </a>
-</p>
-
-<table border="1" cellspacing="0" class="slotpick">
-    <tr>
-        <th></th>
-        <th scope="col" style="width:100px;">Slot 1<br />08:00 - 08:45</th>
-        <th scope="col" style="width:100px;">Slot 2<br />09:00 - 09:45</th>
-        <th scope="col" style="width:100px;">Slot 3<br />10:00 - 10:45</th>
-        <th scope="col" style="width:100px;">Slot 4<br />11:00 - 11:45</th>
-        <th scope="col" style="width:100px;">Slot 5<br />13:00 - 13:45</th>
-        <th scope="col" style="width:100px;">Slot 6<br />14:00 - 14:45</th>
-        <th scope="col" style="width:100px;">Slot 7<br />15:00 - 15:45</th>
-        <th scope="col" style="width:100px;">Slot 8<br />16:00 - 16:45</th>
-        <th scope="col" style="width:100px;">Slot 9<br />19:00 - 19:45</th>
-        <th scope="col" style="width:100px;">Slot 10<br />20:00 - 20:45</th>
-        <th scope="col" style="width:100px;">Slot 11<br />21:00 - 21:45</th>
-    </tr>
-    <tr id="RowSun">
-        <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Sun@(temp)" onclick="addOrRemoveDate('Sun@(temp)')"></td>
-        }
-    </tr>
-    <tr id="RowMon">
-        <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Mon@(temp)" onclick="addOrRemoveDate('Mon@(temp)')"></td>
-        }
-    </tr>
-    <tr id="RowTue">
-        <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Tue@(temp)" onclick="addOrRemoveDate('Tue@(temp)')"></td>
-        }
-    </tr>
-    <tr id="RowWed">
-        <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Wed@(temp)" onclick="addOrRemoveDate('Wed@(temp)')"></td>
-        }
-    </tr>
-    <tr id="RowThu">
-        <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Thu@(temp)" onclick="addOrRemoveDate('Thu@(temp)')"></td>
-        }
-    </tr>
-    <tr id="RowFri">
-        <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
-        {
-            string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Fri@(temp)" onclick="addOrRemoveDate('Fri@(temp)')"></td>
-        }
-    </tr>
-    <tr id="RowSat">
-        <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
-        @for (int i = 1; i <= 11; i++)
+    <table border="1" cellspacing="0" class="slotpick">
+        <tr>
+            <th></th>
+            <th scope="col" style="width:100px;">Slot 1<br />08:00 - 08:45</th>
+            <th scope="col" style="width:100px;">Slot 2<br />09:00 - 09:45</th>
+            <th scope="col" style="width:100px;">Slot 3<br />10:00 - 10:45</th>
+            <th scope="col" style="width:100px;">Slot 4<br />11:00 - 11:45</th>
+            <th scope="col" style="width:100px;">Slot 5<br />13:00 - 13:45</th>
+            <th scope="col" style="width:100px;">Slot 6<br />14:00 - 14:45</th>
+            <th scope="col" style="width:100px;">Slot 7<br />15:00 - 15:45</th>
+            <th scope="col" style="width:100px;">Slot 8<br />16:00 - 16:45</th>
+            <th scope="col" style="width:100px;">Slot 9<br />19:00 - 19:45</th>
+            <th scope="col" style="width:100px;">Slot 10<br />20:00 - 20:45</th>
+            <th scope="col" style="width:100px;">Slot 11<br />21:00 - 21:45</th>
+        </tr>
+        <tr id="RowSun">
+            <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
             {
                 string temp = String.Format("{0:00}", i);
-            <td class="tableSlot" id="Sat@(temp)" onclick="addOrRemoveDate('Sat@(temp)')"></td>
-        }
-    </tr>
+                <td class="tableSlot" id="Sun@(temp)" onclick="addOrRemoveDate('Sun@(temp)')"></td>
+            }
+        </tr>
+        <tr id="RowMon">
+            <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                <td class="tableSlot" id="Mon@(temp)" onclick="addOrRemoveDate('Mon@(temp)')"></td>
+            }
+        </tr>
+        <tr id="RowTue">
+            <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                <td class="tableSlot" id="Tue@(temp)" onclick="addOrRemoveDate('Tue@(temp)')"></td>
+            }
+        </tr>
+        <tr id="RowWed">
+            <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                <td class="tableSlot" id="Wed@(temp)" onclick="addOrRemoveDate('Wed@(temp)')"></td>
+            }
+        </tr>
+        <tr id="RowThu">
+            <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                <td class="tableSlot" id="Thu@(temp)" onclick="addOrRemoveDate('Thu@(temp)')"></td>
+            }
+        </tr>
+        <tr id="RowFri">
+            <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                <td class="tableSlot" id="Fri@(temp)" onclick="addOrRemoveDate('Fri@(temp)')"></td>
+            }
+        </tr>
+        <tr id="RowSat">
+            <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
+            @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                <td class="tableSlot" id="Sat@(temp)" onclick="addOrRemoveDate('Sat@(temp)')"></td>
+            }
+        </tr>
 
-</table>
+    </table>
+
+</div>
 
 
 <input type="button" class="btn btn-success" name="btnSubmit" value="Lưu lại" onclick="SubmitSlot()" />
@@ -149,8 +151,10 @@
         var checkConfirm = confirm("Tiết học này đã được học sinh đặt. Bạn có chắc chắn muốn hủy?");
         if (checkConfirm == true) {
             var reason = prompt("Xin hãy nhập lý do bạn hủy tiết học:", "");
-            if (reason == null || reason == "") {
+            if (reason == "") {
                 alert("Bạn phải nhập lý do hủy tiết học.");
+                return false;
+            } else if (reason == null) {
                 return false;
             }
             lockLoad = true;

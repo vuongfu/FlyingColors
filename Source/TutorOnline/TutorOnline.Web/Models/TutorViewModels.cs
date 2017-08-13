@@ -110,9 +110,17 @@ namespace TutorOnline.Web.Models
 
     public class ViewFeedbackViewModel
     {
+        public string CriteriaName { get; set; }
+
         public int criteriaId { get; set; }
 
         public int value { get; set; }
 
+    }
+
+    public class RegistTutorSubjectViewModel
+    {
+        public int SubjectId { get; set; }
+        public string SubjectName { get; set; }
     }
 }

@@ -206,6 +206,12 @@ namespace TutorOnline.Business.Repository
                 return temp.TutorFeedbackId;
             return -1;
         }
+
+        public void UpdateTutor(Tutor data)
+        {
+            _dbContext.Entry(data).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
         public void Dispose()
         {
             _dbContext.Dispose();
