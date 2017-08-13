@@ -63,7 +63,7 @@ text-decoration: none;
 <section id="nutluachon">
     <div class="container">
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true, username = ViewBag.Username })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
         </div>
         <div class="col-sm-6 center">
             <a class="hc-user-btn" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
@@ -73,7 +73,7 @@ text-decoration: none;
             <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
         </div>
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("ViewTransaction", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
         </div>
     </div>
 </section>

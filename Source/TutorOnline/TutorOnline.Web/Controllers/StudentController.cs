@@ -59,7 +59,7 @@ namespace TutorOnline.Web.Controllers
             int StudentId = int.Parse(Uid);
 
             ViewBag.StudentId = StudentId;
-
+            ViewBag.Username = URes.GetAllStudentUser().Where(s => s.StudentId == StudentId).FirstOrDefault().UserName;
             return View();
         }
         public ActionResult ViewCategory(int? CategoryId, int? page )
