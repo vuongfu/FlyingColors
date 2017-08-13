@@ -63,14 +63,7 @@ text-decoration: none;
 <section id="nutluachon">
     <div class="container">
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="javascript:void(0):;">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
-        </div>
-        <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="javascript:void(0):;">Quá trình học tập <i class="hc-user-btn-timeline"></i></a>
-        </div>
-        <div clas="eline">&nbsp;</div>
-        <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="javascript:void(0):;">Nạp tiền &amp; Thanh toán <i class="hc-user-btn-charge"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
         </div>
         <div class="col-sm-6 center">
             <a class="hc-user-btn" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
@@ -80,11 +73,11 @@ text-decoration: none;
             <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
         </div>
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="javascript:;" onclick="showSection()">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
         </div>
     </div>
 </section>
-<section id="schedule" style="display:none;">
+<section id="schedule">
     <div class="col-md-12 col-box-one header-line">
         <div class="col-md-12 section-header-one center">
             <h2>Lịch học của bạn</h2>
@@ -92,6 +85,7 @@ text-decoration: none;
         <div class="col-lg-11" style="text-align: right">
             <a href="@Url.Action("ViewSchedule","Student")" class="txtlink"><h4>Xem tất cả</h4></a>
         </div>
+    </div>
     <div class="col-lg-offset-1 col-lg-10 container-fluid">
         <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
             <tr>
@@ -167,9 +161,7 @@ text-decoration: none;
         </table>
     </div>
 </section>
-<section id="Transaction" class="container">
-    @Html.Action("ViewTransaction", "Student")
-</section>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
