@@ -106,7 +106,7 @@ namespace TutorOnline.Web.Controllers
                 if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
+                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName", model.CategoryId);
                     return View(model);
                 }
                 //Mapping Entity to ViewModel
@@ -121,7 +121,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().addSubjectsSuccess.ToString();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName", model.CategoryId);
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName", model.CategoryId);
             return View(model);
         }
 
@@ -192,7 +192,7 @@ namespace TutorOnline.Web.Controllers
             if (SRes.isExistsSubjectNameEdit(model.SubjectName, model.SubjectId))
             {
                 TempData["messageWarning"] = new ManagerStringCommon().isExistSubjectName.ToString();
-                ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+                ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
                 return View(model);
             }
 
@@ -211,7 +211,7 @@ namespace TutorOnline.Web.Controllers
                 TempData["message"] = new ManagerStringCommon().updateSubjectSuccess.ToString();
                 return RedirectToAction("Details", new { id = model.SubjectId });
             }
-            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories(), "CategoryId", "CategoryName");
+            ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
             return View(model);
         }
 

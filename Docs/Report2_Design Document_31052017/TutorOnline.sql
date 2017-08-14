@@ -286,7 +286,9 @@ INSERT INTO [Category] (CategoryName, [Description]) VALUES (N'Tiếng Hàn', NU
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Bảng chữ cái Hiragana', 1, N'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', N'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Hiragana', NULL, NULL);
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Bảng chữ cái Katakana', 1, N'Khóa học gồm 8 buổi, được thiết kế dành cho học viên bắt đầu học tiếng Nhật', N'Học viên có thể viết, đọc, sử dụng thành thạo bảng chữ cái Katakana', NULL, NULL);
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Tiếng anh sơ cấp', 2, N'Tiếng anh dành cho người mới bắt đầu', N'Thành thạo chào hỏi cơ bản trong cuộc sống hằng ngày', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Tiếng anh trung cấp', 2,N'Tiếng anh giao tiếp', N'Giao tiếp tốt trong cuộc sống', NULL, NULL);
 INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Tiếng anh cao cấp', 2,N'Tiếng anh dành cho doanh nhân', N'Giao tiếp tốt trong môi trường doanh nghiệp', NULL, NULL);
+INSERT INTO [Subject] (SubjectName, CategoryID, [Description], Purpose, Requirement, Photo) VALUES (N'Tiếng anh chuyên ngành', 2,N'Tiếng anh chuyên ngành kỹ thuật phần mềm', N'Hiểu được các thuật ngữ tiếng anh của ngành kỹ thuật phần mềm', NULL, NULL);
 
 
 --Insert data to Status table
