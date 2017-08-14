@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <h4>Kinh nghiệm</h4>
-                                    <textarea class="form-control" style="width:100%;" id="Fb1" name="Fb1" rows="5" required ></textarea>
+                                    <textarea class="form-control" style="width:100%;" id="Fb1" name="Fb1" rows="5" required></textarea>
 
                                 </div>
                             </div>
@@ -197,6 +197,10 @@
 </div>
 
 <script src="~/Scripts/jquery-3.1.1.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 
 @Html.Partial("_LoadingData")  
 

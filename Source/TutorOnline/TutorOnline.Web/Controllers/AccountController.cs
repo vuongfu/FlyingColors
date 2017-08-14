@@ -305,6 +305,7 @@ namespace TutorOnline.Web.Controllers
                     temp.BMemName = model.BMemName;
                     temp.BankId = model.BankID;
                     temp.isActived = true;
+                    temp.Balance = 0;
 
                     URes.AddTutor(temp);
 
