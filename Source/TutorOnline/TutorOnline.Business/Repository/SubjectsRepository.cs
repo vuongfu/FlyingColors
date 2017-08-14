@@ -58,6 +58,22 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
+        public bool isExistedMaterialIn(int id)
+        {
+            var material = _dbContext.LearningMaterials.FirstOrDefault(x => x.SubjectId == id && x.isActived == true);
+            if (material == null)
+                return false;
+            else
+                return true;
+        }
+        public bool isExistedQuestionIn(int id)
+        {
+            var question = _dbContext.Questions.FirstOrDefault(x => x.SubjectId == id && x.isActived == true);
+            if (question == null)
+                return false;
+            else
+                return true;
+        }
         public void DeleteSubject(int id)
         {
             _dbContext.Subjects.Where(x => x.SubjectId == id && x.isActived == true).ToList().ForEach(x => x.isActived = false);

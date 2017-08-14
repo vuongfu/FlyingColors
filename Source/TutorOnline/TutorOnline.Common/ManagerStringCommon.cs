@@ -19,6 +19,8 @@ namespace TutorOnline.Common
         public string updateSubjectSuccess = "Đã thay đổi thông tin khóa học thành công.";
         public string isExistSubjectName = "Tên khóa học này đã tồn tại. Hãy nhập tên khác!";
         public string isExistLessonIn = "Có tồn tại bài học của khóa học này. Hãy xóa bài học trước!";
+        public string isExistMaterialInSub = "Có tồn tại tài liệu học tập của khóa học này. Hãy xóa tài liệu học tập trước!";
+        public string isExistQuestionInSub = "Có tồn tại bài tập tham khảo của khóa học này. Hãy xóa bài tập tham khảo trước!";
         public string isExistStudentIn = "Đã có học viên đăng ký khóa học này. Không được phép xóa khóa học!";
 
         public string mustChangeCVStatus = "Hãy chọn trạng thái muốn thay đổi.";
@@ -30,6 +32,7 @@ namespace TutorOnline.Common
         public string updateLessonSuccess = "Đã thay đổi thông tin bài học thành công.";
         public string isExistMaterialIn = "Có tồn tại tài liệu học tập của bài học này. Hãy xóa tài liệu học tập trước!";
         public string isExistQuestionIn = "Có tồn tại bài tập của bài học này. Hãy xóa bài tập trước!";
+        public string isExistCriteriaIn = "Có tồn tại tiêu chí đánh giá của bài học này. Hãy xóa tiêu chí đánh giá trước!";
 
         public string addMaterialInSubSuccess = "Đã thêm tài liệu cho khóa học thành công.";
         public string addMaterialInLesSuccess = "Đã thêm tài liệu cho bài học thành công.";

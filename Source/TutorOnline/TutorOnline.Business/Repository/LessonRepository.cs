@@ -64,6 +64,14 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
+        public bool isExistedCriteriaIn(int id)
+        {
+            var criteria = _dbContext.Criteria.FirstOrDefault(x => x.LessonId == id && x.isActived == true);
+            if (criteria == null)
+                return false;
+            else
+                return true;
+        }
         public void DeleteLesson(int id)
         {
             _dbContext.Lessons.Where(x => x.LessonId == id && x.isActived == true).ToList().ForEach(x => x.isActived = false);

@@ -198,6 +198,11 @@ namespace TutorOnline.Web.Controllers
                 TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionIn.ToString();
                 return RedirectToAction("Delete");
             }
+            if (LRes.isExistedCriteriaIn(id))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().isExistCriteriaIn.ToString();
+                return RedirectToAction("Delete");
+            }
 
             LRes.DeleteLesson(id);
             TempData["message"] = new ManagerStringCommon().deleteLessonSuccess.ToString();
