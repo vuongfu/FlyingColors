@@ -56,6 +56,14 @@ namespace TutorOnline.Business.Repository
             else
                 return true;
         }
+        public bool isExistedLessonInSchedule(int id)
+        {
+            var schedule = _dbContext.Schedules.FirstOrDefault(x => x.LessonId == id && x.OrderDate >= DateTime.Now);
+            if (schedule == null)
+                return false;
+            else
+                return true;
+        }
         public bool isExistedQuestionIn(int id)
         {
             var question = _dbContext.Questions.FirstOrDefault(x => x.LessonId == id && x.isActived == true);
