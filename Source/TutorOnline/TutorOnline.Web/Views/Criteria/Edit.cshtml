@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <p class="control-label col-md-3">Nôi dung tiêu chí: </p>
+            <p class="control-label col-md-3">Nội dung tiêu chí: </p>
             <div class="col-md-9">
                 @Html.EditorFor(model => model.CriteriaName, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })
                 @Html.ValidationMessageFor(model => model.CriteriaName, "", new { @class = "text-danger" })
