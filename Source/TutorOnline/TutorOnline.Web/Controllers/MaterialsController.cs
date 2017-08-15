@@ -55,7 +55,7 @@ namespace TutorOnline.Web.Controllers
                 else
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().requireUploadFileInLes.ToString();
-                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(model.SubjectId), "LessonId", "LessonName");
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName");
                     ViewBag.lesId = model.LessonId;
                 }
                 return View();
@@ -76,7 +76,7 @@ namespace TutorOnline.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(model.SubjectId), "LessonId", "LessonName");
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName");
                     ViewBag.lesId = model.LessonId;
                 }
                 return View();

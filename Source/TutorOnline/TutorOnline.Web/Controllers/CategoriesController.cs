@@ -76,7 +76,7 @@ namespace TutorOnline.Web.Controllers
                 if (CRes.isExistsCategoryName(model.CategoryName))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistCategoryName.ToString();
-                    return View(model);
+                    return View();
                 }
                 Category category = new Category();
                 //Mapping Entity to ViewModel
@@ -89,7 +89,7 @@ namespace TutorOnline.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(model);
+            return View();
         }
         
         public ActionResult Details(int? id)

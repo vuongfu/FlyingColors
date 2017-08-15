@@ -106,7 +106,7 @@ namespace TutorOnline.Web.Controllers
                 if (QRes.isExistsQuestionName(model.Content, model.LessonId))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isExistQuestionName.ToString();
-                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName", model.LessonId);
                     ViewBag.lesId = model.LessonId;
                     ViewBag.subId = model.SubjectId;
                     return View(model);
@@ -124,7 +124,7 @@ namespace TutorOnline.Web.Controllers
                 ViewBag.subId = model.SubjectId;
                 return RedirectToAction("Details", "Lessons", new { id = model.LessonId });
             }
-            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
+            ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName", model.LessonId);
             ViewBag.lesId = model.LessonId;
             ViewBag.subId = model.SubjectId;
 
