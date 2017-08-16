@@ -626,5 +626,46 @@ namespace TutorOnline.Web.Controllers
 
             return View(ListTrans.OrderBy(x => x.TransactionId).ToPagedList(pageNumber, pageSize));
         }
+
+        public ActionResult ViewInfo(int id)
+        {
+            var tutor = TuRes.FindTutor(id);
+            DetailTutorViewModel returnData = new DetailTutorViewModel();
+            returnData.Address = tutor.Address;
+            returnData.BankId = tutor.BankId;
+            returnData.BankName = tutor.BankName;
+            returnData.BirthDate = tutor.BirthDate;
+            returnData.BMemName = tutor.BMemName;
+            returnData.City = tutor.City;
+            returnData.Country = tutor.Country;
+            returnData.Description = tutor.Description;
+            returnData.Email = tutor.Email;
+            returnData.FullName = tutor.LastName + " " + tutor.FirstName;
+            returnData.Gender = (tutor.Gender == 1 ? "Nam" : "Nữ");
+            returnData.PhoneNumber = tutor.PhoneNumber;
+            returnData.Photo = (tutor.Photo == null?"DefaultIcon.png":tutor.Photo);
+            returnData.PostalCode = tutor.PostalCode;
+            returnData.SkypeId = tutor.SkypeId;
+            returnData.UserName = tutor.UserName;
+            returnData.Balance = tutor.Balance;
+            returnData.RoleName = tutor.Role.RoleName;
+
+            List<TutorSubjectViewModels> tutorSubData = new List<TutorSubjectViewModels>();
+            foreach(var item in tutor.TutorSubjects)
+            {
+                TutorSubjectViewModels temp = new TutorSubjectViewModels();
+                if (item.Status == 6)
+                {
+                    temp.experiences = item.Experience;
+                    temp.subjectName = item.Subject.SubjectName;
+                    temp.TutorSubjectId = item.SubjectId;
+
+                    tutorSubData.Add(temp);
+                }
+            }
+
+            returnData.tutorSub = tutorSubData;
+            return View(returnData);
+        }
     }
 }

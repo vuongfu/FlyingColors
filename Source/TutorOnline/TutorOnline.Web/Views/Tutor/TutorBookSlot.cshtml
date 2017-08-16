@@ -108,7 +108,7 @@
     var lockPre = true;
     var lockNext = false;
     var lockLoad = false;
-    var ToDay = new Date("@ViewBag.Today");
+    var ToDay = new Date();
     var Trid;
 
     $(document).ready(function () {
@@ -145,6 +145,10 @@
                 jQuery('#' + slot).addClass('bookedSlot');
             }
         }
+
+        setInterval(function () {
+            ToDay = new Date();
+        }, 1000);
     });
 
     function CancelSlot(slot) {
@@ -258,6 +262,7 @@
     // Adds a date if we don't have it yet, else remove it
     function addOrRemoveDate(slot) {
         var day = slot.substring(0, 3);
+        var numSlot = slot.substring(3);
         var pickeddate;
         if (selectedWeek == 1)
             var index = jQuery.inArray(slot, selectedSlotWeek1);
@@ -279,10 +284,20 @@
             else
                 pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
 
+            var hour;
+            if (numSlot <= 4) {
+                hour = 7 + parseInt(numSlot);
+            } else if (numSlot <= 8) {
+                hour = 8 + parseInt(numSlot);
+            } else {
+                hour = 10 + parseInt(numSlot);
+            }
+            pickeddate.setHours(hour);
+
             if (pickeddate >= ToDay)
                 var index = jQuery.inArray(slot, selectedSlotWeek0);
             else {
-                alert("Bạn chỉ được chỉnh sửa từ ngày " + ToDay.toLocaleDateString() + " trở đi");
+                alert("Bạn chỉ được chỉnh sửa từ "+ToDay.getHours()+" giờ ngày " + ToDay.toLocaleDateString() + " trở đi");
                 return false;
             }
 
@@ -393,6 +408,7 @@
         if (selectedWeek == 0) {
             var SlotId = this.id;
             var day = SlotId.substring(0, 3);
+            var numSlot = SlotId.substring(3);
             var pickeddate;
             if (day == "Sun")
                 pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(0).ToShortDateString()");
@@ -408,6 +424,17 @@
                 pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()");
             else
                 pickeddate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+
+            var hour;
+            if (numSlot <= 4) {
+                hour = 7 + parseInt(numSlot);
+            } else if (numSlot <= 8) {
+                hour = 8 + parseInt(numSlot);
+            } else {
+                hour = 10 + parseInt(numSlot);
+            }
+            pickeddate.setHours(hour);
+
             if (pickeddate >= ToDay)
                 $(this).toggleClass('selectedSlot');
         } else {

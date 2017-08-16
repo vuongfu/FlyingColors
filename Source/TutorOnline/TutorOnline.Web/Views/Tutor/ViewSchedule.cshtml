@@ -4,13 +4,76 @@
     Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
 }
 
+<style>
+    .onmouse {
+        background-color: gray;
+    }
+
+    .availableSlot {
+        background-color: greenyellow;
+    }
+
+    .colSelect {
+        border-left-style: groove !important;
+        border-right-style: groove !important;
+        border-left-width: 2px !important;
+        border-right-width: 2px !important;
+    }
+
+    .rowSelected {
+        border-top-style: groove !important;
+        border-bottom-style: groove !important;
+        border-top-width: 2px !important;
+        border-bottom-width: 2px !important;
+    }
+
+    .finishedSlot {
+        background-color: skyblue;
+    }
+
+    .bookedSlot {
+        background-color: gold;
+    }
+
+    .canceledSlot {
+        background-color: tomato;
+    }
+
+    .disableArrow {
+        opacity: 0.4;
+        cursor: no-drop;
+    }
+</style>
+
 <div class="well">
     <p>
-        <input class="week-picker" id="WeekSelect" readonly="readonly">
-        <br /><br />
+        <div class="row">
+            <div class="col-md-4">
+                <b>Chọn tuần:</b> <input class="week-picker" id="WeekSelect" readonly="readonly">
+            </div>
+            <div class="col-md-8">
+                <table>
+                    <tr>
+                        <td id="cmTd" style="background-color:greenyellow;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" class="text-left">: có thể đặt</td>
+                        <td id="cmTd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" style="background-color:skyblue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" class="text-left">: đã kết thúc</td>
+                        <td id="cmTd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" style="background-color:gold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" class="text-left">: đã được đặt</td>
+                        <td id="cmTd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" style="background-color:tomato;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" class="text-left">: đã bị hủy</td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+        <br />
     </p>
 
-    <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
+    <table class="tableSlot slotpick" border="1" style="border-width:3px !important; margin:auto">
         <tr>
             <th></th>
             <th scope="col" style="width:75px;">Slot 1<br />08:00 - 08:45</th>
@@ -86,12 +149,11 @@
 </div>
 
 
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
-@Html.Partial("_LoadingData")  
+@Html.Partial("_LoadingData")
 
 <script type="text/javascript">
     var selectedWeek = 0;
@@ -104,12 +166,13 @@
         $('.slotpick tr td').removeClass('availableSlot');
         $('.slotpick tr td').removeClass('finishedSlot');
         $('.slotpick tr td').removeClass('bookedSlot');
-        $('.slotpick tr td').removeClass('canceledSlot');                
+        $('.slotpick tr td').removeClass('canceledSlot');
         var items = document.getElementsByTagName('td');
         for (var i = 0; i < items.length; i++) {
             var x = "";
-            items[i].innerHTML = x;
-
+            var id = items[i].id;
+            if(id != "cmTd")
+                items[i].innerHTML = x;
         }
         LoadingData();
 
@@ -122,7 +185,7 @@
             data: JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'TutorId': tutorId }),
             success: function (data) {
                 $("#WeekSelect").removeAttr("disabled");
-                
+
                 for(i in data){
                     var stt = data[i].Status;
                     if(stt == 11)
@@ -145,7 +208,7 @@
 
             },
             error: function (xhr) {
-                $("#WeekSelect").removeAttr("disabled");              
+                $("#WeekSelect").removeAttr("disabled");
                 CloseWithMess("Đã có lỗi xảy ra");
             }
         });
@@ -161,7 +224,7 @@
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 
-    $('.table tr td').live('mousemove', function () {
+    $('.tableSlot tr td').live('mousemove', function () {
         $(this).addClass('ui-state-hover');
         var id = this.id;
         var date = id.substring(0,3);
@@ -187,7 +250,7 @@
         }
 
     })
-    $('.table tr td').live('mouseleave', function () {
+    $('.tableSlot tr td').live('mouseleave', function () {
         $(this).removeClass('ui-state-hover');
         var id = this.id;
         var date = id.substring(0,3);
@@ -268,43 +331,3 @@
     });
 </script>
 
-<style>
-    .onmouse {
-        background-color: gray;
-    }
-
-    .availableSlot {
-        background-color: greenyellow;
-    }
-
-    .colSelect{
-        border-left-style:groove !important;
-        border-right-style:groove !important;
-        border-left-width:2px !important;
-        border-right-width:2px !important;
-    }
-
-    .rowSelected{      
-        border-top-style:groove !important;
-        border-bottom-style:groove !important;
-        border-top-width:2px !important;
-        border-bottom-width:2px !important;    
-    }
-
-    .finishedSlot{
-        background-color: skyblue;
-    }
-
-    .bookedSlot{
-        background-color: gold;
-    }
-
-    .canceledSlot{
-        background-color: tomato;
-    }
-
-    .disableArrow {
-        opacity: 0.4;
-        cursor: no-drop;
-    }
-</style>

@@ -50,8 +50,79 @@
             .error-404 .m-t-20 {
                 margin-top: 20px !important;
             }
+
+        .dd-submenu {
+            width: 200px;
+            height: 85px;
+            background-color: #37b5e8 !important;
+        }
+
+        .dd-submenu > li > a:hover {
+            background-color: #37b5e8 !important;
+            color: white;
+        }
+
+        .dd-ava {
+            position: absolute;
+            margin: -5px 4px 4px 4px;
+            border-radius: 100%;
+            border: 2px solid #0ff;
+        }
+
+        .dd-viewInfo {
+            margin-left: 55px;
+            margin-top: 10px;
+        }
+
+        .dd-logout {
+            margin-left: 15px;
+        }
+
+        .nav > li.active > a {
+            background-color: #37b5e8 !important;
+        }
+
+        .nav > li.dropdown.open > a {
+            background-color: #37b5e8 !important;
+        }
     </style>
 </head>
+
+@{
+    string Rid = "";
+    string Rname = "";
+    string Uid = "";
+    string photo = "";
+
+    if (Request.Cookies["Role"] != null)
+    {
+        if (Request.Cookies["Role"]["RoleId"] != null)
+        {
+            Rid = Request.Cookies["Role"]["RoleId"];
+        }
+        if (Request.Cookies["Role"]["RoleId"] != null)
+        {
+            Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
+        }
+
+    }
+    if (Request.Cookies["UserInfo"] != null)
+    {
+        if (Request.Cookies["UserInfo"]["UserId"] != null)
+        {
+            Uid = Request.Cookies["UserInfo"]["UserId"];
+        }
+    }
+
+    if (Request.Cookies["Avata"] != null)
+    {
+        if (Request.Cookies["Avata"]["AvaName"] != null)
+        {
+            photo = Request.Cookies["Avata"]["AvaName"];
+        }
+    }
+}
+
 <body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
     <div class="navbar-default navbar-fixed-top " role="navigation" style="background: #3B5998;">
         <div class="container">
@@ -65,13 +136,19 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-left">
+                    <li><a style="color:white;" href="@Url.Action("TutorBookSlot","Tutor")">Đặt lịch dạy</a></li>
+                    <li><a style="color:white;" href="@Url.Action("ViewSchedule","Tutor")">Xem lịch dạy</a></li>
+                    <li><a style="color:white;" href="@Url.Action("RegistTutorSubject","Tutor")">Đăng ký khóa dạy</a></li>
+                    <li><a style="color:white;" href="@Url.Action("ViewTransaction","Tutor")">Lịch sử giao dịch</a></li>
                 </ul>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <div class="row" style="color:aliceblue; margin-top: 15px;">
-                                <p>Xin chào<a href="@Url.Action("Index", "Home")" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account")" style="color: aliceblue; text-decoration: none;">Đăng xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
-                            </div>
+                        <li class="dropdown">
+                            <a style="color:white;" class="dropdown-toggle" data-toggle="dropdown" href="#">Xin chào @HttpContext.Current.User.Identity.Name <img src="~/Content/Uploads/Images/@photo" height="20" width="20" /> <span class="caret"></span></a>                           
+                            <ul class="dropdown-menu dd-submenu">
+                                <li><img class="dd-ava" src="~/Content/Uploads/Images/@photo" height="64" width="64" /> <a class="dd-viewInfo" href="@Url.Action("ViewInfo","Tutor", new { id = Uid.ToString()})">Thông tin cá nhân</a></li>
+                                <li><a class="dd-logout" style="padding-left:64px;" href="@Url.Action("Logout", "Account")">Đăng xuất <span class="glyphicon glyphicon-log-in"> </span></a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -95,44 +172,14 @@
         }
         <div class="container-fluid">
             <div class="">
-                @{
-                    string Rid = "";
-                    string Rname = "";
-                    string Uid = "";
-                    if (Request.Cookies["Role"] != null)
-                    {
-                        if (Request.Cookies["Role"]["RoleId"] != null)
-                        {
-                            Rid = Request.Cookies["Role"]["RoleId"];
-                        }
-                        if (Request.Cookies["Role"]["RoleId"] != null)
-                        {
-                            Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
-                        }
-
-                    }
-                    if (Request.Cookies["UserInfo"] != null)
-                    {
-                        if (Request.Cookies["UserInfo"]["UserId"] != null)
-                        {
-                            Uid = Request.Cookies["UserInfo"]["UserId"];
-                        }
-                    }
-                }
                 <div class="row content">
-                    <div class="col-md-2 col-sm-2 sidenav hidden-xs">
-                        <br />
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="@Url.Action("ViewDetailInfo","Tutor")">Thông tin cá nhân</a></li>
-                            <li><a href="@Url.Action("TutorBookSlot","Tutor")">Đặt lịch dạy</a></li>
-                            <li><a href="@Url.Action("ViewSchedule","Tutor")">Xem lịch dạy</a></li>
-                            <li><a href="@Url.Action("RegistTutorSubject","Tutor")">Đăng ký khóa dạy</a></li>
-                            <li><a href="@Url.Action("ViewTransaction","Tutor")">Lịch sử giao dịch</a></li>
-                            @*<li class=""><a href="@Url.Action("Details", "Users", new { id = Uid.ToString(), info = true })">Thông tin cá nhân</a></li>
-                                <li><a href="@Url.Action("ChangePwd", "Users", new { id =  Uid.ToString(), role = Rname })">Đổi mật khẩu</a></li>*@
-                        </ul>
+                    <div class="col-md-1 col-sm-1 hidden-xs">
+                        @*<br />
+                            <ul class="nav nav-pills nav-stacked">
+                            </ul>*@
                     </div>
                     <div class="col-sm-10 col-md-10">
+                        <br />
                         @RenderBody()
                     </div>
                 </div>

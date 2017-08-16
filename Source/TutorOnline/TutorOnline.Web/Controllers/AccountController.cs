@@ -63,12 +63,18 @@ namespace TutorOnline.Web.Controllers
                     int tempId;
                     HttpCookie Role = new HttpCookie("Role");
                     FormsAuthentication.SetAuthCookie(model.Username, false);
+
+                    HttpCookie Avata = new HttpCookie("Avata");
+                   
+                    
+
                     if (RoleName == UserCommonString.Parent)
                     {
                         var user = AccRes.getCurrentUserTypeParent(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.ParentId;
+                        Avata["AvaName"] = (user.Photo == null?"DefaultIcon.png":user.Photo);
                     }
                     else if (RoleName == UserCommonString.Student)
                     {
@@ -76,6 +82,7 @@ namespace TutorOnline.Web.Controllers
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.StudentId;
+                        Avata["AvaName"] = (user.Photo == null ? "DefaultIcon.png" : user.Photo);
                     }
                     else if (RoleName == UserCommonString.Tutor)
                     {
@@ -83,6 +90,7 @@ namespace TutorOnline.Web.Controllers
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.TutorId;
+                        Avata["AvaName"] = (user.Photo == null ? "DefaultIcon.png" : user.Photo);
                     }
                     else
                     {
@@ -90,9 +98,12 @@ namespace TutorOnline.Web.Controllers
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.BackendUserId;
+                        Avata["AvaName"] = (user.Photo == null ? "DefaultIcon.png" : user.Photo);
                     }
 
-                     
+                    Avata.Expires.Add(new TimeSpan(0, 45, 0));
+                    Response.Cookies.Add(Avata);
+
                     Role.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(Role);
 

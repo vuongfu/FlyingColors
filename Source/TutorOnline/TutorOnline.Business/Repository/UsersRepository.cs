@@ -258,10 +258,10 @@ namespace TutorOnline.Business.Repository
 
         public UserLoginInfo checkEmailLogin(string email)
         {
-            var ParentUser = _dbContext.Parents.FirstOrDefault(x => x.Email == email);
-            var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.Email == email);
-            var StudentUser = _dbContext.Students.FirstOrDefault(x => x.Email == email);
-            var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.Email == email);
+            var ParentUser = _dbContext.Parents.FirstOrDefault(x => x.Email == email && x.isActived == true);
+            var BackEndUser = _dbContext.BackendUsers.FirstOrDefault(x => x.Email == email && x.isActived == true);
+            var StudentUser = _dbContext.Students.FirstOrDefault(x => x.Email == email && x.isActived == true);
+            var TutorUser = _dbContext.Tutors.FirstOrDefault(x => x.Email == email && x.isActived == true);
             if (ParentUser == null && BackEndUser == null && StudentUser == null && TutorUser == null)
                 return null;
             UserLoginInfo returnResult;
@@ -305,6 +305,7 @@ namespace TutorOnline.Business.Repository
         public int RoleId { get; set; }
         public string RoleName { get; set; }
         public string email { get; set; }
+        public string Photo { get; set; }
 
         public UserLoginInfo()
         {
@@ -318,6 +319,7 @@ namespace TutorOnline.Business.Repository
             this.RoleId = data.RoleId;
             this.RoleName = data.Role.RoleName;
             this.email = data.Email;
+            this.Photo = (data.Photo == null ? "DefaultIcon.png" : data.Photo);
         }
         public UserLoginInfo(Parent data)
         {
@@ -326,6 +328,8 @@ namespace TutorOnline.Business.Repository
             this.RoleId = data.RoleId;
             this.RoleName = data.Role.RoleName;
             this.email = data.Email;
+            this.Photo = (data.Photo == null ? "DefaultIcon.png" : data.Photo);
+
         }
         public UserLoginInfo(BackendUser data)
         {
@@ -334,6 +338,7 @@ namespace TutorOnline.Business.Repository
             this.RoleId = data.RoleId;
             this.RoleName = data.Role.RoleName;
             this.email = data.Email;
+            this.Photo = (data.Photo == null ? "DefaultIcon.png" : data.Photo);
         }
         public UserLoginInfo(Student data)
         {
@@ -342,6 +347,7 @@ namespace TutorOnline.Business.Repository
             this.RoleId = data.RoleId;
             this.RoleName = data.Role.RoleName;
             this.email = data.Email;
+            this.Photo = (data.Photo == null ? "DefaultIcon.png" : data.Photo);
         }
     }
 }
