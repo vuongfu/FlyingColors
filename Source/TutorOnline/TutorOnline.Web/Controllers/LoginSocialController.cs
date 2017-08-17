@@ -49,6 +49,12 @@ namespace TutorOnline.Web.Controllers
                     UserInfo.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(UserInfo);
 
+
+                    HttpCookie Avata = new HttpCookie("Avata");
+                    Avata["AvaName"] = data.Photo;                    
+                    Avata.Expires.Add(new TimeSpan(0, 45, 0));
+                    Response.Cookies.Add(Avata);
+
                     Role.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(Role);
                     return RedirectToAction("Index", "Home");

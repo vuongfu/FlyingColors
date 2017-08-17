@@ -1,0 +1,158 @@
+﻿@model TutorOnline.Web.Models.DetailTutorViewModel
+
+@{
+    ViewBag.Title = "ViewInfo";
+    Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
+}
+<style>
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .InfoAva {
+        width: 130px;
+        height: 130px;
+        margin: 10px auto 30px;
+        border-radius: 100%;
+        border: 2px solid #aaa;
+        background-size: cover;
+    }
+    strong{
+        color:blue;
+    }
+</style>
+
+<div class="col-md-7">
+    <div class="well">
+        <h4><strong>Thông tin tài khoản</strong></h4>
+        <hr />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="InfoAva" style="background-image: url(../../Content/Uploads/Images/@Model.Photo)"></div>
+                </div>
+                <div class="col-md-8">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr style="display: none;">
+                                <th width="100"></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td class="text-right"><b>Tên đăng nhập:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.UserName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Chức vụ:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.RoleName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Email:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Số dư hiện tại:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Balance) (đồng)</td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <th colspan="2" style="color:blue;">
+                                Những khóa học đang dạy
+                            </th>
+                        </tr>
+                        <tbody>
+                            <tr >
+                                <th style="text-align:center;"><b>Tên khóa dạy</b></th>
+                                <th style="text-align:center;"><b>Kinh nghiệm</b></th>
+                            </tr>                            
+                            @foreach(var item in Model.tutorSub)
+                            {
+                                <tr>
+                                    <td>@item.subjectName</td>
+                                    <td>@item.experiences</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a href="../ChangePwd" class="btn btn-success">Thay đổi mật khẩu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-5">
+    <div class="well">
+        <h4><Strong>Thông tin cá nhân</Strong></h4>
+        <hr />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr style="display: none;">
+                                <th width="100"></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td class="text-right"><b>Họ và tên:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.FullName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Giới tính:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Gender)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Ngày sinh:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.BirthDate)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Địa chỉ:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Address)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Thành phố:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.City)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Quốc gia:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Country)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Mã vùng:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.PostalCode)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Số điện thoại:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.PhoneNumber)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Skype:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.SkypeId)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Số tài khoản:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.BankId)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Tên ngân hàng:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.BankName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Người thụ hưởng:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.BMemName)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

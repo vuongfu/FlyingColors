@@ -140,7 +140,7 @@
         <div class="row col-sm-offset-1 col-md-offset-1">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FeedbackModal" id="btnFeedback">Đánh giá học sinh</button>
             <button type="button" class="btn hidden" data-toggle="modal" data-target="#Loading" data-backdrop="static" id="btnLoad">Load</button>
-            @Html.ActionLink("Quay về", "ViewSchedule", null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Quay lại", "ViewSchedule", null, new { @class = "btn btn-success" })
         </div>
     </div>
 </div>
@@ -177,29 +177,29 @@
                     <div class="row">
                         <div class="col-sm-8 col-md-8" id="dataRating">
                             @for (int i = 0; i < Model.CriteriaContent.Count(); i++)
-                                {
-                                    <div class="row">
-                                        <div class="col-sm-5 col-md-5" align="right">
-                                            <b id="@Model.CriteriaId[i]0">@Model.CriteriaContent[i]:</b>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3">
-                                            <span class="rating">
-                                                <input id="@Model.CriteriaId[i]5" type="radio" name="@Model.CriteriaId[i]" value="5">
-                                                <label for="@Model.CriteriaId[i]5">5</label>
-                                                <input id="@Model.CriteriaId[i]4" type="radio" name="@Model.CriteriaId[i]" value="4">
-                                                <label for="@Model.CriteriaId[i]4">4</label>
-                                                <input id="@Model.CriteriaId[i]3" type="radio" name="@Model.CriteriaId[i]" value="3">
-                                                <label for="@Model.CriteriaId[i]3">3</label>
-                                                <input id="@Model.CriteriaId[i]2" type="radio" name="@Model.CriteriaId[i]" value="2" checked>
-                                                <label for="@Model.CriteriaId[i]2">2</label>
-                                                <input id="@Model.CriteriaId[i]1" type="radio" name="@Model.CriteriaId[i]" value="1">
-                                                <label for="@Model.CriteriaId[i]1">1</label>
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4"></div>
+                            {
+                                <div class="row">
+                                    <div class="col-sm-5 col-md-5" align="right">
+                                        <b id="@Model.CriteriaId[i]0">@Model.CriteriaContent[i]:</b>
                                     </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <span class="rating">
+                                            <input id="@Model.CriteriaId[i]5" type="radio" name="@Model.CriteriaId[i]" value="5">
+                                            <label for="@Model.CriteriaId[i]5">5</label>
+                                            <input id="@Model.CriteriaId[i]4" type="radio" name="@Model.CriteriaId[i]" value="4">
+                                            <label for="@Model.CriteriaId[i]4">4</label>
+                                            <input id="@Model.CriteriaId[i]3" type="radio" name="@Model.CriteriaId[i]" value="3" checked>
+                                            <label for="@Model.CriteriaId[i]3">3</label>
+                                            <input id="@Model.CriteriaId[i]2" type="radio" name="@Model.CriteriaId[i]" value="2" >
+                                            <label for="@Model.CriteriaId[i]2">2</label>
+                                            <input id="@Model.CriteriaId[i]1" type="radio" name="@Model.CriteriaId[i]" value="1">
+                                            <label for="@Model.CriteriaId[i]1">1</label>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4"></div>
+                                </div>
 
-                                }
+                            }
                             <br />
                             <div class="row">
                                 <div class="col-sm-2 col-md-2" align="right">
@@ -290,7 +290,7 @@
                         dataStr += "<label for='"+data.dataForCriteId[i]+"5'>5</label>";
                         dataStr += "<input id='"+data.dataForCriteId[i]+"4' type='radio' name='"+data.dataForCriteId[i]+"' value='4'>";
                         dataStr += "<label for='"+data.dataForCriteId[i]+"4'>4</label>";
-                        dataStr += "<input id='"+data.dataForCriteId[i]+"3' type='radio' name='"+data.dataForCriteId[i]+"' value='3'>";
+                        dataStr += "<input id='"+data.dataForCriteId[i]+"3' type='radio' name='"+data.dataForCriteId[i]+"' value='3' checked>";
                         dataStr += "<label for='"+data.dataForCriteId[i]+"3'>3</label>";
                         dataStr += "<input id='"+data.dataForCriteId[i]+"2' type='radio' name='"+data.dataForCriteId[i]+"' value='2'>";
                         dataStr += "<label for='"+data.dataForCriteId[i]+"2'>2</label>";
@@ -298,6 +298,15 @@
                         dataStr += "<label for='"+data.dataForCriteId[i]+"1'>1</label>";
                         dataStr += "</span></div><div class='col-sm-4 col-md-4'></div></div>";
                     }
+
+                    dataStr += "<br /><div class='row'>";
+                    dataStr += "<div class='col-sm-2 col-md-2' align='right'>";
+                    dataStr += "<b>Nhận xét:</b>";
+                    dataStr += "</div><div class='col-md-5 col-sm-5'>";
+                    dataStr += "<textarea class='form-control' style='width:100%;' id='CommentFeedback' name='CommentFeedback' rows='5'>@(Model.Comment == null ? "" : Model.Comment)</textarea>";
+                    dataStr += "</div></div>";
+
+
                     document.getElementById("dataRating").innerHTML = dataStr;
                     return false;
                 }
@@ -425,8 +434,12 @@
 
     $(document).ready(function(){
         if(@Model.Status == 5){
-            jQuery('#btnFeedback').addClass('hidden');
+            jQuery('#btnFeedback').addClass('hidden');            
             return false;
+        }
+
+        if(@Model.Status == 5 || @Model.Status == 3){
+            jQuery('#iconEdit').addClass('hidden');
         }
 
         var time = "@Model.OrderTime";
