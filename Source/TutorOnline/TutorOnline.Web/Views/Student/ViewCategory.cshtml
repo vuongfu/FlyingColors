@@ -43,16 +43,23 @@
                                 </div>
                             </div>
                         </a>*@
-                        <div class="slider-list--item--3nEQO col-md-3" style="margin-right: 0px;">
-                            <div class="merchandising-course-card--card--Ef5aV merchandising-course-card--card__list-view--13LYX">
-                                <a href="SubjectDetail?SubjectId=@Model[i + j].SubjectId" class="merchandising-course-card--mask--2NGzX">
-                                    <span class="merchandising-course-card--card__options--2slCk">
-                                        <img src="~/image/Course.jpg" alt="@Model[i + j].SubjectName" class="merchandising-course-card--card__image--2oGQE" height="240" width="240">
+                        <div class="slider col-md-3" style="margin-right: 0px;">
+                            <div class="merchand-course-card card-listview">
+                                <a href="SubjectDetail?SubjectId=@Model[i + j].SubjectId" class="cardmask">
+                                    <span class="cardoption">
+                                        @if (Model[i][j].Photo != null)
+                                        {
+                                            <img src="~/Content/Uploads/Images/@Model[i][j].Photo" alt="@Model[i][j].SubjectName" class="cardimage" height="240" width="240">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/image/Course.jpg" alt="@Model[i][j].SubjectName" class="cardimage" height="240" width="240">
+                                        }
                                     </span>
-                                    <span class="merchandising-course-card--card__details--1G7gB">
-                                        <span class="merchandising-course-card--details__name--3h_2f">@Model[i + j].SubjectName</span>
-                                        <div class="merchandising-course-card--card__instructor-titles--IJ4_5">
-                                            <p class="dib" data-purpose="course-card-instructor-titles"> @Model[i + j].Purpose </p>
+                                    <span class="carddetail">
+                                        <span class="cardname">@Model[i + j].SubjectName</span>
+                                        <div class="cardinstit">
+                                            <p class="dib" data-purpose="cardinstit"> @Model[i + j].Purpose </p>
                                         </div> 
                                     </span>
                                 </a>

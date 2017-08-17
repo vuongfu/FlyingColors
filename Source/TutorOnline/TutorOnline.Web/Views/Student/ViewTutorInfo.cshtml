@@ -1,0 +1,107 @@
+﻿@model TutorOnline.Web.Models.TutorDetail
+@{
+    ViewBag.Title = "ViewTutorInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .avatarDetail {
+        width: 100px;
+        height: 100px;
+        margin: 10px auto 10px;
+        border-radius: 100%;
+        border: 2px solid #aaa;
+        background-size: cover;
+    }
+
+    #dataStu {
+        text-align: right;
+    }
+
+    #dataLesson {
+        text-align: right;
+    }
+</style>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-6 col-md-8 col-sm-offset-1 col-md-offset-1">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6" align="center">
+                @if (String.IsNullOrEmpty(Model.Tutor.Photo))
+                {
+                    <div class="avatarDetail" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
+                }
+                else
+                {
+                    <div class="avatarDetail" style="background-image: url(~/Content/Uploads/Images/@Model.Tutor.Photo)"></div>
+                }
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6" align="center">
+                <h3>Thông tin gia sư</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="row">
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
+                        <b>Kinh Nghiệm:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.TutorSubject.Experience)
+                    </div>
+                </div>
+                <div class="row col-sm-offset-3 col-md-offset-3">
+                    <a class="btn btn-success" href="@ViewBag.Link" id="btnFeedback1">Quay lại</a>
+                </div>
+                
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6" id="dataStu">
+                        <b>Họ và tên:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Model.Tutor.LastName @Model.Tutor.FirstName
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Giới tính:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Tutor.Gender)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Số điện thoại:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Tutor.PhoneNumber)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Địa chỉ Email:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Tutor.Email)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 " id="dataStu">
+                        <b>Skype:</b>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.DisplayFor(model => model.Tutor.SkypeId)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
