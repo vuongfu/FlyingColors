@@ -128,9 +128,9 @@
                             <li><a href="@Url.Action("Details", "Users", new {id = Uid.ToString(), info = true, username = UName })">Thông tin cá nhân</a></li>
                             <li><a href="@Url.Action("ViewSchedule","Parent")">Xem lịch học</a></li>
                             <li><a href="@Url.Action("ViewHistory","Parent")">Xem lịch sử học từng khóa</a></li>
-                            @*
-                                <li class=""><a href="@Url.Action(" Details", "Users" , new { id=Uid.ToString(), info=true })">Thông tin cá nhân</a></li>
-                                <li><a href="@Url.Action(" ChangePwd", "Users" , new { id=Uid.ToString(), role=Rname })">Đổi mật khẩu</a></li>*@
+                            <li><a href="@Url.Action("ViewStudentSubject","Parent")">Xem khóa học của học sinh</a></li>
+                            @*<li class=""><a href="@Url.Action(" Details", "Users" , new { id=Uid.ToString(), info=true })">Thông tin cá nhân</a></li>
+                              <li><a href="@Url.Action(" ChangePwd", "Users" , new { id=Uid.ToString(), role=Rname })">Đổi mật khẩu</a></li>*@
                         </ul>
                     </div>
                     <div class="col-sm-10 col-md-10">
@@ -204,6 +204,19 @@
     <link href="https://rawgit.com/select2/select2/master/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://rawgit.com/select2/select2/master/dist/js/select2.js"></script>
     <script>
+        $(function () {
+            var current_page_URL = location.href;
+            $("a").each(function () {
+                if ($(this).attr("href") !== "#") {
+                    var target_URL = $(this).prop("href");
+                    if (target_URL == current_page_URL) {
+                        $('nav a').parents('li, ul').removeClass('active');
+                        $(this).parent('li').addClass('active');
+                        return false;
+                    }
+                }
+            });
+        });
         //$(function () {
         //    var current_page_URL = location.href;
         //    $("a").each(function () {

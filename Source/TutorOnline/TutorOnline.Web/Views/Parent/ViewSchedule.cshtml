@@ -83,6 +83,57 @@
         });
     }
 </script>
+
+<style>
+    .wrapper {
+        padding: 20px;
+        margin: 50px auto;
+        width: 400px;
+        min-height: 200px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,.1);
+        background-color: #fff;
+    }
+
+    .rating {
+        overflow: hidden;
+        vertical-align: bottom;
+        display: inline-block;
+        width: auto;
+        height: 20px;
+        margin-right: 60px;
+    }
+
+        .rating > input {
+            opacity: 0;
+            margin-right: -100%;
+        }
+
+        .rating > label {
+            position: relative;
+            display: block;
+            float: right;
+            background: url('/Image/star-off-big.png');
+            background-size: 20px 20px;
+        }
+
+            .rating > label:before {
+                display: block;
+                opacity: 0;
+                content: '';
+                width: 20px;
+                height: 20px;
+                background: url('/Image/star-on-big.png');
+                background-size: 20px 20px;
+                transition: opacity 0.2s linear;
+            }
+
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating:not(:hover) > :checked ~ label:before {
+                opacity: 1;
+            }
+</style>
 <section>
     <div class="col-lg-offset-1 col-lg-10 container">
         <br />

@@ -10,8 +10,22 @@
     body {
         background: none;
     }
+.center{
+    font-weight: bold;
+    text-align: center !important;
+    }
+    hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
 </style>
 <body>
+    <h3 class="center">KHÓA HỌC CỦA BẠN</h3>
+    <hr />
     <div id="khoahoc" class="container">
         @if (Model.Count != 0)
         {

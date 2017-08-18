@@ -3,15 +3,18 @@
 @using TutorOnline.Common;
 @{
     TranStringCommon TranString = new TranStringCommon();
-    ViewBag.Title = "ViewTransaction";
+    ViewBag.Title = "View Transaction";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="~/Scripts/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+
 <section>
     <div class="col-lg-offset-1 col-lg-10">
+        <h3> Lịch sử giao dịch</h3>
+        <hr />
         @using (Html.BeginForm("ViewTransaction", "Student", FormMethod.Get))
         {
             <br />
@@ -26,6 +29,7 @@
                     <th class="col-lg-offset-1 col-lg-3" style="font-weight: bold;">
                         @TranString.EndDate
                     </th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th class="col-lg-4">
@@ -37,12 +41,11 @@
                     <th class="col-lg-offset-1 col-lg-3">
                         @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
                     </th>
+                    <th><input type="submit" name="Search" value="@TranString.Search" class="btn" /></th>
                 </tr>
             </table>
 
-            <p></p>
-            <input type="submit" name="Search" value="@TranString.Search" class="btn" />
-                <br />
+            <hr />
             if (ViewBag.searchClick == true)
             {
                 <h4>@ViewBag.totalRecord</h4>

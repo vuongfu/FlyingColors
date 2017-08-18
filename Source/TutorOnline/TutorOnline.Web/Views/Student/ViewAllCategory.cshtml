@@ -16,8 +16,23 @@
     margin-left: 20px;
     font-size: 16px;
     }
+    .center{
+    font-weight: bold;
+    text-align: center !important;
+    }
+    hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
 </style>
+
 <body>
+    <h3 class="center" >GIÁO TRÌNH HỌC</h3>
+    <hr />
     <div id="khoahoc" class="container">
         @for (int i = 0; i < Model.Count; i++)
         {
@@ -28,7 +43,7 @@
                         <h3 class="text-center text-muted">@Model[i][0].CategoryName</h3>
 
                     </div>
-                    <br />
+                    
                     int count;
                     if(Model[i].Count < 5)
                     {
@@ -42,7 +57,7 @@
                                     <span class="cardoption">
                                         @if (Model[i][j].Photo != null)
                                         {
-                                            <img src="~/Content/Uploads/Images/@Model[i][j].Photo" alt="@Model[i][j].SubjectName" class="cardimage" height="240" width="240">
+                                            <img src="~/Content/Uploads/Images/@Model[i][j].Photo" alt="@Model[i][j].SubjectName" class="cardimage" height="200" width="240">
                                         }
                                         else
                                         {

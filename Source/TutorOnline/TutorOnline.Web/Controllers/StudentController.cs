@@ -544,7 +544,7 @@ namespace TutorOnline.Web.Controllers
             }
 
             StudentSubject CheckSubject = StuSubRes.GetSubById(CheckLesson.SubjectId, Slot.StudentId).FirstOrDefault();
-            if(CheckSubject == null)
+            if(CheckSubject == null || CheckSubject.Status == 7)
             {
                 return Json(new { BookSlot = false, Message = "Bạn phải đăng ký môn học trước khi có thể đặt tiết học này." });
             }
