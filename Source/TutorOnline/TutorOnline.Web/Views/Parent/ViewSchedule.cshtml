@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewBag.Title = "ViewSchedule";
+    Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+}
+
+<script>
+    function FeedBack(Id) {
+        document.getElementById("btnLoad").click();
+        jQuery('#loadingImg').removeClass('hidden');
+        jQuery('#MessSave').addClass('hidden');
+        jQuery('#btnCloseSaveModal').addClass('hidden');
+        bindData1(Id);
+
+    }
+
+    function bindData1(Id) {
+        $.ajax({
+            url: '@Url.Action("GetFeedBack", "Parent")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'ScheduleId': Id }),
+            success: function (data) {
+                if (data.Exist == true) {
+                    var x = "";
+                    for (i in data.Result) {
+                        if (i < data.Count) {
+                            x += '<div class="row">';
+                            x += '<div class="col-sm-4 col-md-4" align="right">';
+                            x += '<b>' + data.Result[i].CriterionName + ':</b>';
+                            x += '</div>';
+                            x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                            for (var j = 5; j >= 1; j--) {
+                                if (data.Result[i].CriterionValue == j) {
+                                    x += '<input type="radio" name="' + data.Result[i].CriterionName + '" value="' + j + '" checked disabled>';
+                                } else {
+                                    x += '<input type="radio" name="' + data.Result[i].CriterionName + '" value="' + j + '" disabled>';
+                                }
+                                x += '<label for="' + data.Result[i].CriterionName + j + '">' + j + '</label>';
+                            }
+                            x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+                        }
+                    }
+                    x += '<div class="row">';
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>' + data.Result[data.Count].CriterionName + ':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                    x += '<p>' + data.Result[data.Count].CriterionValue + '</p>';
+                    x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    x += '<div class="row">';
+
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>' + data.Result[data.Count + 1].CriterionName + ':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-8 col-md-8">';
+                    x += '<p>' + data.Result[data.Count + 1].CriterionValue + '</p>';
+                    x += ' </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    $("#Criteria").html(x);
+
+                    $('#FeedbackModal1').modal("show");
+                    jQuery('#btnCloseSaveModal').removeClass('hidden');
+                    document.getElementById("btnLoad").click();
+                } else {
+                    jQuery('#loadingImg').addClass('hidden');
+                    jQuery('#MessSave').removeClass('hidden');
+                    jQuery('#btnCloseSaveModal').removeClass('hidden');
+                    document.getElementById("MessSave").innerHTML = "Chưa có đánh giá cho tiết học này.";
+                    document.getElementById("TitleLoading1").innerHTML = "Không có đánh giá.";
+                }
+
+            },
+            error: function (xhr) {
+                jQuery('#loadingImg').addClass('hidden');
+                jQuery('#MessSave').removeClass('hidden');
+                jQuery('#btnCloseSaveModal').removeClass('hidden');
+                document.getElementById("MessSave").innerHTML = "Có lỗi xảy ra trong quá trình tải. <br>Xin hãy thử lại sau.";
+            }
+        });
+    }
+</script>
+<section>
+    <div class="col-lg-offset-1 col-lg-10 container">
+        <br />
+        <p>
+            <input class="week-picker" id="WeekSelect" readonly="readonly">
+            <br /><br />
+        </p>
+        <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
+            <tr>
+                <th></th>
+                <th scope="col" style="width:75px;">Slot 1<br />08:00 - 08:45</th>
+                <th scope="col" style="width:75px;">Slot 2<br />09:00 - 09:45</th>
+                <th scope="col" style="width:75px;">Slot 3<br />10:00 - 10:45</th>
+                <th scope="col" style="width:75px;">Slot 4<br />11:00 - 11:45</th>
+                <th scope="col" style="width:75px;">Slot 5<br />13:00 - 13:45</th>
+                <th scope="col" style="width:75px;">Slot 6<br />14:00 - 14:45</th>
+                <th scope="col" style="width:75px;">Slot 7<br />15:00 - 15:45</th>
+                <th scope="col" style="width:75px;">Slot 8<br />16:00 - 16:45</th>
+                <th scope="col" style="width:75px;">Slot 9<br />19:00 - 19:45</th>
+                <th scope="col" style="width:75px;">Slot 10<br />20:00 - 20:45</th>
+                <th scope="col" style="width:75px;">Slot 11<br />21:00 - 21:45</th>
+            </tr>
+            <tr id="RowSun">
+                <th scope="row" style="width:75px;" id="DateSun">Chủ nhật<br /> @ViewBag.FirstDayOfWeek.ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Sun@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowMon">
+                <th scope="row" style="width:75px;" id="DateMon">Thứ hai<br /> @ViewBag.FirstDayOfWeek.AddDays(1).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Mon@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowTue">
+                <th scope="row" style="width:75px;" id="DateTue">Thứ ba<br /> @ViewBag.FirstDayOfWeek.AddDays(2).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Tue@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowWed">
+                <th scope="row" style="width:75px;" id="DateWed">Thứ tư<br /> @ViewBag.FirstDayOfWeek.AddDays(3).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Wed@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowThu">
+                <th scope="row" style="width:75px;" id="DateThu">Thứ năm<br /> @ViewBag.FirstDayOfWeek.AddDays(4).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Thu@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowFri">
+                <th scope="row" style="width:75px;" id="DateFri">Thứ sáu<br /> @ViewBag.FirstDayOfWeek.AddDays(5).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Fri@(temp)"></td>
+                }
+            </tr>
+            <tr id="RowSat">
+                <th scope="row" style="width:75px;" id="DateSat">Thứ bảy<br /> @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()</th>
+                @for (int i = 1; i <= 11; i++)
+            {
+                string temp = String.Format("{0:00}", i);
+                    <td class="tableSlot" id="Sat@(temp)"></td>
+                }
+            </tr>
+        </table>
+    </div>
+</section>
+
+     <!-- Modal feedback -->
+<div class="modal fade" id="FeedbackModal1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Đánh giá học sinh</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-8" id="Criteria">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_LoadingData")
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    var selectedWeek = 0;
+    var startDate;
+    var endDate;
+    var StudentId = @ViewBag.StudentId;
+
+    function bindData() {
+        $('.slotpick tr td').removeClass('availableSlot');
+        $('.slotpick tr td').removeClass('finishedSlot');
+        $('.slotpick tr td').removeClass('bookedSlot');
+        $('.slotpick tr td').removeClass('canceledSlot');
+        var items = document.getElementsByTagName('td');
+        for (var i = 0; i < items.length; i++) {
+            var x = "";
+            items[i].innerHTML = x;
+
+        }
+
+
+        $.ajax({
+            url: '@Url.Action("GetBookedSlot", "Parent")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'StudentId': StudentId }),
+            success: function (data) {
+                $("#WeekSelect").removeAttr("disabled");
+
+                for(i in data){
+                    var stt = data[i].Status;
+                    if(stt == 3)
+                        jQuery('#' + data[i].tableSlotId).addClass('finishedSlot');
+                    else if(stt == 4)
+                        jQuery('#' + data[i].tableSlotId).addClass('bookedSlot');
+                    else
+                        jQuery('#' + data[i].tableSlotId).addClass('canceledSlot');
+
+                    if(stt != 11){
+                        var x = '<p onclick="FeedBack(';
+                        x += data[i].ScheduleId + ')">';
+                        x += data[i].TutorName + '<br>' + data[i].LessonName + '</p>';
+                        document.getElementById(data[i].tableSlotId).innerHTML = x;
+                    }
+                }
+
+            },
+            error: function (xhr) {
+                $("#WeekSelect").removeAttr("disabled");
+                alert("Error");
+            }
+        });
+    }
+
+    
+
+
+    $(document).ready(function () {
+        startDate = new Date("@ViewBag.FirstDayOfWeek.ToShortDateString()");
+        endDate = new Date("@ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+        $('#WeekSelect').val("@ViewBag.FirstDayOfWeek.ToShortDateString() - @ViewBag.FirstDayOfWeek.AddDays(6).ToShortDateString()");
+        bindData(selectedWeek);
+    });
+
+    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+
+    $('.table tr td').live('mousemove', function () {
+        $(this).addClass('ui-state-hover');
+        var id = this.id;
+        var date = id.substring(0,3);
+        var num = id.substring(3);
+
+        for(i = 0 ; i< 7; i++){
+            var temp = "";
+            temp += days[i] + num;
+            if(id != temp)
+                jQuery('#' + temp).addClass('colSelect');
+        }
+
+        for(i = 1; i<= 11; i++){
+            var temp = "";
+            if(i < 10){
+                temp += date + "0";
+                temp += i;
+            }else{
+                temp += date + i;
+            }
+            if(id != temp)
+                jQuery('#' + temp).addClass('rowSelected');
+        }
+
+    })
+    $('.table tr td').live('mouseleave', function () {
+        $(this).removeClass('ui-state-hover');
+        var id = this.id;
+        var date = id.substring(0,3);
+        var num = id.substring(3);
+
+        for(i = 0 ; i< 7; i++){
+            var temp = "";
+            temp += days[i] + num;
+            if(id != temp)
+                jQuery('#' + temp).removeClass('colSelect');
+        }
+
+        for(i = 1; i<= 11; i++){
+            var temp = "";
+            if(i < 10){
+                temp += date + "0";
+                temp += i;
+            }else{
+                temp += date + i;
+            }
+            if(id != temp)
+                jQuery('#' + temp).removeClass('rowSelected');
+        }
+    })
+
+    $( ".week-picker" ).datepicker({
+
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        changeMonth: true,
+        changeYear: true,
+        showWeek: true,
+        beforeShowDay: function(date) {
+
+            var cssClass = '';
+            if(date >= startDate && date <= endDate)
+                cssClass = 'ui-datepicker-current-day';
+            return [true, cssClass];
+
+        },
+        onSelect: function(dateText, inst) {
+            var date = new Date(dateText);
+            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+
+            var d = new Date();
+
+            document.getElementById("DateSun").innerHTML = "Chủ nhật <br />"+ startDate.toLocaleDateString();
+            d = new Date(startDate.getTime()+(1*24*60*60*1000));
+            document.getElementById("DateMon").innerHTML = "Thứ hai <br /> "+ d.toLocaleDateString();
+            d = new Date(d.getTime()+(1*24*60*60*1000));
+            document.getElementById("DateTue").innerHTML = "Thứ ba <br /> "+ d.toLocaleDateString();
+            d = new Date(d.getTime()+(1*24*60*60*1000));
+            document.getElementById("DateWed").innerHTML = "Thứ tư <br /> "+ d.toLocaleDateString();
+            d = new Date(d.getTime()+(1*24*60*60*1000));
+            document.getElementById("DateThu").innerHTML = "Thứ năm <br /> " + d.toLocaleDateString();
+            d = new Date(d.getTime()+(1*24*60*60*1000));
+            document.getElementById("DateFri").innerHTML = "Thứ sáu <br /> "+ d.toLocaleDateString();
+            d = new Date(d.getTime()+(1*24*60*60*1000));
+            document.getElementById("DateSat").innerHTML = "Thứ bảy <br /> " + d.toLocaleDateString();
+
+            bindData();
+        }
+    });
+
+    $(".ui-datepicker-calendar tr").live("mousemove", function() {
+        $(this).find("td a").addClass("ui-state-hover");
+        $(this).find(".ui-datepicker-week-col").addClass("ui-state-hover");
+    });
+    $(".ui-datepicker-calendar tr").live("mouseleave", function() {
+        $(this).find("td a").removeClass("ui-state-hover");
+        $(this).find(".ui-datepicker-week-col").removeClass("ui-state-hover");
+    });
+</script>
+<style>
+    .onmouse {
+        background-color: gray;
+    }
+
+    .availableSlot {
+        background-color: greenyellow;
+    }
+
+    .colSelect {
+        border-left-style: groove !important;
+        border-right-style: groove !important;
+        border-left-width: 2px !important;
+        border-right-width: 2px !important;
+    }
+
+    .rowSelected {
+        border-top-style: groove !important;
+        border-bottom-style: groove !important;
+        border-top-width: 2px !important;
+        border-bottom-width: 2px !important;
+    }
+
+    .finishedSlot {
+        background-color: skyblue;
+    }
+
+    .bookedSlot {
+        background-color: gold;
+    }
+
+    .canceledSlot {
+        background-color: tomato;
+    }
+
+    .disableArrow {
+        opacity: 0.4;
+        cursor: no-drop;
+    }
+</style>

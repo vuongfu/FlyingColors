@@ -212,6 +212,7 @@ namespace TutorOnline.Web.Controllers
                 temp.Name = item.LastName + " " + item.FirstName;
                 temp.TranDate = DateTime.Now;
                 temp.UserName = item.UserName;
+                temp.UserID = item.TutorId;
                 temp.UserTypeName = UserCommonString.Tutor;
                 ListTrans.Add(temp);
 

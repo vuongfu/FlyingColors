@@ -5,76 +5,92 @@
 }
 
 <style>
-.hc-user-btn {
-width: 280px;
-height: 95px;
-background-color: forestgreen;
-font-size: 16px;
-font-weight: bold;
-padding-left: 60px; text-align: left;
-padding-top: 36px;
-position: relative;
-text-transform: uppercase;
-position: relative;
-border-radius: 10px;
-display: inline-block;
-margin-bottom: 10px;
-color: white
-}
+    .hc-user-btn {
+        width: 280px;
+        height: 95px;
+        background-color: forestgreen;
+        font-size: 16px;
+        font-weight: bold;
+        padding-left: 60px;
+        text-align: left;
+        padding-top: 36px;
+        position: relative;
+        text-transform: uppercase;
+        position: relative;
+        border-radius: 10px;
+        display: inline-block;
+        margin-bottom: 10px;
+        color: white;
+    }
 
-.hc-user-btn:hover {
-    background-color: cornflowerblue
-}
+        .hc-user-btn:hover {
+            background-color: cornflowerblue;
+        }
 
-.hc-user-btn:hover, .hc-user-btn:visited, .hc-user-btn:focus  {color: white; text-decoration: none}
-.center{
-text-align: center !important;
-}
-i.hc-user-btn-info {
-  background-image: url("../img/2016/ubutton-bg.png");
-  background-position: 0 0;
-  height: 43px;
-  left: 6px;
-  position: absolute;
-  top: 24px;
-  width: 43px;
-}
-div.eline {height: 0px; margin-top: 10px; margin-bottom: 10px; width: 100%}
-.header-line{
-	margin-top:45px;
-}
-.col-box-one {
-	padding-right:30px;
-}
-.section-header-one{
-	text-align: center;
-	margin-top:25px;
-}
-.txtlink {
-color: lawngreen;
-text-decoration: none;
-margin-left: 20px;
-font-size: 16px;
-}
-.txtlink:hover {
-text-decoration: none;
-}
+        .hc-user-btn:hover, .hc-user-btn:visited, .hc-user-btn:focus {
+            color: white;
+            text-decoration: none;
+        }
+
+    .center {
+        text-align: center !important;
+    }
+
+    i.hc-user-btn-info {
+        background-image: url("../img/2016/ubutton-bg.png");
+        background-position: 0 0;
+        height: 43px;
+        left: 6px;
+        position: absolute;
+        top: 24px;
+        width: 43px;
+    }
+
+    div.eline {
+        height: 0px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .header-line {
+        margin-top: 45px;
+    }
+
+    .col-box-one {
+        padding-right: 30px;
+    }
+
+    .section-header-one {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .txtlink {
+        color: lawngreen;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 16px;
+    }
+
+        .txtlink:hover {
+            text-decoration: none;
+        }
 </style>
-<br />
 <section id="nutluachon">
     <div class="container">
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true, username = ViewBag.Username })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("Details", "Users", new {id = ViewBag.ParentId, info = true, username = ViewBag.Username })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
         </div>
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("ViewAllCategory", "Parent")">Giáo trình học <i class="hc-user-btn-result"></i></a>
         </div>
         <div clas="eline">&nbsp;</div>
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Parent")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
         </div>
         <div class="col-sm-6 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewTransaction", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
+            <a class="hc-user-btn" href="@Url.Action("ViewTransaction", "Parent")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
         </div>
     </div>
 </section>

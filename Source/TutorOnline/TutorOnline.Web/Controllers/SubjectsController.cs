@@ -101,6 +101,17 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Check file is an image?
+                if(file != null)
+                {
+                    if (!IsImage(file))
+                    {
+                        TempData["messageWarning"] = new ManagerStringCommon().isNotSupportImageType.ToString();
+                        ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName", model.CategoryId);
+                        return View(model);
+                    }
+                }
+
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                 Subject subject = new Subject();
                 if (SRes.isExistsSubjectName(model.SubjectName, model.CategoryId))
@@ -187,6 +198,17 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SubjectsViewModels model, HttpPostedFileBase file)
         {
+            //Check file is an image?
+            if(file != null)
+            {
+                if (!IsImage(file))
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().isNotSupportImageType.ToString();
+                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
+                    return View(model);
+                }
+            }
+
             string photoUrl = FileUpload.UploadFile(file,  FileUpload.TypeUpload.image);
 
             if (SRes.isExistsSubjectNameEdit(model.SubjectName, model.SubjectId))
@@ -402,6 +424,27 @@ namespace TutorOnline.Web.Controllers
             }
 
             return View(result.OrderBy(x => x.QuestionId).ToList()); //.Where(x => x.SubjectId == id).
+        }
+
+        //Check image file uploaded
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         protected override void Dispose(bool disposing)

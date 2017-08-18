@@ -16,7 +16,6 @@
         {
             <br />
             <table class="row">
-                @*<div class="row">*@
                 <tr>
                     <th class="col-lg-4" style="font-weight: bold;">
                         Nội dung giao dịch
@@ -28,20 +27,17 @@
                         @TranString.EndDate
                     </th>
                 </tr>
-                @*</div>*@
-                @*<div class="row">*@
                 <tr>
                     <th class="col-lg-4">
                         @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" })
                     </th>
                     <th class="col-lg-offset-1 col-lg-3">
-                        @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker" })
+                        @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateFrom", onkeypress = "keyPressListener(event)" })
                     </th>
                     <th class="col-lg-offset-1 col-lg-3">
-                        @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker" })
+                        @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
                     </th>
                 </tr>
-                @*</div>*@
             </table>
 
             <p></p>
@@ -102,14 +98,127 @@
         }
     </div>
 </section>
-<script src="~/Scripts/jquery-3.1.1.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
-<script src="~/Scripts/bootstrap-datepicker.js"></script>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
 <script>
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
+
+    var startDate, endDate;
+    var dateRegex = '^(((0[1-9]|[12][0-9]|30)[-/]?(0[13-9]|1[012])|31[-/]?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])[-/]?02)[-/]?[0-9]{4}|29[-/]?02[-/]?([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00))$';
+    $('#dateTo').blur(function () {
+        var str = $('#dateTo').val();
+        if (!str.match(dateRegex)) {
+            $('#dateTo').val("");
+            endDate = null;
+            return false;
+        }
+
+        var date = str.substring(0, 2);
+        var month = str.substring(3, 5);
+        var year = str.substring(6);
+        var fulldate = month + "/" + date + "/" + year;
+
+        endDate = new Date(fulldate);
+        if (startDate != null && endDate < startDate) {
+            startDate = endDate;
+            $('#dateFrom').val(convertDate(endDate));
+        }
     });
 
+    $('#dateFrom').blur(function () {
+        var str = $('#dateFrom').val();
+        if (!str.match(dateRegex)) {
+            $('#dateFrom').val("");
+            startDate = null;
+            return false;
+        }
+
+        var date = str.substring(0, 2);
+        var month = str.substring(3, 5);
+        var year = str.substring(6);
+        var fulldate = month + "/" + date + "/" + year;
+
+        startDate = new Date(fulldate);
+        if (endDate != null && startDate > endDate) {
+            endDate = startDate;
+            $('#dateTo').val(convertDate(startDate));
+        }
+
+    });
+
+    $('.datepicker').datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        forceParse: false,
+        onSelect: function (dateText, inst) {
+            var id = inst.id;
+            var startDateStr = $('#dateTo').val();
+            var endDateStr = $('#dateTo').val();
+
+            if (startDateStr == "") {
+                startDate = null;
+            }
+
+            if (endDateStr == "") {
+                endDate = null;
+            }
+
+            if (id == "dateFrom") {
+                startDate = new Date(dateText);
+            } else {
+                endDate = new Date(dateText);
+            }
+
+            if (startDate != null && endDate != null) {
+                if (startDate > endDate) {
+                    if (id == "dateFrom") {
+                        endDate = startDate;
+                        $('#dateFrom').val(convertDate(startDate));
+                        $('#dateTo').val(convertDate(startDate));
+                    } else {
+                        startDate = endDate;
+                        $('#dateFrom').val(convertDate(endDate));
+                        $('#dateTo').val(convertDate(endDate));
+                    }
+                } else {
+                    $('#dateFrom').val(convertDate(startDate));
+                    $('#dateTo').val(convertDate(endDate));
+                }
+            } else {
+                if (startDate == null) {
+                    $('#dateTo').val(convertDate(endDate));
+                } else {
+                    $('#dateFrom').val(convertDate(startDate));
+                }
+            }
+
+        }
+    }).bind("keypress", function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            e.stopPropagation();
+            var id = e.target.id;
+            $('#' + id).blur();
+        }
+    });
+
+    function convertDate(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+    }
+
+    function keyPressListener(e) {
+        if (e.keyCode == 13) {
+            $('input[type=submit]').focus();
+        }
+        if (e.keyCode == 45) {
+            var id = e.target.id;
+            var str = $('#' + id).val();
+            str += "-";
+            $('#' + id).val(str);
+        }
+    }
 </script>

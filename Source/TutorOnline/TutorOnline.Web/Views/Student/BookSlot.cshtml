@@ -7,6 +7,7 @@
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
 <script type="text/javascript">
+
     function GetSlotTime(SlotOrder, id)
     {
         var time = "";
@@ -52,6 +53,13 @@
         document.getElementById(id).innerHTML = time;
     }
     function Book(id) {
+        var d = new Date();
+        var dformat = [d.getMonth()+1,
+                   d.getDate(),
+                   d.getFullYear()].join('/')+' '+
+                  [d.getHours(),
+                   d.getMinutes(),
+                   d.getSeconds()].join(':');
         var r = confirm("Bạn có chắc chắn muốn đặt buổi học này?");
         if (r == true)
         {
@@ -64,6 +72,7 @@
                     'ScheduleId': id,
                     'LessonId': @ViewBag.LessonId,
                     'type': 1,
+                    'BookTime': dformat
                 },
                 error: function() {
                     alert('Internal server error!');
@@ -111,7 +120,6 @@
     function alertBookedSlot() {
         alert("Buổi học này đã được đặt.");
     }
-    
 
 </script>
 <style>
@@ -300,6 +308,8 @@
   overflow: hidden;
 }
 </style>
+
+@{TempData["Link"] = Request.Url.ToString(); }
 <main id="schedule-content">
     <div class="container">
         <section class="container">
@@ -410,11 +420,11 @@
                                     <div class="col-lg-6">
                                         @if (String.IsNullOrEmpty(Model[i].Photo))
                                         {
-                                            <a href="#"><img src="../../Image/TutorOnline_Icon.png" width="135" height="135" alt="avatar"></a>
+                                            <a href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})")"><img src="../../Image/TutorOnline_Icon.png" width="135" height="135" alt="avatar"></a>
                                         }
                                         else
                                         {
-                                            <a href="#"><img src="~/Content/Uploads/Images/@Model[i].Photo" width="135" height="135" alt="avatar"></a>
+                                            <a href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})")"><img src="~/Content/Uploads/Images/@Model[i].Photo" width="135" height="135" alt="avatar"></a>
                                         }
                                         
                                     </div>
@@ -423,7 +433,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-lg-6">
-                                        <a style="color: black;display:block;height:35px; line-height: 35px; text-align:left;font-size:15px; margin: 10px 0px" href="">@Model[i].Name</a>
+                                        <a style="color: black;display:block;height:35px; line-height: 35px; text-align:left;font-size:15px; margin: 10px 0px" href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})")">@Model[i].Name</a>
                                     </div>
 
                                     <!-- sound -->
@@ -510,16 +520,5 @@
     $(document).ready(function(){
         $('#selected').css("background", "#a42532");
     })
-    //$(document).ready(function(){
-    //    $("a[data-form-method='post']").click(function (event) {
-    //        event.preventDefault();
-    //        var element = $(this);
-    //        var action = element.attr("href");
-    //        element.closest("form").each(function () {
-    //            var form = $(this);
-    //            form.attr("action", action);
-    //            form.submit();
-    //        });
-    //    });
-    //})
+
 </script>

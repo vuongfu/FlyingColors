@@ -1,0 +1,290 @@
+﻿@model PagedList.IPagedList<TutorOnline.DataAccess.Schedule>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "View Study History";
+    Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    ViewBag.Count = 1;
+}
+
+<style>
+    .wrapper {
+        padding: 20px;
+        margin: 50px auto;
+        width: 400px;
+        min-height: 200px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,.1);
+        background-color: #fff;
+    }
+
+    .rating {
+        overflow: hidden;
+        vertical-align: bottom;
+        display: inline-block;
+        width: auto;
+        height: 20px;
+        margin-right: 60px;
+    }
+
+        .rating > input {
+            opacity: 0;
+            margin-right: -100%;
+        }
+
+        .rating > label {
+            position: relative;
+            display: block;
+            float: right;
+            background: url('/Image/star-off-big.png');
+            background-size: 20px 20px;
+        }
+
+            .rating > label:before {
+                display: block;
+                opacity: 0;
+                content: '';
+                width: 20px;
+                height: 20px;
+                background: url('/Image/star-on-big.png');
+                background-size: 20px 20px;
+                transition: opacity 0.2s linear;
+            }
+
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating:not(:hover) > :checked ~ label:before {
+                opacity: 1;
+            }
+
+    .row-narrow {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .well {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<h2>Lịch sử học</h2>
+<div>
+
+    @using (Html.BeginForm("ViewHistory", "Parent", FormMethod.Get))
+    {
+            <table cellspacing="0">
+                <tr>
+                    <th class="col-lg-2">Môn học</th>
+                    <th class="col-lg-1"> </th>
+                    <th class="col-lg-2">Khóa học</th>
+                    <th class="col-lg-1"></th>
+                    <th class="col-lg-1"></th>
+                </tr>
+                <tr>
+                    <td>@Html.DropDownList("CategoryId", null, "Tất cả", htmlAttributes: new { @class = "form-control", id = "ChooseCate" })</td>
+                    <td></td>
+                    @*<td><select class="form-control" id="ChooseSub"><option value="">Tất cả</option></select></td>*@
+                    <td>@Html.DropDownList("SubjectId", null, "Tất cả", htmlAttributes: new { @class = "form-control" , id = "ChooseSub"})</td>
+                    <td></td>
+                    <td><input type="submit" value="Tìm kiếm" class="btn btn-success" /></td>
+                </tr>
+            </table>
+    }
+
+</div>
+@if (ViewBag.searchClick == true)
+{
+    <h4>Số kết quả tìm được: @ViewBag.totalRecord</h4>
+}
+@if (@ViewBag.totalRecord > 0)
+{
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Môn học
+            </th>
+            <th>
+                Khóa học
+            </th>
+            <th>
+                Bài học
+            </th>
+            <th>
+                Ngày học
+            </th>
+            <th>
+                Đánh giá
+            </th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(ViewBag.Count++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.Subject.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.Subject.SubjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.LessonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate.Date)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-success" onclick="FeedBack(@item.ScheduleId)" id="btnFeedback1">Xem đánh giá</button>
+                </td>
+            </tr>
+        }
+    </table>
+
+     <!-- Modal feedback -->
+    <div class="modal fade" id="FeedbackModal1" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Đánh giá học sinh</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8" id="Criteria">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@Html.Partial("_LoadingData")
+        <br />
+        <p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong tổng số @Model.PageCount trang</p>
+        @Html.PagedListPager(Model, page => Url.Action("ViewHistory",
+    new { page, CategoryId = ViewBag.Category, SubjectId = ViewBag.Subject}))
+}
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+
+<script src="~/Scripts/bootstrap.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+
+    function FeedBack(Id) {
+        document.getElementById("btnLoad").click();
+        jQuery('#loadingImg').removeClass('hidden');
+        jQuery('#MessSave').addClass('hidden');
+        jQuery('#btnCloseSaveModal').addClass('hidden');
+        bindData(Id);
+
+    }
+
+    function bindData(Id) {
+        $.ajax({
+            url: '@Url.Action("GetFeedBack", "Parent")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'ScheduleId': Id }),
+            success: function (data) {
+                if (data.Exist == true) {
+                    var x = "";
+                    for (i in data.Result) {
+                        if (i < data.Count) {
+                            x += '<div class="row">';
+                            x += '<div class="col-sm-4 col-md-4" align="right">';
+                            x += '<b>' + data.Result[i].CriterionName + ':</b>';
+                            x += '</div>';
+                            x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                            for (var j = 5; j >= 1; j--) {
+                                if (data.Result[i].CriterionValue == j) {
+                                    x += '<input type="radio" name="' + data.Result[i].CriterionName + '" value="' + j + '" checked disabled>';
+                                } else {
+                                    x += '<input type="radio" name="' + data.Result[i].CriterionName + '" value="' + j + '" disabled>';
+                                }
+                                x += '<label for="' + data.Result[i].CriterionName + j + '">' + j + '</label>';
+                            }
+                            x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+                        }
+                    }
+                    x += '<div class="row">';
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>' + data.Result[data.Count].CriterionName + ':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-3 col-md-3"> <span class="rating">';
+                    x += '<p>' + data.Result[data.Count].CriterionValue + '</p>';
+                    x += '</span> </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    x += '<div class="row">';
+
+                    x += '<div class="col-sm-4 col-md-4" align="right">';
+                    x += '<b>' + data.Result[data.Count + 1].CriterionName + ':</b>';
+                    x += '</div>';
+                    x += '<div class="col-sm-8 col-md-8">';
+                    x += '<p>' + data.Result[data.Count + 1].CriterionValue + '</p>';
+                    x += ' </div> <div class="col-sm-4 col-md-4"></div> </div>'
+
+                    $("#Criteria").html(x);
+
+                    $('#FeedbackModal1').modal("show");
+                    jQuery('#btnCloseSaveModal').removeClass('hidden');
+                    document.getElementById("btnLoad").click();
+                } else {
+                    jQuery('#loadingImg').addClass('hidden');
+                    jQuery('#MessSave').removeClass('hidden');
+                    jQuery('#btnCloseSaveModal').removeClass('hidden');
+                    document.getElementById("MessSave").innerHTML = "Chưa có đánh giá cho tiết học này.";
+                    document.getElementById("TitleLoading1").innerHTML = "Không có đánh giá.";
+                }
+
+            },
+            error: function (xhr) {
+                jQuery('#loadingImg').addClass('hidden');
+                jQuery('#MessSave').removeClass('hidden');
+                jQuery('#btnCloseSaveModal').removeClass('hidden');
+                document.getElementById("MessSave").innerHTML = "Có lỗi xảy ra trong quá trình tải. <br>Xin hãy thử lại sau.";
+            }
+        });
+    }
+
+    $("#ChooseCate").change(function(){
+        var Id = $(this).val();
+        if (Id == "") {
+            $("#ChooseSub").html("<option value=0>Tất cả</option>");
+        }
+
+        $.ajax({
+            
+            url: "@Url.Action("GetSubjectList","Parent")",
+            type: 'post',
+            data: {
+                CategoryId: parseInt(Id)
+            }
+        }).done(function(response){
+            $("#ChooseSub").html(response);
+        }); 
+    });
+</script>
+
+

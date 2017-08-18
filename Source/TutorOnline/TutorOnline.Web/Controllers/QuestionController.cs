@@ -101,6 +101,18 @@ namespace TutorOnline.Web.Controllers
             int subId = Convert.ToInt32(TempData["subId"]);
             if (ModelState.IsValid)
             {
+                if(file != null)
+                {
+                    if (!IsImage(file))
+                    {
+                        TempData["messageWarning"] = new ManagerStringCommon().isNotSupportImageType.ToString();
+                        ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName", model.LessonId);
+                        ViewBag.lesId = model.LessonId;
+                        ViewBag.subId = model.SubjectId;
+                        return View(model);
+                    }
+                }
+                
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                 Question question = new Question();
                 if (QRes.isExistsQuestionName(model.Content, model.LessonId))
@@ -193,6 +205,19 @@ namespace TutorOnline.Web.Controllers
         public ActionResult Edit(QuestionViewModels model, HttpPostedFileBase file)
         {
             int subId = Convert.ToInt32(TempData["subId"]);
+
+            if(file != null)
+            {
+                if (!IsImage(file))
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().isNotSupportImageType.ToString();
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
+                    ViewBag.lesId = model.LessonId;
+                    ViewBag.subId = subId;
+                    return View(model);
+                }
+            }
+
             string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
 
             if (QRes.isExistsQuestionNameEdit(model.Content, model.QuestionId))
@@ -343,6 +368,26 @@ namespace TutorOnline.Web.Controllers
             ViewBag.queId = queId;
 
             return View(result.Where(x => x.QuestionId == queId).OrderBy(x => x.AnswerId).ToList());
+        }
+
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         protected override void Dispose(bool disposing)
         {

@@ -161,7 +161,7 @@ namespace TutorOnline.Web.Controllers
         {
             int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
             StudentSubject StuSubject = StuSubRes.GetSubById(SubjectId, StudentId).FirstOrDefault();
-            if (StuSubject != null && StuSubject.Status != 7)
+            if (StuSubject != null && StuSubject.Status == 6)
             {
                 ViewBag.isRegistered = 1;
             }
@@ -496,6 +496,7 @@ namespace TutorOnline.Web.Controllers
                 
                 if (Tutor != null)
                 {
+                    temp.Id = Tutor.TutorId;
                     temp.Photo = Tutor.Photo;
                     temp.Description = Tutor.Description;
                     temp.Name = Tutor.LastName + " " + Tutor.FirstName;
@@ -504,13 +505,12 @@ namespace TutorOnline.Web.Controllers
                 }
 
             }
-
             return View(ListSchedule);
         }
 
 
 
-        public ActionResult Book(int ScheduleId, int LessonId, int type)
+        public ActionResult Book(int ScheduleId, int LessonId, int type, String BookTime)
         {
             Schedule Slot = ScheRes.FindSchedule(ScheduleId);
             Slot.LessonId = LessonId;
@@ -526,7 +526,7 @@ namespace TutorOnline.Web.Controllers
             var BookedSlot = StuRes.GetAllSlotBookedByStudent(DateTime.Today, DateTime.Today.AddDays(14), Slot.StudentId.Value);
 
             DateTime SlotTime = Slot.OrderDate.AddHours(int.Parse(GetSlotTime(Slot.OrderSlot)));
-            if( SlotTime< DateTime.Now)
+            if( SlotTime < DateTime.Parse(BookTime))
             {
                 return Json(new { BookSlot = false, Message = "Đã qua thời gian để có thể đặt tiết học này." });
             }
@@ -748,7 +748,7 @@ namespace TutorOnline.Web.Controllers
 
                 try
                 {
-                    DateTime EDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime EDate = DateTime.ParseExact(EndDate, "d/m/yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("EDate = " + EDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date <= EDate.Date).ToList();
                 }
@@ -767,5 +767,38 @@ namespace TutorOnline.Web.Controllers
             }
             return PartialView();
         }
+
+        public ActionResult MoveViewTutorInfo(int id, int SubjectId, String Link)
+        {
+            TempData["Link"] = Link;
+            return RedirectToAction("Search", new { Id = id , SubjectId = SubjectId});
+        }
+
+        public ActionResult ViewTutorInfo(int id, int SubjectId)
+        {
+            Tutor Tur = TurRes.FindTutor(id);
+            TutorSubject TutorSub = Tur.TutorSubjects.Where(s => s.SubjectId ==  SubjectId).FirstOrDefault();
+
+            String Link = "";
+            TutorDetail ViewTutor = new TutorDetail();
+            try
+            {
+                Link = TempData["Link"].ToString();
+                TempData["Link"] = Link;
+            }
+            catch { }
+            if(Link == "")
+            {
+                Link = Url.Action("Index", "Student");
+            }
+            
+            TempData.Keep();
+            ViewTutor.TutorSubject = TutorSub;
+            ViewTutor.Tutor = Tur;
+            ViewBag.Link = Link;
+            return View(ViewTutor);
+        }
+
+
     }
 }

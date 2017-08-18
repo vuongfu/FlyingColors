@@ -897,4 +897,8 @@ INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N's
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student2 nạp 500000 VNĐ',500000,'2017/08/01 5:00:00',2,1);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả lương cho tutor1',1000000,'2017/08/07 08:00:00',1,2);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả tiền dạy tiết 1 ngày 08/08/2017 cho tutor1',120000,'2017/08/08 09:00:00',1,2);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả tiền dạy tiết 2 ngày 08/08/2017 cho tutor1',120000,'2017/08/08 09:01:00',1,2);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả tiền dạy tiết 3 ngày 08/08/2017 cho tutor1',120000,'2017/08/08 09:02:00',1,2);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả tiền dạy tiết 4 ngày 08/08/2017 cho tutor1',120000,'2017/08/08 09:03:00',1,2);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả tiền dạy tiết 5 ngày 08/08/2017 cho tutor1',120000,'2017/08/08 09:04:00',1,2);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả lương cho tutor2',2500000,'2017/08/08 08:05:00',2,2);                                       

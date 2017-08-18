@@ -36,6 +36,7 @@ namespace TutorOnline.Web.Models
 
     public class TutorScheduleViewModels
     {
+        public int Id { get; set; }
         public String Name { get; set; }
         public String Photo { get; set; }
         public String Description { get; set; }
@@ -59,5 +60,11 @@ namespace TutorOnline.Web.Models
     {
         public string CriterionName { get; set; }
         public string CriterionValue { get; set; }
+    }
+
+    public class TutorDetail
+    {
+        public Tutor Tutor { get; set; }
+        public TutorSubject TutorSubject { get; set; }
     }
 }
