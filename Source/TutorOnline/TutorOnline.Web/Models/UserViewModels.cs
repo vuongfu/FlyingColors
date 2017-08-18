@@ -10,7 +10,7 @@ namespace TutorOnline.Web.Models
 {
     public class IndexUserViewModel
     {
-        
+
         public int Id { get; set; }
 
         public int RoleID { get; set; }
@@ -80,7 +80,7 @@ namespace TutorOnline.Web.Models
         public string Description { get; set; }
 
         [Display(Name = "Tên đăng nhập:")]
-        public string Username { get; set; }     
+        public string Username { get; set; }
 
 
         [Display(Name = "Skype:")]
@@ -217,11 +217,11 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Chức vụ:")]
         public string RoleName { get; set; }
 
-		[Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
-		[Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -246,7 +246,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Quốc gia:")]
         public string Country { get; set; }
 
-		[Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
 
@@ -277,10 +277,10 @@ namespace TutorOnline.Web.Models
             this.Id = data.BackendUserId;
             this.LastName = data.LastName;
             this.PhoneNumber = data.PhoneNumber;
-            this.Photo = data.Photo;          
+            this.Photo = data.Photo;
             this.RoleID = data.RoleId;
-            this.RoleName = data.Role.RoleName;           
-            this.Username = data.UserName;          
+            this.RoleName = data.Role.RoleName;
+            this.Username = data.UserName;
         }
 
     }
@@ -554,7 +554,7 @@ namespace TutorOnline.Web.Models
             this.Username = data.UserName;
             this.Wallet = data.Balance;
             this.ParentId = data.ParentId;
-            this.ParentName = data.Parent.LastName +" " + data.Parent.LastName;
+            this.ParentName = data.Parent.LastName + " " + data.Parent.LastName;
         }
     }
 
@@ -620,7 +620,7 @@ namespace TutorOnline.Web.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Xác nhận mật khẩu")]
-        [Compare("Password", ErrorMessage = "Mật khẩu và Xác nhận mật khẩu không trùng nhau.")] 
+        [Compare("Password", ErrorMessage = "Mật khẩu và Xác nhận mật khẩu không trùng nhau.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -642,7 +642,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
-        
+
         [Display(Name = "Ngày sinh:")]
         public Nullable<System.DateTime> BirthDate { get; set; }
 
@@ -671,7 +671,7 @@ namespace TutorOnline.Web.Models
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
-        [Display(Name ="Skype")]
+        [Display(Name = "Skype")]
         public string SkypeId { get; set; }
 
         [Display(Name = "Ảnh:")]
@@ -704,10 +704,13 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Người thụ hưởng:")]
         public string BMemName { get; set; }
 
-        [Required(ErrorMessage = UserCommonString.RequiredMess)]
-        public int TutorSubjectId { get; set; }
+        List<TutorSubjectRegisterViewModel> listSubject { get; set; }
 
-        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+    }
+
+    public class TutorSubjectRegisterViewModel
+    {
+        public int TutorSubjectId { get; set; }
         public string Experience { get; set; }
     }
 

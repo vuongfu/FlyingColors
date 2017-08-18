@@ -107,7 +107,7 @@
 
             <br />
             <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchStr,  Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+            @Html.PagedListPager(Model, page => Url.Action("ViewTransaction", "Tutor", new { page, searchString = ViewBag.SearchStr,  Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
         }
 
     </div>

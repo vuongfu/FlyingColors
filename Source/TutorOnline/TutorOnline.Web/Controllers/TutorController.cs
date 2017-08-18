@@ -667,5 +667,34 @@ namespace TutorOnline.Web.Controllers
             returnData.tutorSub = tutorSubData;
             return View(returnData);
         }
+
+        [HttpPost]
+        public ActionResult ChangePass(string oldPass, string newPass)
+        {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int tutorId = int.Parse(Uid);
+
+            var tutor = TuRes.FindTutor(tutorId);
+
+            string checkPass = tutor.Password;
+
+            if (!checkPass.Equals(oldPass, StringComparison.CurrentCulture))
+            {
+                return Json(new { stt = false, mess = "Mật khẩu cũ không chính xác." }, JsonRequestBehavior.AllowGet);
+            }
+
+            tutor.Password = newPass;
+            TuRes.UpdateTutor(tutor);
+
+            return Json(new { stt = true, mess = "Đổi mật khẩu thành công." }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

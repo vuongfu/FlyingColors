@@ -22,6 +22,7 @@ namespace TutorOnline.Common
         public string isExistMaterialInSub = "Có tồn tại tài liệu học tập của khóa học này. Hãy xóa tài liệu học tập trước!";
         public string isExistQuestionInSub = "Có tồn tại bài tập tham khảo của khóa học này. Hãy xóa bài tập tham khảo trước!";
         public string isExistStudentIn = "Đã có học viên đăng ký khóa học này. Không được phép xóa khóa học!";
+        public string isNotSupportImageType = "Định dạng file ảnh không hợp lệ! Hãy tải lại loại file khác!";
 
         public string mustChangeCVStatus = "Hãy chọn trạng thái muốn thay đổi.";
         public string changeCVStatusSucessfully = "Đã thay đổi trạng thái CV thành công.";
