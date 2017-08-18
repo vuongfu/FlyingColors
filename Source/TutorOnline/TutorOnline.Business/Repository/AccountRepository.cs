@@ -68,5 +68,10 @@ namespace TutorOnline.Business.Repository
         {
             return _dbContext.Parents.FirstOrDefault(x => x.UserName == Username);
         }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
+        }
     }
 }

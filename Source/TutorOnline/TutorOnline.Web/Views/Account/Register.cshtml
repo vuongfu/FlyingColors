@@ -4,6 +4,126 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+    .UILinkButton {
+        background: none;
+        border: none;
+        border-bottom: 0.3125rem solid #3ccfcf;
+        color: #455358;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        max-width: 100%;
+        padding: 0 0 0.75rem;
+        text-align: center;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9375rem;
+        letter-spacing: 0.075rem;
+        line-height: 1.2;
+        transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        transition-property: all;
+        vertical-align: middle;
+        width: auto;
+    }
+
+        .UILinkButton:hover {
+            border-bottom-color: #ffcd1f;
+            color: #ffcd1f;
+        }
+
+    .SubjectContent-addRow {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 100;
+    }
+
+    .SubjectContent-addRowButton {
+        white-space: nowrap;
+    }
+
+    .delete:hover {
+        color: #0a79df;
+    }
+
+    .button {
+        color: #aaa;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    .CreateSetPage-footer {
+        margin-top: 1.25rem;
+    }
+
+    .CreateSetPage-publishButton {
+        text-align: right;
+    }
+
+    .UIButton {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        max-width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        line-height: 1.285714285714286;
+        -webkit-transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        -moz-transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+        -webkit-transition-property: all;
+        -moz-transition-property: all;
+        transition-property: all;
+        width: auto;
+    }
+
+        .UIButton, .UIButton:visited {
+            background-color: #3ccfcf;
+            color: #fff;
+        }
+
+        .UIButton:hover{
+            background-color:#ffcd1f;
+            color: #000000;
+        }
+
+    .UIButton--hero {
+        padding: 2rem 5.5rem;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 0.0625rem;
+        line-height: 1.222222222222222;
+    }
+
+    .UIButton-wrapper {
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-inline-box;
+        display: -moz-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+        -moz-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%;
+    }
+</style>
+
 <div class="row" style="background-color: #F5F5F5">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
         <p>
@@ -16,7 +136,7 @@
         <hr class="colorgraph">
         @if (ViewBag.isSelectedRole != null)
         {
-            using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" , onsubmit= "SubmitRegister(event)" , id = "form1" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -185,26 +305,42 @@
                         <div class="form-group col-xs-6 col-sm-6 col-md-6">
                             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <input type="file" name="file" accept=".png,.jpg,.jpeg,.gif" />
+                                <input type="file" name="file" />
                             </div>
-                        </div>
-                            
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                @Html.DropDownList("TutorSubjectId", null, "--Khóa học sẽ dạy--", htmlAttributes: new { @class = "form-control input-lg", tabindex = "19" })
-                                @Html.ValidationMessageFor(model => model.TutorSubjectId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <textarea class="form-control input-lg" style="width:100%;" placeholder="Mô tả" tabindex="20" id="Experience" name="Experience" rows="5"></textarea>
-                                @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                        </div>                            
                     </div>
 
+                    <hr class="colorgraph" />
+                    //-----------------------------
+                    <div id="DisplaySubject">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    @Html.DropDownList("TutorSubjectId", null, htmlAttributes: new { @class = "form-control input-lg slSubject", tabindex = "19", required = "", name = "sub1", id = "sub1" })
+                                    @*<i class="material-icons button delete" onclick="btnDeleteClick(this)" id="1" title="Xóa khóa dạy">delete</i>*@
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control input-lg" style="width:100%;" placeholder="Kinh nghiệm" tabindex="20" id="Fb1" name="Fb1" rows="5" required></textarea>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div align="center" id="addRowBtn">
+                        <br />
+                        <div>
+                            <span class="SubjectContent-addRowButton">
+                                <button class="UILinkButton" type="button" onclick="addSubject()">
+                                    <span style="font-size:medium;">
+                                        + Thêm khóa dạy
+                                    </span>
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+                    //------------------------------
                 }
                 else
                 {
@@ -216,8 +352,6 @@
                             </div>
                         </div>
                     </div>
-                    <input id="Experience" name="Experience" value="hidden" class="hidden" />
-                    <input id="TutorSubjectId" name="TutorSubjectId" value="-1" class="hidden" />
                 }
 
 
@@ -236,8 +370,7 @@
 
                 <hr class="colorgraph">
                 <div class="row">
-                    <div class="col-md-6"><input type="submit" value="Tạo tài khoản" class="btn btn-primary btn-block btn-lg"></div>
-                    <div class="col-md-6"><a href="~/Account/Login" class="btn btn-success btn-block btn-lg">Đăng nhập</a></div>
+                    <div class="col-md-6"><input type="submit" value="Tạo tài khoản" class="btn btn-primary btn-block btn-lg"></div>                    
                 </div>
                 <hr />
             }
@@ -307,6 +440,8 @@
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
 
+@Html.Partial("_LoadingData")  
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
@@ -316,4 +451,162 @@
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy',
     });
+</script>
+
+<script type="text/javascript">
+    var listSubjectId = new Array();
+    var listSubjectName = new Array();
+    var count = 1;
+    var countId = 1;
+    var listSelectId = new Array();
+    var listSelectedValue = new Array();
+    var listExp = new Array();
+    var maxSub;
+
+    $(document).ready(function () {
+        @if(ViewBag.ListSubject != null)
+        {
+            @Html.Raw("maxSub = "+ViewBag.ListSubject.Count+";");
+
+            foreach (var item in ViewBag.ListSubject)
+            {
+                @Html.Raw("listSubjectId.push('"+ item.SubjectId + "');");
+                @Html.Raw("listSubjectName.push('" + item.SubjectName + "');");
+            }
+        }
+        listSelectId.push("1");
+        if (count >= maxSub) {
+            jQuery('#addRowBtn').addClass('hidden');
+        } else {
+            jQuery('#addRowBtn').removeClass('hidden');
+        }
+    });
+
+    function getListValueSelected() {
+        for (var i = 0; i < listSelectId.length; i++) {
+            var dataCheck = $("#sub" + listSelectId[i] + " :selected").val();
+            if (jQuery.inArray(dataCheck, listSelectedValue) == -1)
+                listSelectedValue.push(dataCheck);
+        }
+
+    }
+
+    function resortListSubject() {
+        for (var i = 0; i < listSelectedValue.length; i++) {
+            var data = listSubjectId[0];
+            var index = jQuery.inArray(data, listSelectedValue);
+            if (index == -1) {
+                break;
+            }
+            var id = listSubjectId.shift();
+            listSubjectId.push(id);
+            var value = listSubjectName.shift();
+            listSubjectName.push(value);
+        }
+    }
+
+    function addSubject() {
+        getListValueSelected();
+        resortListSubject();
+        count++;
+
+        countId++;
+        if (count >= maxSub) {
+            jQuery('#addRowBtn').addClass('hidden');
+        } else {
+            jQuery('#addRowBtn').removeClass('hidden');
+        }
+
+        listSelectId.push("" + countId);
+        var strNewRow = "<div class='row'><div class='col-xs-6 col-sm-6 col-md-6'><div class='form-group'>";
+        strNewRow += "<select class='form-control input-lg slSubject' name='sub" + countId + "' id='sub" + countId + "'>";
+
+        for (var i = 0; i < listSubjectId.length; i++) {
+            strNewRow += "<option value='" + listSubjectId[i] + "'>" + listSubjectName[i] + "</option>";
+        }
+
+        strNewRow += "</select>";
+        strNewRow += "<i class='material-icons button delete' onclick='btnDeleteClick(this)' id='" + countId + "' title='Xóa khóa dạy'>delete</i> </div> </div>";
+        strNewRow += "<div class='col-xs-6 col-sm-6 col-md-6'> <div class='form-group'>";
+        strNewRow += "<textarea class='form-control input-lg' placeholder='Kinh nghiệm' style='width:100%;' id='Fb" + countId + "' name='Fb" + countId + "' rows='5' required ></textarea> </div> </div></div>";
+        jQuery('#DisplaySubject').append(strNewRow);
+
+        checkSelect();
+        $('select').change();
+    }
+
+    function btnDeleteClick(_btn) {
+
+        count--;
+
+        if (count >= maxSub) {
+            jQuery('#addRowBtn').addClass('hidden');
+        } else {
+            jQuery('#addRowBtn').removeClass('hidden');
+        }
+
+        var delId = _btn.id;
+        var index = jQuery.inArray(delId, listSelectId);
+        listSelectId.splice(index, 1);
+
+        var dataCheck = $("#sub" + delId + " :selected").val();
+        var index1 = jQuery.inArray(dataCheck, listSelectedValue);
+        if (index1 != -1)
+            listSelectedValue.splice(index1, 1);
+
+        var dataWell = _btn.parentNode.parentNode.parentNode;
+        dataWell.parentNode.removeChild(dataWell);
+        checkSelect();
+        $('select').change();
+    }
+
+    function checkSelect() {
+        $('select').on('change', function () {
+            $('option').prop('disabled', false); //reset all the disabled options on every change event
+            $('select').each(function () { //loop through all the select elements
+                var val = this.value;
+                var index = jQuery.inArray(val, listSelectedValue)
+                listSelectedValue.splice(index, 1);
+
+                $('select').not(this).find('option').filter(function () { //filter option elements having value as selected option
+                    return this.value === val;
+                }).prop('disabled', true); //disable those option elements
+            });            
+            getListValueSelected();
+        });
+    }
+
+    var isSaveList = false;
+
+    function SubmitRegister(evt) {             
+        LoadingData();
+        if (isSaveList == false) {
+            evt.preventDefault();
+            listExp.length = 0;
+            getListValueSelected();
+            for (var i = 0; i < listSelectId.length; i++) {
+                var dataCheck = $("#Fb" + listSelectId[i]).val();
+                listExp.push(dataCheck);
+            }
+
+            $.ajax({
+                url: '@Url.Action("TakeListSubject", "Account")',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                traditional: true,
+                data: JSON.stringify({ 'subjectId': listSelectedValue, 'exp': listExp }),
+                success: function (data) {
+                    isSaveList = true;
+                    $("#form1").unbind('submit').submit();
+                },
+                error: function (xhr) {
+                    CloseWithMess("Đã có lỗi xảy ra.");
+                }
+            });
+        }
+        
+        
+    }
+
 </script>

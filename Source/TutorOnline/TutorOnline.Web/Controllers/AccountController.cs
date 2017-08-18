@@ -20,6 +20,7 @@ namespace TutorOnline.Web.Controllers
         private AccountRepository AccRes = new AccountRepository();
         private UsersRepository URes = new UsersRepository();
         private TutorRepository TRes = new TutorRepository();
+        private SubjectsRepository SubRes = new SubjectsRepository();
 
         [AllowAnonymous]
         public ActionResult Login()
@@ -211,8 +212,33 @@ namespace TutorOnline.Web.Controllers
             }, "Value", "Text");
             ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
 
+            List<RegistTutorSubjectViewModel> DropDownSubject = new List<Models.RegistTutorSubjectViewModel>();
+
+            var AllSubject = SubRes.GetAllSubject();
+            foreach (var item in AllSubject)
+            {
+                RegistTutorSubjectViewModel temp = new Models.RegistTutorSubjectViewModel();
+                temp.SubjectId = item.SubjectId;
+                temp.SubjectName = item.SubjectName;
+                DropDownSubject.Add(temp);
+            }
+
+            ViewBag.ListSubject = DropDownSubject;
 
             return View();
+        }
+
+        static List<int> listSubject;
+        static List<string> listExp;
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult TakeListSubject(List<int> subjectId, List<string> exp)
+        {
+            listSubject = subjectId;
+            listExp = exp;
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -221,6 +247,35 @@ namespace TutorOnline.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(file != null)
+                {
+                    if (!IsImage(file))
+                    {
+                        if (model.RoleId != null)
+                        {
+                            ViewBag.isSelectedRole = model.RoleId;
+                        }
+                        if (!String.IsNullOrEmpty(model.Email))
+                        {
+                            ViewBag.RegisterLoginSocial = true;
+                            ViewBag.Email = model.Email;
+                        }
+
+                        ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
+                        || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
+                        ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
+                        ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
+                        ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Male", Value = "1"},
+                        new SelectListItem {  Text = "Female", Value = "2"},
+                    }, "Value", "Text");
+                        ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
+                        TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+                        return View(model);
+                    }
+                }
+
                 if (URes.isExistsUsername(model.Username) || URes.checkEmailLogin(model.Email) != null)
                 {
                     if (model.RoleId != null)
@@ -243,7 +298,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Female", Value = "2"},
                     }, "Value", "Text");
                     ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-
+                    TempData["messageWarning"] = "Tên đăng nhập hoặc Email đã tồn tại.";
                     return View(model);
                 }
                 string roleName = URes.GetAllRole().FirstOrDefault(x => x.RoleId == model.RoleId).RoleName;
@@ -320,14 +375,19 @@ namespace TutorOnline.Web.Controllers
 
                     URes.AddTutor(temp);
 
-                    TutorSubject Ts = new TutorSubject();
-                    Ts.Experience = model.Experience;
-                    Ts.SubjectId = model.TutorSubjectId;
-                    Ts.Status = 7;
-                    Ts.TutorId = TRes.getTutorIdByUsername(model.Username);
+                    for(int i = 0; i< listSubject.Count; i++)
+                    {
+                        TutorSubject Ts = new TutorSubject();
+                        Ts.Experience = listExp[i];
+                        Ts.SubjectId = listSubject[i];
+                        Ts.Status = 7;
+                        Ts.TutorId = TRes.getTutorIdByUsername(model.Username);
 
-                    TRes.AddTutorSubject(Ts);
-                    
+                        TRes.AddTutorSubject(Ts);
+                    }
+
+
+
                 }
 
                 TempData["message"] = "Đã đăng ký tài khoản thành công.";
@@ -357,6 +417,26 @@ namespace TutorOnline.Web.Controllers
 
             return View(model);
 
+        }
+
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public KeyValuePair<string, string>[] GetAllCountries()
@@ -454,6 +534,18 @@ namespace TutorOnline.Web.Controllers
             rnd.GetBytes(bytes);
             password += (bytes[0] % 10).ToString() + (bytes[1] % 10).ToString();
             return password;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                TRes.Dispose();
+                URes.Dispose();
+                SubRes.Dispose();
+                AccRes.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

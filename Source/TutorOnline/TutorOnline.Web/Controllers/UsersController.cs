@@ -228,6 +228,25 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(HttpPostedFileBase file, CreateUserViewModels userViewModel)
         {
+            if (file != null)
+            {
+                if (!IsImage(file))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+                    ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
+                    return View(userViewModel);
+                }
+            }
+
+
             if (ModelState.IsValid)
             {
                 var check = URes.isExistsUsername(userViewModel.Username);
@@ -280,6 +299,27 @@ namespace TutorOnline.Web.Controllers
             return View(userViewModel);
         }
 
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
         // GET: Users/Edit/5
         [Authorize(Roles = UserCommonString.SysAdmin + "," + UserCommonString.Accountant + "," + UserCommonString.Supporter + "," + UserCommonString.Manager)]
         public ActionResult Edit(int? id, bool? info)
@@ -317,6 +357,24 @@ namespace TutorOnline.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(DetailBackEndUserViewModels model, HttpPostedFileBase file)
         {
+            if (file != null)
+            {
+                if (!IsImage(file))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", model.RoleID);
+                    ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
+                    return View(model);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
