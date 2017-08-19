@@ -331,7 +331,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success: function (response) {
-                    $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng kí môn học</h4></button>' );
+                    $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng kí khóa học</h4></button>' );
                     $("#clicked").text(response.registeredSubject);
                     $("#clicked").css({'color':'#68f442'});
                 }
@@ -353,7 +353,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success: function (response) {
-                    $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí môn học</h4></button>' );
+                    $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí khóa học</h4></button>' );
                     $("#clicked").text(response.registeredSubject);
                     $("#clicked").css({'color':'#d10202'});
                 }
@@ -460,11 +460,11 @@
                                 <div class="col-lg-4">
                                     @if (ViewBag.isRegistered == 1)
                                     {
-                                        <button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng ký môn học</h4></button>
+                                        <button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng ký khóa học</h4></button>
                                     }
                                     else
                                     {
-                                        <button type="submit" class="btn btn-info" id="register"><h4>Đăng kí môn học</h4></button>
+                                        <button type="submit" class="btn btn-info" id="register"><h4>Đăng kí khóa học</h4></button>
                                     }
                                     <label id="clicked"></label>
                                 </div>

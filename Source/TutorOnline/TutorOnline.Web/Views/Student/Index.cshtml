@@ -11,7 +11,7 @@ height: 50px;
 background-color: forestgreen;
 font-size: 13px;
 font-weight: bold;
-padding-left: 30px; text-align: left;
+padding-left: 0px; text-align: left;
 padding-top: 16px;
 position: relative;
 text-transform: uppercase;
@@ -64,16 +64,16 @@ text-decoration: none;
 <section id="nutluachon">
     <div class="container">
         <div class="col-sm-3 center">
-            <a class="hc-user-btn" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true, username = ViewBag.Username })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
+            <a class="hc-user-btn center" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true, username = ViewBag.Username })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
         </div>
         <div class="col-sm-3 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
+            <a class="hc-user-btn center" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
         </div>
         <div class="col-sm-3 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
+            <a class="hc-user-btn center" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
         </div>
         <div class="col-sm-3 center">
-            <a class="hc-user-btn" href="@Url.Action("ViewTransaction", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
+            <a class="hc-user-btn center" href="@Url.Action("ViewTransaction", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
         </div>
     </div>
 </section>
@@ -83,7 +83,7 @@ text-decoration: none;
             <h2>Lịch học của bạn</h2>
         </div>
         <div class="col-lg-11" style="text-align: right">
-            <a href="@Url.Action("ViewSchedule","Student")" class="txtlink"><h4>Xem tất cả</h4></a>
+            <a href="@Url.Action("ViewSchedule","Student")" class="btn btn-info navbar-btn"><h4>Xem tất cả</h4></a>
         </div>
     </div>
     <div class="col-lg-offset-1 col-lg-10 container-fluid">

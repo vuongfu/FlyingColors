@@ -67,11 +67,12 @@
                     }
                 </div>
             }
+            <div class="col-lg-12"><a class="btn btn-success navbar-btn" href="@Url.Action("Index", "Student")">Quay lại</a></div>
         }
         else
         {
             <h2 class="center"> Bạn chưa đăng ký khóa học nào.</h2>
-            <div class="center">@Html.ActionLink("Đến khóa học", "ViewAllCategory", null, htmlAttributes: new { @class = "btn btn-success" })</div>
+            <div class="center">@Html.ActionLink("Đến khóa học", "Index", null, htmlAttributes: new { @class = "btn btn-success" }) <a class="btn btn-success" href="@Url.Action("ViewAllCategory", "Student")">Quay lại</a></div>
             <br />
         }
     </div>

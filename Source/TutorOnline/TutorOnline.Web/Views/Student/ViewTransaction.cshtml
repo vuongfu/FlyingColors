@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<TutorOnline.DataAccess.Transaction>
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransactionListViewModels>
 @using PagedList.Mvc;
 @using TutorOnline.Common;
 @{
@@ -20,31 +20,33 @@
             <br />
             <table class="row">
                 <tr>
-                    <th class="col-lg-4" style="font-weight: bold;">
+                    <th class="col-lg-3" style="font-weight: bold;">
                         Nội dung giao dịch
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3" style="font-weight: bold;">
+                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
                         @TranString.StartDate
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3" style="font-weight: bold;">
+                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
                         @TranString.EndDate
                     </th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <tr>
-                    <th class="col-lg-4">
+                    <th class="col-lg-3">
                         @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" })
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3">
+                    <th class="col-lg-offset-1 col-lg-2">
                         @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateFrom", onkeypress = "keyPressListener(event)" })
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3">
+                    <th class="col-lg-offset-1 col-lg-2">
                         @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
                     </th>
                     <th><input type="submit" name="Search" value="@TranString.Search" class="btn" /></th>
+                    <th><h4>Số dư: @ViewBag.Balance</h4></th>
+                   
                 </tr>
             </table>
-
             <hr />
             if (ViewBag.searchClick == true)
             {
@@ -96,9 +98,10 @@
                 </table>
                 <br />
                 <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+                @Html.PagedListPager(Model, page => Url.Action("ViewTransaction", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
             }
         }
+        <a class="btn btn-success navbar-btn" href="@Url.Action("index", "Student")">Quay lại</a>
     </div>
 </section>
 
