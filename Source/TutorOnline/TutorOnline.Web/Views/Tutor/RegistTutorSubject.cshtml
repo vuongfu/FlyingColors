@@ -122,6 +122,15 @@
         justify-content: center;
         width: 100%;
     }
+
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+    .caps {
+        text-transform: uppercase;
+    }
 </style>
 
 
@@ -132,6 +141,10 @@
     <div class="row content">
 
         <div class="col-sm-9 col-sm-offset-2">
+            <h3 class="caps">
+                <strong>Đăng ký khóa dạy</strong>
+            </h3>
+            <hr />
             @if (ViewBag.ListSubject != null && ViewBag.ListSubject.Count > 0)
             {
                 <form id="form1" name="form1" onsubmit="event.preventDefault(); SaveRegistSubject();">

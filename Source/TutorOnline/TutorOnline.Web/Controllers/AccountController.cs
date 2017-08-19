@@ -169,25 +169,15 @@ namespace TutorOnline.Web.Controllers
 
         [AllowAnonymous]
         public ActionResult Register(string RoleId, string Email)
-        {
-            if (Request.Cookies["Role"] != null)
+         {
+            if (User.Identity.IsAuthenticated)
             {
-                string Rname = null;
-                string Rid = null;
-                if (Request.Cookies["Role"]["RoleId"] != null)
-                {
-                    Rid = Request.Cookies["Role"]["RoleId"];
-                    Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
-                }
-                if (Rname == UserCommonString.Parent || Rname == UserCommonString.Student || Rname == UserCommonString.Tutor || Rname == UserCommonString.PreTutor)
-                    return RedirectToAction("Index", "Home");
-                else
-                    return RedirectToAction("Details", "Users", new { id = Rid, info = true });
+                return RedirectToAction("Index", "Home");
             }
 
             if (!string.IsNullOrEmpty(RoleId))
             {
-                ViewBag.isSelectedRole = RoleId;
+                ViewBag.isSelectedRole = int.Parse(RoleId);
                 ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == int.Parse(RoleId)).RoleName;
             }else if(RoleId == "")
             {

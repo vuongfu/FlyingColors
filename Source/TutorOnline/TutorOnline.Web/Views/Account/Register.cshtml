@@ -278,7 +278,7 @@
 
                     
 
-                if (ViewBag.SelectedRoleName == "Gia sư" || ViewBag.SelectedRoleName == "Ứng viên gia sư")
+                if (ViewBag.isSelectedRole == 7 || ViewBag.isSelectedRole == 8)
                 {
 
                     <div class="row">
@@ -322,7 +322,8 @@
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <textarea class="form-control input-lg" style="width:100%;" placeholder="Kinh nghiệm" tabindex="20" id="Fb1" name="Fb1" rows="5" required></textarea>
+                                    <textarea class="form-control input-lg" style="width:100%;" placeholder="Kinh nghiệm" tabindex="20" id="Fb1" name="Fb1" rows="5"></textarea>
+                                    <span id="MFb1" name="MFb1" style="color:#a94442"></span>
                                 </div>
                             </div>
                         </div>                        
@@ -348,7 +349,7 @@
                         <div class="form-group col-xs-6 col-sm-6 col-md-6">
                             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <input type="file" name="file" accept=".png,.jpg,.jpeg,.gif" />
+                                <input type="file" name="file" />
                             </div>
                         </div>
                     </div>
@@ -528,7 +529,7 @@
         strNewRow += "</select>";
         strNewRow += "<i class='material-icons button delete' onclick='btnDeleteClick(this)' id='" + countId + "' title='Xóa khóa dạy'>delete</i> </div> </div>";
         strNewRow += "<div class='col-xs-6 col-sm-6 col-md-6'> <div class='form-group'>";
-        strNewRow += "<textarea class='form-control input-lg' placeholder='Kinh nghiệm' style='width:100%;' id='Fb" + countId + "' name='Fb" + countId + "' rows='5' required ></textarea> </div> </div></div>";
+        strNewRow += "<textarea class='form-control input-lg' placeholder='Kinh nghiệm' style='width:100%;' id='Fb" + countId + "' name='Fb" + countId + "' rows='5' ></textarea><span id='MFb" + countId + "' name='MFb" + countId + "' style='color:#a94442'></span> </div> </div></div>";
         jQuery('#DisplaySubject').append(strNewRow);
 
         checkSelect();
@@ -579,16 +580,25 @@
     var isSaveList = false;
 
     function SubmitRegister(evt) {             
-        LoadingData();
+        
         if (isSaveList == false) {
             evt.preventDefault();
             listExp.length = 0;
             getListValueSelected();
+            var isFillAllFb = true;
             for (var i = 0; i < listSelectId.length; i++) {
                 var dataCheck = $("#Fb" + listSelectId[i]).val();
                 listExp.push(dataCheck);
+                if (dataCheck == "") {
+                    document.getElementById("MFb" + listSelectId[i]).innerHTML = "Xin hãy nhập kinh nghiệm";
+                    isFillAllFb = false;
+                }
             }
-
+            
+            if (isFillAllFb == false) {                
+                return false;
+            }
+            LoadingData();
             $.ajax({
                 url: '@Url.Action("TakeListSubject", "Account")',
                 dataType: "json",
@@ -597,6 +607,7 @@
                 traditional: true,
                 data: JSON.stringify({ 'subjectId': listSelectedValue, 'exp': listExp }),
                 success: function (data) {
+                    CloseLoading();
                     isSaveList = true;
                     $("#form1").unbind('submit').submit();
                 },

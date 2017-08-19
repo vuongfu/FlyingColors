@@ -29,11 +29,15 @@
     strong {
         color: blue;
     }
+
+    .caps {
+        text-transform: uppercase;
+    }
 </style>
 
 <div class="col-md-7">
     <div class="well">
-        <h4><strong>Thông tin tài khoản</strong></h4>
+        <h4 class="caps"><strong>Thông tin tài khoản</strong></h4>
         <hr />
         <div class="form-group">
             <div class="row">
@@ -94,7 +98,7 @@
 </div>
 <div class="col-md-5">
     <div class="well">
-        <h4><Strong>Thông tin cá nhân</Strong></h4>
+        <h4 class="caps"><Strong>Thông tin cá nhân</Strong></h4>
         <hr />
         <div class="form-group">
             <div class="row">
@@ -158,7 +162,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a href="../Edit" class="btn btn-success">Chỉnh sửa thông tin</a>
+                    <a href="../Edit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Chỉnh sửa thông tin</a>
                 </div>
             </div>
         </div>
@@ -207,7 +211,7 @@
                 </div>
                 <div class="modal-footer" id="modalLoadFoot">
                     <button type="reset" class="btn btn-default hidden" id="btnResetPass">Reset</button>
-                    <button type="submit" class="btn btn-default" id="btnSaveChange">Lưu lại</button>
+                    <button type="submit" class="btn btn-default" id="btnSaveChange">Thay đổi</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseChangePassModal">Đóng</button>
                 </div>
             </form>
@@ -231,9 +235,12 @@
         var newPass = jQuery('#NewPassword').val();
         var confirmPass = jQuery('#ConfirmPassword').val();
 
-        document.getElementById("btnResetPass").click();
-        document.getElementById("btnCloseChangePassModal").click();
+        if (oldPass == "" || newPass == "" || confirmPass == "") {
+            return false;
+        }
 
+        
+        document.getElementById("btnCloseChangePassModal").click();
         LoadingData();
 
         $.ajax({
@@ -244,7 +251,8 @@
             traditional: true,
             data: JSON.stringify({ 'oldPass': oldPass, 'newPass': newPass }),
             success: function (data) {
-                CloseWithMess(data.mess);                
+                CloseWithMess(data.mess);
+                document.getElementById("btnResetPass").click();
             },
             error: function (xhr) {
                 CloseWithMess("Đã có lỗi xảy ra.");

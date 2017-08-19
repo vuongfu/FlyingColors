@@ -24,7 +24,6 @@ namespace TutorOnline.Web.Controllers
         private SubjectsRepository SubRes = new SubjectsRepository();
         private TutorSubjectRepository TuSubRes = new TutorSubjectRepository();
 
-
         static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
         static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
 
@@ -112,7 +111,7 @@ namespace TutorOnline.Web.Controllers
                 temp = firstDayOfWeek.AddDays(14);
             }
 
-            TutorBookSlotViewModel tempData = MapDataFromView(slot, temp);
+            TutorBookSlotViewModel tempData = MapModelToEntity(slot, temp);
 
             SchRes.CancelSlot(tempData.TutorId, int.Parse(tempData.OrderSlot), tempData.OrderDate, reason);
 
@@ -127,7 +126,7 @@ namespace TutorOnline.Web.Controllers
             {
                 foreach (string item in Week0)
                 {
-                    TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek);
+                    TutorBookSlotViewModel tempData = MapModelToEntity(item, firstDayOfWeek);
                     SlotBooked.Add(tempData);
                 }
             }
@@ -136,7 +135,7 @@ namespace TutorOnline.Web.Controllers
             {
                 foreach (string item in Week1)
                 {
-                    TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek.AddDays(7));
+                    TutorBookSlotViewModel tempData = MapModelToEntity(item, firstDayOfWeek.AddDays(7));
                     SlotBooked.Add(tempData);
                 }
             }
@@ -145,7 +144,7 @@ namespace TutorOnline.Web.Controllers
             {
                 foreach (string item in Week2)
                 {
-                    TutorBookSlotViewModel tempData = MapDataFromView(item, firstDayOfWeek.AddDays(14));
+                    TutorBookSlotViewModel tempData = MapModelToEntity(item, firstDayOfWeek.AddDays(14));
                     SlotBooked.Add(tempData);
                 }
             }
@@ -173,7 +172,7 @@ namespace TutorOnline.Web.Controllers
                     data.OrderSlot = orderslot;
                     data.OrderDate = item.OrderDate;
                     data.Price = TuRes.GetPriceOfSlot(item.TutorId);
-                    data.Status = TuRes.GetDefaultStatusIdForSlot();
+                    data.Status = 11;
                     SchRes.AddSlotBookedByTutor(data);
                 }
             }
@@ -197,7 +196,7 @@ namespace TutorOnline.Web.Controllers
             return Json("Lưu thành công", JsonRequestBehavior.AllowGet);
         }
 
-        public TutorBookSlotViewModel MapDataFromView(string data, DateTime startDate)
+        public TutorBookSlotViewModel MapModelToEntity(string data, DateTime startDate)
         {
             TutorBookSlotViewModel temp = new TutorBookSlotViewModel();
             string Day = data.Substring(0, 3);
@@ -276,7 +275,7 @@ namespace TutorOnline.Web.Controllers
         [HttpPost]
         public ActionResult GetBookedSlotByStudent(DateTime startDate, DateTime endDate, int TutorId)
         {
-            var week0 = SchRes.GetAllSlotBookedByStudent(startDate, endDate, TutorId);
+            var week0 = SchRes.GetAllSlotBookedByStudent(startDate, endDate.AddHours(20), TutorId);
             List<BookedSlotByStudent> returnData = new List<BookedSlotByStudent>();
             List<string> SlotOfWeek0 = MapEntityToModel(week0, startDate);
 
@@ -694,7 +693,143 @@ namespace TutorOnline.Web.Controllers
             tutor.Password = newPass;
             TuRes.UpdateTutor(tutor);
 
-            return Json(new { stt = true, mess = "Đổi mật khẩu thành công." }, JsonRequestBehavior.AllowGet);
+            return Json(new { stt = true, mess = "Đã thay đổi mật khẩu thành công." }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Edit()
+        {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int tutorId = int.Parse(Uid);
+
+            var tutor = TuRes.FindTutor(tutorId);
+
+            EditTutorViewModel returnData = new EditTutorViewModel();
+
+            returnData.Address = tutor.Address;
+            returnData.BankId = tutor.BankId;
+            returnData.BankName = tutor.BankName;
+            returnData.BirthDate = tutor.BirthDate;
+            returnData.BMemName = tutor.BMemName;
+            returnData.City = tutor.City;
+            returnData.Country = tutor.Country;
+            returnData.Description = tutor.Description;
+            returnData.FirstName = tutor.FirstName;
+            returnData.Gender = tutor.Gender;
+            returnData.Id = tutor.TutorId;
+            returnData.LastName = tutor.LastName;
+            returnData.PhoneNumber = tutor.PhoneNumber;
+            returnData.Photo = tutor.Photo;
+            returnData.potalCode = tutor.PostalCode;
+            returnData.skypeId = tutor.SkypeId;
+
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", tutor.Country);
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text", tutor.Gender);
+
+            return View(returnData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditTutorViewModel model, HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                if (!IsImage(file))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    return View(model);
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
+
+                Tutor data = TuRes.FindTutor(model.Id);
+                data.Address = model.Address;
+                data.BankId = model.BankId;
+                data.BankName = model.BankName;
+                data.BirthDate = model.BirthDate;
+                data.BMemName = model.BMemName;
+                data.City = model.City;
+                data.Country = model.Country;
+                data.Description = model.Description;
+                data.FirstName = model.FirstName;
+                data.Gender = model.Gender;
+                data.LastName = model.LastName;
+                data.PhoneNumber = model.PhoneNumber;
+                data.Photo = photoUrl;
+                data.PostalCode = model.potalCode;
+                data.SkypeId = model.skypeId;
+
+                TuRes.UpdateTutor(data);
+                TempData["message"] = "Đã cập nhặt thông tin của người dùng " + data.UserName + " thành công.";
+                return RedirectToAction("ViewInfo", "Tutor", new { id = model.Id });
+            }
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+        
+            TempData["messageWarning"] = "Đã có lỗi xảy ra khi cập nhật thông tin của người dùng.";
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", model.Country);
+            return View(model);
+        }
+
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public KeyValuePair<string, string>[] GetAllCountries()
+        {
+            var objDict = new Dictionary<string, string>();
+            foreach (var cultureInfo in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                var regionInfo = new RegionInfo(cultureInfo.Name);
+                if (!objDict.ContainsKey(regionInfo.EnglishName))
+                {
+                    objDict.Add(regionInfo.EnglishName, regionInfo.TwoLetterISORegionName.ToLower());
+                }
+            }
+            var obj = objDict.OrderBy(p => p.Key).ToArray();
+
+
+            return obj;
         }
     }
 }
