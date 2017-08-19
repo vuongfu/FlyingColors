@@ -161,7 +161,7 @@ namespace TutorOnline.Web.Controllers
         {
             int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
             StudentSubject StuSubject = StuSubRes.GetSubById(SubjectId, StudentId).FirstOrDefault();
-            if (StuSubject != null && StuSubject.Status == 6)
+            if (StuSubject != null && (StuSubject.Status == 8 || StuSubject.Status == 10))
             {
                 ViewBag.isRegistered = 1;
             }
@@ -292,10 +292,10 @@ namespace TutorOnline.Web.Controllers
                     StuSub.Status = 8;
                     StuSubRes.AddSubject(StuSub);
                 }
-                return Json(new { registeredSubject = "Đăng ký môn học thành công" });
+                return Json(new { registeredSubject = "Đăng ký khóa học thành công" });
             }
 
-            return Json(new { registeredSubject = "Đăng ký môn học thất bại" });
+            return Json(new { registeredSubject = "Đăng ký khóa học thất bại" });
         }
 
         [System.Web.Mvc.HttpPost]
@@ -311,10 +311,10 @@ namespace TutorOnline.Web.Controllers
                     StuSub.Status = 9;
                     StuSubRes.EditSubject(StuSub);
                 }
-                return Json(new { registeredSubject = "Hủy đăng ký môn học thành công" });
+                return Json(new { registeredSubject = "Hủy đăng ký khóa học thành công" });
             }
 
-            return Json(new { registeredSubject = " Hủy đăng ký môn học thất bại" });
+            return Json(new { registeredSubject = " Hủy đăng ký khóa học thất bại" });
         }
 
         public ActionResult Test(int? LessonId)
@@ -364,11 +364,6 @@ namespace TutorOnline.Web.Controllers
             }
 
             return Json(new { registeredSubject = "Bạn đã trả lời đúng " + score + " trên " + Result.ListAnswer.Count + " câu." });
-        }
-
-        public ActionResult FeedBack(int SlotId)
-        {
-            return View();
         }
 
         public ActionResult GetSlotDetail(int id)
@@ -544,7 +539,7 @@ namespace TutorOnline.Web.Controllers
             }
 
             StudentSubject CheckSubject = StuSubRes.GetSubById(CheckLesson.SubjectId, Slot.StudentId).FirstOrDefault();
-            if(CheckSubject == null)
+            if(CheckSubject == null || CheckSubject.Status == 7)
             {
                 return Json(new { BookSlot = false, Message = "Bạn phải đăng ký môn học trước khi có thể đặt tiết học này." });
             }
@@ -722,7 +717,7 @@ namespace TutorOnline.Web.Controllers
             return time;
         }
 
-        public PartialViewResult ViewTransaction(String Content, String StartDate, String EndDate, int? page)
+        public ActionResult ViewTransaction(String Content, String StartDate, String EndDate, int? page)
         {
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -731,8 +726,20 @@ namespace TutorOnline.Web.Controllers
             ViewBag.StartDate = StartDate;
             ViewBag.EndDate = EndDate;
 
-            int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]); ;
+            int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+            Student Stu = StuRes.GetAllStudent().Where(s => s.StudentId == StudentId).FirstOrDefault();
+            ViewBag.Balance = (int)Stu.Balance;
+
             List<Transaction> ListTrans = new List<Transaction>();
+            List<TransactionListViewModels> Result = new List<TransactionListViewModels>();
+
+            if ((Content == null || StartDate == null || EndDate == null)&& page == null)
+            {
+                ViewBag.searchClick = false;
+                ViewBag.totalRecord = ListTrans.Count();
+                return View(Result.OrderBy(x => x.TranDate).ToPagedList(pageNumber, pageSize));
+            }
+
             if (StudentId != 0)
             {
                 
@@ -748,7 +755,7 @@ namespace TutorOnline.Web.Controllers
 
                 try
                 {
-                    DateTime EDate = DateTime.ParseExact(EndDate, "d/m/yyyy", CultureInfo.InvariantCulture);
+                    DateTime EDate = DateTime.ParseExact(EndDate, "d/M/yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("EDate = " + EDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date <= EDate.Date).ToList();
                 }
@@ -760,12 +767,33 @@ namespace TutorOnline.Web.Controllers
                     ListTrans = ListTrans.Where(s => AccRes.SearchForString(s.Content, Content)).ToList();
                 }
 
+                foreach (var record in ListTrans)
+                {
+                    TransactionListViewModels temp = new TransactionListViewModels();
+                    temp.TransactionId = record.TransactionId;
+                    temp.Content = record.Content;
+                    temp.Amount = (int)record.Amount;
+                    temp.TranDate = record.TranDate;
+                    temp.UserID = record.UserID;
+                    temp.UserType = record.UserType;
+                    if (record.UserType == 1)
+                    {
+                        temp.UserTypeName = "Học sinh";
+                    }
+                    else
+                    {
+                        temp.UserTypeName = "Gia sư";
+                    }
+
+                    Result.Add(temp);
+                }
+
                 ViewBag.searchClick = true;
                 ViewBag.totalRecord = "Số kết quả tìm được: " + ListTrans.Count();
 
-                return PartialView(ListTrans.OrderBy(x => x.TranDate).ToPagedList(pageNumber, pageSize));
+                return View(Result.OrderBy(x => x.TranDate).ToPagedList(pageNumber, pageSize));
             }
-            return PartialView();
+            return View();
         }
 
         public ActionResult MoveViewTutorInfo(int id, int SubjectId, String Link)

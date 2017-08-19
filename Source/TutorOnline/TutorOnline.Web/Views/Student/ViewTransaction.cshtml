@@ -1,48 +1,53 @@
-﻿@model PagedList.IPagedList<TutorOnline.DataAccess.Transaction>
+﻿@model PagedList.IPagedList<TutorOnline.Web.Models.TransactionListViewModels>
 @using PagedList.Mvc;
 @using TutorOnline.Common;
 @{
     TranStringCommon TranString = new TranStringCommon();
-    ViewBag.Title = "ViewTransaction";
+    ViewBag.Title = "View Transaction";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="~/Scripts/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+
 <section>
     <div class="col-lg-offset-1 col-lg-10">
+        <h3> Lịch sử giao dịch</h3>
+        <hr />
         @using (Html.BeginForm("ViewTransaction", "Student", FormMethod.Get))
         {
             <br />
             <table class="row">
                 <tr>
-                    <th class="col-lg-4" style="font-weight: bold;">
+                    <th class="col-lg-3" style="font-weight: bold;">
                         Nội dung giao dịch
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3" style="font-weight: bold;">
+                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
                         @TranString.StartDate
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3" style="font-weight: bold;">
+                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
                         @TranString.EndDate
                     </th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tr>
-                    <th class="col-lg-4">
+                    <th class="col-lg-3">
                         @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" })
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3">
+                    <th class="col-lg-offset-1 col-lg-2">
                         @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateFrom", onkeypress = "keyPressListener(event)" })
                     </th>
-                    <th class="col-lg-offset-1 col-lg-3">
+                    <th class="col-lg-offset-1 col-lg-2">
                         @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
                     </th>
+                    <th><input type="submit" name="Search" value="@TranString.Search" class="btn" /></th>
+                    <th><h4>Số dư: @ViewBag.Balance</h4></th>
+                   
                 </tr>
             </table>
-
-            <p></p>
-            <input type="submit" name="Search" value="@TranString.Search" class="btn" />
-                <br />
+            <hr />
             if (ViewBag.searchClick == true)
             {
                 <h4>@ViewBag.totalRecord</h4>
@@ -93,9 +98,10 @@
                 </table>
                 <br />
                 <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+                @Html.PagedListPager(Model, page => Url.Action("ViewTransaction", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
             }
         }
+        <a class="btn btn-success navbar-btn" href="@Url.Action("index", "Student")">Quay lại</a>
     </div>
 </section>
 

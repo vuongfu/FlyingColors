@@ -336,13 +336,13 @@
                                         @if (ViewBag.Week > 0)
                                         {
                                             
-                                            <a href="@Url.Action("BookSlot", "Student", new { SelectedDate =  SeDate, Week = ViewBag.Week - 1, LessonId = ViewBag.LessonId, SubjectId = ViewBag.SubjectId })" style="margin: 10px;float: right;width: 40px; height: 40px; background:url(&#39;http://homeclass.vn/img/left_right.png&#39;) 0px 40px; display: block; line-height: 40px; text-align: center">&gt;</a>
+                                            <a href="@Url.Action("BookSlot", "Student", new { SelectedDate =  SeDate, Week = ViewBag.Week - 1, LessonId = ViewBag.LessonId, SubjectId = ViewBag.SubjectId })" style="margin: 10px;float: right;width: 40px; height: 40px; background:url('http://homeclass.vn/img/left_right.png') 0px 40px; display: block; line-height: 40px; text-align: center">&lt;</a>
                                         }
-                                        else
+                                        else 
                                         {
-                                            <a href="javascript:void(0);" style="margin: 10px;float:left;width: 40px; height: 40px; background:url(&#39;http://homeclass.vn/img/left_right.png&#39;); display: block; line-height: 40px; text-align: center">&lt;</a>
+                                            <a href="javascript:void(0);" style="margin: 10px;float:left;width: 40px; height: 40px; background:url('http://homeclass.vn/img/left_right.png'); display: block; line-height: 40px; text-align: center">&lt;</a>
                                         }
-                                        
+
                                     </div>
                                     <div class="col-lg-10">
                                         @{DateTime Date = ViewBag.Date; }
