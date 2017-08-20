@@ -436,10 +436,9 @@
 </style>
 
 
-
-<script src="~/Scripts/jquery-3.1.1.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
-<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
 @Html.Partial("_LoadingData")  
 
@@ -447,10 +446,11 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
-
-
     $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        changeMonth: true,
+        changeYear: true
     });
 </script>
 

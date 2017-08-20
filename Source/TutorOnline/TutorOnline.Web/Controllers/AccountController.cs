@@ -152,15 +152,27 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult Logout()
         {
-            if (Request.Cookies["Role"] != null)
+            var role = Request.Cookies["Role"];
+            var user = Request.Cookies["UserInfo"];
+            var avata = Request.Cookies["Avata"];
+
+            if (role != null)
             {
-                Response.Cookies["Role"].Expires = DateTime.Now.AddDays(-1);
+                role.Expires = DateTime.Now.AddDays(-1);
             }
 
-            if (Request.Cookies["UserInfo"] != null)
+            if (user != null)
             {
-                Response.Cookies["UserInfo"].Expires = DateTime.Now.AddDays(-1);
+                user.Expires = DateTime.Now.AddDays(-1);
             }
+
+            if (avata != null)
+            {
+                avata.Expires = DateTime.Now.AddDays(-1);
+            }
+            Response.Cookies.Add(role);
+            Response.Cookies.Add(user);
+            Response.Cookies.Add(avata);
 
             FormsAuthentication.SignOut();
 

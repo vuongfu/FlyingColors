@@ -776,9 +776,20 @@ namespace TutorOnline.Web.Controllers
                 data.Gender = model.Gender;
                 data.LastName = model.LastName;
                 data.PhoneNumber = model.PhoneNumber;
-                data.Photo = photoUrl;
+                data.Photo = (string.IsNullOrEmpty(photoUrl)?model.Photo:photoUrl);
                 data.PostalCode = model.potalCode;
                 data.SkypeId = model.skypeId;
+
+                HttpCookie cookie = Request.Cookies["Avata"];
+                if (cookie != null)
+                {
+                    cookie.Values["AvaName"] = data.Photo;
+                }else
+                {
+                    cookie= new HttpCookie("Avata");
+                    cookie.Values["AvaName"] = data.Photo;
+                }
+                Response.Cookies.Add(cookie);
 
                 TuRes.UpdateTutor(data);
                 TempData["message"] = "Đã cập nhặt thông tin của người dùng " + data.UserName + " thành công.";
