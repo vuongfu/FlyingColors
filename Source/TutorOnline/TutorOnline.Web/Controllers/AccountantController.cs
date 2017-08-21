@@ -43,7 +43,7 @@ namespace TutorOnline.Web.Controllers
             ViewBag.RoleString = new SelectList(new List<SelectListItem>
             {
                 new SelectListItem {  Text = "Học sinh", Value = "1"},
-                new SelectListItem {  Text = "Phụ huynh", Value = "2"},
+                new SelectListItem {  Text = "Gia sư", Value = "2"},
             }, "Value", "Text");
 
             List<TransactionListViewModels> ListTrans = new List<TransactionListViewModels>();
