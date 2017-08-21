@@ -309,7 +309,7 @@ INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email
 INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Trần Thị',N'Linh',1970-8-23,2,N'số 30 đường Kim Mã','parent2@gmail.com','parent2','parent2','parent2',N'Hà Nội',null,N'Việt Nam','0123789456',0,null,null);
 
 --Insert data to Student table
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,1,N'Nguyễn Đức',N'Hùng',2000-3-3,1,N'số 20 đường Kim Đồng','student1@gmail.com','student1','student1','student1',N'Hà Nội',null,N'Việt Nam','01364294938',1000000,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,1,N'Nguyễn Đức',N'Hùng',2000-3-3,1,N'số 20 đường Kim Đồng','student1@gmail.com','student1','student1','student1',N'Hà Nội',null,N'Việt Nam','01364294938',3100000,null,null);
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,2,N'Trần Thị',N'Duyên',2001-3-1,2,N'số 30 đường Kim Mã','student2@gmail.com','student2','student2','student2',N'Hà Nội',null,N'Việt Nam','01212594938',500000,null,null);
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,null,N'Trần Đức',N'Nam',1999-7-23,1,N'số 151 đường Giải Phóng','student3@gmail.com','student3','student3','student3',N'Hà Nội',null,N'Việt Nam','01632544938',0,null,null);
 INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,null,N'Trần Thị',N'Lan',2000-6-15,2,N'số 421 đường Trường Chinh','student4@gmail.com','student4','student4','student4',N'Hà Nội',null,N'Việt Nam','01472594938',0,null,null);
@@ -894,6 +894,10 @@ INSERT INTO Answer (Content,QuestionId,isCorrect) VALUES (N'phiripin',70,0);
 --Insert data to Transaction table
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nạp 700000 VNĐ',700000,'2017/08/05 16:05:00',1,1);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nạp 300000 VNĐ',300000,'2017/08/06 13:00:00',1,1);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nạp 300000 VNĐ',300000,'2017/08/07 15:00:00',1,1);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nạp 300000 VNĐ',300000,'2017/08/08 13:00:00',1,1);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nạp 500000 VNĐ',500000,'2017/08/09 14:00:00',1,1);
+INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student1 nạp 1000000 VNĐ',1000000,'2017/08/10 12:00:00',1,1);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'student2 nạp 500000 VNĐ',500000,'2017/08/01 5:00:00',2,1);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả lương cho tutor1',1000000,'2017/08/07 08:00:00',1,2);
 INSERT INTO [Transaction] (Content,Amount,TranDate,UserID,UserType ) VALUES (N'Trả tiền dạy tiết 1 ngày 08/08/2017 cho tutor1',120000,'2017/08/08 09:00:00',1,2);

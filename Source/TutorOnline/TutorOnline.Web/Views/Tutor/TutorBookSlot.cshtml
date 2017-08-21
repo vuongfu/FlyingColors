@@ -3,16 +3,50 @@
     ViewBag.Title = "TutorBookSlot";
     Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
 }
+<style>
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .caps {
+        text-transform: uppercase;
+    }
+</style>
+
 <div class="well">
+    <h3 class="caps">
+        <strong>Đặt lịch dạy</strong>
+    </h3>
+    <hr />
     <p>
-        <a id="pre-arrow" class="disableArrow" onclick="preClick()">
-            <img src="~/Image/prev.png" />
-        </a>
-        <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
-        <a id="next-arrow" onclick="nextClick()">
-            <img src="~/Image/next.png" />
-        </a>
+        <div class="row">
+            <div class="col-md-4">
+                <a id="pre-arrow" class="disableArrow" onclick="preClick()">
+                    <img src="~/Image/prev.png" />
+                </a>
+                <b id="WeekSelect"> @ViewBag.CurrentWeek </b>
+                <a id="next-arrow" onclick="nextClick()">
+                    <img src="~/Image/next.png" />
+                </a>
+            </div>
+            <div class="col-md-8">
+                <table>
+                    <tr>
+                        <td id="cmTd" style="background-color:#4cff00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" class="text-left">: có thể dạy</td>
+                        <td id="cmTd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" style="background-color:#ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td id="cmTd" class="text-left">: đã được học viên đặt</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
     </p>
+
+    <hr />
 
     <table border="1" cellspacing="0" class="slotpick">
         <tr>
@@ -92,12 +126,40 @@
 
 
 <input type="button" class="btn btn-success" name="btnSubmit" value="Lưu lại" onclick="SubmitSlot()" />
+<button type="button" class="btn hidden" data-toggle="modal" data-target="#CancelSlot" data-backdrop="static" id="btnCancel">Cancel</button>
+
+<!-- Modal loading -->
+<div class="modal" id="CancelSlot" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header" id="modalLoadHead">
+                <h4 id="TitleLoading">Hủy tiết dạy</h4>
+            </div>
+            <div class="modal-body">
+                <div align="center">
+                    <h5 id="MessConfirmCancel">Tiết học này đã được học sinh đặt. Bạn có chắc chắn muốn hủy?</h5>
+                    <div id="CancelReason" class="hidden">
+                        <h5>Xin hãy nhập lý do bạn hủy tiết học: </h5>
+                        <textarea class="form-control" cols="5" id="reason" required></textarea>
+                        <span id="requiredMess" name="requiredMess" style="color:#a94442"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="modalLoadFoot">
+                <button type="button" class="btn btn-danger" id="btnConfirmCancel" onclick="isConfirm = true; CancelSlot(slotCancel)">Xác nhận</button>
+                <button type="button" class="btn btn-danger" id="btnCancelSlot" onclick="isConfirmReason = true; CancelSlot(slotCancel)">Hủy buổi học</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseCancelModal" onclick="isConfirm = false; isConfirmReason = false;">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
-@Html.Partial("_LoadingData")  
+@Html.Partial("_LoadingData")
 
 <script type="text/javascript">
     var selectedSlotWeek0 = new Array();
@@ -151,37 +213,74 @@
         }, 1000);
     });
 
-    function CancelSlot(slot) {
-        var checkConfirm = confirm("Tiết học này đã được học sinh đặt. Bạn có chắc chắn muốn hủy?");
-        if (checkConfirm == true) {
-            var reason = prompt("Xin hãy nhập lý do bạn hủy tiết học:", "");
-            if (reason == "") {
-                alert("Bạn phải nhập lý do hủy tiết học.");
-                return false;
-            } else if (reason == null) {
-                return false;
-            }
-            lockLoad = true;
-            LoadingData();
+    var slotCancel = "", isConfirm = false, isConfirmReason = false;
 
-            $.ajax({
-                url: '@Url.Action("CancelSlot", "Tutor")',
-                dataType: "json",
-                type: "POST",
-                contentType: 'application/json; charset=utf-8',
-                traditional: true,
-                data: JSON.stringify({ 'slot': slot, 'week': selectedWeek, 'reason': reason }),
-                success: function (data) {
-                    lockLoad = false;
-                    jQuery('#' + slot).removeClass('selectedSlot');
-                    jQuery('#' + slot).removeClass('bookedSlot');
-                    CloseWithMess(data);
-                },
-                error: function (xhr) {
-                    CloseWithMess("Đã có lỗi xảy ra.");
-                }
-            });
+    function CancelSlot(slot) {
+        if (isConfirm == false) {
+            document.getElementById("btnCancel").click();
+
+            document.getElementById("reason").innerHTML = "";
+            document.getElementById("requiredMess").innerHTML = "";
+            jQuery('#CancelReason').addClass('hidden');
+            jQuery('#MessConfirmCancel').removeClass('hidden');
+            jQuery('#btnConfirmCancel').removeClass('hidden');
+            jQuery('#btnCancelSlot').addClass('hidden');
+
+            slotCancel = slot;
+            return false;
         }
+
+        if (isConfirmReason == false) {
+
+            jQuery('#CancelReason').removeClass('hidden');
+            jQuery('#MessConfirmCancel').addClass('hidden');
+            jQuery('#btnConfirmCancel').addClass('hidden');
+            jQuery('#btnCancelSlot').removeClass('hidden');
+
+            return false;
+        }
+
+        var reason = jQuery('#reason').val();
+
+        if (reason == "") {
+            document.getElementById("requiredMess").innerHTML = "Bạn phải nhập lý do hủy tiết học.";
+            isConfirmReason = false;
+            return false;
+        } else if (reason == null) {
+            isConfirm = false;
+            isConfirmReason = false;
+            return false;
+        } else {
+            document.getElementById("requiredMess").innerHTML = "";
+        }
+
+        document.getElementById("btnCancel").click();
+        LoadingData();
+
+        lockLoad = true;
+
+
+        $.ajax({
+            url: '@Url.Action("CancelSlot", "Tutor")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'slot': slot, 'week': selectedWeek, 'reason': reason }),
+            success: function (data) {
+                lockLoad = false;
+                jQuery('#' + slot).removeClass('selectedSlot');
+                jQuery('#' + slot).removeClass('bookedSlot');
+                isConfirm = false;
+                isConfirmReason = false;
+                CloseWithMess(data);
+            },
+            error: function (xhr) {
+                isConfirm = false;
+                isConfirmReason = false;
+                CloseWithMess("Đã có lỗi xảy ra.");
+            }
+        });
     }
 
     function SubmitSlot() {
@@ -297,7 +396,7 @@
             if (pickeddate >= ToDay)
                 var index = jQuery.inArray(slot, selectedSlotWeek0);
             else {
-                alert("Bạn chỉ được chỉnh sửa từ "+(ToDay.getHours())+" giờ ngày " + ToDay.toLocaleDateString() + " trở đi");
+                alert("Bạn chỉ được chỉnh sửa từ " + (ToDay.getHours()) + " giờ " + (ToDay.getMinutes()) + " phút ngày " + ToDay.toLocaleDateString() + " trở đi");
                 return false;
             }
 
@@ -455,11 +554,11 @@
     }
 
     .selectedSlot {
-        background-color: forestgreen;
+        background-color: #4cff00;
     }
 
     .bookedSlot {
-        background-color: orangered !important;
+        background-color: #ff0000 !important;
     }
 
     .disableArrow {

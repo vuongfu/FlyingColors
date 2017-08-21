@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TutorOnline.Common;
 
 namespace TutorOnline.Web.Models
 {
@@ -141,6 +142,8 @@ namespace TutorOnline.Web.Models
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:0,0.00}")]
         public Nullable<double> Salary { get; set; }
         public decimal Balance { get; set; }
         public string Description { get; set; }
@@ -151,5 +154,62 @@ namespace TutorOnline.Web.Models
         public string UserName { get; set; }
         public string RoleName { get; set; }
         public List<TutorSubjectViewModels> tutorSub { get; set; }
+    }
+
+    public class EditTutorViewModel
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Display(Name = "Họ:")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Display(Name = "Tên:")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Display(Name = "Ngày sinh:")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        public Nullable<System.DateTime> BirthDate { get; set; }
+
+        [Display(Name = "Giới tính:")]
+        public int Gender { get; set; }
+
+        [Display(Name = "Địa chỉ:")]
+        public string Address { get; set; }
+
+        [Display(Name = "Thành phố:")]
+        public string City { get; set; }
+
+        [Display(Name = "Quốc gia:")]
+        public string Country { get; set; }
+
+        [Display(Name = "Mã vùng:")]
+        public string potalCode { get; set; }
+
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [Display(Name = "Số điện thoại:")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Ảnh:")]
+        public string Photo { get; set; }
+
+        [Display(Name = "Skype:")]
+        public string skypeId { get; set; }
+
+        [Display(Name = "Mô tả:")]
+        public string Description { get; set; }
+
+        [Display(Name = "Số tài khoản:")]
+        public string BankId { get; set; }
+
+        [Display(Name = "Tên ngân hàng:")]
+        public string BankName { get; set; }
+
+        [Display(Name = "Người thụ hưởng:")]
+        public string BMemName { get; set; }
+
     }
 }
