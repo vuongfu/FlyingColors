@@ -353,9 +353,13 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success: function (response) {
-                    $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí khóa học</h4></button>' );
-                    $("#clicked").text(response.registeredSubject);
-                    $("#clicked").css({'color':'#d10202'});
+                    if(response.Success == true){
+                        $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí khóa học</h4></button>' );
+                        $("#clicked").text(response.registeredSubject);
+                        $("#clicked").css({'color':'#d10202'});
+                    } else {
+                        alert(response.registeredSubject);
+                    }
                 }
             });
         });

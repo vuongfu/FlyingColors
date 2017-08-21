@@ -64,7 +64,7 @@ namespace TutorOnline.Web.Controllers
         }
         public ActionResult ViewCategory(int? CategoryId, int? page )
         {
-            int pageSize = 10;
+            int pageSize = 8;
             int pageNumber = (page ?? 1);
             
             List<SubjectsViewModels> ListSub = new List<SubjectsViewModels>();
@@ -126,7 +126,7 @@ namespace TutorOnline.Web.Controllers
             if (Request.Cookies["UserInfo"]["UserId"] != null)
             {
                 int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
-                var StudentSubject = StuSubRes.GetAllSubject().Where(x => x.StudentId == StudentId && x.Status == 8).OrderBy(x => x.SubjectId);
+                var StudentSubject = StuSubRes.GetAllSubject().Where(x => x.StudentId == StudentId && (x.Status == 8 || x.Status == 10)).OrderBy(x => x.SubjectId);
                 foreach (var item in StudentSubject)
                 {
                     SubjectsViewModels temp = new SubjectsViewModels();
@@ -304,6 +304,15 @@ namespace TutorOnline.Web.Controllers
 
             if (Subject != null)
             {
+
+                var ScheList = ScheRes.GetAllStudentSchedule(int.Parse(Request.Cookies["UserInfo"]["UserId"]));
+                Schedule checkSche = ScheList.Where(s => s.Lesson.SubjectId == Subject.SubjectId && s.Status == 4).FirstOrDefault();
+
+                if (checkSche != null)
+                {
+                    return Json(new { Success = false, registeredSubject = " Hủy đăng ký khóa học thất bại, bạn vẫn còn tiết học của khóa này chưa thực hiện xong." });
+                }
+
                 StudentSubject StuSub;
                 StuSub = StuSubRes.GetSubById(Subject.SubjectId, int.Parse(Request.Cookies["UserInfo"]["UserId"])).FirstOrDefault();
                 if (StuSub != null)
@@ -311,10 +320,10 @@ namespace TutorOnline.Web.Controllers
                     StuSub.Status = 9;
                     StuSubRes.EditSubject(StuSub);
                 }
-                return Json(new { registeredSubject = "Hủy đăng ký khóa học thành công" });
+                return Json(new { Success = true, registeredSubject = "Hủy đăng ký khóa học thành công" });
             }
 
-            return Json(new { registeredSubject = " Hủy đăng ký khóa học thất bại" });
+            return Json(new { Success = false, registeredSubject = " Hủy đăng ký khóa học thất bại" });
         }
 
         public ActionResult Test(int? LessonId)

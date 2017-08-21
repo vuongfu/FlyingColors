@@ -72,7 +72,12 @@
                         <b>Giới tính:</b>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
-                        @Html.DisplayFor(model => model.Tutor.Gender)
+                        @if(Model.Tutor.Gender == 1)
+                        {
+                            <span>Nam</span>
+                        }
+                        else
+                        {<span>Nữ</span> }
                     </div>
                 </div>
                 <div class="row">
