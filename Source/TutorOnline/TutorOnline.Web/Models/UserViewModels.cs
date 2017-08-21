@@ -646,6 +646,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Ngày sinh:")]
         public Nullable<System.DateTime> BirthDate { get; set; }
 
+        [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Giới tính:")]
         public int Gender { get; set; }
 

@@ -311,7 +311,7 @@
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
     ViewBag.Title = "SubjectDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
     ViewBag.Count = 1;
 }
 <script>
@@ -353,9 +353,13 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success: function (response) {
-                    $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí khóa học</h4></button>' );
-                    $("#clicked").text(response.registeredSubject);
-                    $("#clicked").css({'color':'#d10202'});
+                    if(response.Success == true){
+                        $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí khóa học</h4></button>' );
+                        $("#clicked").text(response.registeredSubject);
+                        $("#clicked").css({'color':'#d10202'});
+                    } else {
+                        alert(response.registeredSubject);
+                    }
                 }
             });
         });
@@ -443,7 +447,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
     <section id="imgBanner">
-        <h2>Course Details</h2>
+        <h2>Chi Tiết Khóa Học</h2>
     </section>
     <div id="courseArchive">
         <div class="container">

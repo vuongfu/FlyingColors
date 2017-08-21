@@ -1,4 +1,4 @@
-.merchandising-course-card--card--Ef5aV {
+.merchand-course-card {
     display: inline-block;
     height: 100%;
     margin: 0 5px 15px;
@@ -7,33 +7,33 @@
     vertical-align: top;
     width: 216px
 }
-.merchandising-course-card--card--Ef5aV>a {
+.merchand-course-card>a {
     color: #111;
     display: block;
     font-size: 13px;
     height: 100%
 }
-.merchandising-course-card--card--Ef5aV>a:hover .merchandising-course-card--card__content-info--1jpL7,
-.merchandising-course-card--card--Ef5aV>a:hover .merchandising-course-card--card__content-info--1jpL7 img,
-.merchandising-course-card--card--Ef5aV>a:hover .merchandising-course-card--card__instructor-avatars--1fD1o,
-.merchandising-course-card--card--Ef5aV>a:hover .merchandising-course-card--card__instructor-avatars--1fD1o img,
-.merchandising-course-card--card--Ef5aV>a:hover:after {
+.merchand-course-card>a:hover .merchandising-course-card--card__content-info--1jpL7,
+.merchand-course-card>a:hover .merchandising-course-card--card__content-info--1jpL7 img,
+.merchand-course-card>a:hover .merchandising-course-card--card__instructor-avatars--1fD1o,
+.merchand-course-card>a:hover .merchandising-course-card--card__instructor-avatars--1fD1o img,
+.merchand-course-card>a:hover:after {
     opacity: 1
 }
-.merchandising-course-card--card--Ef5aV>a:hover .merchandising-course-card--card__options--2slCk {
+.merchand-course-card>a:hover .cardoption {
     background: #111
 }
-.merchandising-course-card--card--Ef5aV>a:hover .merchandising-course-card--card__options--2slCk>img {
+.merchand-course-card>a:hover .cardoption>img {
     opacity: .5
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--exp-new-badge--3hLhd {
+.merchand-course-card .merchandising-course-card--exp-new-badge--3hLhd {
     position: absolute;
     top: 10px;
     left: -2px;
     z-index: 1;
     pointer-events: none
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__content-info--1jpL7 {
+.merchand-course-card .merchandising-course-card--card__content-info--1jpL7 {
     display: flex;
     flex-direction: column;
     background: none;
@@ -50,11 +50,11 @@
     z-index: 2;
     -webkit-text-stroke: .4px #fff
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__details--1G7gB {
+.merchand-course-card .carddetail {
     display: block;
     padding: 0 10px
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__details--1G7gB .merchandising-course-card--card__instructor-titles--IJ4_5 {
+.merchand-course-card .carddetail .cardinstit {
     display: block!important;
     display: -webkit-box!important;
     -webkit-line-clamp: 1;
@@ -76,7 +76,7 @@
     color: #666;
     margin: 10px 0 0 5px
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__details--1G7gB .merchandising-course-card--details__name--3h_2f {
+.merchand-course-card .carddetail .cardname {
     display: block!important;
     display: -webkit-box!important;
     -webkit-line-clamp: 2;
@@ -99,7 +99,7 @@
     font-size: 15px;
     color: #333
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__details--1G7gB .merchandising-course-card--exp-new-badge-noreviews--1fk5y {
+.merchand-course-card .carddetail .merchandising-course-card--exp-new-badge-noreviews--1fk5y {
     line-height: 1.43;
     font-size: 11px;
     margin-top: 10px;
@@ -108,20 +108,20 @@
     display: flex;
     color: rgba(0, 0, 0, .55)
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__image--2oGQE {
+.merchand-course-card .cardimage {
     display: block;
     height: auto;
     overflow: hidden;
     position: relative
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__instructor-avatars--1fD1o {
+.merchand-course-card .merchandising-course-card--card__instructor-avatars--1fD1o {
     height: 50px;
     left: 10px;
     opacity: 0;
     position: absolute;
     top: 10px
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__instructor-avatars--1fD1o .merchandising-course-card--card__instructor-avatar--yBovX {
+.merchand-course-card .merchandising-course-card--card__instructor-avatars--1fD1o .merchandising-course-card--card__instructor-avatar--yBovX {
     border: 3px solid #fff;
     border-radius: 2px;
     display: inline-block;
@@ -131,18 +131,18 @@
     overflow: hidden;
     width: 50px
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__options--2slCk {
+.merchand-course-card .cardoption {
     display: block;
     right: 10px;
     top: 10px
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__options--2slCk>img {
+.merchand-course-card .cardoption>img {
     width: 100%;
     opacity: 1;
     -webkit-filter: sepia(.1) grayscale(.1) saturate(.8);
     filter: sepia(.1) grayscale(.1) saturate(.8)
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--card__pricing--VFE4h {
+.merchand-course-card .merchandising-course-card--card__pricing--VFE4h {
     display: flex;
     align-items: flex-end;
     float: right;
@@ -150,7 +150,7 @@
     min-height: 36px;
     padding-bottom: 15px
 }
-.merchandising-course-card--card--Ef5aV .merchandising-course-card--mask--2NGzX {
+.merchand-course-card .cardmask {
     background: #fff;
     color: #000;
     display: block;
@@ -159,88 +159,88 @@
     position: relative
 }
 @media (min-width: 768px) {
-    .merchandising-course-card--card--Ef5aV {
+    .merchand-course-card {
         margin: 0 15px 15px 0;
         box-shadow: 0 1px 0 rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .15);
         width: 230px
     }
-    .merchandising-course-card--card--Ef5aV:hover {
+    .merchand-course-card:hover {
         box-shadow: 0 2px 2px rgba(0, 0, 0, .15), 0 2px 2px rgba(0, 0, 0, .2)
     }
-    .merchandising-course-card--card__details--1G7gB .merchandising-course-card--exp-new-badge-noreviews--1fk5y {
+    .carddetail .merchandising-course-card--exp-new-badge-noreviews--1fk5y {
         margin-left: 0
     }
 }
 @media (min-width: 992px) {
-    .merchandising-course-card--card__list-view--13LYX {
+    .card-listview {
         margin: 0 15px 15px 0;
         width: 220px
     }
 }
 @media (min-width: 1200px) {
-    .merchandising-course-card--card__list-view--13LYX {
+    .card-listview {
         margin: 0 15px 15px 0;
         width: 216px
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--course-thumb--1M57A {
+    .card-listview .merchandising-course-card--course-thumb--1M57A {
         height: 121px
     }
 }
 @media (max-width: 767px) {
-    .merchandising-course-card--card__list-view--13LYX {
+    .card-listview {
         border-bottom: 1px solid #e3e3e3;
         display: block;
         width: auto
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__content-info--1jpL7 {
+    .card-listview .merchandising-course-card--card__content-info--1jpL7 {
         display: none
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__details--1G7gB {
+    .card-listview .carddetail {
         display: block;
         width: 100%;
         padding: 0 0 0 10px
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__details--1G7gB .merchandising-course-card--card__instructor-titles--IJ4_5,
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__details--1G7gB .merchandising-course-card--details__name--3h_2f {
+    .card-listview .carddetail .cardinstit,
+    .card-listview .carddetail .cardname {
         min-height: 0;
         margin: 0 0 5px!important
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__details--1G7gB .merchandising-course-card--exp-new-badge-noreviews--1fk5y {
+    .card-listview .carddetail .merchandising-course-card--exp-new-badge-noreviews--1fk5y {
         margin-left: 0
     }
-    .merchandising-course-card--card__list-view--13LYX>a:hover .merchandising-course-card--card__options--2slCk {
+    .card-listview>a:hover .cardoption {
         background: none
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__options--2slCk {
+    .card-listview .cardoption {
         height: 87px;
         overflow: hidden;
         min-width: 87px;
         width: 87px
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__options--2slCk>span {
+    .card-listview .cardoption>span {
         display: none
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__options--2slCk>img {
+    .card-listview .cardoption>img {
         max-width: none;
         width: auto;
         height: 87px;
         margin-left: -34px
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--card__pricing--VFE4h {
+    .card-listview .merchandising-course-card--card__pricing--VFE4h {
         padding-left: 0;
         padding-bottom: 0;
         min-height: 0
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--mask--2NGzX {
+    .card-listview .cardmask {
         display: flex;
         background: none;
         padding: 5px 0
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--mask--2NGzX .merchandising-course-card--card__instructor-avatars--1fD1o {
+    .card-listview .cardmask .merchandising-course-card--card__instructor-avatars--1fD1o {
         display: none
     }
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--mask--2NGzX .merchandising-course-card--card__instructor-titles--IJ4_5,
-    .merchandising-course-card--card__list-view--13LYX .merchandising-course-card--mask--2NGzX .merchandising-course-card--details__name--3h_2f {
+    .card-listview .cardmask .cardinstit,
+    .card-listview .cardmask .cardname {
         height: auto;
         margin: 0
     }

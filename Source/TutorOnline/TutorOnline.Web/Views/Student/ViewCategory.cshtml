@@ -5,8 +5,7 @@
 <link href="~/Scripts/entry-main.css" rel="stylesheet" />
 @{
     ViewBag.title = "viewcategory";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    //layout = "~/views/shared/_layout_backenduser.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
 <style>
     body {
@@ -38,10 +37,10 @@
             </div>
         }
         <br />
-        @for (int i = 0; i < ViewBag.totalRecord; i = i + 5)
+        @for (int i = 0; i < ViewBag.totalRecord; i = i + 4)
         {
             <div class="row">
-                @for (int j = 0; j <= 4; j++)
+                @for (int j = 0; j <= 3; j++)
                 {
                     if (i + j < ViewBag.totalRecord)
                     {
@@ -88,6 +87,3 @@
         <a class="btn btn-success navbar-btn" href="@Url.Action("ViewAllCategory", "Student")">Quay lại</a>
     </div>
 </body>
-
-<script src="~/Scripts/analytics.js"></script>
-<script src="~/Scripts/channel-dashboard.js"></script>

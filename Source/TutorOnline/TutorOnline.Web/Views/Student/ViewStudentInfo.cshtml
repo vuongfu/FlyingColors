@@ -1,5 +1,4 @@
 ﻿@model TutorOnline.Web.Models.DetailTutorViewModel
-
 @{
     if (Model.BirthDate != null)
     {
@@ -7,9 +6,10 @@
     }
 
 
-    ViewBag.Title = "ViewInfo";
-    Layout = "~/Views/Shared/_Layout_Tutor.cshtml";
+    ViewBag.Title = "ViewStudentInfo";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
+
 <style>
     hr {
         border-color: rgba(0, 0, 0, 0.2);
@@ -23,7 +23,7 @@
         margin: 10px auto 30px;
         border-radius: 100%;
         border: 2px solid #aaa;
-        background-size: contain;
+        background-size: cover;
     }
 
     strong {
@@ -34,7 +34,6 @@
         text-transform: uppercase;
     }
 </style>
-
 <div class="col-md-7">
     <div class="well">
         <h4 class="caps"><strong>Thông tin tài khoản</strong></h4>
@@ -70,24 +69,6 @@
                                 <td class="text-right"><b>Số dư hiện tại:</b></td>
                                 <td class="text-left">@Html.DisplayFor(model => model.Balance) (đồng)</td>
                             </tr>
-                        </tbody>
-                        <tr>
-                            <th colspan="2" style="color:blue;">
-                                Những khóa học đang dạy
-                            </th>
-                        </tr>
-                        <tbody>
-                            <tr>
-                                <th style="text-align:center;"><b>Tên khóa dạy</b></th>
-                                <th style="text-align:center;"><b>Kinh nghiệm</b></th>
-                            </tr>
-                            @foreach (var item in Model.tutorSub)
-                            {
-                                <tr>
-                                    <td>@item.subjectName</td>
-                                    <td>@item.experiences</td>
-                                </tr>
-                            }
                         </tbody>
                     </table>
                     <a class="btn btn-success" data-toggle="modal" data-target="#ChangePass" data-backdrop="static" id="btnChgpwd">Thay đổi mật khẩu</a>
@@ -148,27 +129,14 @@
                                 <td class="text-right"><b>Skype:</b></td>
                                 <td class="text-left">@Html.DisplayFor(model => model.SkypeId)</td>
                             </tr>
-                            <tr>
-                                <td class="text-right"><b>Số tài khoản:</b></td>
-                                <td class="text-left">@Html.DisplayFor(model => model.BankId)</td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><b>Tên ngân hàng:</b></td>
-                                <td class="text-left">@Html.DisplayFor(model => model.BankName)</td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><b>Người thụ hưởng:</b></td>
-                                <td class="text-left">@Html.DisplayFor(model => model.BMemName)</td>
-                            </tr>
                         </tbody>
                     </table>
-                    <a href="../Edit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Chỉnh sửa thông tin</a>
+                    <a href="../Student/Edit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Chỉnh sửa thông tin</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Modal loading -->
 <div class="modal fade" id="ChangePass" role="dialog">
     <div class="modal-dialog modal-md">
@@ -179,7 +147,7 @@
             <form id="formChgpwd" onsubmit="event.preventDefault(); ChangePass()">
                 <div class="modal-body container">
                     <div align="justify">
-                        <div class="row" style="margin-bottom:10px;">                            
+                        <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
                                 <strong>Mật khẩu cũ: </strong>
                             </div>
@@ -190,7 +158,7 @@
                         </div>
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
-                                <strong >Mật khẩu mới: </strong>
+                                <strong>Mật khẩu mới: </strong>
                             </div>
                             <div class="col-md-9 col-sm-9">
                                 <input class="form-control text-box single-line password" data-val="true" data-val-length="Mật khẩu mới: phải dài ít nhất 6 ký tự." data-val-length-max="100" data-val-length-min="6" data-val-required="Xin hãy nhập mật khẩu mới." id="NewPassword" name="NewPassword" type="password" value="" style="width:270px;">
@@ -199,15 +167,14 @@
                         </div>
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
-                                <strong >Xác nhận mật khẩu: </strong>
+                                <strong>Xác nhận mật khẩu: </strong>
                             </div>
                             <div class="col-md-9 col-sm-9">
                                 <input class="form-control text-box single-line password" data-val="true" data-val-equalto="Mật khẩu mới và mật khẩu xác nhận không khớp" data-val-equalto-other="*.NewPassword" id="ConfirmPassword" name="ConfirmPassword" type="password" value="" style="width:270px;">
                                 <span class="field-validation-valid text-danger" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
-
                 </div>
                 <div class="modal-footer" id="modalLoadFoot">
                     <button type="reset" class="btn btn-default hidden" id="btnResetPass">Reset</button>
@@ -218,17 +185,13 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-@Html.Partial("_LoadingData")  
-
+@Html.Partial("_LoadingData")
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
-
 <script type="text/javascript">
     function ChangePass() {
         var oldPass = jQuery('#Password').val();
@@ -239,12 +202,12 @@
             return false;
         }
 
-        
+
         document.getElementById("btnCloseChangePassModal").click();
         LoadingData();
 
         $.ajax({
-            url: '@Url.Action("ChangePass", "Tutor")',
+            url: '@Url.Action("ChangePass", "Student")',
             dataType: "json",
             type: "POST",
             contentType: 'application/json; charset=utf-8',
@@ -260,3 +223,4 @@
         });
     }
 </script>
+

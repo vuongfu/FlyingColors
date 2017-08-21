@@ -19,7 +19,7 @@
 </style>
 
 <div class="container">
-    <div class="col-xs-12 col-sm-6 col-md-8 col-sm-offset-1 col-md-offset-1">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="well">
@@ -147,7 +147,7 @@
             </div>
         </div>
         <br />
-        <div class="row col-sm-offset-1 col-md-offset-1">
+        <div class="row col-sm-offset-0 col-md-offset-0">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FeedbackModal" id="btnFeedback">Đánh giá học sinh</button>
             <button type="button" class="btn hidden" data-toggle="modal" data-target="#Loading" data-backdrop="static" id="btnLoad">Load</button>
             @Html.ActionLink("Quay lại", "ViewSchedule", null, new { @class = "btn btn-success" })
@@ -457,10 +457,10 @@
 
         var time = "@Model.OrderTime";
         slotDateStart = new Date(@Model.ScheduleDate.Year, (@Model.ScheduleDate.Month - 1), @Model.ScheduleDate.Day, time.substring(0,2), 0,0,0);
-        if(slotDateStart > Today){
-            clockCount();
+        if(slotDateStart > Today){            
             jQuery('#startLabel').removeClass('hidden');
             jQuery('#clockRow').removeClass('hidden');
+            clockCount();
         }
 
         slotDateEnd = new Date(@Model.ScheduleDate.Year, (@Model.ScheduleDate.Month - 1), @Model.ScheduleDate.Day, time.substring(8,10), time.substring(11),0,0);
@@ -481,7 +481,7 @@
         margin: 10px auto 10px;
         border-radius: 100%;
         border: 2px solid #aaa;
-        background-size: cover;
+        background-size: contain;
     }
 
     #dataStu {
