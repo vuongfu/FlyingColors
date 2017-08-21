@@ -16,6 +16,11 @@ namespace TutorOnline.Business.Repository
             var students = _dbContext.Students.Include(x => x.Role).Where(x => x.isActived == true);
             return students;
         }
+        public Student FindStudent(int Id)
+        {
+            Student students = _dbContext.Students.Include(x => x.Role).Where(x => x.isActived == true && x.StudentId == Id).FirstOrDefault();
+            return students;
+        }
         public IEnumerable<Student> GetStuByCountry(string country)
         {
             if (country == new ManagerStringCommon().vn.ToString())
@@ -48,6 +53,11 @@ namespace TutorOnline.Business.Repository
             return slot;
         }
 
+        public void EditStudent(Student data)
+        {
+            _dbContext.Entry(data).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
 
         public void Dispose()
         {

@@ -72,11 +72,8 @@
         else
         {
             <h2 class="center"> Bạn chưa đăng ký khóa học nào.</h2>
-            <div class="center">@Html.ActionLink("Đến khóa học", "Index", null, htmlAttributes: new { @class = "btn btn-success" }) <a class="btn btn-success" href="@Url.Action("ViewAllCategory", "Student")">Quay lại</a></div>
+            <div class="center">@Html.ActionLink("Đến khóa học", "ViewAllCategory", null, htmlAttributes: new { @class = "btn btn-success" }) <a class="btn btn-success" href="@Url.Action("Index", "Student")">Quay lại</a></div>
             <br />
         }
     </div>
 </body>
-
-<script src="~/Scripts/analytics.js"></script>
-<script src="~/Scripts/channel-dashboard.js"></script>

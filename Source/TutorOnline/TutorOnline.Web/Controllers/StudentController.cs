@@ -393,9 +393,9 @@ namespace TutorOnline.Web.Controllers
                 if (slot <= 4)
                     time = String.Format("{0:00}", 7 + slot) + ":00 - " + String.Format("{0:00}", 7 + slot) + ":45";
                 else if (slot > 4 && slot <= 8)
-                    time = String.Format("{0:00}", 12 + slot) + ":00 - " + String.Format("{0:00}", 12 + slot) + ":45";
+                    time = String.Format("{0:00}", 8 + slot) + ":00 - " + String.Format("{0:00}", 8 + slot) + ":45";
                 else
-                    time = String.Format("{0:00}", 18 + slot) + ":00 - " + String.Format("{0:00}", 18 + slot) + ":45";
+                    time = String.Format("{0:00}", 9 + slot) + ":00 - " + String.Format("{0:00}", 9 + slot) + ":45";
 
                 model.OrderTime = time;
                 model.OrderSlot = data.OrderSlot;
@@ -836,6 +836,204 @@ namespace TutorOnline.Web.Controllers
             return View(ViewTutor);
         }
 
+        public ActionResult ViewStudentInfo()
+        {
+            int StudentId = 0;
+            if(Request.Cookies["UserInfo"]["UserId"] != null)
+            {
+               StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+            }
+            
 
+            var Student = StuRes.GetAllStudent().Where(s => s.StudentId == StudentId).FirstOrDefault();
+            DetailTutorViewModel returnData = new DetailTutorViewModel();
+            returnData.Address = Student.Address;
+            returnData.BirthDate = Student.BirthDate;
+            returnData.City = Student.City;
+            returnData.Country = Student.Country;
+            returnData.Description = Student.Description;
+            returnData.Email = Student.Email;
+            returnData.FullName = Student.LastName + " " + Student.FirstName;
+            returnData.Gender = (Student.Gender == 1 ? "Nam" : "Nữ");
+            returnData.PhoneNumber = Student.PhoneNumber;
+            returnData.Photo = (Student.Photo == null ? "DefaultIcon.png" : Student.Photo);
+            returnData.PostalCode = Student.PostalCode;
+            returnData.SkypeId = Student.SkypeId;
+            returnData.UserName = Student.UserName;
+            returnData.Balance = Student.Balance;
+            returnData.RoleName = Student.Role.RoleName;
+
+            return View(returnData);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePass(string oldPass, string newPass)
+        {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int StudentId = int.Parse(Uid);
+
+            var Student = StuRes.FindStudent(StudentId);
+
+            string checkPass = Student.Password;
+
+            if (!checkPass.Equals(oldPass, StringComparison.CurrentCulture))
+            {
+                return Json(new { stt = false, mess = "Mật khẩu cũ không chính xác." }, JsonRequestBehavior.AllowGet);
+            }
+
+            Student.Password = newPass;
+            StuRes.EditStudent(Student);
+
+            return Json(new { stt = true, mess = "Đã thay đổi mật khẩu thành công." }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Edit()
+        {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int StudentId = int.Parse(Uid);
+
+            var Student = StuRes.FindStudent(StudentId);
+
+            EditTutorViewModel returnData = new EditTutorViewModel();
+
+            returnData.Address = Student.Address;
+            returnData.BirthDate = Student.BirthDate;
+            returnData.City = Student.City;
+            returnData.Country = Student.Country;
+            returnData.Description = Student.Description;
+            returnData.FirstName = Student.FirstName;
+            returnData.Gender = Student.Gender;
+            returnData.Id = Student.StudentId;
+            returnData.LastName = Student.LastName;
+            returnData.PhoneNumber = Student.PhoneNumber;
+            returnData.Photo = Student.Photo;
+            returnData.potalCode = Student.PostalCode;
+            returnData.skypeId = Student.SkypeId;
+
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", Student.Country);
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text", Student.Gender);
+
+            return View(returnData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditTutorViewModel model, HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                if (!IsImage(file))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    return View(model);
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
+
+                Student data = StuRes.FindStudent(model.Id);
+                data.Address = model.Address;
+                data.BirthDate = model.BirthDate;
+                data.City = model.City;
+                data.Country = model.Country;
+                data.Description = model.Description;
+                data.FirstName = model.FirstName;
+                data.Gender = model.Gender;
+                data.LastName = model.LastName;
+                data.PhoneNumber = model.PhoneNumber;
+                data.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
+                data.PostalCode = model.potalCode;
+                data.SkypeId = model.skypeId;
+
+                HttpCookie cookie = Request.Cookies["Avata"];
+                if (cookie != null)
+                {
+                    cookie.Values["AvaName"] = data.Photo;
+                }
+                else
+                {
+                    cookie = new HttpCookie("Avata");
+                    cookie.Values["AvaName"] = data.Photo;
+                }
+                Response.Cookies.Add(cookie);
+
+                StuRes.EditStudent(data);
+                TempData["message"] = "Đã cập nhặt thông tin của người dùng " + data.UserName + " thành công.";
+                return RedirectToAction("ViewStudentInfo", "Student", new { id = model.Id });
+            }
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+            TempData["messageWarning"] = "Đã có lỗi xảy ra khi cập nhật thông tin của người dùng.";
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", model.Country);
+            return View(model);
+        }
+
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public KeyValuePair<string, string>[] GetAllCountries()
+        {
+            var objDict = new Dictionary<string, string>();
+            foreach (var cultureInfo in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                var regionInfo = new RegionInfo(cultureInfo.Name);
+                if (!objDict.ContainsKey(regionInfo.EnglishName))
+                {
+                    objDict.Add(regionInfo.EnglishName, regionInfo.TwoLetterISORegionName.ToLower());
+                }
+            }
+            var obj = objDict.OrderBy(p => p.Key).ToArray();
+
+
+            return obj;
+        }
     }
 }
