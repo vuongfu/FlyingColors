@@ -1,20 +1,28 @@
 ﻿@model TutorOnline.Web.Models.DetailBookedSlotByStudent
 @{
     ViewBag.Title = "GetSlotDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
-<div class="container">
-    <div class="col-xs-12 col-sm-6 col-md-8 col-sm-offset-1 col-md-offset-1">
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6" align="center">
-                <h3>Thông tin gia sư</h3>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6" align="center">
-                <h3>Thông tin tiết học</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6">
+
+<style>
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .caps {
+        text-transform: uppercase;
+    }
+</style>
+<br />
+
+<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="well">
+                <h3 class="caps" align="center">Thông tin gia sư</h3>
+                <hr />
                 <div class="row">
                     @if (String.IsNullOrEmpty(Model.Photo))
                     {
@@ -22,7 +30,7 @@
                     }
                     else
                     {
-                        <div class="avatarDetail" style="background-image: url(~/Content/Uploads/Images/@Model.Photo)"></div>
+                        <div class="avatarDetail" style="background-image: url(../../Content/Uploads/Images/@Model.Photo)"></div>
                     }
                 </div>
                 <div class="row">
@@ -66,7 +74,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="row" style="margin-left:0px;">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FeedbackModal" id="btnFeedback">Đánh giá gia sư</button>
+                <button type="button" class="btn hidden" data-toggle="modal" data-target="#Loading" data-backdrop="static" id="btnLoad">Load</button>
+                @Html.ActionLink("Quay về", "ViewSchedule", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="well">
+                <h3 class="caps" align="center">Thông tin tiết học</h3>
+                <hr />
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 " id="dataLesson">
                         <b>Môn học:</b>
@@ -115,20 +132,23 @@
                         @Html.DisplayFor(model => model.StatusName)
                     </div>
                 </div>
-                <div class="row col-sm-offset-2 col-md-offset-2">
-                    <button type="button" class="btn btn-success" onclick="FeedBack(@Model.ScheduleId)" id="btnFeedback1">Xem đánh giá bài học</button>
-                    <button type="button" class="btn btn-success" onclick="Cancel(@Model.ScheduleId)" id="btnFeedback1">Hủy đặt</button>
+                <br />
+                <div class="row hidden" align="center" id="startLabel">
+                    <b>Bắt đầu học sau:</b>
+                </div>
+                <div class="row hidden" align="center" style="margin-left:15px;" id="clockRow">
+                    <h4 id="ClockCountDown"></h4>
                 </div>
             </div>
-        </div>
-        <br />
-        <div class="row col-sm-offset-1 col-md-offset-1">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FeedbackModal" id="btnFeedback">Đánh giá gia sư</button>
-            <button type="button" class="btn hidden" data-toggle="modal" data-target="#Loading" data-backdrop="static" id="btnLoad">Load</button>
-            @Html.ActionLink("Quay về", "ViewSchedule", null, new { @class = "btn btn-success" })
+            <div class="row" style="margin-left:0px;">
+                <button type="button" class="btn btn-success" onclick="FeedBack(@Model.ScheduleId)" id="btnFeedback1">Xem đánh giá bài học</button>
+                <button type="button" class="btn btn-success" onclick="Cancel(@Model.ScheduleId)" id="btnCancelSlot">Hủy đặt</button>
+            </div>
         </div>
     </div>
 </div>
+
+<br />
 <!-- Modal loading -->
 <div class="modal fade" id="Loading" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -204,8 +224,7 @@
         </div>
     </div>
 </div>
-
- <!-- Modal feedback -->
+<!-- Modal feedback -->
 <div class="modal fade" id="FeedbackModal1" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -227,12 +246,10 @@
         </div>
     </div>
 </div>
-
 @Html.Partial("_LoadingData")
-<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
-<script src="~/Scripts/bootstrap.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
@@ -240,6 +257,7 @@
     var listCreId = new Array();
     var listValue = new Array();
     var comment;
+    var Today = new Date();
 
     function getDataFeedBack() {
         listValue.splice(0, listValue.length);
@@ -297,8 +315,78 @@
         });
     }
 
+    var slotDateEnd;
+    var slotDateStart;
+
+    function clockCount(){
+        var clock = setInterval(function(){
+            Today = new Date();
+
+            var TotalMilisecs = slotDateStart.getTime() - Today.getTime(),
+                cd = 24 * 60 * 60 * 1000,
+                ch = 60 * 60 * 1000,
+                cs = 60 * 1000;
+
+
+            var days = Math.floor(TotalMilisecs / cd);
+            var hours = Math.floor((TotalMilisecs - days * cd) / ch);
+            var mins = Math.floor((TotalMilisecs - days * cd - hours * ch) / cs);
+            var secs = Math.round((TotalMilisecs - days * cd - hours * ch - mins * cs) / 1000);
+            if(secs === 60){
+                mins++;
+                secs = 0;
+            }
+
+            if( mins === 60 ){
+                hours++;
+                mins = 0;
+            }
+            if( hours === 24 ){
+                days++;
+                hours = 0;
+            }
+
+            var str = "" + days + " Ngày " + hours + " Giờ " + mins + " Phút " + secs + " Giây";
+            document.getElementById("ClockCountDown").innerHTML = str;
+            if(Today >= slotDateStart && Today <= slotDateEnd){
+                document.getElementById("ClockCountDown").innerHTML = "Đang học";
+            }
+            if(Today > slotDateEnd){
+                document.getElementById("ClockCountDown").innerHTML = "Đã kết thúc";
+                clearInterval(clock);
+            }
+
+        },1000);
+    }
 
     $(document).ready(function(){
+        if(@Model.Status == 5 || @Model.Status == 3){
+            jQuery('#btnCancelSlot').addClass('hidden');
+        }
+
+
+        if(@Model.Status == 5){
+            jQuery('#btnFeedback').addClass('hidden');
+            jQuery('#btnFeedback1').addClass('hidden');
+            return false;
+        }
+
+        var time = "@Model.OrderTime";
+        slotDateStart = new Date(@Model.ScheduleDate.Year, (@Model.ScheduleDate.Month - 1), @Model.ScheduleDate.Day, time.substring(0,2), 0,0,0);
+        if(slotDateStart > Today){
+            jQuery('#startLabel').removeClass('hidden');
+            jQuery('#clockRow').removeClass('hidden');
+            clockCount();
+        }
+
+        slotDateEnd = new Date(@Model.ScheduleDate.Year, (@Model.ScheduleDate.Month - 1), @Model.ScheduleDate.Day, time.substring(8,10), time.substring(11),0,0);
+        if(slotDateEnd > Today){
+            jQuery('#btnFeedback').addClass('hidden');
+            jQuery('#btnFeedback1').addClass('hidden');
+            return false;
+        }
+
+
         $.ajax({
             url: '@Url.Action("CheckFeedBack", "Student")',
             dataType: "json",
@@ -330,6 +418,8 @@
 
             }
         });
+
+
     });
 
     function bindData(Id) {
@@ -413,11 +503,11 @@
 
     }
 
-    function Cancel(slotid) {
-        LoadingData();
+    function Cancel(slotid) {        
         var r = confirm("Bạn có chắc chắn muốn hủy đặt buổi học này?");
         if (r == true)
         {
+            LoadingData();
             var url = "@Url.Action("Cancel", "Student")";
             $.ajax({
                 url: url,
@@ -434,8 +524,7 @@
                         CloseWithMess("Hủy đặt thành công.");
                         window.location.href = '/Student/ViewSchedule';
                     } else {
-                        jQuery('#MessSave').addClass('hidden');
-                        CloseWithMess("Có lỗi phát sinh, xin hãy thử lại sau.");
+                        CloseWithMess(data.Message);
                     }
                 }
             });
@@ -449,7 +538,7 @@
         margin: 10px auto 10px;
         border-radius: 100%;
         border: 2px solid #aaa;
-        background-size: cover;
+        background-size: contain;
     }
 
     #dataStu {

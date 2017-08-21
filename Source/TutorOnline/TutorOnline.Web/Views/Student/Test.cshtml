@@ -2,14 +2,21 @@
 @using TutorOnline.Common;
 @{
     ViewBag.Title = "Test";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
-<script src="~/Scripts/jquery-3.1.1.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+
+
 <script>
 
     $(document).ready(function () {
         $(document).on('click', '#results', function (e) {
+            jQuery('#loadingIcon').removeClass('hidden');
+
             if (!$("input[name=q1]:checked").val() ||
             !$("input[name=q2]:checked").val() ||
             !$("input[name=q3]:checked").val() ||
@@ -27,7 +34,7 @@
                 ];
                 var model = { ListAnswer: list,
                     LessonId: @Model[0].LessonId,
-                            };
+                };
                 var url = "@Url.Action("CheckScore", "Student")";
                 $.ajax({
                     type: "POST",
@@ -36,28 +43,40 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: 'json',
                     success: function (response) {
-                        $("#Score").text(response.registeredSubject);
+                        $("#Score").text(response.registeredSubject);      
+                        jQuery('#loadingIcon').addClass('hidden');
+                    },
+                    error: function(){
+                        jQuery('#loadingIcon').addClass('hidden');
                     }
                 });
             }
-            
+
         });
     });
 </script>
-
 <style>
-    .answers li {
-        list-style: upper-alpha;
+    .test-content {
+        margin: 10px 10px 10px 10px;
+    }
+
+    .question {
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    .answers {
+        margin-left: 20px;
+        cursor: pointer;
     }
 
     label {
-        margin-left: 0.5em;
-        cursor: pointer;
+        font-weight: 100 !important;
     }
 
     #results {
         background: #dddada;
-        color: 000000;
+        color: #000000;
         padding: 3px;
         text-align: center;
         width: 200px;
@@ -84,36 +103,61 @@
         display: none;
         font-style: italic;
     }
+
+    .hr-title {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .caps {
+        text-transform: uppercase;
+        margin-left: 15px !important;
+    }
+
+    .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+    }
 </style>
-<div class="container">
-    @for (int i = 0; i < Model.Count; i++)
-    {
-        string q = "q" + (i + 1);
-        <p class="question">@(i + 1). @Model[i].Content</p>
-        <ul class="answers">
-            <input type="radio" name="@q" value="0" id="qa">
-            <label for="qa">@Model[i].ListAnswer[0].Content</label>
-            <br />
-            <input type="radio" name="@q" value="1" id="qb">
-            <label for="qb">@Model[i].ListAnswer[1].Content</label>
-            <br />
-            <input type="radio" name="@q" value="2" id="qc">
-            <label for="qc">@Model[i].ListAnswer[2].Content</label>
-            <br />
-            <input type="radio" name="@q" value="3" id="qd">
-            <label for="qd">@Model[i].ListAnswer[3].Content</label>
-            <br />
-        </ul> }
+<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+    <div class="well">
+        <div class="row">
+            <h3 class="caps">Bài kiểm tra</h3>
+        </div>
+        <hr class="hr-title" />
+        <div class="form-horizontal test-content">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                string q = "q" + (i + 1);
+                <p class="question">@(i + 1). @Model[i].Content</p>
+                <div class="answers">
+                    <input type="radio" name="@q" value="0" id="qa@(i + 1)">
+                    <label for="qa@(i + 1)">@Model[i].ListAnswer[0].Content</label>
+                    <br />
+                    <input type="radio" name="@q" value="1" id="qb@(i + 1)">
+                    <label for="qb@(i + 1)">@Model[i].ListAnswer[1].Content</label>
+                    <br />
+                    <input type="radio" name="@q" value="2" id="qc@(i + 1)">
+                    <label for="qc@(i + 1)">@Model[i].ListAnswer[2].Content</label>
+                    <br />
+                    <input type="radio" name="@q" value="3" id="qd@(i + 1)">
+                    <label for="qd@(i + 1)">@Model[i].ListAnswer[3].Content</label>
+                    <br />
+                </div>
+                <hr />
+            }
 
+            <div id="results" class="btn btn-success">
+                <i class="fa fa-spinner fa-spin hidden" id="loadingIcon" ></i>Kiểm tra kết quá                
+            </div>
+            <br />
+            <div id="Score">
 
-    <div id="results">
-        Submit
+            </div>
+            
+        </div>
     </div>
-
-    <div>
-        <p id="Score"></p>
-    </div>
-
 </div>
 
 
