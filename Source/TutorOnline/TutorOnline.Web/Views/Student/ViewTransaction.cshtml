@@ -43,7 +43,7 @@
                         @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
                     </th>
                     <th><input type="submit" name="Search" value="@TranString.Search" class="btn" /></th>
-                    <th><h4>Số dư: @ViewBag.Balance</h4></th>
+                    <th><h4>Số dư: @ViewBag.Balance NVĐ</h4></th>
                    
                 </tr>
             </table>
@@ -154,7 +154,11 @@
 
     });
 
+    $("#dateFrom").datepicker({ dateFormat: "dd/mm/yy" });
+    $("#dateTo").datepicker({ dateFormat: "dd/mm/yy" });
+
     $('.datepicker').datepicker({
+        format: 'd/M/yyyy',
         showOtherMonths: true,
         selectOtherMonths: true,
         forceParse: false,
