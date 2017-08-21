@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tutor Online System</title>
     <link rel="shortcut icon" href="~/Image/TutorOnline_Icon.png" />
-    <link rel="stylesheet" href="~/Content/Style.css">
-    <link rel="stylesheet" href="~/Content/Footer-with-map.css">
+    <link rel="stylesheet" href="~/Content/Style.css" />
+    <link rel="stylesheet" href="~/Content/Footer-with-map.css" />
+    <link rel="stylesheet" href="~/Content/animate.min.css" />
+    <link rel="stylesheet" href="~/Content/icons.css" />
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
     @Styles.Render("~/Content/css")
@@ -17,34 +19,44 @@
             text-align: center;
         }
 
-            .error-404 .error-code {
-                bottom: 60%;
-                color: #4686CC;
-                font-size: 96px;
-                line-height: 100px;
-                font-weight: bold;
-            }
+        .error-404 .error-code {
+            bottom: 60%;
+            color: #4686CC;
+            font-size: 96px;
+            line-height: 100px;
+            font-weight: bold;
+        }
 
-            .error-404 .error-desc {
-                font-size: 12px;
-                color: #647788;
-            }
+        .error-404 .error-desc {
+            font-size: 12px;
+            color: #647788;
+        }
 
-            .error-404 .m-b-10 {
-                margin-bottom: 10px !important;
-            }
+        .error-404 .m-b-10 {
+            margin-bottom: 10px !important;
+        }
 
-            .error-404 .m-b-20 {
-                margin-bottom: 20px !important;
-            }
+        .error-404 .m-b-20 {
+            margin-bottom: 20px !important;
+        }
 
-            .error-404 .m-t-20 {
-                margin-top: 20px !important;
-            }
-    </style>
+        .error-404 .m-t-20 {
+            margin-top: 20px !important;
+        }
+
+        .nav > li > a:focus,
+        .nav > li > a:hover {
+            background-color: #37b5e8 !important;
+        } 
+
+        .nav > a:focus,
+        .nav > a:hover {
+            background-color: #37b5e8 !important;
+        } 
+</style>
 </head>
 <body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
-    <div class="navbar-default navbar-fixed-top" role="navigation" style="background: #3B5998;">
+    <nav class="navbar-default navbar-fixed-top" role="navigation" style="background: #3B5998; opacity: 0.9;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -56,13 +68,12 @@
             </div>
             <div class="navbar-collapse collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-left">
-                    @*<li>@Html.ActionLink("TRANG CHỦ", "Index", "Home", null, new { @style = "color: #ffffff"})</li>*@
-                    <li><a href="#GioiThieu" style="color: #ffffff">GIỚI THIỆU</a></li>
-                    <li><a href="#KhoaHoc" style="color: #ffffff">KHÓA HỌC</a></li>
-                    <li><a href="#GiaSu" style="color: #ffffff">GIA SƯ</a></li>
-                    <li><a href="#HuongDan" style="color: #ffffff">HƯỚNG DẪN HỌC</a></li>
-                    <li><a href="#CongGiaSu" style="color: #ffffff">CỔNG GIA SƯ</a></li>
-                    <li><a href="#myFooter" style="color: #ffffff">LIÊN HỆ</a></li>
+                    <li><a href="#GioiThieu" style="color: white;">GIỚI THIỆU</a></li>
+                    <li><a href="#KhoaHoc" style="color: white;">KHÓA HỌC</a></li>
+                    <li><a href="#GiaSu" style="color: white;">GIA SƯ</a></li>
+                    <li><a href="#HuongDan" style="color: white;">HƯỚNG DẪN HỌC</a></li>
+                    <li><a href="#CongGiaSu" style="color: white;">CỔNG GIA SƯ</a></li>
+                    <li><a href="#myFooter" style="color: white;">LIÊN HỆ</a></li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -88,7 +99,7 @@
                 
             </div>
         </div>
-    </div>
+    </nav>
     @if (TempData["message"] != null)
     {
         <div class="alert alert-success alert-dismissable">
@@ -157,7 +168,7 @@
                 </a>
             </p>
             <div class="footer-copyright">
-                <p><span class="glyphicon glyphicon-copyright-mark" style="color: yellow;"></span> 2017 Copyright Flying Colors Team </p>
+                <p><span class="glyphicon glyphicon-copyright-mark" style="color: #3B5998;"></span> 2017 Copyright Flying Colors Team </p>
             </div>
         </footer>
     </div>
