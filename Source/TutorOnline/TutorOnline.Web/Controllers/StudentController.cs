@@ -441,10 +441,6 @@ namespace TutorOnline.Web.Controllers
 
             var slot = ScheRes.getSlotById(scheduleId);
 
-            int check = TurRes.getTutorFeedbackId(slot.TutorId, slot.ScheduleId, (int)slot.StudentId);
-            if (check != -1)
-                return Json(false, JsonRequestBehavior.AllowGet);
-
             StudentFeedback feedback = new StudentFeedback();
             feedback.TutorId = slot.TutorId;
             feedback.StudentId = (int)slot.StudentId;

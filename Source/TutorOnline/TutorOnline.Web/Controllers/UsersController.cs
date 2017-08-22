@@ -324,6 +324,39 @@ namespace TutorOnline.Web.Controllers
         [Authorize(Roles = UserCommonString.SysAdmin + "," + UserCommonString.Accountant + "," + UserCommonString.Supporter + "," + UserCommonString.Manager)]
         public ActionResult Edit(int? id, bool? info)
         {
+            string Rid = "";
+            string Rname = "";
+            string Uid = "";
+            string photo = "";
+
+            if (Request.Cookies["Role"] != null)
+            {
+                if (Request.Cookies["Role"]["RoleId"] != null)
+                {
+                    Rid = Request.Cookies["Role"]["RoleId"];
+                }
+                if (Request.Cookies["Role"]["RoleId"] != null)
+                {
+                    Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
+                }
+
+            }
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            if (Request.Cookies["Avata"] != null)
+            {
+                if (Request.Cookies["Avata"]["AvaName"] != null)
+                {
+                    photo = Request.Cookies["Avata"]["AvaName"];
+                }
+            }
+
             if (info == true)
             {
                 ViewBag.InfoClick = true;
@@ -378,6 +411,7 @@ namespace TutorOnline.Web.Controllers
             if (ModelState.IsValid)
             {
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
+
 
                 BackendUser user = URes.FindBackEndUser(model.Id);
                 user.Address = model.Address;
