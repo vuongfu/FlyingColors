@@ -224,6 +224,7 @@
     var countId = 1;
     var listSelectId = new Array();
     var listSelectedValue = new Array();
+    var listDeleteBtn = new Array();
     var listExp = new Array();
     var maxSub;
 
@@ -248,8 +249,12 @@
     });
 
     function getListValueSelected() {
+        listDeleteBtn.length = 0;
         for (var i = 0; i < listSelectId.length; i++) {
-            var dataCheck = $("#sub" + listSelectId[i] + " :selected").val();            
+            var dataCheck = $("#sub" + listSelectId[i] + " :selected").val();
+            
+            listDeleteBtn.push(listSelectId[i]);
+
             if (jQuery.inArray(dataCheck, listSelectedValue) == -1)
                 listSelectedValue.push(dataCheck);
         }
@@ -344,8 +349,13 @@
             traditional: true,
             data: JSON.stringify({ 'subjectId': listSelectedValue, 'exp': listExp }),
             success: function (data) {                
-                CloseWithMess(data);
-                window.location.href = "ViewSchedule";
+                CloseWithMess(data);                
+                document.getElementById("btnCloseSaveModal").onclick = function () {
+                    for (i in listDeleteBtn) {
+                        document.getElementById(listDeleteBtn[i]).click();
+                    }
+                    window.location.href = "RegistTutorSubject";
+                }
             },
             error: function (xhr) {
                 CloseWithMess("Đã có lỗi xảy ra.");
