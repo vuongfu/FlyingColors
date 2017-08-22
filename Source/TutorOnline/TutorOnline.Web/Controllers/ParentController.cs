@@ -177,12 +177,62 @@ namespace TutorOnline.Web.Controllers
                 Schedule.Where(s => s.Lesson.SubjectId == Stu.SubjectId);
             }
 
+            foreach(var item in Schedule)
+            {
+                DateTime temp = new DateTime(item.OrderDate.Year, item.OrderDate.Month, item.OrderDate.Day, int.Parse(GetSlotTime(item.OrderSlot)), 0, 0);
+                item.OrderDate = temp;
+            }
+
             ViewBag.searchClick = true;
             ViewBag.totalRecord = Schedule.Count();
 
             return View(Schedule.ToPagedList(pageNumber, pageSize));
         }
 
+        private string GetSlotTime(int SlotOrder)
+        {
+            String time = "";
+            switch (SlotOrder)
+            {
+                case 1:
+                    time = "8";
+                    break;
+                case 2:
+                    time = "9";
+                    break;
+                case 3:
+                    time = "10";
+                    break;
+                case 4:
+                    time = "11";
+                    break;
+                case 5:
+                    time = "13";
+                    break;
+                case 6:
+                    time = "14";
+                    break;
+                case 7:
+                    time = "15";
+                    break;
+                case 8:
+                    time = "16";
+                    break;
+                case 9:
+                    time = "19";
+                    break;
+                case 10:
+                    time = "20";
+                    break;
+                case 11:
+                    time = "21";
+                    break;
+                default:
+                    time = null;
+                    break;
+            }
+            return time;
+        }
 
         [HttpPost]
         public ActionResult GetSubjectList(int CategoryId)

@@ -491,7 +491,7 @@ namespace TutorOnline.Web.Controllers
             foreach (var item in TutorSubject)
             {
                 Tutor Tutor = ListTutor.Where(x => x.TutorId == item.TutorId).FirstOrDefault();
-                List<Schedule> TutorSchedule = ScheRes.GetTutorSchedule(ChoosedDate, item.TutorId);
+                List<Schedule> TutorSchedule = ScheRes.GetTutorSchedule(ChoosedDate, item.TutorId).Where(s => s.Status != 5).ToList();
                 TutorScheduleViewModels temp = new TutorScheduleViewModels();
                 
                 if (Tutor != null)
