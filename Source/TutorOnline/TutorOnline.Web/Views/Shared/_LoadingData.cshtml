@@ -62,4 +62,13 @@
         jQuery('#modalLoadHead').removeClass('hidden');
         jQuery('#modalLoadFoot').removeClass('hidden');
     }
+
+    function CloseWithMessAndReload(strMess) {
+        jQuery('#loadingImg').addClass('hidden');
+        document.getElementById("MessSave").innerHTML = strMess;
+        jQuery('#btnCloseSaveModal').removeClass('hidden');
+        jQuery('#modalLoadHead').removeClass('hidden');
+        jQuery('#modalLoadFoot').removeClass('hidden');
+       
+    }
 </script>

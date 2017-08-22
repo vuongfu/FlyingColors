@@ -377,6 +377,8 @@
             jQuery('#startLabel').removeClass('hidden');
             jQuery('#clockRow').removeClass('hidden');
             clockCount();
+        }else{
+            jQuery('#btnCancelSlot').addClass('hidden');
         }
 
         slotDateEnd = new Date(@Model.ScheduleDate.Year, (@Model.ScheduleDate.Month - 1), @Model.ScheduleDate.Day, time.substring(8,10), time.substring(11),0,0);
