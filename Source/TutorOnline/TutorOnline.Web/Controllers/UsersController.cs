@@ -283,6 +283,7 @@ namespace TutorOnline.Web.Controllers
                 user.Photo = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                 user.RoleId = userViewModel.RoleId;
                 user.UserName = userViewModel.Username;
+                user.isActived = true;
 
                 URes.AddBackEndUser(user);
                 TempData["message"] = "Đã thêm thành công người dùng " + user.UserName;
