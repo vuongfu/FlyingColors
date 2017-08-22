@@ -331,7 +331,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success: function (response) {
-                    $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng kí khóa học</h4></button>' );
+                    $("#register").replaceWith( '<button type="submit" class="btn btn-danger" id="unregister"><h4>Hủy đăng ký khóa học</h4></button>' );
                     $("#clicked").text(response.registeredSubject);
                     $("#clicked").css({'color':'#68f442'});
                 }
@@ -354,7 +354,7 @@
                 dataType: 'json',
                 success: function (response) {
                     if(response.Success == true){
-                        $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng kí khóa học</h4></button>' );
+                        $("#unregister").replaceWith( '<button type="submit" class="btn btn-info" id="register" ><h4>Đăng ký khóa học</h4></button>' );
                         $("#clicked").text(response.registeredSubject);
                         $("#clicked").css({'color':'#d10202'});
                     } else {
@@ -475,7 +475,7 @@
                                     }
                                     else
                                     {
-                                        <button type="submit" class="btn btn-info" id="register"><h4>Đăng kí khóa học</h4></button>
+                                        <button type="submit" class="btn btn-info" id="register"><h4>Đăng ký khóa học</h4></button>
                                     }
                                     <label id="clicked"></label>
                                 </div>
