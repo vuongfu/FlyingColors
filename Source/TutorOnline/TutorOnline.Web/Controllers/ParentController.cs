@@ -165,7 +165,7 @@ namespace TutorOnline.Web.Controllers
                 return View(Schedule.ToPagedList(pageNumber, pageSize));
             }
 
-            Schedule = ScheRes.GetAllStudentSchedule(StudentId).OrderBy(s => s.OrderDate).ToList();
+            Schedule = ScheRes.GetAllStudentSchedule(StudentId).Where(s => s.Status == 3).OrderBy(s => s.OrderDate).ToList();
             if (!String.IsNullOrEmpty(CategoryId) && String.IsNullOrEmpty(SubjectId))
             {
                 Schedule.Where(s => s.Lesson.Subject.CategoryId == int.Parse(CategoryId));
@@ -174,7 +174,7 @@ namespace TutorOnline.Web.Controllers
             if(!String.IsNullOrEmpty(SubjectId))
             {
                 StudentSubject Stu = StuSub.Where(s => s.SubjectId == int.Parse(SubjectId)).FirstOrDefault();
-                Schedule.Where(s => s.Lesson.SubjectId == Stu.SubjectId);
+                Schedule = Schedule.Where(s => s.Lesson.SubjectId == Stu.SubjectId).ToList();
             }
 
             foreach(var item in Schedule)
