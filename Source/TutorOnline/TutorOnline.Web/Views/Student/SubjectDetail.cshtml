@@ -457,7 +457,14 @@
                     <div class="courseArchive_content">
                         <div class="singlecourse_ferimg_area">
                             <div class="singlecourse_ferimg">
-                                <img src="~/Image/Course.jpg" alt="img">
+                                @if (Model.Photo != null)
+                                {
+                                    <img src="~/Content/Uploads/Images/@Model.Photo" alt="@Model.SubjectName" class="cardimage" height="180" width="240">
+                                }
+                                else
+                                {
+                                    <img src="~/image/Course.jpg" alt="@Model.SubjectName" class="cardimage" height="180" width="240">
+                                }
                             </div>
                             <div class="singlecourse_bottom">
                                 <div class="col-lg-8"><h1>@Model.SubjectName</h1></div>

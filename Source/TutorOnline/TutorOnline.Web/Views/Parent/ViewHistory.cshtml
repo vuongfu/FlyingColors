@@ -72,115 +72,119 @@
     .well {
         background-color: #f1f1f1;
     }
+    .center{
+    font-weight: bold;
+    text-align: center !important;
+    }
 </style>
 
-<h2>Lịch sử học</h2>
-<div>
-
+<h3 class="center">LỊCH SỬ HỌC</h3>
+<hr />
+<div class="well">
     @using (Html.BeginForm("ViewHistory", "Parent", FormMethod.Get))
     {
             <table cellspacing="0">
                 <tr>
                     <th class="col-lg-2">Môn học</th>
-                    <th class="col-lg-1"> </th>
-                    <th class="col-lg-2">Khóa học</th>
-                    <th class="col-lg-1"></th>
-                    <th class="col-lg-1"></th>
+                    <th class="col-lg-offset-1 col-lg-2">Khóa học</th>
+                    <th class="col-lg-offset-1 col-lg-1"></th>
                 </tr>
                 <tr>
                     <td>@Html.DropDownList("CategoryId", null, "Tất cả", htmlAttributes: new { @class = "form-control", id = "ChooseCate" })</td>
-                    <td></td>
-                    @*<td><select class="form-control" id="ChooseSub"><option value="">Tất cả</option></select></td>*@
                     <td>@Html.DropDownList("SubjectId", null, "Tất cả", htmlAttributes: new { @class = "form-control" , id = "ChooseSub"})</td>
-                    <td></td>
                     <td><input type="submit" value="Tìm kiếm" class="btn btn-success" /></td>
                 </tr>
             </table>
     }
 
 </div>
-@if (ViewBag.searchClick == true)
-{
-    <h4>Số kết quả tìm được: @ViewBag.totalRecord</h4>
-}
-@if (@ViewBag.totalRecord > 0)
-{
 
-    <table class="table table-striped">
-        <tr>
-            <th>
-                STT
-            </th>
-            <th>
-                Môn học
-            </th>
-            <th>
-                Khóa học
-            </th>
-            <th>
-                Bài học
-            </th>
-            <th>
-                Ngày học
-            </th>
-            <th>
-                Đánh giá
-            </th>
 
-        </tr>
-        @foreach (var item in Model)
+    @if (ViewBag.searchClick == true)
+    {
+        <div class="well">
+        <h4>Số kết quả tìm được: @ViewBag.totalRecord</h4>
+
+        @if (@ViewBag.totalRecord > 0)
         {
-            <tr>
-                <td>
-                    @(ViewBag.Count++)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lesson.Subject.Category.CategoryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lesson.Subject.SubjectName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lesson.LessonName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderDate.Date)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-success" onclick="FeedBack(@item.ScheduleId)" id="btnFeedback1">Xem đánh giá</button>
-                </td>
-            </tr>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        STT
+                    </th>
+                    <th>
+                        Môn học
+                    </th>
+                    <th>
+                        Khóa học
+                    </th>
+                    <th>
+                        Bài học
+                    </th>
+                    <th>
+                        Ngày học
+                    </th>
+                    <th>
+                        Đánh giá
+                    </th>
+
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @(ViewBag.Count++)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lesson.Subject.Category.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lesson.Subject.SubjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lesson.LessonName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderDate.Date)
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success" onclick="FeedBack(@item.ScheduleId)" id="btnFeedback1">Xem đánh giá</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+            <p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong tổng số @Model.PageCount trang</p>
+            @Html.PagedListPager(Model, page => Url.Action("ViewHistory",
+    new { page, CategoryId = ViewBag.Category, SubjectId = ViewBag.Subject }))
         }
-    </table>
+    </div>
+    }
 
      <!-- Modal feedback -->
-    <div class="modal fade" id="FeedbackModal1" role="dialog">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Đánh giá học sinh</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-8 col-md-8" id="Criteria">
-                            </div>
+<div class="modal fade" id="FeedbackModal1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Đánh giá học sinh</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-8" id="Criteria">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
+</div>
 @Html.Partial("_LoadingData")
-        <br />
-        <p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong tổng số @Model.PageCount trang</p>
-        @Html.PagedListPager(Model, page => Url.Action("ViewHistory",
-    new { page, CategoryId = ViewBag.Category, SubjectId = ViewBag.Subject}))
-}
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 
 <script src="~/Scripts/bootstrap.js"></script>

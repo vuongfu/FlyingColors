@@ -13,7 +13,7 @@ using TutorOnline.Web.Models;
 
 namespace TutorOnline.Web.Controllers
 {
-    [Authorize(Roles = UserCommonString.Tutor)]
+    [Authorize(Roles = UserCommonString.Tutor + "," + UserCommonString.PreTutor)]
     public class TutorController : Controller
     {
         private TutorRepository TuRes = new TutorRepository();
@@ -27,6 +27,7 @@ namespace TutorOnline.Web.Controllers
         static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
         static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
 
+        [Authorize(Roles = UserCommonString.Tutor)]
         public ActionResult TutorBookSlot()
         {
             DateTime firstDayWeek1 = firstDayOfWeek;
@@ -94,6 +95,7 @@ namespace TutorOnline.Web.Controllers
             return returnList;
         }
 
+        [Authorize(Roles = UserCommonString.Tutor)]
         [HttpPost]
         public ActionResult CancelSlot(string slot, int week, string reason)
         {
@@ -118,6 +120,7 @@ namespace TutorOnline.Web.Controllers
             return Json("Hủy thành công", JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = UserCommonString.Tutor)]
         [HttpPost]
         public ActionResult SaveSlot(List<string> Week0, List<string> Week1, List<string> Week2)
         {
@@ -241,7 +244,7 @@ namespace TutorOnline.Web.Controllers
             temp.TutorId = int.Parse(Uid);
             return temp;
         }
-
+        [Authorize(Roles = UserCommonString.Tutor)]
         public ActionResult ViewSchedule()
         {
 
@@ -295,7 +298,7 @@ namespace TutorOnline.Web.Controllers
 
             return Json(returnData, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize(Roles = UserCommonString.Tutor)]
         public ActionResult GetSlotDetail(int id)
         {
             Schedule data = SchRes.getSlotById(id);
@@ -541,7 +544,7 @@ namespace TutorOnline.Web.Controllers
 
             return Json("Đã đăng ký thành công.", JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize(Roles = UserCommonString.Tutor)]
         public ActionResult ViewTransaction(int? page, string searchString, string StartDate, string EndDate)
         {
             int pageSize = 5;
@@ -628,7 +631,19 @@ namespace TutorOnline.Web.Controllers
 
         public ActionResult ViewInfo(int id)
         {
-            var tutor = TuRes.FindTutor(id);
+            Tutor tutor;
+            var Applytutor = TuRes.FindTutor(id);
+            var Pretutor = TuRes.FindPreTutor(id);
+
+            if(Applytutor == null)
+            {
+                tutor = Pretutor;
+            }
+            else
+            {
+                tutor = Applytutor;
+            }
+            
             DetailTutorViewModel returnData = new DetailTutorViewModel();
             returnData.Address = tutor.Address;
             returnData.BankId = tutor.BankId;
@@ -709,7 +724,18 @@ namespace TutorOnline.Web.Controllers
 
             int tutorId = int.Parse(Uid);
 
-            var tutor = TuRes.FindTutor(tutorId);
+            Tutor tutor;
+            var Applytutor = TuRes.FindTutor(tutorId);
+            var Pretutor = TuRes.FindPreTutor(tutorId);
+
+            if (Applytutor == null)
+            {
+                tutor = Pretutor;
+            }
+            else
+            {
+                tutor = Applytutor;
+            }
 
             EditTutorViewModel returnData = new EditTutorViewModel();
 
@@ -763,7 +789,19 @@ namespace TutorOnline.Web.Controllers
             {
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
 
-                Tutor data = TuRes.FindTutor(model.Id);
+                Tutor data;
+                var Applytutor = TuRes.FindTutor(model.Id);
+                var Pretutor = TuRes.FindPreTutor(model.Id);
+
+                if (Applytutor == null)
+                {
+                    data = Pretutor;
+                }
+                else
+                {
+                    data = Applytutor;
+                }
+
                 data.Address = model.Address;
                 data.BankId = model.BankId;
                 data.BankName = model.BankName;
