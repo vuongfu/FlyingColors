@@ -986,7 +986,7 @@ namespace TutorOnline.Web.Controllers
 
                 StuRes.EditStudent(data);
                 TempData["message"] = "Đã cập nhặt thông tin của người dùng " + data.UserName + " thành công.";
-                return RedirectToAction("ViewStudentInfo", "Student", new { id = model.Id });
+                return RedirectToAction("ViewStudentInfo", "Student");
             }
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
