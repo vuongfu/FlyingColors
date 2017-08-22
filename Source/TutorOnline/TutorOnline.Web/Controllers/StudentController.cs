@@ -395,7 +395,7 @@ namespace TutorOnline.Web.Controllers
                 else if (slot > 4 && slot <= 8)
                     time = String.Format("{0:00}", 8 + slot) + ":00 - " + String.Format("{0:00}", 8 + slot) + ":45";
                 else
-                    time = String.Format("{0:00}", 9 + slot) + ":00 - " + String.Format("{0:00}", 9 + slot) + ":45";
+                    time = String.Format("{0:00}", 10 + slot) + ":00 - " + String.Format("{0:00}", 10 + slot) + ":45";
 
                 model.OrderTime = time;
                 model.OrderSlot = data.OrderSlot;
