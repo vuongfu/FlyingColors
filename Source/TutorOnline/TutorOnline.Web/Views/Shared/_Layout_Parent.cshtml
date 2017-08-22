@@ -50,8 +50,77 @@
             .error-404 .m-t-20 {
                 margin-top: 20px !important;
             }
+
+        .dd-submenu {
+            width: 200px;
+            height: 85px;
+            background-color: #37b5e8 !important;
+        }
+
+            .dd-submenu > li > a:hover {
+                background-color: #37b5e8 !important;
+                color: white;
+            }
+
+        .dd-ava {
+            position: absolute;
+            margin: -5px 4px 4px 4px;
+            border-radius: 100%;
+            border: 2px solid #0ff;
+        }
+
+        .dd-viewInfo {
+            margin-left: 55px;
+            margin-top: 10px;
+        }
+
+        .dd-logout {
+            margin-left: 15px;
+        }
+
+        .nav > li.active > a {
+            background-color: #37b5e8 !important;
+        }
+
+        .nav > li.dropdown.open > a {
+            background-color: #37b5e8 !important;
+        }
     </style>
 </head>
+@{
+    string Rid = "";
+    string Rname = "";
+    string Uid = "";
+    string photo = "";
+
+    if (Request.Cookies["Role"] != null)
+    {
+        if (Request.Cookies["Role"]["RoleId"] != null)
+        {
+            Rid = Request.Cookies["Role"]["RoleId"];
+        }
+        if (Request.Cookies["Role"]["RoleId"] != null)
+        {
+            Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
+        }
+
+    }
+    if (Request.Cookies["UserInfo"] != null)
+    {
+        if (Request.Cookies["UserInfo"]["UserId"] != null)
+        {
+            Uid = Request.Cookies["UserInfo"]["UserId"];
+        }
+    }
+
+    if (Request.Cookies["Avata"] != null)
+    {
+        if (Request.Cookies["Avata"]["AvaName"] != null)
+        {
+            photo = Request.Cookies["Avata"]["AvaName"];
+        }
+    }
+}
 <body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
     <div class="navbar-default navbar-fixed-top " role="navigation" style="background: #3B5998;">
         <div class="container">
@@ -64,13 +133,19 @@
                 @Html.ActionLink("TUTOR ONLINE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: #ffffff" })
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-left"></ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a style="color:white;" href="@Url.Action("ViewSchedule", "Parent")">Xem lịch học</a></li>
+                    <li><a style="color:white;" href="@Url.Action("ViewStudentSubject", "Parent")">Khóa học của học sinh</a></li>
+                    <li><a style="color:white;" href="@Url.Action("ViewHistory", "Parent")">Lịch sử học của học sinh</a></li>
+                </ul>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <div class="row" style="color:aliceblue; margin-top: 15px;">
-                                <p>Xin chào<a href="@Url.Action(" Index", "Home" )" style="color: aliceblue; text-decoration: none;"> @HttpContext.Current.User.Identity.Name</a> | <a href="@Url.Action("Logout", "Account" )" style="color: aliceblue; text-decoration: none;">Đăng xuất <span class="glyphicon glyphicon-log-in"> </span></a></p>
-                            </div>
+                        <li class="dropdown">
+                            <a style="color:white;" class="dropdown-toggle" data-toggle="dropdown" href="#">Xin chào @HttpContext.Current.User.Identity.Name <img src="~/Content/Uploads/Images/@photo" height="20" width="20" /> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dd-submenu">
+                                <li><img class="dd-ava" src="~/Content/Uploads/Images/@photo" height="64" width="64" /> <a class="dd-viewInfo" href="@Url.Action("ViewParentInfo", "Parent")">Thông tin cá nhân</a></li>
+                                <li><a class="dd-logout" style="padding-left:64px;" href="@Url.Action("Logout", "Account")">Đăng xuất <span class="glyphicon glyphicon-log-in"> </span></a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -94,46 +169,14 @@
         }
         <div class="container-fluid">
             <div class="">
-                @{
-                    string Rid = "";
-                    string Rname = "";
-                    string Uid = "";
-                    String UName = "";
-                    if (Request.Cookies["Role"] != null)
-                    {
-                        if (Request.Cookies["Role"]["RoleId"] != null)
-                        {
-                            Rid = Request.Cookies["Role"]["RoleId"];
-                        }
-                        if (Request.Cookies["Role"]["RoleId"] != null)
-                        {
-                            Rname = HttpUtility.UrlDecode(Request.Cookies["Role"]["RoleName"]);
-                        }
-
-                    }
-                    if (Request.Cookies["UserInfo"] != null)
-                    {
-                        if (Request.Cookies["UserInfo"]["UserId"] != null)
-                        {
-                            Uid = Request.Cookies["UserInfo"]["UserId"];
-                        }
-                        UName = Request.Cookies["UserInfo"]["UserName"];
-
-                    }
-                }
                 <div class="row content">
-                    <div class="col-md-2 col-sm-2 sidenav hidden-xs">
-                        <br />
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="@Url.Action("Details", "Users", new {id = Uid.ToString(), info = true, username = UName })">Thông tin cá nhân</a></li>
-                            <li><a href="@Url.Action("ViewSchedule","Parent")">Xem lịch học</a></li>
-                            <li><a href="@Url.Action("ViewHistory","Parent")">Xem lịch sử học từng khóa</a></li>
-                            <li><a href="@Url.Action("ViewStudentSubject","Parent")">Xem khóa học của học sinh</a></li>
-                            @*<li class=""><a href="@Url.Action(" Details", "Users" , new { id=Uid.ToString(), info=true })">Thông tin cá nhân</a></li>
-                              <li><a href="@Url.Action(" ChangePwd", "Users" , new { id=Uid.ToString(), role=Rname })">Đổi mật khẩu</a></li>*@
-                        </ul>
+                    <div class="col-md-1 col-sm-1 hidden-xs">
+                        @*<br />
+                            <ul class="nav nav-pills nav-stacked">
+                            </ul>*@
                     </div>
                     <div class="col-sm-10 col-md-10">
+                        <br />
                         @RenderBody()
                     </div>
                 </div>
@@ -217,51 +260,37 @@
                 }
             });
         });
-        //$(function () {
-        //    var current_page_URL = location.href;
-        //    $("a").each(function () {
-        //        if ($(this).attr("href") !== "#") {
-        //            var target_URL = $(this).prop("href");
-        //            if (target_URL == current_page_URL) {
-        //                $('nav a').parents('li, ul').removeClass('active');
-        //                $(this).parent('li').addClass('active');
-        //                return false;
-        //            }
-        //        }
-        //    });
-        //});
-        //$(document).ready(function () {
-        //    $(".slSubject").select2({
-        //        placeholder: 'Tìm kiếm khóa học'
-        //    });
-        //    checkSelect();
-        //    $('select').change();
-        //});
+        $(document).ready(function () {
+            $(".slSubject").select2({
+                placeholder: 'Tìm kiếm khóa học'
+            });
+            checkSelect();
+            $('select').change();
+        });
 
-        //function reloadSelect2() {
-        //    $(".slSubject").select2({
-        //        placeholder: 'Tìm kiếm khóa học'
-        //    });
-        //}
+        function reloadSelect2() {
+            $(".slSubject").select2({
+                placeholder: 'Tìm kiếm khóa học'
+            });
+        }
 
 
-        //function checkSelect() {
-        //    $('select').on('change', function () {
-        //        $('option').prop('disabled', false); //reset all the disabled options on every change event
-        //        $('select').each(function () { //loop through all the select elements
-        //            var val = this.value;
-        //            var listSelectedValue;
-        //            var index = jQuery.inArray(val, listSelectedValue)
-        //            listSelectedValue.splice(index, 1);
+        function checkSelect() {
+            $('select').on('change', function () {
+                $('option').prop('disabled', false); //reset all the disabled options on every change event
+                $('select').each(function () { //loop through all the select elements
+                    var val = this.value;
+                    var index = jQuery.inArray(val, listSelectedValue)
+                    listSelectedValue.splice(index, 1);
 
-        //            $('select').not(this).find('option').filter(function () { //filter option elements having value as selected option
-        //                return this.value === val;
-        //            }).prop('disabled', true); //disable those option elements
-        //        });
-        //        reloadSelect2();
-        //        getListValueSelected();
-        //    });
-        //}
+                    $('select').not(this).find('option').filter(function () { //filter option elements having value as selected option
+                        return this.value === val;
+                    }).prop('disabled', true); //disable those option elements
+                });
+                reloadSelect2();
+                getListValueSelected();
+            });
+        }
 
     </script>
     <!--Start of Tawk.to Script-->

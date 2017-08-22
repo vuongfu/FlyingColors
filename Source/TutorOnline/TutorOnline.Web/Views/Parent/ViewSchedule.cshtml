@@ -85,6 +85,26 @@
 </script>
 
 <style>
+    .finishedSlot {
+        background-color: skyblue;
+    }
+
+    .colSelect {
+        border-left-style: groove !important;
+        border-right-style: groove !important;
+        border-left-width: 2px !important;
+        border-right-width: 2px !important;
+    }
+
+    .rowSelected {
+        border-top-style: groove !important;
+        border-bottom-style: groove !important;
+        border-top-width: 2px !important;
+        border-bottom-width: 2px !important;
+    }
+    .bookedSlot {
+        background-color: gold;
+    }
     .wrapper {
         padding: 20px;
         margin: 50px auto;
@@ -133,13 +153,48 @@
             .rating:not(:hover) > :checked ~ label:before {
                 opacity: 1;
             }
+    .caps {
+        text-transform: uppercase;
+    }
+
+    .row-narrow {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .well {
+        background-color: #f1f1f1;
+    }
 </style>
 <section>
-    <div class="col-lg-offset-1 col-lg-10 container">
+    <div class="col-lg-offset-1 col-lg-10 container well">
         <br />
         <p>
-            <input class="week-picker" id="WeekSelect" readonly="readonly">
-            <br /><br />
+            <div class="row">
+                <div class="col-md-4">
+                    <b>Chọn tuần:</b> <input class="week-picker" id="WeekSelect" readonly="readonly">
+                </div>
+                <div class="col-md-8">
+                    <table>
+                        <tr>
+                            <td id="cmTd" style="background-color:skyblue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td id="cmTd" class="text-left">: đã kết thúc</td>
+                            <td id="cmTd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td id="cmTd" style="background-color:gold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td id="cmTd" class="text-left">: đã đặt</td>
+                            <td id="cmTd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <hr />
         </p>
         <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
             <tr>
@@ -260,7 +315,9 @@
         var items = document.getElementsByTagName('td');
         for (var i = 0; i < items.length; i++) {
             var x = "";
-            items[i].innerHTML = x;
+            var id = items[i].id;
+            if(id != "cmTd")
+                items[i].innerHTML = x;
 
         }
 
@@ -281,8 +338,7 @@
                         jQuery('#' + data[i].tableSlotId).addClass('finishedSlot');
                     else if(stt == 4)
                         jQuery('#' + data[i].tableSlotId).addClass('bookedSlot');
-                    else
-                        jQuery('#' + data[i].tableSlotId).addClass('canceledSlot');
+                    
 
                     if(stt != 11){
                         var x = '<p onclick="FeedBack(';

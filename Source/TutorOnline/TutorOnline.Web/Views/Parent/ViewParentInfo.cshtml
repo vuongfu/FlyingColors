@@ -1,0 +1,228 @@
+﻿@model TutorOnline.Web.Models.DetailTutorViewModel
+@{
+    if (Model.BirthDate != null)
+    {
+        string dob = Model.BirthDate.Value.ToShortDateString();
+    }
+
+
+    ViewBag.Title = "View Parent Info";
+    Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+}
+
+<style>
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .InfoAva {
+        width: 130px;
+        height: 130px;
+        margin: 10px auto 30px;
+        border-radius: 100%;
+        border: 2px solid #aaa;
+        background-size: cover;
+    }
+
+    strong {
+        color: blue;
+    }
+
+    .caps {
+        text-transform: uppercase;
+    }
+</style>
+<div class="col-md-7">
+    <div class="well">
+        <h4 class="caps"><strong>Thông tin tài khoản</strong></h4>
+        <hr />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="InfoAva" style="background-image: url(../../Content/Uploads/Images/@Model.Photo)"></div>
+                </div>
+                <div class="col-md-8">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr style="display: none;">
+                                <th width="100"></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td class="text-right"><b>Tên đăng nhập:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.UserName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Chức vụ:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.RoleName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Email:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Số dư hiện tại:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Balance) (đồng)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-success" data-toggle="modal" data-target="#ChangePass" data-backdrop="static" id="btnChgpwd">Thay đổi mật khẩu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-5">
+    <div class="well">
+        <h4 class="caps"><Strong>Thông tin cá nhân</Strong></h4>
+        <hr />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr style="display: none;">
+                                <th width="100"></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td class="text-right"><b>Họ và tên:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.FullName)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Giới tính:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Gender)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Ngày sinh:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.BirthDate)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Địa chỉ:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Address)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Thành phố:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.City)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Quốc gia:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.Country)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Mã vùng:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.PostalCode)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Số điện thoại:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.PhoneNumber)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><b>Skype:</b></td>
+                                <td class="text-left">@Html.DisplayFor(model => model.SkypeId)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="../Parent/Edit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Chỉnh sửa thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal loading -->
+<div class="modal fade" id="ChangePass" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header" id="modalLoadHead">
+                <h4 id="Thay đổi mật khẩu"></h4>
+            </div>
+            <form id="formChgpwd" onsubmit="event.preventDefault(); ChangePass()">
+                <div class="modal-body container">
+                    <div align="justify">
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
+                                <strong>Mật khẩu cũ: </strong>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <input class="form-control text-box single-line password" data-val="true" data-val-required="Xin hãy nhập mật khẩu." id="Password" name="Password" type="password" value="" style="width:270px;">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
+                                <strong>Mật khẩu mới: </strong>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <input class="form-control text-box single-line password" data-val="true" data-val-length="Mật khẩu mới: phải dài ít nhất 6 ký tự." data-val-length-max="100" data-val-length-min="6" data-val-required="Xin hãy nhập mật khẩu mới." id="NewPassword" name="NewPassword" type="password" value="" style="width:270px;">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
+                                <strong>Xác nhận mật khẩu: </strong>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <input class="form-control text-box single-line password" data-val="true" data-val-equalto="Mật khẩu mới và mật khẩu xác nhận không khớp" data-val-equalto-other="*.NewPassword" id="ConfirmPassword" name="ConfirmPassword" type="password" value="" style="width:270px;">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" id="modalLoadFoot">
+                    <button type="reset" class="btn btn-default hidden" id="btnResetPass">Reset</button>
+                    <button type="submit" class="btn btn-default" id="btnSaveChange">Thay đổi</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseChangePassModal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@Html.Partial("_LoadingData")
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    function ChangePass() {
+        var oldPass = jQuery('#Password').val();
+        var newPass = jQuery('#NewPassword').val();
+        var confirmPass = jQuery('#ConfirmPassword').val();
+
+        if (oldPass == "" || newPass == "" || confirmPass == "") {
+            return false;
+        }
+
+
+        document.getElementById("btnCloseChangePassModal").click();
+        LoadingData();
+
+        $.ajax({
+            url: '@Url.Action("ChangePass", "Parent")',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            traditional: true,
+            data: JSON.stringify({ 'oldPass': oldPass, 'newPass': newPass }),
+            success: function (data) {
+                CloseWithMess(data.mess);
+                document.getElementById("btnResetPass").click();
+            },
+            error: function (xhr) {
+                CloseWithMess("Đã có lỗi xảy ra.");
+            }
+        });
+    }
+</script>
+
+
+

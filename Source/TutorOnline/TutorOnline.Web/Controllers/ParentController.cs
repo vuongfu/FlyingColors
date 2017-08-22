@@ -302,6 +302,206 @@ namespace TutorOnline.Web.Controllers
             return View(Result);
         }
 
+        public ActionResult ViewParentInfo()
+        {
+            int ParentId = 0;
+            if (Request.Cookies["UserInfo"]["UserId"] != null)
+            {
+                ParentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+            }
+
+
+            Parent Parent = URes.GetAllParentUser().Where(s => s.ParentId == ParentId).FirstOrDefault();
+            DetailTutorViewModel returnData = new DetailTutorViewModel();
+            returnData.Address = Parent.Address;
+            returnData.BirthDate = Parent.BirthDate;
+            returnData.City = Parent.City;
+            returnData.Country = Parent.Country;
+            returnData.Description = Parent.Description;
+            returnData.Email = Parent.Email;
+            returnData.FullName = Parent.LastName + " " + Parent.FirstName;
+            returnData.Gender = (Parent.Gender == 1 ? "Nam" : "Nữ");
+            returnData.PhoneNumber = Parent.PhoneNumber;
+            returnData.Photo = (Parent.Photo == null ? "DefaultIcon.png" : Parent.Photo);
+            returnData.PostalCode = Parent.PostalCode;
+            returnData.SkypeId = Parent.SkypeId;
+            returnData.UserName = Parent.UserName;
+            returnData.Balance = Parent.Balance;
+            returnData.RoleName = Parent.Role.RoleName;
+
+            return View(returnData);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePass(string oldPass, string newPass)
+        {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int ParentId = int.Parse(Uid);
+
+            var Parent = URes.FindParentUser(ParentId);
+
+            string checkPass = Parent.Password;
+
+            if (!checkPass.Equals(oldPass, StringComparison.CurrentCulture))
+            {
+                return Json(new { stt = false, mess = "Mật khẩu cũ không chính xác." }, JsonRequestBehavior.AllowGet);
+            }
+
+            Parent.Password = newPass;
+            URes.EditParentUser(Parent);
+
+            return Json(new { stt = true, mess = "Đã thay đổi mật khẩu thành công." }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Edit()
+        {
+            string Uid = "";
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                if (Request.Cookies["UserInfo"]["UserId"] != null)
+                {
+                    Uid = Request.Cookies["UserInfo"]["UserId"];
+                }
+            }
+
+            int ParentId = int.Parse(Uid);
+
+            var Parent = URes.GetAllParentUser().Where(s => s.ParentId == ParentId).FirstOrDefault();
+
+            EditTutorViewModel returnData = new EditTutorViewModel();
+
+            returnData.Address = Parent.Address;
+            returnData.BirthDate = Parent.BirthDate;
+            returnData.City = Parent.City;
+            returnData.Country = Parent.Country;
+            returnData.Description = Parent.Description;
+            returnData.FirstName = Parent.FirstName;
+            returnData.Gender = Parent.Gender;
+            returnData.Id = Parent.ParentId;
+            returnData.LastName = Parent.LastName;
+            returnData.PhoneNumber = Parent.PhoneNumber;
+            returnData.Photo = Parent.Photo;
+            returnData.potalCode = Parent.PostalCode;
+            returnData.skypeId = Parent.SkypeId;
+
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", Parent.Country);
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text", Parent.Gender);
+
+            return View(returnData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditTutorViewModel model, HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                if (!IsImage(file))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    return View(model);
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
+
+                Parent data = URes.GetAllParentUser().Where(s => s.ParentId == model.Id).FirstOrDefault();
+                data.Address = model.Address;
+                data.BirthDate = model.BirthDate;
+                data.City = model.City;
+                data.Country = model.Country;
+                data.Description = model.Description;
+                data.FirstName = model.FirstName;
+                data.Gender = model.Gender;
+                data.LastName = model.LastName;
+                data.PhoneNumber = model.PhoneNumber;
+                data.Photo = (string.IsNullOrEmpty(photoUrl) ? model.Photo : photoUrl);
+                data.PostalCode = model.potalCode;
+                data.SkypeId = model.skypeId;
+
+                HttpCookie cookie = Request.Cookies["Avata"];
+                if (cookie != null)
+                {
+                    cookie.Values["AvaName"] = data.Photo;
+                }
+                else
+                {
+                    cookie = new HttpCookie("Avata");
+                    cookie.Values["AvaName"] = data.Photo;
+                }
+                Response.Cookies.Add(cookie);
+
+                URes.EditParentUser(data);
+                TempData["message"] = "Đã cập nhặt thông tin của người dùng " + data.UserName + " thành công.";
+                return RedirectToAction("ViewParentInfo", "Parent");
+            }
+            ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+            TempData["messageWarning"] = "Đã có lỗi xảy ra khi cập nhật thông tin của người dùng.";
+            ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key", model.Country);
+            return View(model);
+        }
+
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            foreach (var item in formats)
+            {
+                if (file.FileName.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public KeyValuePair<string, string>[] GetAllCountries()
+        {
+            var objDict = new Dictionary<string, string>();
+            foreach (var cultureInfo in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                var regionInfo = new RegionInfo(cultureInfo.Name);
+                if (!objDict.ContainsKey(regionInfo.EnglishName))
+                {
+                    objDict.Add(regionInfo.EnglishName, regionInfo.TwoLetterISORegionName.ToLower());
+                }
+            }
+            var obj = objDict.OrderBy(p => p.Key).ToArray();
+
+
+            return obj;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
