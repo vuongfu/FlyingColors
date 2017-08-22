@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
 
 <style>
@@ -61,22 +61,7 @@ text-decoration: none;
 }
 </style>
 <br />
-<section id="nutluachon">
-    <div class="container">
-        <div class="col-sm-3 center">
-            <a class="hc-user-btn center" href="@Url.Action("Details", "Users", new {id = ViewBag.StudentId, info = true, username = ViewBag.Username })">Thông tin tài khoản <i class="hc-user-btn-info"></i></a>
-        </div>
-        <div class="col-sm-3 center">
-            <a class="hc-user-btn center" href="@Url.Action("ViewAllCategory", "Student")">Giáo trình học <i class="hc-user-btn-result"></i></a>
-        </div>
-        <div class="col-sm-3 center">
-            <a class="hc-user-btn center" href="@Url.Action("ViewStudentSubject", "Student")">Khóa học của bạn<i class="hc-user-btn-document"></i></a>
-        </div>
-        <div class="col-sm-3 center">
-            <a class="hc-user-btn center" href="@Url.Action("ViewTransaction", "Student")">Lịch sử giao dịch <i class="hc-user-btn-history"></i></a>
-        </div>
-    </div>
-</section>
+
 <section id="schedule">
     <div class="col-md-12 col-box-one header-line">
         <div class="col-md-12 section-header-one center">
@@ -87,7 +72,7 @@ text-decoration: none;
         </div>
     </div>
     <div class="col-lg-offset-1 col-lg-10 container-fluid">
-        <table class="table table-bordered slotpick" border="1" style="border-width:3px !important; ">
+        <table class="tableSlot slotpick" border="1" style="border-width:3px !important; ">
             <tr>
                 <th></th>
                 <th scope="col" style="width:75px;">08:00 - 08:45</th>
@@ -229,7 +214,7 @@ text-decoration: none;
 
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    $('.table tr td').live('mousemove', function () {
+    $('.tableSlot tr td').live('mousemove', function () {
         $(this).addClass('ui-state-hover');
         var id = this.id;
         var date = id.substring(0,3);
@@ -255,7 +240,7 @@ text-decoration: none;
         }
 
     })
-    $('.table tr td').live('mouseleave', function () {
+    $('.tableSlot tr td').live('mouseleave', function () {
         $(this).removeClass('ui-state-hover');
         var id = this.id;
         var date = id.substring(0,3);

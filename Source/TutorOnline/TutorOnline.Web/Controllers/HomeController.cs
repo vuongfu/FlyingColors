@@ -34,13 +34,13 @@ namespace TutorOnline.Web.Controllers
                 {
                     string url = (Url.Action("Index", "Accountant"));
                     return Redirect(url);
-                }else if(Rname == UserCommonString.Tutor || Rname == UserCommonString.PreTutor)
+                }else if(Rname == UserCommonString.Tutor)
                 {
                     string url = (Url.Action("ViewSchedule", "Tutor"));
                     return Redirect(url);
                 }else if(Rname == UserCommonString.Student)
                 {
-                    string url = (Url.Action("Index", "Student"));
+                    string url = (Url.Action("ViewSchedule", "Student"));
                     return Redirect(url);
                 }            
             }

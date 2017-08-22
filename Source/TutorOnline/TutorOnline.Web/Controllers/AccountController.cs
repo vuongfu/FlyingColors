@@ -66,8 +66,8 @@ namespace TutorOnline.Web.Controllers
                     FormsAuthentication.SetAuthCookie(model.Username, false);
 
                     HttpCookie Avata = new HttpCookie("Avata");
-                   
-                    
+
+
 
                     if (RoleName == UserCommonString.Parent)
                     {
@@ -75,7 +75,7 @@ namespace TutorOnline.Web.Controllers
                         Role["RoleId"] = user.RoleId.ToString();
                         Role["RoleName"] = HttpUtility.UrlEncode(user.Role.RoleName);
                         tempId = user.ParentId;
-                        Avata["AvaName"] = (user.Photo == null?"DefaultIcon.png":user.Photo);
+                        Avata["AvaName"] = (user.Photo == null ? "DefaultIcon.png" : user.Photo);
                     }
                     else if (RoleName == UserCommonString.Student)
                     {
@@ -85,7 +85,7 @@ namespace TutorOnline.Web.Controllers
                         tempId = user.StudentId;
                         Avata["AvaName"] = (user.Photo == null ? "DefaultIcon.png" : user.Photo);
                     }
-                    else if (RoleName == UserCommonString.Tutor)
+                    else if (RoleName == UserCommonString.Tutor || RoleName == UserCommonString.PreTutor)
                     {
                         var user = AccRes.getCurrentUserTypeTutor(model.Username);
                         Role["RoleId"] = user.RoleId.ToString();
@@ -114,11 +114,12 @@ namespace TutorOnline.Web.Controllers
                     UserInfo.Expires.Add(new TimeSpan(0, 45, 0));
                     Response.Cookies.Add(UserInfo);
 
-                    if(RoleName == UserCommonString.Manager)
+                    if (RoleName == UserCommonString.Manager)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "DashboardManager") : ReturnUrl);
                         return Redirect(url);
-                    }else if(RoleName == UserCommonString.SysAdmin)
+                    }
+                    else if (RoleName == UserCommonString.SysAdmin)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Users") : ReturnUrl);
                         return Redirect(url);
@@ -128,7 +129,7 @@ namespace TutorOnline.Web.Controllers
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("Index", "Accountant") : ReturnUrl);
                         return Redirect(url);
                     }
-                    else if(RoleName == UserCommonString.Tutor || RoleName == UserCommonString.PreTutor)
+                    else if (RoleName == UserCommonString.Tutor)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("ViewSchedule", "Tutor") : ReturnUrl);
                         return Redirect(url);
@@ -181,7 +182,7 @@ namespace TutorOnline.Web.Controllers
 
         [AllowAnonymous]
         public ActionResult Register(string RoleId, string Email)
-         {
+        {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -190,8 +191,9 @@ namespace TutorOnline.Web.Controllers
             if (!string.IsNullOrEmpty(RoleId))
             {
                 ViewBag.isSelectedRole = int.Parse(RoleId);
-                ViewBag.SelectedRoleName =  URes.GetAllRole().FirstOrDefault(x => x.RoleId == int.Parse(RoleId)).RoleName;
-            }else if(RoleId == "")
+                ViewBag.SelectedRoleName = URes.GetAllRole().FirstOrDefault(x => x.RoleId == int.Parse(RoleId)).RoleName;
+            }
+            else if (RoleId == "")
             {
                 TempData["messageWarning"] = "Bạn phải chọn chức vụ trước.";
             }
@@ -247,9 +249,20 @@ namespace TutorOnline.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register(CreateFrontEndUserViewModels model, HttpPostedFileBase file)
         {
+            List<RegistTutorSubjectViewModel> DropDownSubject = new List<Models.RegistTutorSubjectViewModel>();
+            var AllSubject = SubRes.GetAllSubject();
+            foreach (var item in AllSubject)
+            {
+                RegistTutorSubjectViewModel temp = new Models.RegistTutorSubjectViewModel();
+                temp.SubjectId = item.SubjectId;
+                temp.SubjectName = item.SubjectName;
+                DropDownSubject.Add(temp);
+            }
+            ViewBag.ListSubject = DropDownSubject;
+
             if (ModelState.IsValid)
             {
-                if(file != null)
+                if (file != null)
                 {
                     if (!IsImage(file))
                     {
@@ -269,12 +282,14 @@ namespace TutorOnline.Web.Controllers
                         ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
                         ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
                         ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-                        TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+                        TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";                      
                         return View(model);
+
+                        
                     }
                 }
 
@@ -296,11 +311,11 @@ namespace TutorOnline.Web.Controllers
                     ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
                     ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-                    TempData["messageWarning"] = "Tên đăng nhập hoặc Email đã tồn tại.";
+                    TempData["messageWarning"] = "Tên đăng nhập hoặc Email đã tồn tại.";                    
                     return View(model);
                 }
                 string roleName = URes.GetAllRole().FirstOrDefault(x => x.RoleId == model.RoleId).RoleName;
@@ -326,8 +341,9 @@ namespace TutorOnline.Web.Controllers
                     temp.Email = model.Email;
                     temp.isActived = true;
 
-                    URes.AddStudent(temp);                   
-                } else if (roleName == UserCommonString.Parent)
+                    URes.AddStudent(temp);
+                }
+                else if (roleName == UserCommonString.Parent)
                 {
                     Parent temp = new Parent();
                     temp.RoleId = (int)model.RoleId;
@@ -349,8 +365,9 @@ namespace TutorOnline.Web.Controllers
                     temp.isActived = true;
 
                     URes.AddParent(temp);
-                    
-                } else if (roleName == UserCommonString.PreTutor)
+
+                }
+                else if (roleName == UserCommonString.PreTutor)
                 {
                     Tutor temp = new Tutor();
                     temp.RoleId = (int)model.RoleId;
@@ -364,7 +381,7 @@ namespace TutorOnline.Web.Controllers
                     temp.LastName = model.LastName;
                     temp.Password = model.Password;
                     temp.PhoneNumber = model.PhoneNumber;
-                    temp.Photo = FileUpload.UploadFile(file , FileUpload.TypeUpload.image);
+                    temp.Photo = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
                     temp.PostalCode = model.PostalCode;
                     temp.SkypeId = model.SkypeId;
                     temp.UserName = model.Username;
@@ -377,7 +394,7 @@ namespace TutorOnline.Web.Controllers
 
                     URes.AddTutor(temp);
 
-                    for(int i = 0; i< listSubject.Count; i++)
+                    for (int i = 0; i < listSubject.Count; i++)
                     {
                         TutorSubject Ts = new TutorSubject();
                         Ts.Experience = listExp[i];
@@ -412,11 +429,11 @@ namespace TutorOnline.Web.Controllers
             ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
             ViewBag.Gender = new SelectList(new List<SelectListItem>
                     {
-                        new SelectListItem {  Text = "Male", Value = "1"},
-                        new SelectListItem {  Text = "Female", Value = "2"},
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
             ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-
+            
             return View(model);
 
         }
@@ -474,7 +491,7 @@ namespace TutorOnline.Web.Controllers
         public ActionResult ForgotPassword(ForgotViewModel model)
         {
             UserLoginInfo data = URes.checkEmailLogin(model.Email);
-            if(data != null)
+            if (data != null)
             {
                 string newpass = GeneratePassword();
                 string strFrom = UserCommonString.EmailFrom;
@@ -489,8 +506,9 @@ namespace TutorOnline.Web.Controllers
                     var user = URes.FindTutorUser(data.UserId);
                     user.Password = newpass;
                     URes.EditTutorUser(user);
-                    
-                }else if (data.RoleName == UserCommonString.Student)
+
+                }
+                else if (data.RoleName == UserCommonString.Student)
                 {
                     var user = URes.FindStudentUser(data.UserId);
                     user.Password = newpass;

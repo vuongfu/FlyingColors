@@ -609,7 +609,7 @@
                 success: function (data) {
                     CloseLoading();
                     isSaveList = true;
-                    $("#form1").unbind('submit').submit();
+                    $("#form1").submit();
                 },
                 error: function (xhr) {
                     CloseWithMess("Đã có lỗi xảy ra.");

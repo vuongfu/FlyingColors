@@ -4,111 +4,130 @@
 @{
     TranStringCommon TranString = new TranStringCommon();
     ViewBag.Title = "View Transaction";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
-
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Scripts/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="~/Scripts/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+<style>
+    .caps {
+        text-transform: uppercase;
+    }
+
+    .row-narrow {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    hr {
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .well {
+        background-color: #f1f1f1;
+    }
+</style>
 
 <section>
-    <div class="col-lg-offset-1 col-lg-10">
-        <h3> Lịch sử giao dịch</h3>
-        <hr />
-        @using (Html.BeginForm("ViewTransaction", "Student", FormMethod.Get))
-        {
-            <br />
-            <table class="row">
-                <tr>
-                    <th class="col-lg-3" style="font-weight: bold;">
-                        Nội dung giao dịch
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
-                        @TranString.StartDate
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
-                        @TranString.EndDate
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th class="col-lg-3">
-                        @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" })
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2">
-                        @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateFrom", onkeypress = "keyPressListener(event)" })
-                    </th>
-                    <th class="col-lg-offset-1 col-lg-2">
-                        @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
-                    </th>
-                    <th><input type="submit" name="Search" value="@TranString.Search" class="btn" /></th>
-                    <th><h4>Số dư: @ViewBag.Balance NVĐ</h4></th>
-                   
-                </tr>
-            </table>
-            <hr />
-            if (ViewBag.searchClick == true)
-            {
-                <h4>@ViewBag.totalRecord</h4>
-            }
+    <div class="col-lg-offset-1 col-lg-10 col-md-10 col-md-offset-1">
+        <div class="well">
+            <div class="form-group">
+                <h3 class="caps"> Lịch sử giao dịch</h3>
+                <hr />
+                @using (Html.BeginForm("ViewTransaction", "Student", FormMethod.Get))
+                {
 
-            if (Model.FirstOrDefault() != null)
-            {
-                <table class="table table-striped">
-                    <tr>
-                        <th>
-                            @TranString.Number
-                        </th>
-                        <th>
-                            @TranString.TransId
-                        </th>
-                        <th>
-                            @TranString.Content
-                        </th>
-                        <th>
-                            @TranString.Amount
-                        </th>
-                        <th>
-                            @TranString.TransDate
-                        </th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
+                    <table class="row">
                         <tr>
-                            <td>
-                                @(ViewBag.Count++)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TransactionId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Content)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TranDate)
-                            </td>
+                            <th class="col-lg-3" style="font-weight: bold;">
+                                Nội dung giao dịch
+                            </th>
+                            <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
+                                @TranString.StartDate
+                            </th>
+                            <th class="col-lg-offset-1 col-lg-2" style="font-weight: bold;">
+                                @TranString.EndDate
+                            </th>
+                            <th></th>
+                            <th></th>
                         </tr>
+                        <tr>
+                            <th class="col-lg-3">
+                                @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" })
+                            </th>
+                            <th class="col-lg-offset-1 col-lg-2">
+                                @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateFrom", onkeypress = "keyPressListener(event)" })
+                            </th>
+                            <th class="col-lg-offset-1 col-lg-2">
+                                @Html.TextBox("EndDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateTo", onkeypress = "keyPressListener(event)" })
+                            </th>
+                            <th><input type="submit" name="Search" value="@TranString.Search" class="btn" /></th>
+                            <th><h4>Số dư: @ViewBag.Balance</h4></th>
+
+                        </tr>
+                    </table>
+                    <hr />
+                    if (ViewBag.searchClick == true)
+                    {
+                        <h4>@ViewBag.totalRecord</h4>
                     }
 
-                </table>
-                <br />
-                <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
-                @Html.PagedListPager(Model, page => Url.Action("ViewTransaction", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
-            }
-        }
+                    if (Model.FirstOrDefault() != null)
+                    {
+                        <table class="table table-striped">
+                            <tr>
+                                <th>
+                                    @TranString.Number
+                                </th>
+                                <th>
+                                    @TranString.TransId
+                                </th>
+                                <th>
+                                    @TranString.Content
+                                </th>
+                                <th>
+                                    @TranString.Amount
+                                </th>
+                                <th>
+                                    @TranString.TransDate
+                                </th>
+                            </tr>
+                            @foreach (var item in Model)
+                    {
+                                <tr>
+                                    <td>
+                                        @(ViewBag.Count++)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransactionId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Content)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TranDate)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                        <br />
+                        <div>@TranString.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @TranString.Of @Model.PageCount @TranString.Page1</div>
+                        @Html.PagedListPager(Model, page => Url.Action("ViewTransaction", new { page, searchString = ViewBag.SearchStr, roleString = ViewBag.RoleStr, Startdate = ViewBag.StartDate, EndDate = ViewBag.EndDate }))
+                    }
+                }                
+            </div>
+        </div>
         <a class="btn btn-success navbar-btn" href="@Url.Action("index", "Student")">Quay lại</a>
     </div>
 </section>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
-
 <script>
 
     var startDate, endDate;
@@ -154,11 +173,7 @@
 
     });
 
-    $("#dateFrom").datepicker({ dateFormat: "dd/mm/yy" });
-    $("#dateTo").datepicker({ dateFormat: "dd/mm/yy" });
-
     $('.datepicker').datepicker({
-        format: 'd/M/yyyy',
         showOtherMonths: true,
         selectOtherMonths: true,
         forceParse: false,

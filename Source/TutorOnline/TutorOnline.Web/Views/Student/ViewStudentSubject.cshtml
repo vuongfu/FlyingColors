@@ -4,7 +4,7 @@
 <link href="~/Content/entry-main.css" rel="stylesheet" />
 @{
     ViewBag.title = "view Student Subject";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
 <style>
     body {
@@ -13,7 +13,7 @@
 .center{
     font-weight: bold;
     text-align: center !important;
-    }
+    }  
     hr {
     display: block;
     height: 1px;
@@ -67,7 +67,7 @@
                     }
                 </div>
             }
-            <div class="col-lg-12"><a class="btn btn-success navbar-btn" href="@Url.Action("Index", "Student")">Quay lại</a></div>
+            <div class="col-lg-12"><a class="btn btn-success navbar-btn" href="@Url.Action("ViewSchedule", "Student")">Quay lại</a></div>
         }
         else
         {
