@@ -81,6 +81,7 @@ namespace TutorOnline.Business.Repository
             {
                 slot.Status = 5;
                 slot.CanReason = reason;
+                slot.StudentId = null;
                 _dbContext.Entry(slot).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }
