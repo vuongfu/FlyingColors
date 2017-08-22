@@ -305,39 +305,39 @@ INSERT INTO [Status] (Status) VALUES ('stusubject_finish');
 INSERT INTO [Status] (Status) VALUES ('schedule_available');
 
 --Insert data to Parent table
-INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Nguyễn Văn',N'Lang',1975-9-24,1,N'số 20 đường Kim Đồng','parent1@gmail.com','parent1','parent1','parent1',N'Hà Nội',null,N'Việt Nam','0123456789',0,null,null);
-INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Trần Thị',N'Linh',1970-8-23,2,N'số 30 đường Kim Mã','parent2@gmail.com','parent2','parent2','parent2',N'Hà Nội',null,N'Việt Nam','0123789456',0,null,null);
+INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Nguyễn Văn',N'Lang',1975-9-24,1,N'số 20 đường Kim Đồng','parent1@gmail.com','parent1','parent1','parent1',N'Hà Nội',null,N'Vietnam','0123456789',0,null,null);
+INSERT INTO [Parent] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (5,N'Trần Thị',N'Linh',1970-8-23,2,N'số 30 đường Kim Mã','parent2@gmail.com','parent2','parent2','parent2',N'Hà Nội',null,N'Vietnam','0123789456',0,null,null);
 
 --Insert data to Student table
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,1,N'Nguyễn Đức',N'Hùng',2000-3-3,1,N'số 20 đường Kim Đồng','student1@gmail.com','student1','student1','student1',N'Hà Nội',null,N'Việt Nam','01364294938',3100000,null,null);
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,2,N'Trần Thị',N'Duyên',2001-3-1,2,N'số 30 đường Kim Mã','student2@gmail.com','student2','student2','student2',N'Hà Nội',null,N'Việt Nam','01212594938',500000,null,null);
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,null,N'Trần Đức',N'Nam',1999-7-23,1,N'số 151 đường Giải Phóng','student3@gmail.com','student3','student3','student3',N'Hà Nội',null,N'Việt Nam','01632544938',0,null,null);
-INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,null,N'Trần Thị',N'Lan',2000-6-15,2,N'số 421 đường Trường Chinh','student4@gmail.com','student4','student4','student4',N'Hà Nội',null,N'Việt Nam','01472594938',0,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,1,N'Nguyễn Đức',N'Hùng',2000-3-3,1,N'số 20 đường Kim Đồng','student1@gmail.com','student1','student1','student1',N'Hà Nội',null,N'Vietnam','01364294938',3100000,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,2,N'Trần Thị',N'Duyên',2001-3-1,2,N'số 30 đường Kim Mã','student2@gmail.com','student2','student2','student2',N'Hà Nội',null,N'Vietnam','01212594938',500000,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,null,N'Trần Đức',N'Nam',1999-7-23,1,N'số 151 đường Giải Phóng','student3@gmail.com','student3','student3','student3',N'Hà Nội',null,N'Vietnam','01632544938',0,null,null);
+INSERT INTO [Student] (RoleId,ParentId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,Photo,[Description]) VALUES (6,null,N'Trần Thị',N'Lan',2000-6-15,2,N'số 421 đường Trường Chinh','student4@gmail.com','student4','student4','student4',N'Hà Nội',null,N'Vietnam','01472594938',0,null,null);
 --Insert data to Tutor table
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Nguyễn Đức',N'Trung',1983-3-3,1,N'số 3 Trần Duy Hưng','tutor1@gmail.com','tutor1','tutor1','tutor1',N'Hà Nội',null,N'Việt Nam','01635464938',120000,'9876543210',120000,null,null,N'ngân hàng Tiên Phong','tutor1',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Trần Thị',N'Châu',1986-9-3,2,N'số 124 Hoàng Quốc Việt','tutor2@gmail.com','tutor2','tutor2','tutor2',N'Hà Nội',null,N'Việt Nam','01635594998',0,'9876598210',150000,null,null,N'ngân hàng Vietcombank','tutor2',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Nguyễn Ngọc',N'Anh',1980-9-1,2,N'số 87 Lê Lai','tutor3@gmail.com','tutor3','tutor3','tutor3',N'Hải Phòng',null,N'Việt Nam','01635594998',0,'9877498210',100000,null,null,N'ngân hàng Techcombank','tutor3',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Đỗ Mạnh',N'Cường',1983-7-25,1,N'số 54 Trường Chinh','tutor4@gmail.com','tutor4','tutor4','tutor4',N'Hà Nội',null,N'Việt Nam','01632594978',0,'9146543210',200000,null,null,N'ngân hàng Quân đội','tutor4',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Lý Thị',N'Linh',1985-1-23,2,N'số 98 Lê Văn Lương','tutor5@gmail.com','tutor5','tutor5','tutor5',N'Hà Nội',null,N'Việt Nam','01636594998',0,'9876592560',200000,null,null,N'ngân hàng Nông nghiệp','tutor5',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Nguyễn Minh',N'Quang',1986-4-25,1,N'số 8 Trần Duy Hưng','tutor6@gmail.com','tutor6','tutor6','tutor6',N'Hà Nội',null,N'Việt Nam','01632231938',0,'9716543210',150000,null,null,N'ngân hàng Tiên Phong','tutor6',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Nguyễn Đức',N'Trung',1983-3-3,1,N'số 3 Trần Duy Hưng','tutor1@gmail.com','tutor1','tutor1','tutor1',N'Hà Nội',null,N'Vietnam','01635464938',120000,'9876543210',120000,null,null,N'ngân hàng Tiên Phong','tutor1',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Trần Thị',N'Châu',1986-9-3,2,N'số 124 Hoàng Quốc Việt','tutor2@gmail.com','tutor2','tutor2','tutor2',N'Hà Nội',null,N'Vietnam','01635594998',0,'9876598210',150000,null,null,N'ngân hàng Vietcombank','tutor2',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Nguyễn Ngọc',N'Anh',1980-9-1,2,N'số 87 Lê Lai','tutor3@gmail.com','tutor3','tutor3','tutor3',N'Hải Phòng',null,N'Vietnam','01635594998',0,'9877498210',100000,null,null,N'ngân hàng Techcombank','tutor3',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Đỗ Mạnh',N'Cường',1983-7-25,1,N'số 54 Trường Chinh','tutor4@gmail.com','tutor4','tutor4','tutor4',N'Hà Nội',null,N'Vietnam','01632594978',0,'9146543210',200000,null,null,N'ngân hàng Quân đội','tutor4',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Lý Thị',N'Linh',1985-1-23,2,N'số 98 Lê Văn Lương','tutor5@gmail.com','tutor5','tutor5','tutor5',N'Hà Nội',null,N'Vietnam','01636594998',0,'9876592560',200000,null,null,N'ngân hàng Nông nghiệp','tutor5',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (7,N'Nguyễn Minh',N'Quang',1986-4-25,1,N'số 8 Trần Duy Hưng','tutor6@gmail.com','tutor6','tutor6','tutor6',N'Hà Nội',null,N'Vietnam','01632231938',0,'9716543210',150000,null,null,N'ngân hàng Tiên Phong','tutor6',1);
 
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Ngọc',N'Ninh',1986-2-28,1,N'số 17 Quán Thánh','tutor7@gmail.com','tutor7','tutor7','tutor7',N'Hà Nội',null,N'Việt Nam','01675394938',0,'9876253210',0,null,null,N'ngân hàng Tiên Phong','tutor7',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Đức',N'Giang',1979-5-30,1,N'số 45 Phạm Văn Đồng','tutor8@gmail.com','tutor8','tutor8','tutor8',N'Hải Phòng',null,N'Việt Nam','01789694938',0,'9276543210',0,null,null,N'ngân hàng Nông nghiệp','tutor8',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Thị',N'Hà',1984-10-30,2,N'số 475 Nguyễn Văn Linh','tutor9@gmail.com','tutor9','tutor9','tutor9',N'Hà Nội',null,N'Việt Nam','01732494938',0,'9276543232',0,null,null,N'ngân hàng Nông nghiệp','tutor9',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Thị',N'Hằng',1983-11-12,2,N'số 35 Nguyễn Trãi','tutor10@gmail.com','tutor10','tutor10','tutor10',N'Hà Nội',null,N'Việt Nam','01714494938',0,'9276585232',0,null,null,N'ngân hàng Vietcombank','tutor10',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Thị',N'Huyền',1982-1-12,2,N'số 75 Nguyễn Trãi','tutor11@gmail.com','tutor11','tutor11','tutor11',N'Hà Nội',null,N'Việt Nam','01717794938',0,'9276775232',0,null,null,N'ngân hàng Vietcombank','tutor11',1);
-INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Minh',N'Hoàng',1980-7-1,1,N'số 44 Nguyễn Văn Linh','tutor12@gmail.com','tutor12','tutor12','tutor12',N'Hà Nội',null,N'Việt Nam','01717794978',0,'9276775252',0,null,null,N'ngân hàng Vietcombank','tutor12',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Ngọc',N'Ninh',1986-2-28,1,N'số 17 Quán Thánh','tutor7@gmail.com','tutor7','tutor7','tutor7',N'Hà Nội',null,N'Vietnam','01675394938',0,'9876253210',0,null,null,N'ngân hàng Tiên Phong','tutor7',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Đức',N'Giang',1979-5-30,1,N'số 45 Phạm Văn Đồng','tutor8@gmail.com','tutor8','tutor8','tutor8',N'Hải Phòng',null,N'Vietnam','01789694938',0,'9276543210',0,null,null,N'ngân hàng Nông nghiệp','tutor8',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Thị',N'Hà',1984-10-30,2,N'số 475 Nguyễn Văn Linh','tutor9@gmail.com','tutor9','tutor9','tutor9',N'Hà Nội',null,N'Vietnam','01732494938',0,'9276543232',0,null,null,N'ngân hàng Nông nghiệp','tutor9',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Thị',N'Hằng',1983-11-12,2,N'số 35 Nguyễn Trãi','tutor10@gmail.com','tutor10','tutor10','tutor10',N'Hà Nội',null,N'Vietnam','01714494938',0,'9276585232',0,null,null,N'ngân hàng Vietcombank','tutor10',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Thị',N'Huyền',1982-1-12,2,N'số 75 Nguyễn Trãi','tutor11@gmail.com','tutor11','tutor11','tutor11',N'Hà Nội',null,N'Vietnam','01717794938',0,'9276775232',0,null,null,N'ngân hàng Vietcombank','tutor11',1);
+INSERT INTO [Tutor] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,SkypeId,UserName,[Password],City,PostalCode,Country,PhoneNumber,Balance,BankId,Salary,Photo,[Description],BankName,BMemName,isActived) VALUES (8,N'Nguyễn Minh',N'Hoàng',1980-7-1,1,N'số 44 Nguyễn Văn Linh','tutor12@gmail.com','tutor12','tutor12','tutor12',N'Hà Nội',null,N'Vietnam','01717794978',0,'9276775252',0,null,null,N'ngân hàng Vietcombank','tutor12',1);
 
 																																																								
 --Insert data to BackendUser table
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,N'Nguyễn Huy',N'Phát',1995-1-23,1,N'số 85 đại lộ Tôn Đức Thắng','systemadmin1@gmail.com','systemadmin1','systemadmin1',N'Hải Phòng',N'Việt Nam','0947003988',null,N'Pine cool ngầu');
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,N'Nguyễn Bảo',N'Long',1995-4-29,1,N'số 11 ga Hà Đông','systemadmin2@gmail.com','systemadmin2','systemadmin2',N'Hà Nội',N'Việt Nam','01632594938',null,N'Long lạnh lùng');
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,N'Nông Thị Hoài',N'Thương',1995-9-1,2,N'số 6 đồi số 6','supporter1@gmail.com','supporter1','supporter1',N'Cao Bằng','Việt Nam','0123888888',null,N'Thương xinh đẹp');
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,N'Nguyễn Thị Khánh',N'Huyền',1994-9-2,2,N'số 18 làng Quan Họ','supporter2@gmail.com','supporter2','supporter2',N'Bắc Ninh',N'Việt Nam','0123666666',null,N'Huyền xinh đẹp');
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,N'Trần Viết',N'Vương',1995-8-31,1,N'số 8 đường Hoàng Hoa Thám','accountant1@gmai.com','accountant1','accountant1',N'Quảng Nam',N'Việt Nam','01666432971',null,N'Vương đẹp trai');
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,N'Võ Thế',N'Lâm',1995-7-5,1,N'số 126 Lê Lợi','accountant2@gmail.com','accountant2','accountant2',N'Quảng Bình',N'Việt Nam','01659849505',null,N'Lâm đẹp trai');
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,N'Nguyễn Ngọc',N'Anh',1994-9-22,2,N'182 Chùa Hàng','manager1@gmail.com','manager1','manager1',N'Hải Phòng',N'Việt Nam','01653917952',null,N'Ngọc Anh xinh đẹp');		
-INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,N'Bạch San',N'San',2001-7-4,2,N'190 Nguyễn Thị Minh Khai','manager2@gmail.com','manager2','manager2',N'Buôn Mê Thuột',N'Việt Nam','01636118187',null,N'San San xinh đẹp');	
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,N'Nguyễn Huy',N'Phát',1995-1-23,1,N'số 85 đại lộ Tôn Đức Thắng','systemadmin1@gmail.com','systemadmin1','systemadmin1',N'Hải Phòng',N'Vietnam','0947003988',null,null);
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (1,N'Nguyễn Bảo',N'Long',1995-4-29,1,N'số 11 ga Hà Đông','systemadmin2@gmail.com','systemadmin2','systemadmin2',N'Hà Nội',N'Vietnam','01632594938',null,null);
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,N'Nông Thị Hoài',N'Thương',1995-9-1,2,N'số 6 đồi số 6','supporter1@gmail.com','supporter1','supporter1',N'Cao Bằng','Vietnam','0123888888',null,null);
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (2,N'Nguyễn Thị Khánh',N'Huyền',1994-9-2,2,N'số 18 làng Quan Họ','supporter2@gmail.com','supporter2','supporter2',N'Bắc Ninh',N'Vietnam','0123666666',null,null);
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,N'Trần Viết',N'Vương',1995-8-31,1,N'số 8 đường Hoàng Hoa Thám','accountant1@gmai.com','accountant1','accountant1',N'Quảng Nam',N'Vietnam','01666432971',null,null);
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (3,N'Võ Thế',N'Lâm',1995-7-5,1,N'số 126 Lê Lợi','accountant2@gmail.com','accountant2','accountant2',N'Quảng Bình',N'Vietnam','01659849505',null,null);
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,N'Nguyễn Ngọc',N'Anh',1994-9-22,2,N'182 Chùa Hàng','manager1@gmail.com','manager1','manager1',N'Hải Phòng',N'Vietnam','01653917952',null,null);		
+INSERT INTO [BackendUser] (RoleId,LastName,FirstName,BirthDate,Gender,[Address],Email,UserName,[Password],City,Country,PhoneNumber,Photo,[Description]) VALUES (4,N'Bạch San',N'San',2001-7-4,2,N'190 Nguyễn Thị Minh Khai','manager2@gmail.com','manager2','manager2',N'Buôn Mê Thuột',N'Vietnam','01636118187',null,null);	
 	
 --Insert data to MaterialumentType table
 INSERT INTO [MaterialType] (MaterialTypeName) VALUES ('pdf');
@@ -454,89 +454,89 @@ INSERT INTO TutorSubject (SubjectId,TutorId,Status,Experience) VALUES (2,12,7,N'
 
 
 --Insert data to Question table
-INSERT INTO Question (Content,LessonId) VALUES (N'ue',1);
-INSERT INTO Question (Content,LessonId) VALUES (N'kaki',1);
-INSERT INTO Question (Content,LessonId) VALUES (N'koe',1);
-INSERT INTO Question (Content,LessonId) VALUES (N'えき',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: ue',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: kaki',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: koe',1);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: えき',1);
 INSERT INTO Question (Content,LessonId) VALUES (N'いけ',1);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'keisatsu',2);
-INSERT INTO Question (Content,LessonId) VALUES (N'tokei',2);
-INSERT INTO Question (Content,LessonId) VALUES (N'asa',2);
-INSERT INTO Question (Content,LessonId) VALUES (N'くつ',2);
-INSERT INTO Question (Content,LessonId) VALUES (N'せき',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: keisatsu',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: tokei',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: asa',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: くつ',2);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: せき',2);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'ano sakana',3);
-INSERT INTO Question (Content,LessonId) VALUES (N'nani',3);
-INSERT INTO Question (Content,LessonId) VALUES (N'niku',3);
-INSERT INTO Question (Content,LessonId) VALUES (N'たいせつ',3);
-INSERT INTO Question (Content,LessonId) VALUES (N'ちかてつ',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: ano sakana',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: nani',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: niku',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: たいせつ',3);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ちかてつ',3);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'yasumi',4);
-INSERT INTO Question (Content,LessonId) VALUES (N'moshi moshi',4);
-INSERT INTO Question (Content,LessonId) VALUES (N'yakiniku',4);
-INSERT INTO Question (Content,LessonId) VALUES (N'ともだち',4);
-INSERT INTO Question (Content,LessonId) VALUES (N'さむい',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: yasumi',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: moshi moshi',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: yakiniku',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ともだち',4);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: さむい',4);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'yakitori',5);
-INSERT INTO Question (Content,LessonId) VALUES (N'sumimasen',5);
-INSERT INTO Question (Content,LessonId) VALUES (N'kuruma',5);
-INSERT INTO Question (Content,LessonId) VALUES (N'せんたく',5);
-INSERT INTO Question (Content,LessonId) VALUES (N'わたし',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: yakitori',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: sumimasen',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: kuruma',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: せんたく',5);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: わたし',5);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'hajime mashite  ',6);
-INSERT INTO Question (Content,LessonId) VALUES (N'shinbun',6);
-INSERT INTO Question (Content,LessonId) VALUES (N'denwa',6);
-INSERT INTO Question (Content,LessonId) VALUES (N'すごいですね',6);
-INSERT INTO Question (Content,LessonId) VALUES (N'ぎんざ',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: hajime mashite  ',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: shinbun',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: denwa',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: すごいですね',6);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ぎんざ',6);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'okyakusan',7);
-INSERT INTO Question (Content,LessonId) VALUES (N'kanojo',7);
-INSERT INTO Question (Content,LessonId) VALUES (N'ocha',7);
-INSERT INTO Question (Content,LessonId) VALUES (N'しゅくだい',7);
-INSERT INTO Question (Content,LessonId) VALUES (N'かいしゃ',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: okyakusan',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: kanojo',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: ocha',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: しゅくだい',7);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: かいしゃ',7);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'roppyakuen',8);
-INSERT INTO Question (Content,LessonId) VALUES (N'yūmei',8);
-INSERT INTO Question (Content,LessonId) VALUES (N'chūgoku',8);
-INSERT INTO Question (Content,LessonId) VALUES (N'がっこう',8);
-INSERT INTO Question (Content,LessonId) VALUES (N'いっかい',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: roppyakuen',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: yūmei',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ hiragana tương ứng của chữ: chūgoku',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: がっこう',8);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: いっかい',8);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'kukkī',9);
-INSERT INTO Question (Content,LessonId) VALUES (N'kokekokkō',9);
-INSERT INTO Question (Content,LessonId) VALUES (N'kēki',9);
-INSERT INTO Question (Content,LessonId) VALUES (N'コーク',9);
-INSERT INTO Question (Content,LessonId) VALUES (N'キック',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: kukkī',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: kokekokkō',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: kēki',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: コーク',9);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: キック',9);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'テキスト',10);
-INSERT INTO Question (Content,LessonId) VALUES (N'デザート',10);
-INSERT INTO Question (Content,LessonId) VALUES (N'kēsu',10);
-INSERT INTO Question (Content,LessonId) VALUES (N'sōsēji',10);
-INSERT INTO Question (Content,LessonId) VALUES (N'uisukī',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: テキスト',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: デザート',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: kēsu',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: sōsēji',10);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: uisukī',10);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'supīdo',11);
-INSERT INTO Question (Content,LessonId) VALUES (N'hītā',11);
-INSERT INTO Question (Content,LessonId) VALUES (N'nōto',11);
-INSERT INTO Question (Content,LessonId) VALUES (N'ネクタイ',11);
-INSERT INTO Question (Content,LessonId) VALUES (N'パスタ',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: supīdo',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: hītā',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: nōto',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ネクタイ',11);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: パスタ',11);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'roppyakuen',12);
-INSERT INTO Question (Content,LessonId) VALUES (N'gamu',12);
-INSERT INTO Question (Content,LessonId) VALUES (N'mōtā',12);
-INSERT INTO Question (Content,LessonId) VALUES (N'ハム',12);
-INSERT INTO Question (Content,LessonId) VALUES (N'ヨット',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: roppyakuen',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: gamu',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: mōtā',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ハム',12);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ヨット',12);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'supōtsukurabu',13);
-INSERT INTO Question (Content,LessonId) VALUES (N'emēru',13);
-INSERT INTO Question (Content,LessonId) VALUES (N'hoteru',13);
-INSERT INTO Question (Content,LessonId) VALUES (N'レストラン',13);
-INSERT INTO Question (Content,LessonId) VALUES (N'カラオケ',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: supōtsukurabu',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: emēru',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: hoteru',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: レストラン',13);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: カラオケ',13);
                                                 
-INSERT INTO Question (Content,LessonId) VALUES (N'kyanseru',14);
-INSERT INTO Question (Content,LessonId) VALUES (N'fairu',14);
-INSERT INTO Question (Content,LessonId) VALUES (N'waishatsu',14);
-INSERT INTO Question (Content,LessonId) VALUES (N'ピョンヤン',14);
-INSERT INTO Question (Content,LessonId) VALUES (N'フィリピン',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: kyanseru',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: fairu',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ katakana tương ứng của chữ: waishatsu',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: ピョンヤン',14);
+INSERT INTO Question (Content,LessonId) VALUES (N'Chọn chữ romaji tương ứng của chữ: フィリピン',14);
 
 
 --Insert data to Answer table
