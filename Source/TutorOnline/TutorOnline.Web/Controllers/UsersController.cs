@@ -244,6 +244,21 @@ namespace TutorOnline.Web.Controllers
                     ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
                     return View(userViewModel);
                 }
+
+                if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được tải ảnh đại diện có dung lượng dưới 10MB.";
+
+                    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", userViewModel.RoleId);
+                    ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
+                    return View(userViewModel);
+                }
             }
 
 
@@ -402,6 +417,21 @@ namespace TutorOnline.Web.Controllers
                     }, "Value", "Text");
 
                     TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", model.RoleID);
+                    ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
+                    return View(model);
+                }
+
+                if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được tải ảnh đại diện có dung lượng dưới 10MB.";
 
                     ViewBag.RoleID = new SelectList(URes.GetAllRole().Take(4), "RoleId", "RoleName", model.RoleID);
                     ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");

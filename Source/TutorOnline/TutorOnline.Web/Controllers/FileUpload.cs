@@ -18,6 +18,21 @@ namespace TutorOnline.Web.Controllers
         public static string DocPath = HttpContext.Current.Server.MapPath("~\\Content" + DirSeparator + "Uploads" + DirSeparator + "Documents" + DirSeparator);
         public enum TypeUpload { image , document };
 
+        public static int maxLengthImg = 10485760;
+        public static int maxLengthDoc = 26214400;
+
+        public static bool checkSizeFile(HttpPostedFileBase file, TypeUpload type)
+        {
+            var fileSize = file.ContentLength;
+            if(type == TypeUpload.document)
+            {
+                return (maxLengthDoc >= fileSize);
+            }else
+            {
+                return (maxLengthImg >= fileSize);
+            }
+        }
+
         public static string UploadFile(HttpPostedFileBase file, TypeUpload Type)
         {
             // Check if we have a file
