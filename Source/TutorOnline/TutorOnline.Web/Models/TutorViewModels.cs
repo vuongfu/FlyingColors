@@ -175,10 +175,12 @@ namespace TutorOnline.Web.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -191,6 +193,7 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Giới tính:")]
         public int Gender { get; set; }
 
+        [StringLength(300, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Địa chỉ:")]
         public string Address { get; set; }
 
@@ -200,9 +203,11 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Quốc gia:")]
         public string Country { get; set; }
 
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Mã vùng:")]
         public string potalCode { get; set; }
 
+        [StringLength(24, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
@@ -210,18 +215,23 @@ namespace TutorOnline.Web.Models
         [Display(Name = "Ảnh:")]
         public string Photo { get; set; }
 
+        [StringLength(100, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Skype:")]
         public string skypeId { get; set; }
 
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Mô tả:")]
         public string Description { get; set; }
 
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Số tài khoản:")]
         public string BankId { get; set; }
 
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Tên ngân hàng:")]
         public string BankName { get; set; }
 
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Người thụ hưởng:")]
         public string BMemName { get; set; }
 

@@ -134,7 +134,7 @@ namespace TutorOnline.Web.Controllers
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("ViewSchedule", "Tutor") : ReturnUrl);
                         return Redirect(url);
                     }
-                    else if(RoleName == UserCommonString.PreTutor)
+                    else if (RoleName == UserCommonString.PreTutor)
                     {
                         string url = (String.IsNullOrEmpty(ReturnUrl) ? Url.Action("RegistTutorSubject", "Tutor") : ReturnUrl);
                         return Redirect(url);
@@ -291,10 +291,34 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
                         ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-                        TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";                      
+                        TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
                         return View(model);
+                    }
 
-                        
+                    if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                    {
+                        TempData["messageWarning"] = "Bạn chỉ được tải ảnh đại diện có dung lượng dưới 10MB.";
+                        if (model.RoleId != null)
+                        {
+                            ViewBag.isSelectedRole = model.RoleId;
+                        }
+                        if (!String.IsNullOrEmpty(model.Email))
+                        {
+                            ViewBag.RegisterLoginSocial = true;
+                            ViewBag.Email = model.Email;
+                        }
+
+                        ViewBag.RoleId = new SelectList(URes.GetAllRole().OrderByDescending(x => x.RoleId).Where(x => x.RoleName == UserCommonString.Parent
+                        || x.RoleName == UserCommonString.PreTutor || x.RoleName == UserCommonString.Student), "RoleId", "RoleName", model.RoleId);
+                        ViewBag.ParentId = new SelectList(URes.GetAllParent(), "ParentId", "ParentName");
+                        ViewBag.Country = new SelectList(GetAllCountries(), "Key", "Key");
+                        ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+                        ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");                        
+                        return View(model);
                     }
                 }
 
@@ -320,7 +344,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
                     ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-                    TempData["messageWarning"] = "Tên đăng nhập hoặc Email đã tồn tại.";                    
+                    TempData["messageWarning"] = "Tên đăng nhập hoặc Email đã tồn tại.";
                     return View(model);
                 }
                 string roleName = URes.GetAllRole().FirstOrDefault(x => x.RoleId == model.RoleId).RoleName;
@@ -438,7 +462,7 @@ namespace TutorOnline.Web.Controllers
                         new SelectListItem {  Text = "Nữ", Value = "2"},
                     }, "Value", "Text");
             ViewBag.TutorSubjectId = new SelectList(URes.GetAllTutorSubject(), "SubjectId", "SubjectName");
-            
+
             return View(model);
 
         }

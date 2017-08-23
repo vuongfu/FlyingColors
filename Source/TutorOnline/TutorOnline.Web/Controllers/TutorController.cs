@@ -772,6 +772,7 @@ namespace TutorOnline.Web.Controllers
         {
             if (file != null)
             {
+               
                 if (!IsImage(file))
                 {
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
@@ -781,6 +782,19 @@ namespace TutorOnline.Web.Controllers
                     }, "Value", "Text");
 
                     TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    return View(model);
+                }
+
+                if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được tải ảnh đại diện có dung lượng dưới 10MB.";
 
                     return View(model);
                 }

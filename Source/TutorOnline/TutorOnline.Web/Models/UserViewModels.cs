@@ -218,10 +218,12 @@ namespace TutorOnline.Web.Models
         public string RoleName { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -235,9 +237,11 @@ namespace TutorOnline.Web.Models
         public int Gender { get; set; }
 
         [Display(Name = "Địa chỉ:")]
+        [StringLength(300, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Address { get; set; }
 
         [Display(Name = "Email:")]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Email { get; set; }
 
         [Display(Name = "Thành phố:")]
@@ -247,6 +251,7 @@ namespace TutorOnline.Web.Models
         public string Country { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
 
@@ -254,9 +259,11 @@ namespace TutorOnline.Web.Models
         public string Photo { get; set; }
 
         [Display(Name = "Mô tả:")]
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Description { get; set; }
 
         [Display(Name = "Tên đăng nhập:")]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Username { get; set; }
 
         public DetailBackEndUserViewModels()
@@ -566,10 +573,12 @@ namespace TutorOnline.Web.Models
         public int RoleId { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -581,10 +590,12 @@ namespace TutorOnline.Web.Models
         public int Gender { get; set; }
 
         [Display(Name = "Địa chỉ:")]
+        [StringLength(300, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
@@ -599,6 +610,7 @@ namespace TutorOnline.Web.Models
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Số điện thoại:")]
+        [StringLength(24, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string PhoneNumber { get; set; }
 
 
@@ -606,6 +618,7 @@ namespace TutorOnline.Web.Models
         public string Photo { get; set; }
 
         [Display(Name = "Miêu tả:")]
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
@@ -633,12 +646,14 @@ namespace TutorOnline.Web.Models
         public string RoleName { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Họ:")]
         public string LastName { get; set; }
 
         public int? ParentId { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Tên:")]
         public string FirstName { get; set; }
 
@@ -651,10 +666,12 @@ namespace TutorOnline.Web.Models
         public int Gender { get; set; }
 
         [Display(Name = "Địa chỉ:")]
+        [StringLength(300, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
@@ -662,16 +679,19 @@ namespace TutorOnline.Web.Models
         public string City { get; set; }
 
         [Display(Name = "Mã vùng:")]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string PostalCode { get; set; }
 
         [Display(Name = "Quốc gia:")]
         public string Country { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(24, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Số điện thoại:")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
+        [StringLength(100, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [Display(Name = "Skype")]
         public string SkypeId { get; set; }
 
@@ -679,10 +699,12 @@ namespace TutorOnline.Web.Models
         public string Photo { get; set; }
 
         [Display(Name = "Miêu tả:")]
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
         [Display(Name = "Tên đăng nhập:")]
+        [StringLength(100, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = UserCommonString.RequiredMess)]
@@ -697,12 +719,15 @@ namespace TutorOnline.Web.Models
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Số tài khoản:")]
+        [StringLength(50, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string BankID { get; set; }
 
         [Display(Name = "Tên ngân hàng:")]
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string BankName { get; set; }
 
         [Display(Name = "Người thụ hưởng:")]
+        [StringLength(200, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string BMemName { get; set; }
 
         List<TutorSubjectRegisterViewModel> listSubject { get; set; }

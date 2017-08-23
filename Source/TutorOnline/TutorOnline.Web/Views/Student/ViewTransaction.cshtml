@@ -55,7 +55,7 @@
                         </tr>
                         <tr>
                             <th class="col-lg-3">
-                                @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.TextBox("Content", null, htmlAttributes: new { @class = "form-control" , maxlength = "200" })
                             </th>
                             <th class="col-lg-offset-1 col-lg-2">
                                 @Html.TextBox("StartDate", null, htmlAttributes: new { @class = "form-control datepicker", id = "dateFrom", onkeypress = "keyPressListener(event)" })

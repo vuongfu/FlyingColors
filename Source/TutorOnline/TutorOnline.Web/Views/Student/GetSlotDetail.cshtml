@@ -210,7 +210,7 @@
                                     <b>Nhận xét:</b>
                                 </div>
                                 <div class="col-md-5 col-sm-5">
-                                    <textarea class="form-control" style="width:100%;" id="CommentFeedback" name="CommentFeedback" rows="5">@(Model.Comment == null ? "" : Model.Comment)</textarea>
+                                    <textarea class="form-control" style="width:100%;" id="CommentFeedback" maxlength="1000" name="CommentFeedback" rows="5">@(Model.Comment == null ? "" : Model.Comment)</textarea>
                                 </div>
                             </div>
                         </div>
