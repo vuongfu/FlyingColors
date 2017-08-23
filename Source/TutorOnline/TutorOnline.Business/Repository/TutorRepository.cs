@@ -181,6 +181,12 @@ namespace TutorOnline.Business.Repository
             return data;
         }
 
+        public StudentFeedback FindFeedbackForTutor(int scheduleId)
+        {
+            var data = _dbContext.StudentFeedbacks.FirstOrDefault(x => x.ScheduleId == scheduleId);
+            return data;
+        }
+
         public IEnumerable<Criterion> getCriteriaForLesson(int lessonId)
         {
             var temp = _dbContext.Criteria.Where(x => x.LessonId == lessonId);
