@@ -426,7 +426,7 @@ namespace TutorOnline.Web.Controllers
                 model.CriteriaId = dataForCriteId;
                 model.CriteriaContent = dataForCriteContent;
                 model.ScheduleDate = data.OrderDate;
-                var feedback = TurRes.FindFeedbackForStudent(id);
+                var feedback = TurRes.FindFeedbackForTutor(id);
                 model.Comment = "";
                 if (feedback != null)
                     model.Comment = feedback.Comment;
@@ -755,7 +755,7 @@ namespace TutorOnline.Web.Controllers
 
                 try
                 {
-                    DateTime SDate = DateTime.ParseExact(StartDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    DateTime SDate = DateTime.ParseExact(StartDate, "d-M-yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("SDate = " + SDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date >= SDate.Date).ToList();
                 }
@@ -763,7 +763,7 @@ namespace TutorOnline.Web.Controllers
 
                 try
                 {
-                    DateTime EDate = DateTime.ParseExact(EndDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    DateTime EDate = DateTime.ParseExact(EndDate, "d-M-yyyy", CultureInfo.InvariantCulture);
                     new LogWriter("EDate = " + EDate.ToString());
                     ListTrans = ListTrans.Where(s => s.TranDate.Date <= EDate.Date).ToList();
                 }

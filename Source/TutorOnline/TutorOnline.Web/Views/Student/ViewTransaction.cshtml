@@ -172,11 +172,16 @@
         }
 
     });
+    
+    //$('#dateFrom').datepicker().datepicker("setDate", new Date());
+    //$("#dateTo").datepicker().datepicker("setDate", new Date());
+    //$("#dateFrom").datepicker.regional[""].dateFormat = 'dd/mm/yy';
+    //$("#dateFrom").datepicker("setDate", new Date());
 
     $('.datepicker').datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
-        forceParse: false,
+        forceParse: true,
         onSelect: function (dateText, inst) {
             var id = inst.id;
             var startDateStr = $('#dateTo').val();
@@ -232,7 +237,7 @@
     function convertDate(inputFormat) {
         function pad(s) { return (s < 10) ? '0' + s : s; }
         var d = new Date(inputFormat);
-        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
     }
 
     function keyPressListener(e) {

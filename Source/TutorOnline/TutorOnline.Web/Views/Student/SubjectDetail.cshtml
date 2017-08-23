@@ -5,19 +5,16 @@
 
 <style>
         #imgBanner {
-      background-image: url("../Image/banner.jpg");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       display: inline;
       float: left;
-      height: 300px;
-      margin-top: 77px;
-      padding: 118px 0;
+      height: 120px;
       text-align: center;
       width: 100%;
     }
     #imgBanner h2 {
-      color: #fff;
+      color: #333;
       font-size: 72px;
       font-weight: bold;
       text-align: center;
@@ -306,7 +303,14 @@
             .rating:not(:hover) > :checked ~ label:before{
                 opacity: 1;
             }
-
+hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
 </style>
 <script src="~/Scripts/jquery-3.1.1.js"></script>
 @{
@@ -448,7 +452,9 @@
 <body>
     <section id="imgBanner">
         <h2>Chi Tiết Khóa Học</h2>
+        <hr />
     </section>
+    
     <div id="courseArchive">
         <div class="container">
             <div class="row">
