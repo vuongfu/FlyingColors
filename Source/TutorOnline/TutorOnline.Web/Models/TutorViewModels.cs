@@ -19,6 +19,18 @@ namespace TutorOnline.Web.Models
         public string subjectName { get; set; }
         public string experiences { get; set; }
     }
+
+    public class StudentFeedbacks
+    {
+        public int StudentFeedbackId { get; set; }
+        public int TutorId { get; set; }
+        //public int StudentId { get; set; }
+        //public int ScheduleId { get; set; }
+        //public Nullable<int> LessonId { get; set; }
+        //public System.DateTime FeedbackDate { get; set; }
+        public int Rate { get; set; }
+        public string Comment { get; set; }
+    }
     public class TutorInfoViewModels
     {
         public int TutorId { get; set; }
@@ -50,6 +62,8 @@ namespace TutorOnline.Web.Models
         public List<TutorSubjectViewModels> tutorSub { get; set; }
         public List<TutorSubjectViewModels> newTutorSub { get; set; }
         public List<int> newTusubId { get; set; }
+
+        public List<StudentFeedbacks> lstStuFb { get; set; }
     }
 
     public class BookedSlotByStudent

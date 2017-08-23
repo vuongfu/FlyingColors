@@ -126,6 +126,36 @@
                             </table>
                             <hr/>
                         }
+                        <h4 style="color:deepskyblue">Những phản hồi nổi bật trong tháng của gia sư</h4>
+                        @if (Model.lstStuFb.Count != 0)
+                        {
+                            int fbcount = 1;
+                            foreach (var item in Model.lstStuFb)
+                            {
+                                <div class="panel panel-primary" style="width: 600px;">
+                                    <div class="panel-heading">
+                                        <span class="glyphicon glyphicon-comment" style="color: #00ff21;"></span> Phản hồi @fbcount
+                                    </div>
+                                    <div class="panel-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="comment">Đánh giá: @Html.DisplayFor(modelItem => item.Rate)</label>
+                                                <br />
+                                                <label for="comment">Nhận xét:</label>
+                                                <textarea class="form-control" rows="5" style="min-width:100%;" disabled>@Html.DisplayFor(modelItem => item.Comment)</textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                fbcount += 1;
+                            }
+                            <br/>
+                            <h4 style="color: #000000;"><span class="glyphicon glyphicon-hand-right" style="color: #00ff21;"></span> <strong> Đánh giá trung bình:</strong> @ViewBag.average</h4>
+                        }
+                        else
+                        {
+                            <h5 style="color: black;"><strong>Không có đánh giá nào trong tháng dành cho gia sư.</strong></h5>
+                        }
                     </div>
                 </div>
             </div>

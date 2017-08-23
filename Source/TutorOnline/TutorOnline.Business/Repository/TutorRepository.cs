@@ -218,6 +218,14 @@ namespace TutorOnline.Business.Repository
             _dbContext.Entry(data).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
+
+        //Manager view tutor's feedbacks functions
+        public IEnumerable<StudentFeedback> GetStudentFeedbackInThisMonth(int tutorId)
+        {
+            var temp = _dbContext.StudentFeedbacks.Where(x => x.TutorId == tutorId && (x.FeedbackDate.Month == DateTime.Now.Month && x.FeedbackDate.Year == DateTime.Now.Year));
+            return temp;
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();
