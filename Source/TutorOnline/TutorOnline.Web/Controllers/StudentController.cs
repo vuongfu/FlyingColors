@@ -372,6 +372,15 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
+            Schedule Sche = ScheRes.GetAllStudentSchedule(int.Parse(Request.Cookies["UserInfo"]["UserId"])).OrderBy(s => s.OrderDate).FirstOrDefault();
+            int TurFBId = Sche.TutorFeedbacks.FirstOrDefault().TutorFeedbackId;
+            TutorFeedback TurFB = FBRes.GetAllTutorFeedBack().Where(s => s.TutorFeedbackId == TurFBId).FirstOrDefault();
+            if(TurFB.TestResult != score)
+            {
+                TurFB.TestResult = score;
+                FBRes.EditTutorFeedBack(TurFB);
+            }
+
             return Json(new { registeredSubject = "Bạn đã trả lời đúng " + score + " trên " + Result.ListAnswer.Count + " câu." });
         }
 
@@ -651,7 +660,7 @@ namespace TutorOnline.Web.Controllers
                 BookedSlot temp = new BookedSlot();
                 temp.Status = week0.ElementAt(i).Status;
                 temp.tableSlotId = SlotOfWeek0[i];
-                if (temp.Status != 11)
+                if (temp.Status != 11 && temp.Status != 5)
                 {
                     temp.ScheduleId = week0.ElementAt(i).ScheduleId;
                     temp.TutorName = week0.ElementAt(i).Tutor.FirstName;

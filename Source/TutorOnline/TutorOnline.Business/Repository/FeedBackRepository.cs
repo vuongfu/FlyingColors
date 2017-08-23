@@ -40,6 +40,12 @@ namespace TutorOnline.Business.Repository
             return data;
         }
 
+        public void EditTutorFeedBack(TutorFeedback data)
+        {
+            _dbContext.Entry(data).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();
