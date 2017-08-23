@@ -90,9 +90,9 @@
                     <th class="col-lg-offset-1 col-lg-1"></th>
                 </tr>
                 <tr>
-                    <td>@Html.DropDownList("CategoryId", null, "Tất cả", htmlAttributes: new { @class = "form-control", id = "ChooseCate" })</td>
-                    <td>@Html.DropDownList("SubjectId", null, "Tất cả", htmlAttributes: new { @class = "form-control" , id = "ChooseSub"})</td>
-                    <td><input type="submit" value="Tìm kiếm" class="btn btn-success" /></td>
+                    <td class="col-lg-2">@Html.DropDownList("CategoryId", null, "Tất cả", htmlAttributes: new { @class = "form-control", id = "ChooseCate" })</td>
+                    <td class="col-lg-offset-1 col-lg-2">@Html.DropDownList("SubjectId", null, "Tất cả", htmlAttributes: new { @class = "form-control" , id = "ChooseSub"})</td>
+                    <td class="col-lg-offset-1 col-lg-1"><input type="submit" value="Tìm kiếm" class="btn btn-success" /></td>
                 </tr>
             </table>
     }
