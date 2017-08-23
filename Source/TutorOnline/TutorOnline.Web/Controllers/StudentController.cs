@@ -654,7 +654,7 @@ namespace TutorOnline.Web.Controllers
         [HttpPost]
         public ActionResult GetBookedSlot(DateTime startDate, DateTime endDate, int StudentId)
         {
-            var week0 = StuRes.GetAllSlotBookedByStudent(startDate, endDate, StudentId);
+            var week0 = StuRes.GetAllSlotBookedByStudent(startDate, endDate.AddHours(12), StudentId);
             List<BookedSlot> returnData = new List<BookedSlot>();
             List<string> SlotOfWeek0 = MapEntityToModel(week0, startDate);
 
