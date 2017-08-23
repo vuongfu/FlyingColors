@@ -327,8 +327,11 @@ namespace TutorOnline.Web.Controllers
         }
 
         public ActionResult Test(int? LessonId)
-        {
+        {            
             List<QuestionTestViewModels> listQuest = new List<QuestionTestViewModels>();
+            var lesson = LesRes.FindLesson(LessonId);
+            ViewBag.SubjectId = lesson.SubjectId;
+
             if (LessonId != null)
             {
                 var list = QuesRes.GetAllLesQuestion(LessonId).ToList();
@@ -338,7 +341,7 @@ namespace TutorOnline.Web.Controllers
                     temp.Content = item.Content;
                     temp.LessonId = item.LessonId;
                     temp.Photo = item.Photo;
-                    temp.QuestionId = item.QuestionId;
+                    temp.QuestionId = item.QuestionId;                    
                     temp.ListAnswer = AnsRes.GetAllAnswers(item.QuestionId).ToList();
                     listQuest.Add(temp);
                 }
