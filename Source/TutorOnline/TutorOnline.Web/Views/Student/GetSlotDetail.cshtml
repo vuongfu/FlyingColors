@@ -524,7 +524,9 @@
                 success: function(data) {
                     if(data.BookSlot == true){
                         CloseWithMess("Hủy đặt thành công.");
-                        window.location.href = '/Student/ViewSchedule';
+                        document.getElementById("btnCloseSaveModal").onclick = function () {
+                            window.location.href = '/Student/ViewSchedule';
+                        }                        
                     } else {
                         CloseWithMess(data.Message);
                     }
