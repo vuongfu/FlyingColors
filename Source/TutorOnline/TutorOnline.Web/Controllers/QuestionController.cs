@@ -111,6 +111,14 @@ namespace TutorOnline.Web.Controllers
                         ViewBag.subId = model.SubjectId;
                         return View(model);
                     }
+                    if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                    {
+                        TempData["messageWarning"] = new ManagerStringCommon().checkFilesizeImage.ToString();
+                        ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName", model.LessonId);
+                        ViewBag.lesId = model.LessonId;
+                        ViewBag.subId = model.SubjectId;
+                        return View(model);
+                    }
                 }
                 
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
@@ -211,6 +219,14 @@ namespace TutorOnline.Web.Controllers
                 if (!IsImage(file))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isNotSupportImageType.ToString();
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
+                    ViewBag.lesId = model.LessonId;
+                    ViewBag.subId = subId;
+                    return View(model);
+                }
+                if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().checkFilesizeImage.ToString();
                     ViewBag.LessonId = new SelectList(LRes.GetLesInSub(subId), "LessonId", "LessonName", model.LessonId);
                     ViewBag.lesId = model.LessonId;
                     ViewBag.subId = subId;

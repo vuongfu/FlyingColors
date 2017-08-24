@@ -14,6 +14,7 @@ namespace TutorOnline.Web.Models
 
         [Required(ErrorMessage ="Hãy nhập nội dung câu hỏi.")]
         [DataType(DataType.MultilineText)]
+        [StringLength(500, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string Content { get; set; }
         public Nullable<int> LessonId { get; set; }
         public string lessonName { get; set; }

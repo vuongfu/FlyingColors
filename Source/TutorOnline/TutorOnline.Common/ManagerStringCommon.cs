@@ -47,6 +47,8 @@ namespace TutorOnline.Common
         public string requireUploadFileInSub = "Hãy tải tệp tài liệu học tập lên cho khóa học!";
         public string requireUploadFileInLes = "Hãy tải tệp tài liệu học tập lên cho bài học";
         public string isNotSupportMaterialType = "Hiện tại hệ thống chỉ cho phép tải lên những loại tệp tin có đuôi .PDF, .DOCX, .MP3 . Vui lòng chuyển tệp tin của bạn sang định dạng cho phép hoặc tải lên tệp tin khác.";
+        public string checkFilesizeDoc = "Bạn chỉ được tải lên tài liệu có dung lượng dưới 25MB.";
+        public string checkFilesizeImage = "Bạn chỉ được tải lên tài liệu có dung lượng dưới 10MB.";
 
         public string isExistQuestionName = "Nội dung câu hỏi đã tồn tại trong bài học này. Hãy nhập nội dung khác!";
         public string isExistQuestionLink = "Link bài tập tham khảo đã tồn tại trong khóa học này. Hãy nhập đường link khác!";
