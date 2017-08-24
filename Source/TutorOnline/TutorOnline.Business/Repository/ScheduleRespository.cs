@@ -86,6 +86,12 @@ namespace TutorOnline.Business.Repository
             }
         }
 
+        public Schedule getSlotOfTutor(int tutorId, int OrderSlot, DateTime OrderDate)
+        {
+            Schedule slot = _dbContext.Schedules.FirstOrDefault(x => x.TutorId == tutorId && x.OrderSlot == OrderSlot && x.OrderDate == OrderDate);
+            return slot;
+        }
+
         public void UpdateSlot(Schedule slot)
         {
             _dbContext.Entry(slot).State = EntityState.Modified;
