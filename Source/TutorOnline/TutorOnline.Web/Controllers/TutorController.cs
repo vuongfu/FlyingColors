@@ -117,6 +117,35 @@ namespace TutorOnline.Web.Controllers
 
             SchRes.CancelSlot(tempData.TutorId, int.Parse(tempData.OrderSlot), tempData.OrderDate, reason);
 
+
+            var currentSlot = SchRes.getSlotOfTutor(tempData.TutorId, int.Parse(tempData.OrderSlot), tempData.OrderDate);
+
+            string strFrom = UserCommonString.EmailFrom;
+            string strPass = UserCommonString.EmailPass;
+            string strTo1 = currentSlot.Student.Email;
+            string strSubject = "Tutor Online - Hủy tiết học";
+            string strBodyStudent = "Xin chào " + currentSlot.Student.FirstName + ",<br /><br />";
+            strBodyStudent += "Rất tiếc khi phải thông báo tiết học vào slot " + tempData.OrderSlot + " ngày " + tempData.OrderDate + " đã bị hủy bởi gia sư bới lý do: \""+ reason + "\". <br />Chúng tôi thực sự xin lỗi về việc này. <br />";
+            strBodyStudent += "Xin hãy liên lạc với gia sư theo email: " + currentSlot.Tutor.Email + " hoặc theo skype: "+currentSlot.Tutor.SkypeId+ " để sắp xếp lịch dạy bù.<br /><br />";
+            strBodyStudent += "Thanks and best regard,<br />Tutor Online";
+            ccMailClass.sendMail_UseGmail(strFrom, strPass, strTo1, strSubject, strBodyStudent);
+
+            string strTo2 = currentSlot.Tutor.Email;
+            string strBodyTutor = "Xin chào " + currentSlot.Tutor.FirstName + ",<br /><br />";
+            strBodyTutor += "Bạn đã hủy dạy tiết học vào slot " + tempData.OrderSlot + " ngày " + tempData.OrderDate + ". <br />";
+            strBodyTutor += "Xin hãy liên lạc với học sinh theo email: " + currentSlot.Student.Email + " hoặc skype: " + currentSlot.Student.SkypeId + " để sắp xếp lịch dạy bù.<br /><br />";
+            strBodyStudent += "Thanks and best regard,<br />Tutor Online";
+            ccMailClass.sendMail_UseGmail(strFrom, strPass, strTo2, strSubject, strBodyTutor);
+            
+
+            Transaction dataTrans = new Transaction();
+            dataTrans.Amount = 0 - currentSlot.Price /2;
+            dataTrans.Content = "Phạt tiền vì hủy slot " + currentSlot.OrderSlot + ", ngày " + currentSlot.OrderDate.ToShortDateString();
+            dataTrans.TranDate = DateTime.Now;
+            dataTrans.UserID = currentSlot.TutorId;
+            dataTrans.UserType = 2;
+            AccRes.Add(dataTrans);
+
             return Json("Hủy thành công", JsonRequestBehavior.AllowGet);
         }
 
@@ -772,6 +801,7 @@ namespace TutorOnline.Web.Controllers
         {
             if (file != null)
             {
+               
                 if (!IsImage(file))
                 {
                     ViewBag.Gender = new SelectList(new List<SelectListItem>
@@ -781,6 +811,19 @@ namespace TutorOnline.Web.Controllers
                     }, "Value", "Text");
 
                     TempData["messageWarning"] = "Bạn chỉ được chọn 1 trong các loại file sau: png, jpg, jpeg, gif.";
+
+                    return View(model);
+                }
+
+                if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                {
+                    ViewBag.Gender = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem {  Text = "Nam", Value = "1"},
+                        new SelectListItem {  Text = "Nữ", Value = "2"},
+                    }, "Value", "Text");
+
+                    TempData["messageWarning"] = "Bạn chỉ được tải ảnh đại diện có dung lượng dưới 10MB.";
 
                     return View(model);
                 }

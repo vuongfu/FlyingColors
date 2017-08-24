@@ -82,6 +82,23 @@ namespace TutorOnline.Web.Controllers
                 return View();
             }
 
+            if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.document))
+            {
+                TempData["messageWarning"] = new ManagerStringCommon().checkFilesizeDoc.ToString();
+                if (model.SubjectId != null && model.LessonId == null)
+                {
+                    ViewBag.SubjectId = new SelectList(SRes.GetAllSubject(), "SubjectId", "SubjectName");
+                    ViewBag.subId = model.SubjectId;
+
+                }
+                else
+                {
+                    ViewBag.LessonId = new SelectList(LRes.GetLesInSub(LRes.FindLesson(model.LessonId).Subject.SubjectId), "LessonId", "LessonName");
+                    ViewBag.lesId = model.LessonId;
+                }
+                return View();
+            }
+
             LearningMaterial material = new LearningMaterial();
             //Mapping Entity to ViewModel
             material.MaterialUrl = model.MaterialUrl;

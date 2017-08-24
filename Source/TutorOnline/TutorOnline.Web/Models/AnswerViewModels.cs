@@ -10,6 +10,7 @@ namespace TutorOnline.Web.Models
         public int AnswerId { get; set; }
 
         [Required (ErrorMessage = "Hãy nhập nội dung câu trả lời.")]
+        [StringLength(500, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 

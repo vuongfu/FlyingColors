@@ -110,6 +110,12 @@ namespace TutorOnline.Web.Controllers
                         ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName", model.CategoryId);
                         return View(model);
                     }
+                    if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                    {
+                        TempData["messageWarning"] = new ManagerStringCommon().checkFilesizeImage.ToString();
+                        ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName", model.CategoryId);
+                        return View(model);
+                    }
                 }
 
                 string photoUrl = FileUpload.UploadFile(file, FileUpload.TypeUpload.image);
@@ -204,6 +210,12 @@ namespace TutorOnline.Web.Controllers
                 if (!IsImage(file))
                 {
                     TempData["messageWarning"] = new ManagerStringCommon().isNotSupportImageType.ToString();
+                    ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
+                    return View(model);
+                }
+                if (!FileUpload.checkSizeFile(file, FileUpload.TypeUpload.image))
+                {
+                    TempData["messageWarning"] = new ManagerStringCommon().checkFilesizeImage.ToString();
                     ViewBag.CategoryId = new SelectList(CRes.GetAllCategories().OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
                     return View(model);
                 }

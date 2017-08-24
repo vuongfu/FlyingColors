@@ -13,6 +13,7 @@ namespace TutorOnline.Web.Models
 
         [Required (ErrorMessage = "Hãy nhập nội dung tiêu chí đánh giá.")]
         [DataType(DataType.MultilineText)]
+        [StringLength(255, ErrorMessage = "{0} chứa tối đa {1} ký tự.")]
         public string CriteriaName { get; set; }
         public int LessonId { get; set; }
         public int RoleId { get; set; }

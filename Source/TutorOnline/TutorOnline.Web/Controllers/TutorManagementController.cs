@@ -193,6 +193,34 @@ namespace TutorOnline.Web.Controllers
 
             model.newTutorSub = newTutorSubModel.OrderBy(x => x.subjectName).ToList();
 
+            //StudentFeedback
+            List<StudentFeedback> lstStuFeedback = Tres.GetStudentFeedbackInThisMonth(tutor.TutorId).ToList();
+            List<StudentFeedbacks> lstStuFeedbackModel = new List<StudentFeedbacks>();
+            int rate = 0;
+            for (int i = 0; i < lstStuFeedback.Count(); i++)
+            {
+                StudentFeedback entity = new StudentFeedback();
+                entity = lstStuFeedback[i];
+                if (entity != null)
+                {
+                    StudentFeedbacks fb = new StudentFeedbacks();
+
+                    fb.StudentFeedbackId = entity.StudentFeedbackId;
+                    fb.TutorId = entity.TutorId;
+                    fb.Rate = entity.Rate;
+                    fb.Comment = entity.Comment;
+
+                    rate += entity.Rate;
+
+                    lstStuFeedbackModel.Add(fb);
+                }
+            }
+
+            model.lstStuFb = lstStuFeedbackModel.OrderBy(x => x.Rate).Take(6).ToList();
+            if (lstStuFeedback.Count != 0)
+                ViewBag.average = Convert.ToInt32(rate / lstStuFeedback.Count);
+            else
+                ViewBag.average = 0;
             return View(model);
         }
         public ActionResult PretutorIndex(string btnSearch, string searchString, string cateString, int? page)
