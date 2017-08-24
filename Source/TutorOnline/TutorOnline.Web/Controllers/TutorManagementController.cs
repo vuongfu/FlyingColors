@@ -216,8 +216,11 @@ namespace TutorOnline.Web.Controllers
                 }
             }
 
-            model.lstStuFb = lstStuFeedbackModel.OrderBy(x => x.Rate).ToList();
-            ViewBag.average = Convert.ToInt32(rate/lstStuFeedback.Count);
+            model.lstStuFb = lstStuFeedbackModel.OrderBy(x => x.Rate).Take(6).ToList();
+            if (lstStuFeedback.Count != 0)
+                ViewBag.average = Convert.ToInt32(rate / lstStuFeedback.Count);
+            else
+                ViewBag.average = 0;
             return View(model);
         }
         public ActionResult PretutorIndex(string btnSearch, string searchString, string cateString, int? page)
