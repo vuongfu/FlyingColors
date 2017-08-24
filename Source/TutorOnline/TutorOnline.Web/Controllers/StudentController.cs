@@ -668,8 +668,9 @@ namespace TutorOnline.Web.Controllers
                     temp.ScheduleId = week0.ElementAt(i).ScheduleId;
                     temp.TutorName = week0.ElementAt(i).Tutor.FirstName;
                     temp.LessonName = week0.ElementAt(i).Lesson.LessonName;
+                    returnData.Add(temp);
                 }
-                returnData.Add(temp);
+                
             }
 
             return Json(returnData, JsonRequestBehavior.AllowGet);
