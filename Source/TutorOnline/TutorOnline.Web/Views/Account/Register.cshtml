@@ -511,6 +511,7 @@
         getListValueSelected();
         resortListSubject();
         count++;
+        isSaveList = false;
 
         countId++;
         if (count >= maxSub) {
@@ -563,14 +564,14 @@
     }
 
     function checkSelect() {
-        $('select').on('change', function () {
+        $('.slSubject').on('change', function () {
             $('option').prop('disabled', false); //reset all the disabled options on every change event
-            $('select').each(function () { //loop through all the select elements
+            $('.slSubject').each(function () { //loop through all the select elements
                 var val = this.value;
                 var index = jQuery.inArray(val, listSelectedValue)
                 listSelectedValue.splice(index, 1);
 
-                $('select').not(this).find('option').filter(function () { //filter option elements having value as selected option
+                $('.slSubject').not(this).find('option').filter(function () { //filter option elements having value as selected option
                     return this.value === val;
                 }).prop('disabled', true); //disable those option elements
             });            
@@ -593,11 +594,13 @@
                 if (dataCheck == "") {
                     document.getElementById("MFb" + listSelectId[i]).innerHTML = "Xin hãy nhập kinh nghiệm";
                     isFillAllFb = false;
+                } else {
+                    document.getElementById("MFb" + listSelectId[i]).innerHTML = "";
                 }
             }
             
             if (isFillAllFb == false) {                
-                return false;
+                return;
             }
             LoadingData();
             $.ajax({
@@ -617,8 +620,5 @@
                 }
             });
         }
-        
-        
     }
-
 </script>

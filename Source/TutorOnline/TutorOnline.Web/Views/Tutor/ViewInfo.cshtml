@@ -34,7 +34,7 @@
         text-transform: uppercase;
     }
 </style>
-
+<script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
 <div class="col-md-7">
     <div class="well">
         <h4 class="caps"><strong>Thông tin tài khoản</strong></h4>
@@ -146,7 +146,19 @@
                             </tr>
                             <tr>
                                 <td class="text-right"><b>Skype:</b></td>
-                                <td class="text-left">@Html.DisplayFor(model => model.SkypeId)</td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(model => model.SkypeId)
+                                    <div id="SkypeButton_Call_live:vuongfu95_1" class="skyButton">
+                                        <script type="text/javascript">
+                                            Skype.ui({
+                                                "name": "call",
+                                                "element": "SkypeButton_Call_live:vuongfu95_1",
+                                                "participants": ["live:vuongfu95"],
+                                                "imageSize": 24
+                                            });
+                                        </script>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="text-right"><b>Số tài khoản:</b></td>
@@ -179,7 +191,7 @@
             <form id="formChgpwd" onsubmit="event.preventDefault(); ChangePass()">
                 <div class="modal-body container">
                     <div align="justify">
-                        <div class="row" style="margin-bottom:10px;">                            
+                        <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
                                 <strong>Mật khẩu cũ: </strong>
                             </div>
@@ -190,7 +202,7 @@
                         </div>
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
-                                <strong >Mật khẩu mới: </strong>
+                                <strong>Mật khẩu mới: </strong>
                             </div>
                             <div class="col-md-9 col-sm-9">
                                 <input class="form-control text-box single-line password" data-val="true" data-val-length="Mật khẩu mới: phải dài ít nhất 6 ký tự." data-val-length-max="100" data-val-length-min="6" data-val-required="Xin hãy nhập mật khẩu mới." id="NewPassword" name="NewPassword" type="password" value="" style="width:270px;">
@@ -199,13 +211,13 @@
                         </div>
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-2 col-sm-2" style="margin:5px -30px 0 30px;">
-                                <strong >Xác nhận mật khẩu: </strong>
+                                <strong>Xác nhận mật khẩu: </strong>
                             </div>
                             <div class="col-md-9 col-sm-9">
                                 <input class="form-control text-box single-line password" data-val="true" data-val-equalto="Mật khẩu mới và mật khẩu xác nhận không khớp" data-val-equalto-other="*.NewPassword" id="ConfirmPassword" name="ConfirmPassword" type="password" value="" style="width:270px;">
                                 <span class="field-validation-valid text-danger" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
 
                 </div>
@@ -223,7 +235,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-@Html.Partial("_LoadingData")  
+@Html.Partial("_LoadingData")
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
@@ -239,7 +251,7 @@
             return false;
         }
 
-        
+
         document.getElementById("btnCloseChangePassModal").click();
         LoadingData();
 
