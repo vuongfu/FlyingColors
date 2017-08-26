@@ -580,7 +580,7 @@ namespace TutorOnline.Web.Controllers
                 Tres.ApprovedTutorSubject(subId);
                 TempData["message"] = new ManagerStringCommon().approvedTutorSubjectSuccess.ToString();
             }
-            return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId }); 
+            return RedirectToAction("DetailsTutorSignMoreSub", "TutorManagement", new { id = tuId });
         }
         public ActionResult RejectedSubject(int? tusubId, int? tuId)
         {
