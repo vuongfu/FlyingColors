@@ -582,8 +582,8 @@
     var isSaveList = false;
 
     function SubmitRegister(evt) {             
-        
-        if (isSaveList == false) {
+        var roleId = $("#RoleId").val();
+        if (isSaveList == false && roleId == 8) {
             evt.preventDefault();
             listExp.length = 0;
             getListValueSelected();
