@@ -4,6 +4,46 @@
     ViewBag.Title = "Chi tiết gia sư";
     Layout = "~/Views/Shared/_Layout_BackendUser.cshtml";
 }
+<style>
+    .rating {
+        overflow: hidden;
+        vertical-align: bottom;
+        display: inline-block;
+        width: auto;
+        height: 20px;
+        margin-right: 60px;
+    }
+
+        .rating > input {
+            opacity: 0;
+            margin-right: -100%;
+        }
+
+        .rating > label {
+            position: relative;
+            display: block;
+            float: right;
+            background: url('/Image/star-off-big.png');
+            background-size: 20px 20px;
+        }
+
+            .rating > label:before {
+                display: block;
+                opacity: 0;
+                content: '';
+                width: 20px;
+                height: 20px;
+                background: url('/Image/star-on-big.png');
+                background-size: 20px 20px;
+                transition: opacity 0.2s linear;
+            }
+
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating:not(:hover) > :checked ~ label:before {
+                opacity: 1;
+            }
+</style>
 
 <div class="container-fluid">
     <div class="row">
@@ -89,8 +129,8 @@
                                 <td><strong>Lương/1 buổi dạy:</strong></td>
                                 <td class="text-left" style="padding-right: 300px;">
                                     @Html.DisplayFor(model => model.Salary) VNĐ
-                                    <p/>
-                                    <input type="button" class="btn btn-info" id="btnSalary" value="Chỉnh sửa"/>
+                                    <p />
+                                    <input type="button" class="btn btn-info" id="btnSalary" value="Chỉnh sửa" />
                                     <p id="msgSalary" style="color: orangered"></p>
                                     <input type="number" id="salarytbox" name="salaryTextBox" style="display:none" placeholder="Hãy nhập số tiền..." required>
                                     <input type="button" class="btn btn-success" id="btnSaEdited" style="display:none; margin-top:10px;" value="Cập nhật" onclick="EditSalary()" />
@@ -124,7 +164,7 @@
                                     <td class="text-left" style="padding-right: 300px;">@Html.DisplayFor(modelItem => item.experiences)</td>
                                 </tr>
                             </table>
-                            <hr/>
+                            <hr />
                         }
                         <h4 style="color:deepskyblue">Những phản hồi nổi bật trong tháng của gia sư</h4>
                         @if (Model.lstStuFb.Count != 0)
@@ -139,7 +179,21 @@
                                     <div class="panel-body">
                                         <form>
                                             <div class="form-group">
-                                                <label for="comment">Đánh giá: @Html.DisplayFor(modelItem => item.Rate)</label>
+                                                <label for="comment">
+                                                    Đánh giá:
+                                                    <span class="rating" style="margin-left:-50px;">
+                                                        <input id="(@fbcount)5" type="radio" name="@fbcount" value="5" @(item.Rate == 5 ? "checked" : "") disabled>
+                                                        <label for="(@fbcount)5">5</label>
+                                                        <input id="(@fbcount)4" type="radio" name="@fbcount" value="4" @(item.Rate == 4 ? "checked" : "") disabled>
+                                                        <label for="(@fbcount)4">4</label>
+                                                        <input id="(@fbcount)3" type="radio" name="@fbcount" value="3" @(item.Rate == 3 ? "checked" : "") disabled>
+                                                        <label for="(@fbcount)3">3</label>
+                                                        <input id="(@fbcount)2" type="radio" name="@fbcount" value="2" @(item.Rate == 2 ? "checked" : "") disabled>
+                                                        <label for="(@fbcount)2">2</label>
+                                                        <input id="(@fbcount)1" type="radio" name="@fbcount" value="1" @(item.Rate == 1 ? "checked" : "") disabled>
+                                                        <label for="(@fbcount)1">1</label>
+                                                    </span>
+                                                </label>
                                                 <br />
                                                 <label for="comment">Nhận xét:</label>
                                                 <textarea class="form-control" rows="5" style="min-width:100%;" disabled>@Html.DisplayFor(modelItem => item.Comment)</textarea>
@@ -149,8 +203,24 @@
                                 </div>
                                 fbcount += 1;
                             }
-                            <br/>
-                            <h4 style="color: #000000;"><span class="glyphicon glyphicon-hand-right" style="color: #00ff21;"></span> <strong> Điểm đánh giá trung bình của tháng:</strong> @ViewBag.average</h4>
+                            <br />
+                            <h4 style="color: #000000;">
+                                <span class="glyphicon glyphicon-hand-right" style="color: #00ff21;">
+                                </span>
+                                <strong> Điểm đánh giá trung bình của tháng:</strong> 
+                                <span class="rating" style="margin-left:-50px;">
+                                    <input id="05" type="radio" name="0" value="5" @(ViewBag.average == 5 ? "checked" : "") disabled>
+                                    <label for="05">5</label>
+                                    <input id="04" type="radio" name="0" value="4" @(ViewBag.average == 4 ? "checked" : "") disabled>
+                                    <label for="04">4</label>
+                                    <input id="03" type="radio" name="0" value="3" @(ViewBag.average == 3 ? "checked" : "") disabled>
+                                    <label for="03">3</label>
+                                    <input id="02" type="radio" name="0" value="2" @(ViewBag.average == 2 ? "checked" : "") disabled>
+                                    <label for="02">2</label>
+                                    <input id="01" type="radio" name="0" value="1" @(ViewBag.average == 1 ? "checked" : "") disabled>
+                                    <label for="01">1</label>
+                                </span>
+                            </h4>
                         }
                         else
                         {
