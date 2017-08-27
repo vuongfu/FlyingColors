@@ -203,10 +203,13 @@ namespace TutorOnline.Web.Controllers
             List<Tutor> ListTutor = URes.GetAllTutorUser().Where(s => s.Balance > 0).ToList();
 
             List<TransactionViewModels> ListTrans = new List<TransactionViewModels>();
+            List<PaymentViewModels> ListPay = new List<PaymentViewModels>();
 
             foreach(Tutor item in ListTutor)
             {
                 TransactionViewModels temp = new TransactionViewModels();
+                PaymentViewModels Payment = new PaymentViewModels();
+
                 temp.Amount = (int)item.Balance * -1;
                 temp.Content = "Trả lương cho gia sư " + item.UserName;
                 temp.Name = item.LastName + " " + item.FirstName;
@@ -215,6 +218,18 @@ namespace TutorOnline.Web.Controllers
                 temp.UserID = item.TutorId;
                 temp.UserTypeName = UserCommonString.Tutor;
                 ListTrans.Add(temp);
+
+                Payment.Amount = (int)item.Balance;
+                Payment.Content = "Trả lương cho gia sư " + item.UserName;
+                Payment.Name = item.LastName + " " + item.FirstName;
+                Payment.TranDate = DateTime.Now;
+                Payment.UserName = item.UserName;
+                Payment.UserID = item.TutorId;
+                Payment.UserTypeName = UserCommonString.Tutor;
+                Payment.BankId = item.BankId;
+                Payment.BankName = item.BankName;
+                Payment.BMemName = item.BMemName;
+                ListPay.Add(Payment);
 
                 Transaction Trans = new Transaction();
                 Trans = MapCreateViewToTrans(temp);
@@ -235,15 +250,21 @@ namespace TutorOnline.Web.Controllers
                 worksheet.Cells[1, 5].Value = TranString.Account;
                 worksheet.Cells[1, 6].Value = TranString.UserType;
                 worksheet.Cells[1, 7].Value = TranString.Name;
-                for (int i = 0; i < ListTrans.Count(); i++)
+                worksheet.Cells[1, 8].Value = "Tên ngân hàng";
+                worksheet.Cells[1, 9].Value = "Số tài khoản";
+                worksheet.Cells[1, 10].Value = "Tên tài khoản";
+                for (int i = 0; i < ListPay.Count(); i++)
                 {
                     worksheet.Cells[i + 2, 1].Value = i + 1;
-                    worksheet.Cells[i + 2, 2].Value = ListTrans[i].Content.ToString();
-                    worksheet.Cells[i + 2, 3].Value = ListTrans[i].Amount.ToString();
-                    worksheet.Cells[i + 2, 4].Value = ListTrans[i].TranDate.ToString();
-                    worksheet.Cells[i + 2, 5].Value = ListTrans[i].UserName.ToString();
-                    worksheet.Cells[i + 2, 6].Value = ListTrans[i].UserTypeName.ToString();
-                    worksheet.Cells[i + 2, 7].Value = ListTrans[i].Name.ToString();
+                    worksheet.Cells[i + 2, 2].Value = ListPay[i].Content.ToString();
+                    worksheet.Cells[i + 2, 3].Value = ListPay[i].Amount.ToString();
+                    worksheet.Cells[i + 2, 4].Value = ListPay[i].TranDate.ToString();
+                    worksheet.Cells[i + 2, 5].Value = ListPay[i].UserName.ToString();
+                    worksheet.Cells[i + 2, 6].Value = ListPay[i].UserTypeName.ToString();
+                    worksheet.Cells[i + 2, 7].Value = ListPay[i].Name.ToString();
+                    worksheet.Cells[i + 2, 8].Value = ListPay[i].BankName.ToString();
+                    worksheet.Cells[i + 2, 9].Value = ListPay[i].BankId.ToString();
+                    worksheet.Cells[i + 2, 10].Value = ListPay[i].BMemName.ToString();
                 }
                 memStream = new System.IO.MemoryStream(package.GetAsByteArray());
             }

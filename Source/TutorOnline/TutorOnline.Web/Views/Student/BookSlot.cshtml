@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "BookSlot";
     Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    ViewBag.Color = 0;
 }
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
@@ -123,40 +124,42 @@
 
 </script>
 <style>
-        .column_date {
-            width: 14% !important;
+    .column_date {
+        width: 14% !important;
+    }
+
+    #library-content .col-box-one {
+        padding-right: 30px;
+    }
+
+    @@media only screen and (max-width: 978px) {
+        #library-content .col-box-two, #library-content .col-box-one {
+            padding-left: 0px;
+            padding-right: 0px;
         }
 
-        #library-content .col-box-one {
-            padding-right: 30px;
+        #library-content .col-content-box-one {
+            margin-top: 3px;
+            margin-right: 0px;
         }
 
-        @@media only screen and (max-width: 978px) {
-            #library-content .col-box-two, #library-content .col-box-one {
-                padding-left: 0px;
-                padding-right: 0px;
-            }
-
-            #library-content .col-content-box-one {
-                margin-top: 3px;
-                margin-right: 0px;
-            }
-
-            #library-content .col-content-box-two {
-                margin-left: 0px;
-                margin-top: 3px;
-            }
+        #library-content .col-content-box-two {
+            margin-left: 0px;
+            margin-top: 3px;
         }
+    }
 
-        #schedule-content .header-line {
-            margin-top: 45px;
-        }
-        .box-container{
+    #schedule-content .header-line {
+        margin-top: 25px;
+    }
+
+    .box-container {
         border: 1px solid #848484;
         padding: 38px;
-        margin-top:20px;
+        margin-top: 20px;
     }
-        .section-header-one h2{
+
+    .section-header-one h2 {
         border-top: 2px solid #848484;
         text-transform: uppercase;
         font-size: 15px;
@@ -164,163 +167,195 @@
         display: inline-block;
         margin-bottom: 22px;
     }
-        #schedule-content .box-container {
-            font-size: 15px;
-            color: #fff;
-            font-family: Arial;
+
+    #schedule-content .box-container {
+        font-size: 15px;
+        color: #fff;
+        font-family: Arial;
+    }
+
+    @@media only screen and (min-width : 320px) and (max-width : 480px) {
+        #banner img {
+            display: none;
         }
 
-        @@media only screen
-    and (min-width : 320px)
-    and (max-width : 480px) {
-        #banner img{
-            display:none;
-        }
-        #login-content .pagination > li > a, .pagination > li > span{
+        #login-content .pagination > li > a, .pagination > li > span {
             padding: 6px 10px;
         }
 
-        #login-content{
-            -webkit-box-sizing:inherit;
-            -moz-box-sizing:inherit;
+        #login-content {
+            -webkit-box-sizing: inherit;
+            -moz-box-sizing: inherit;
             box-sizing: inherit;
         }
-        #login-content .table-responsive{
-            padding:0px;
-        }
 
-        #login-content .box-container {
-            border-left:0px;
-            border-right:0px;
-        }
-        #schedule-content #teacher-carousel  .img-teacher, #schedule-content #teacher-day-carousel  .img-teacher{
+            #login-content .table-responsive {
+                padding: 0px;
+            }
+
+            #login-content .box-container {
+                border-left: 0px;
+                border-right: 0px;
+            }
+
+        #schedule-content #teacher-carousel .img-teacher, #schedule-content #teacher-day-carousel .img-teacher {
             width: 100%;
         }
-        #schedule-content #teacher-carousel .desc-teacher, #schedule-content #teacher-day-carousel .desc-teacher{
+
+        #schedule-content #teacher-carousel .desc-teacher, #schedule-content #teacher-day-carousel .desc-teacher {
             width: 100%;
             width: 250px;
-
         }
-        #schedule-content .sound-teacher img{
-            width:20px;
+
+        #schedule-content .sound-teacher img {
+            width: 20px;
         }
 
         #schedule-content .box-order-schedule {
-            display:block;
+            display: block;
         }
-        .box-container{
+
+        .box-container {
             padding: 25px;
         }
+
         #schedule-content #teacher-carousel .row, #schedule-content #teacher-day-carousel .row {
             margin-right: 15px;
             margin-left: 15px;
         }
-        section#about .nav-tabs > li{
-            width:100%;
-            float:none;
+
+        section#about .nav-tabs > li {
+            width: 100%;
+            float: none;
             text-align: left;
             border-bottom: 1px solid #fff;
         }
-        section#about .nav-tabs{
-            padding-top:0;
+
+        section#about .nav-tabs {
+            padding-top: 0;
             padding-bottom: 0;
         }
-        section#about .nav-tabs > li > a{
-            line-height: 45px;
+
+            section#about .nav-tabs > li > a {
+                line-height: 45px;
+            }
+
+        .jcarousel li {
+            height: 300px;
         }
-        .jcarousel li{
-            height:300px;
-        }
-        section#learn-train .section-header-top{
+
+        section#learn-train .section-header-top {
             background: none;
         }
-        section#learn-train .section-learn-train-title{
+
+        section#learn-train .section-learn-train-title {
             background: #FDE6D9;
-            padding:0;
-            padding-top:10px;
+            padding: 0;
+            padding-top: 10px;
         }
-        section#learn-train .section-content{
+
+        section#learn-train .section-content {
             height: auto;
         }
-        section#learn-train .sologan-one-tranning{
+
+        section#learn-train .sologan-one-tranning {
             display: none;
         }
-        section#learn-train .sologan-two-tranning{
+
+        section#learn-train .sologan-two-tranning {
             background: none;
         }
-        section#learn-train .button-resgiter{
-            right:75px;
+
+        section#learn-train .button-resgiter {
+            right: 75px;
         }
-        .section-header-three{
-            display:none;
+
+        .section-header-three {
+            display: none;
         }
-        section#teacher .col-md-3{
-            width:100%;
+
+        section#teacher .col-md-3 {
+            width: 100%;
         }
-        #sharing{
-            display:none;
+
+        #sharing {
+            display: none;
         }
-        .footer-column{
-            display:none;
+
+        .footer-column {
+            display: none;
         }
-        #connectfacebook{
-            display:none;
+
+        #connectfacebook {
+            display: none;
         }
-        .carousel-control{
-            display:none;
+
+        .carousel-control {
+            display: none;
         }
     }
+
     }
-        #tblSetup a.icon-open {
-            background: url("../img/icon_open.png") no-repeat;
-            cursor: pointer;
-            display: block;
-            height: 28px;
-            width: 96px;
-            transition: 0.4s;
+
+    #tblSetup a.icon-open {
+        background: url("../img/icon_open.png") no-repeat;
+        cursor: pointer;
+        display: block;
+        height: 28px;
+        width: 96px;
+        transition: 0.4s;
     }
-            #schedule-content .btn-booked{
-        color:#fff;
-        background:#a42532;
-        padding:4px 20px;
+
+    #schedule-content .btn-booked {
+        color: #fff;
+        background: #a42532;
+        padding: 4px 20px;
     }
-        #schedule-content .btn-open{
-        color:#fff;
-        background:#374ea2;
-        padding:4px 31px;
+
+    #schedule-content .btn-open {
+        color: #fff;
+        background: #374ea2;
+        padding: 4px 31px;
         cursor: pointer;
     }
-        #schedule-content .btn-selfbooked{
-        color:#fff;
-        background:#54b201;
-        padding:4px 31px;
+
+    #schedule-content .btn-selfbooked {
+        color: #fff;
+        background: #54b201;
+        padding: 4px 31px;
         cursor: pointer;
     }
-        .center{
-	text-align: center !important;
-}
-        .carousel {
-  position: relative;
-}
-        .carousel-inner {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
+
+    .center {
+        text-align: center !important;
+    }
+
+    .carousel {
+        position: relative;
+    }
+
+    .carousel-inner {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
 </style>
 
 @{TempData["Link"] = Request.Url.ToString(); }
 <main id="schedule-content">
-    <div class="container">
-        <section class="container">
+    <div>
+        <section>
             <div class="col-md-12 col-box-one header-line">
                 <a name="lich_de_book"></a>
                 <div class="col-md-12 section-header-one center">
-                    <h2>Xem tất cả buổi học đang có</h2>
+                    <h2>Tất cả buổi học đang có</h2>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="container" style="color: #333;padding-top:10px">
+            <div class="col-md-12 section-header-one">
+                <h3 style="text-align: right;color: #337ab7;">Số dư: @ViewBag.Balance</h3>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xs-12 box-container">
+                <div style="color: #333;padding-top:10px">
 
 
                     <div id="list-day-carousel" class="carousel slide">
@@ -332,13 +367,13 @@
                                 <div class="col-lg-12">
                                     <div class="col-lg-1">
                                         @{DateTime SelectedDate = ViewBag.SelectedDate;
-                                          String SeDate = SelectedDate.Day + "/" + SelectedDate.Month + "/" + SelectedDate.Year;}
+                                            String SeDate = SelectedDate.Day + "/" + SelectedDate.Month + "/" + SelectedDate.Year;}
                                         @if (ViewBag.Week > 0)
                                         {
-                                            
+
                                             <a href="@Url.Action("BookSlot", "Student", new { SelectedDate =  SeDate, Week = ViewBag.Week - 1, LessonId = ViewBag.LessonId, SubjectId = ViewBag.SubjectId })" style="margin: 10px;float: right;width: 40px; height: 40px; background:url('http://homeclass.vn/img/left_right.png') 0px 40px; display: block; line-height: 40px; text-align: center">&lt;</a>
                                         }
-                                        else 
+                                        else
                                         {
                                             <a href="javascript:void(0);" style="margin: 10px;float:left;width: 40px; height: 40px; background:url('http://homeclass.vn/img/left_right.png'); display: block; line-height: 40px; text-align: center">&lt;</a>
                                         }
@@ -348,42 +383,42 @@
                                         @{DateTime Date = ViewBag.Date; }
                                         @for (int i = 0; i < 7; i++)
                                         {
-                                           String id;
-                                           if (Date == ViewBag.SelectedDate)
-                                           {
-                                               id = "selected";
-                                           }
-                                           else
-                                           {
-                                               id = "none";
-                                           }
-                                            
+                                            String id;
+                                            if (Date == ViewBag.SelectedDate)
+                                            {
+                                                id = "selected";
+                                            }
+                                            else
+                                            {
+                                                id = "none";
+                                            }
+
                                             String Day = Date.Day + "/" + Date.Month;
                                             String SlotDay = Date.Day + "/" + Date.Month + "/" + Date.Year;
                                             <a href="@Url.Action("BookSlot", "Student", new { SelectedDate =  SlotDay, Week = 0, LessonId = ViewBag.LessonId, SubjectId = ViewBag.SubjectId })" data-form-method="post">
-                                                <div class="center col-md-1 column_date"  id="@id">
+                                                <div class="center col-md-1 column_date" id="@id">
                                                     @switch (Date.DayOfWeek)
                                                     {
                                                         case DayOfWeek.Monday:
-                                                            <span style="font-size: 150%;"> Thứ hai </span>
+                                                            <span style="font-size: 120%;"> Thứ hai </span>
                                                             break;
                                                         case DayOfWeek.Tuesday:
-                                                            <span style="font-size: 150%;"> Thứ ba </span>
+                                                            <span style="font-size: 120%;"> Thứ ba </span>
                                                             break;
                                                         case DayOfWeek.Wednesday:
-                                                            <span style="font-size: 150%;"> Thứ tư </span>
+                                                            <span style="font-size: 120%;"> Thứ tư </span>
                                                             break;
                                                         case DayOfWeek.Thursday:
-                                                            <span style="font-size: 150%;"> Thứ năm </span>
+                                                            <span style="font-size: 120%;"> Thứ năm </span>
                                                             break;
                                                         case DayOfWeek.Friday:
-                                                            <span style="font-size: 150%;"> Thứ sáu </span>
+                                                            <span style="font-size: 120%;"> Thứ sáu </span>
                                                             break;
                                                         case DayOfWeek.Saturday:
-                                                            <span style="font-size: 150%;"> Thứ bảy </span>
+                                                            <span style="font-size: 120%;"> Thứ bảy </span>
                                                             break;
                                                         case DayOfWeek.Sunday:
-                                                            <span style="font-size: 150%;"> Chủ nhật </span>
+                                                            <span style="font-size: 120%;"> Chủ nhật </span>
                                                             break;
                                                     }
                                                     <span style="font-size: 150%;">@Day</span>
@@ -409,104 +444,94 @@
                             color: #a42532;
                         }
                     </style>
-                    
+
                     <div id="listLichDay2015" style="margin-top: 20px">
-                        @if (Model.Count != 0) {
-                        for (int i = 0; i < Model.Count; i++)
+                        @if (Model.Count != 0)
                         {
-                            if (Model[i].ListSchedule.Count != 0)
+                            for (int i = 0; i < Model.Count; i++)
                             {
-                                <div class="col-lg-4" style="overflow: hidden;height: 535px;border:1px solid #a42532; padding: 25px 30px;border-left-width: 1px">
-                                    <div class="col-lg-6">
-                                        @if (String.IsNullOrEmpty(Model[i].Photo))
-                                        {
-                                            <a href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})")"><img src="../../Image/TutorOnline_Icon.png" width="135" height="135" alt="avatar"></a>
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})")"><img src="~/Content/Uploads/Images/@Model[i].Photo" width="135" height="135" alt="avatar"></a>
-                                        }
-                                        
-                                    </div>
-                                    <div class="col-lg-6">
-                                        @Model[i].Description
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-lg-6">
-                                        <a style="color: black;display:block;height:35px; line-height: 35px; text-align:left;font-size:15px; margin: 10px 0px" href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})")">@Model[i].Name</a>
-                                    </div>
+                                if (Model[i].ListSchedule.Count != 0)
+                                {
+                                    if (ViewBag.Color % 2 == 0)
+                                    {
+                                        @Html.Raw("<div class='col-lg-4 col-md-4' style='overflow: hidden;height: 400px;border:1px solid #a42532; padding: 25px 30px;border-left-width: 1px'>");
+                                        ViewBag.Color++;
+                                    }
+                                    else
+                                    {
+                                         @Html.Raw("<div class='col-lg-4 col-md-4' style='overflow: hidden;height: 400px;border:1px solid #a42532; padding: 25px 30px;background-color: #e1e1e1;border-left-width: 1px'>");
+                                        ViewBag.Color++;
+                                    }
 
-                                    <!-- sound -->
-                                    @*<div class="col-lg-6">
-                                            <div style="text-align: center; position: initial">
-                                                <a onclick="formsoundid(&#39;huypv_ld_1&#39;,&#39;play&#39;)" href="javascript:void(0);" style="line-height: 35px; height: 35px; margin: 10px 0px; display: inline-block;"><img src="./HomeClass - Học tiếng anh trực tuyến_files/sound.png" alt="" style="padding-left: 10px; padding-top:4px"></a>
-                                                <!-- set up the modal to start hidden and fade in and out -->
-                                                <div id="formsoundhuypv_ld_1" class="formsound modal fade" style="display: none;">
-                                                    <div class="modal-dialog color-og" style="width: 370px; margin: auto auto; top: 250px;">
-                                                        <div class="modal-content color-og">
-                                                            <!-- dialog body -->
-                                                            <div class="modal-body">
-                                                                <button type="button" class="close" onclick="formsoundid(&#39;huypv_ld_1&#39;,&#39;pause&#39;)" data-dismiss="modal">×</button>
-                                                                <audio controls="" id="sound-huypv_ld_1">
-                                                                    <source src="http://homeclass.vn/uploads/audio/voice_record_2.mp3" type="audio/mpeg">
-                                                                </audio>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>*@
-                                    <!-- sound -->
-                                    <div class="clearfix"></div>
-                                    <div>
-                                        <!-- danh sach cac buoi cua giao vien -->
+                                <div class="col-lg-6">
+                                    @if (String.IsNullOrEmpty(Model[i].Photo))
+                                    {
+                                        <a href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})" )"><img src="../../Image/TutorOnline_Icon.png" width="135" height="135" alt="avatar"></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})" )"><img src="~/Content/Uploads/Images/@Model[i].Photo" width="135" height="135" alt="avatar"></a>
+                                    }
 
-                                        @foreach (var item in Model[i].ListSchedule)
+                                </div>
+                                <div class="col-lg-6">
+                                    @Model[i].Description
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-12">
+                                    <a style="color: black;display:block;height:35px; line-height: 35px; text-align:left;font-size:15px; margin: 10px 0px" href="@Url.Action("ViewTutorInfo", "Student",new {id = Model[i].Id, SubjectId = ViewBag.SubjectId})" )">@Model[i].Name</a>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div>
+                                    <!-- danh sach cac buoi cua giao vien -->
+
+                                    @foreach (var item in Model[i].ListSchedule)
+                                    {
+                                        if (item != null)
                                         {
-                                            if (item != null)
+                                            String id = "slot_" + item.ScheduleId;
+
+                                            if (item.Status == 11)
                                             {
-                                                String id = "slot_" + item.ScheduleId;
-
-                                                if (item.Status == 11)
+                                                <a style="width: 65px; height: 25px; line-height: 25px; text-align: center; display: inline-block; margin: 0px 5px 10px 0px; padding: initial;" class="icon-open btn-open" onclick="Book(@item.ScheduleId)" id="@id"></a>
+                                            }
+                                            else
+                                            {
+                                                if (item.StudentId == ViewBag.StudentId)
                                                 {
-                                                    <a style="width: 65px; height: 25px; line-height: 25px; text-align: center; display: inline-block; margin: 0px 5px 10px 0px; padding: initial;" class="icon-open btn-open" onclick="Book(@item.ScheduleId)" id="@id"></a>
+                                                    <a style="width: 65px; height: 25px; line-height: 25px; text-align: center; display: inline-block; margin: 0px 5px 10px 0px; padding: initial;" class="icon-open btn-selfbooked" onclick="Cancel(@item.ScheduleId)" id="@id">BOOKED</a>
                                                 }
                                                 else
                                                 {
-                                                    if (item.StudentId == ViewBag.StudentId)
-                                                    {
-                                                        <a style="width: 65px; height: 25px; line-height: 25px; text-align: center; display: inline-block; margin: 0px 5px 10px 0px; padding: initial;" class="icon-open btn-selfbooked" onclick="Cancel(@item.ScheduleId)" id="@id">BOOKED</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a style="width: 65px; height: 25px; line-height: 25px; text-align: center; display: inline-block; margin: 0px 5px 10px 0px; padding: initial;" class="icon-close btn-booked" onclick="alertBookedSlot();" id="@id">BOOKED</a>
-                                                    }
+                                                    <a style="width: 65px; height: 25px; line-height: 25px; text-align: center; display: inline-block; margin: 0px 5px 10px 0px; padding: initial;" class="icon-close btn-booked" onclick="alertBookedSlot();" id="@id">BOOKED</a>
                                                 }
                                             }
                                         }
-                                    </div>
+                                    }
                                 </div>
+                            @Html.Raw("</div>");
                                 }
                             }
                         }
-                    </div>
+                        </div>
                 </div>
-            </div>
+        </div>
         </section>
-    </div>
+        </div>
+        <div style="clear:both;"></div>
+    </main>
+    <!--End -->
     <div style="clear:both;"></div>
-</main>
-<!--End -->
-<div style="clear:both;"></div>
 
-<!-- confirm -->
-<div id="confirm_book" style="display: none;">
-    <h2 style="padding-top: 15px;">Bạn muốn đặt buổi học này?</h2>
-</div>
+    <!-- confirm -->
+    <div id="confirm_book" style="display: none;">
+        <h2 style="padding-top: 15px;">Bạn muốn đặt buổi học này?</h2>
+    </div>
 
-<script>
-    $(document).ready(function(){
-        @for (int i = 0; i < Model.Count; i++)
+    <script>
+        $(document).ready(function(){
+            @for (int i = 0; i < Model.Count; i++)
         {
             foreach (var item in Model[i].ListSchedule)
             {if(item.Status == 11)
@@ -516,9 +541,9 @@
                 }
             }
         }
-    })
-    $(document).ready(function(){
-        $('#selected').css("background", "#a42532");
-    })
+        })
+        $(document).ready(function(){
+            $('#selected').css("background", "#a42532");
+        })
 
-</script>
+    </script>

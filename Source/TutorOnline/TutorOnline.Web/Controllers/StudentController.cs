@@ -485,6 +485,8 @@ namespace TutorOnline.Web.Controllers
         public ActionResult BookSlot(String SelectedDate, int Week, int LessonId, int SubjectId)
         {
             int StudentId = int.Parse(Request.Cookies["UserInfo"]["UserId"]);
+            Student Stu = StuRes.FindStudent(StudentId);
+            ViewBag.Balance = (int)Stu.Balance;
             StudentSubject StudentSubject = StuSubRes.GetSubById(SubjectId, StudentId).FirstOrDefault();
             //change to today
             DateTime Date = DateTime.Today;

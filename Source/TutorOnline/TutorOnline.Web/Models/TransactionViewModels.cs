@@ -58,4 +58,33 @@ namespace TutorOnline.Web.Models
         public int Balance { get; set; }
     }
 
+    public class PaymentViewModels
+    {
+        [Display(Name = "Mã giao dịch:")]
+        public int TransactionId { get; set; }
+        [Required(ErrorMessage = "Xin hãy điền nội dung giao dịch")]
+        [Display(Name = "Nội dung:")]
+        public string Content { get; set; }
+        [Required(ErrorMessage = "Xin hãy điền số tiền giao dịch")]
+        [Display(Name = "Số tiền:")]
+        public int Amount { get; set; }
+        [Display(Name = "ngày giờ giao dịch:")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        public System.DateTime TranDate { get; set; }
+        [Display(Name = "Số tài khoản:")]
+        public int UserID { get; set; }
+        [Display(Name = "Tên tài khoản:")]
+        public String UserName { get; set; }
+        [Display(Name = "Tên người dùng:")]
+        public String Name { get; set; }
+        [Display(Name = "Loại tài khoản:")]
+        public int UserType { get; set; }
+        [Display(Name = "Loại tài khoản:")]
+        public String UserTypeName { get; set; }
+        public TransUserViewModel User { get; set; }
+        public int Balance { get; set; }
+        public String BankId { get; set; }
+        public String BankName { get; set; }
+        public String BMemName { get; set; }
+    }
 }
