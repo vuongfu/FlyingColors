@@ -5,10 +5,10 @@
 }
 
 <style>
-    .avatarDetail {
-        width: 100px;
-        height: 100px;
-        margin: 10px auto 10px;
+    .InfoAva {
+        width: 130px;
+        height: 130px;
+        margin: 10px auto 30px;
         border-radius: 100%;
         border: 2px solid #aaa;
         background-size: contain;
@@ -29,11 +29,11 @@
             <div class="col-xs-6 col-sm-6 col-md-6" align="center">
                 @if (String.IsNullOrEmpty(Model.Tutor.Photo))
                 {
-                    <div class="avatarDetail" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
+                    <div class="InfoAva" style="background-image: url(../../Image/TutorOnline_Icon.png)"></div>
                 }
                 else
                 {
-                    <div class="avatarDetail" style="background-image: url(~/Content/Uploads/Images/@Model.Tutor.Photo)"></div>
+                    <div class="InfoAva" style="background-image: url(../../Content/Uploads/Images/@Model.Tutor.Photo)"></div>
                 }
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6" align="center">

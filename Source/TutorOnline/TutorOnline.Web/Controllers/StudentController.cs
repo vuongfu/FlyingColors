@@ -576,7 +576,7 @@ namespace TutorOnline.Web.Controllers
                 } else {
                     Transaction Tran = new Transaction();
                     Tran.Amount = Slot.Price * -1;
-                    Tran.Content = "Trừ tiền tiết học " + Slot.ScheduleId + " của học viên " + Student.UserName;
+                    Tran.Content = "Trừ tiền tiết học thứ " + Slot.OrderSlot +", ngày "+ Slot.OrderDate.Day + "/" + Slot.OrderDate.Month + "/" + Slot.OrderDate.Year + " của học viên " + Student.UserName;
                     Tran.UserID = Student.StudentId;
                     Tran.UserType = 1;
                     Tran.TranDate = DateTime.Now;
@@ -613,7 +613,7 @@ namespace TutorOnline.Web.Controllers
                 Student Student = URes.FindStudentUser(Slot.StudentId);
                 Transaction Tran = new Transaction();
                 Tran.Amount = Slot.Price;
-                Tran.Content = "Hoàn tiền buổi học " + Slot.ScheduleId + " của học viên " + Student.UserName;
+                Tran.Content = "Hoàn tiền tiết học thứ " + Slot.OrderSlot + ", ngày " + Slot.OrderDate.Day + "/" + Slot.OrderDate.Month + "/" + Slot.OrderDate.Year + " của học viên " + Student.UserName;
                 Tran.UserID = Student.StudentId;
                 Tran.UserType = 1;
                 Tran.TranDate = DateTime.Now;
