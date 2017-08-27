@@ -23,8 +23,9 @@ namespace TutorOnline.Web.Controllers
         private AccountantRepository AccRes = new AccountantRepository();
         private SubjectsRepository SubRes = new SubjectsRepository();
         private TutorSubjectRepository TuSubRes = new TutorSubjectRepository();
+        private StudentRepository StuRes = new StudentRepository();
 
-        static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear(DateTime.Today);
+        static int thisWeekNumber = DateAndWeekSelection.GetIso8601WeekOfYear((DateTime.Today.DayOfWeek == DayOfWeek.Sunday?DateTime.Today.AddDays(1):DateTime.Today));
         static DateTime firstDayOfWeek = DateAndWeekSelection.FirstDateOfWeek(DateTime.Today.Year, thisWeekNumber, CultureInfo.CurrentCulture);
 
         [Authorize(Roles = UserCommonString.Tutor)]
@@ -125,26 +126,42 @@ namespace TutorOnline.Web.Controllers
             string strTo1 = currentSlot.Student.Email;
             string strSubject = "Tutor Online - Hủy tiết học";
             string strBodyStudent = "Xin chào " + currentSlot.Student.FirstName + ",<br /><br />";
-            strBodyStudent += "Rất tiếc khi phải thông báo tiết học vào slot " + tempData.OrderSlot + " ngày " + tempData.OrderDate + " đã bị hủy bởi gia sư bới lý do: \""+ reason + "\". <br />Chúng tôi thực sự xin lỗi về việc này. <br />";
+            strBodyStudent += "Rất tiếc khi phải thông báo tiết học vào slot " + tempData.OrderSlot + " ngày " + tempData.OrderDate.ToShortDateString() + " đã bị hủy bởi gia sư bới lý do: \""+ reason + "\". <br />Chúng tôi thực sự xin lỗi về việc này. <br />";
             strBodyStudent += "Xin hãy liên lạc với gia sư theo email: " + currentSlot.Tutor.Email + " hoặc theo skype: "+currentSlot.Tutor.SkypeId+ " để sắp xếp lịch dạy bù.<br /><br />";
             strBodyStudent += "Thanks and best regard,<br />Tutor Online";
             ccMailClass.sendMail_UseGmail(strFrom, strPass, strTo1, strSubject, strBodyStudent);
 
             string strTo2 = currentSlot.Tutor.Email;
             string strBodyTutor = "Xin chào " + currentSlot.Tutor.FirstName + ",<br /><br />";
-            strBodyTutor += "Bạn đã hủy dạy tiết học vào slot " + tempData.OrderSlot + " ngày " + tempData.OrderDate + ". <br />";
+            strBodyTutor += "Bạn đã hủy dạy tiết học vào slot " + tempData.OrderSlot + " ngày " + tempData.OrderDate.ToShortDateString() + ". <br />";
             strBodyTutor += "Xin hãy liên lạc với học sinh theo email: " + currentSlot.Student.Email + " hoặc skype: " + currentSlot.Student.SkypeId + " để sắp xếp lịch dạy bù.<br /><br />";
             strBodyStudent += "Thanks and best regard,<br />Tutor Online";
             ccMailClass.sendMail_UseGmail(strFrom, strPass, strTo2, strSubject, strBodyTutor);
-            
 
             Transaction dataTrans = new Transaction();
-            dataTrans.Amount = 0 - currentSlot.Price /2;
+            dataTrans.Amount = 0 - currentSlot.Price / 2;
             dataTrans.Content = "Phạt tiền vì hủy slot " + currentSlot.OrderSlot + ", ngày " + currentSlot.OrderDate.ToShortDateString();
             dataTrans.TranDate = DateTime.Now;
             dataTrans.UserID = currentSlot.TutorId;
             dataTrans.UserType = 2;
             AccRes.Add(dataTrans);
+
+            Tutor currentTutor = TuRes.FindTutor(currentSlot.TutorId);
+            currentTutor.Balance += dataTrans.Amount;
+            TuRes.UpdateTutor(currentTutor);
+
+            Student bookedStudent = StuRes.FindStudent((int)currentSlot.StudentId);
+            bookedStudent.Balance += currentSlot.Price;
+            StuRes.EditStudent(bookedStudent);
+
+
+            dataTrans.Amount = currentSlot.Price;
+            dataTrans.Content = "Hoàn trả tiền học slot " + currentSlot.OrderSlot + ", ngày " + currentSlot.OrderDate.ToShortDateString() + " bởi vì gia sư đã hủy lịch học";
+            dataTrans.TranDate = DateTime.Now;
+            dataTrans.UserID = (int)currentSlot.StudentId;
+            dataTrans.UserType = 1;
+            AccRes.Add(dataTrans);
+
 
             return Json("Hủy thành công", JsonRequestBehavior.AllowGet);
         }
@@ -447,6 +464,7 @@ namespace TutorOnline.Web.Controllers
                 AccRes.Dispose();
                 SubRes.Dispose();
                 TuSubRes.Dispose();
+                StuRes.Dispose();
             }
             base.Dispose(disposing);
         }

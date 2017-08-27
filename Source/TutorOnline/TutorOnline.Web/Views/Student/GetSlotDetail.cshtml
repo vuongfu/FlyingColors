@@ -17,6 +17,8 @@
 </style>
 <br />
 
+<script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
+
 <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -71,6 +73,16 @@
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         @Html.DisplayFor(model => model.Skype)
+                        <div id="SkypeButton_Call_@Model.Skype" class="skyButton">
+                            <script type="text/javascript">
+                                            Skype.ui({
+                                                "name": "call",
+                                                "element": "SkypeButton_Call_@Model.Skype",
+                                                "participants": ["@Model.Skype"],
+                                                "imageSize": 24
+                                            });
+                            </script>
+                        </div>
                     </div>
                 </div>
             </div>

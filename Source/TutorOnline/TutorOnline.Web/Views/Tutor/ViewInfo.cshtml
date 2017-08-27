@@ -34,7 +34,6 @@
         text-transform: uppercase;
     }
 </style>
-<script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
 <div class="col-md-7">
     <div class="well">
         <h4 class="caps"><strong>Thông tin tài khoản</strong></h4>
@@ -147,17 +146,7 @@
                             <tr>
                                 <td class="text-right"><b>Skype:</b></td>
                                 <td class="text-left">
-                                    @Html.DisplayFor(model => model.SkypeId)
-                                    <div id="SkypeButton_Call_live:vuongfu95_1" class="skyButton">
-                                        <script type="text/javascript">
-                                            Skype.ui({
-                                                "name": "call",
-                                                "element": "SkypeButton_Call_live:vuongfu95_1",
-                                                "participants": ["live:vuongfu95"],
-                                                "imageSize": 24
-                                            });
-                                        </script>
-                                    </div>
+                                    @Html.DisplayFor(model => model.SkypeId)                                    
                                 </td>
                             </tr>
                             <tr>
